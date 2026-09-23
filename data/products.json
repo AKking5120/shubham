@@ -1,0 +1,65 @@
+[
+  {
+    "id": "prd-1",
+    "name": "Business Bill Books",
+    "category": "Business Printing",
+    "description": "Custom bill books for retail and wholesale businesses.",
+    "image": "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "prd-2",
+    "name": "Office Letterheads",
+    "category": "Stationery",
+    "description": "Clean letter pad layouts for professional correspondence.",
+    "image": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "prd-3",
+    "name": "Premium Visiting Cards",
+    "category": "Cards",
+    "description": "Matte and gloss visiting cards for teams and entrepreneurs.",
+    "image": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "prd-4",
+    "name": "Product Labels",
+    "category": "Stickers",
+    "description": "Die-cut stickers for packaging and product branding.",
+    "image": "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "prd-5",
+    "name": "Shop Front Banner",
+    "category": "Banners",
+    "description": "Large-format banners for storefronts and events.",
+    "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "prd-6",
+    "name": "Wedding Invitation Set",
+    "category": "Wedding Printing",
+    "description": "Invitation cards with matching envelopes and inserts.",
+    "image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "prd-7",
+    "name": "Challan Books",
+    "category": "Business Printing",
+    "description": "Delivery and dispatch challan books with serial numbering.",
+    "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "prd-8",
+    "name": "Garment Tags",
+    "category": "Cards",
+    "description": "Branded hang tags for apparel and accessories.",
+    "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "prd-9",
+    "name": "Promotional Stickers",
+    "category": "Stickers",
+    "description": "Vinyl and paper stickers for campaigns and giveaways.",
+    "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
+  }
+]

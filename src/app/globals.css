@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #0a1628;
+  --navy-mid: #1e3a5f;
+  --accent: #f59e0b;
+  --background: #ffffff;
+  --foreground: #0f172a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-plus-jakarta);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes scale-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes image-reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer-line {
+  0% {
+    transform: scaleX(0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(37, 211, 102, 0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-up-delay-1 {
+  animation: fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.animate-modal-backdrop-in {
+  animation: fade-in 0.35s ease-out both;
+}
+
+.animate-modal-backdrop-out {
+  animation: fade-in 0.28s ease-in reverse both;
+}
+
+.animate-modal-panel-in {
+  animation: scale-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-modal-panel-out {
+  animation: scale-out 0.28s ease-in both;
+}
+
+.animate-gallery-image {
+  animation: image-reveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-float-soft {
+  animation: float-soft 6s ease-in-out infinite;
+}
+
+.animate-float-soft-delay {
+  animation: float-soft 6s ease-in-out 1.5s infinite;
+}
+
+.animate-shimmer-line {
+  animation: shimmer-line 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-whatsapp-pulse {
+  animation: pulse-soft 2.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay-1,
+  .animate-modal-backdrop-in,
+  .animate-modal-backdrop-out,
+  .animate-modal-panel-in,
+  .animate-modal-panel-out,
+  .animate-gallery-image,
+  .animate-float-soft,
+  .animate-float-soft-delay,
+  .animate-shimmer-line,
+  .animate-whatsapp-pulse {
+    animation: none !important;
+  }
+}

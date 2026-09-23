@@ -1,0 +1,171 @@
+import Image from "next/image";
+import { Button } from "@/components/ui/Button";
+import { QuoteForm } from "@/components/forms/QuoteForm";
+import { GalleryGrid } from "@/components/gallery/GalleryGrid";
+import { HomeTrustBar } from "@/components/home/HomeTrustBar";
+import { SectionHeading } from "@/components/home/SectionHeading";
+import { WhyChooseGrid } from "@/components/home/WhyChooseGrid";
+import { ServiceCard } from "@/components/services/ServiceCard";
+import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
+import { BUSINESS, telLink, whatsappLink } from "@/lib/constants";
+import { getProducts, getServices } from "@/lib/store";
+
+const whyChoose = [
+  {
+    title: "Custom Printing",
+    text: "Tailored layouts, sizes and finishes based on your business or event needs.",
+  },
+  {
+    title: "Professional Designs",
+    text: "Clean, readable designs for stationery, cards and promotional materials.",
+  },
+  {
+    title: "Quality Materials",
+    text: "Reliable paper stocks and print options suited to everyday commercial use.",
+  },
+  {
+    title: "Multiple Printing Solutions",
+    text: "Bill books to wedding cards — a wide range under one trusted local shop.",
+  },
+  {
+    title: "Easy Quotation",
+    text: "Share your requirement online, on WhatsApp or by phone for a quick response.",
+  },
+  {
+    title: "Direct Customer Support",
+    text: "Speak directly with our team for updates, proofs and order details.",
+  },
+];
+
+type HomePageProps = PageProps<"/">;
+
+export default async function HomePage({ searchParams }: HomePageProps) {
+  const [services, products] = await Promise.all([getServices(), getProducts()]);
+  const params = await searchParams;
+  const defaultProductId =
+    typeof params?.product === "string" ? params.product : undefined;
+
+  return (
+    <>
+      <section className="relative overflow-hidden bg-[#0a1628] text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,#1e3a5f_0%,transparent_50%)] opacity-80" />
+        <div className="pointer-events-none absolute -right-24 top-20 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-10 left-10 h-56 w-56 rounded-full bg-blue-500/10 blur-3xl" />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 lg:grid-cols-2 lg:px-6 lg:py-24">
+          <div className="animate-fade-up">
+            <p className="text-sm font-semibold uppercase tracking-widest text-amber-400">
+              {BUSINESS.name}
+            </p>
+            <h1 className="mt-3 text-4xl font-extrabold leading-tight md:text-5xl lg:text-6xl">
+              Complete Printing Solutions Under One Roof
+            </h1>
+            <p className="mt-4 text-lg text-slate-300">
+              Professional printing solutions for businesses, events, weddings and
+              everyday requirements.
+            </p>
+            <p className="mt-2 text-sm italic text-slate-400">{BUSINESS.slogan}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/contact#quote">Get a Quote</Button>
+              <Button href={whatsappLink()} external variant="whatsapp">
+                WhatsApp Us
+              </Button>
+              <Button href={telLink(BUSINESS.phones[0])} variant="outline">
+                Call Now
+              </Button>
+            </div>
+          </div>
+          <div className="relative animate-fade-up-delay-1">
+            <div className="grid grid-cols-2 gap-3">
+              {products.slice(0, 4).map((p, i) => (
+                <div
+                  key={p.id}
+                  className={`relative overflow-hidden rounded-2xl shadow-2xl ring-2 ring-white/10 transition hover:ring-amber-400/40 ${i % 2 === 1 ? "mt-8 animate-float-soft-delay" : "animate-float-soft"}`}
+                >
+                  <div className="relative aspect-[4/5]">
+                    <Image
+                      src={p.image}
+                      alt={p.name}
+                      fill
+                      className="object-cover"
+                      priority={i < 2}
+                      sizes="(max-width: 1024px) 50vw, 25vw"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <HomeTrustBar />
+
+      <section className="py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 lg:px-6">
+          <SectionHeading
+            title="Our Printing Services"
+            subtitle="From business stationery to wedding and promotional printing, we provide complete printing solutions for your requirements."
+          />
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, i) => (
+              <AnimateOnScroll key={service.id} delay={i * 90}>
+                <ServiceCard service={service} products={products} />
+              </AnimateOnScroll>
+            ))}
+          </div>
+          <AnimateOnScroll delay={200}>
+            <div className="mt-10 text-center">
+              <Button href="/services" variant="secondary">
+                View All Services
+              </Button>
+            </div>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
+      <section id="work" className="bg-slate-50 py-16 md:py-20 scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 lg:px-6">
+          <SectionHeading
+            title="Our Work & Products"
+            subtitle="A glimpse of business stationery, cards, stickers, banners and wedding printing."
+          />
+          <div className="mt-12">
+            <GalleryGrid
+              products={products}
+              defaultProductId={defaultProductId}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 lg:px-6">
+          <SectionHeading title={`Why Choose ${BUSINESS.name}?`} />
+          <WhyChooseGrid items={whyChoose} />
+        </div>
+      </section>
+
+      <section id="quote" className="relative overflow-hidden bg-[#0a1628] py-16 md:py-20">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_0%,#1e3a5f_0%,transparent_45%)]" />
+        <div className="relative mx-auto max-w-3xl px-4 lg:px-6">
+          <AnimateOnScroll>
+            <div className="text-center text-white">
+              <h2 className="text-3xl font-bold md:text-4xl">
+                Have a Printing Requirement?
+              </h2>
+              <p className="mt-3 text-slate-300">
+                Tell us what you need and our team will get back to you with the
+                details.
+              </p>
+            </div>
+          </AnimateOnScroll>
+          <AnimateOnScroll delay={120}>
+            <div className="mt-10 rounded-2xl bg-white p-6 shadow-2xl shadow-black/20 ring-1 ring-white/10 md:p-8">
+              <QuoteForm showExtendedFields />
+            </div>
+          </AnimateOnScroll>
+        </div>
+      </section>
+    </>
+  );
+}
