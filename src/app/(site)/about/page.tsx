@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { BUSINESS, SEO } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
+import { PageHero } from "@/components/layout/PageHero";
 
 export const metadata: Metadata = {
   title: `About | ${SEO.title}`,
@@ -11,21 +12,15 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section className="bg-[#0a1628] py-16 text-white md:py-20">
-        <div className="mx-auto max-w-7xl px-4 lg:px-6">
-          <h1 className="text-4xl font-bold md:text-5xl">
-            About {BUSINESS.name}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-slate-300">
-            Your local partner for complete printing solutions in Jaitpur,
-            Badarpur and New Delhi.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Our story"
+        title={`About ${BUSINESS.name}`}
+        description="Your local partner for complete printing solutions in Jaitpur, Badarpur and New Delhi."
+      />
 
       <section className="py-16 md:py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2 lg:px-6">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-xl">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-slate-200/80">
             <Image
               src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80"
               alt="Professional printing workspace"
@@ -48,7 +43,7 @@ export default function AboutPage() {
               get your printing done with confidence.
             </p>
 
-            <dl className="mt-8 space-y-4 rounded-2xl bg-slate-50 p-6">
+            <dl className="mt-8 space-y-4 rounded-3xl border border-slate-100 bg-gradient-to-br from-slate-50 to-white p-6 shadow-sm">
               <div>
                 <dt className="text-sm font-semibold text-slate-500">Owner</dt>
                 <dd className="text-lg font-bold text-[#0a1628]">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { Button } from "@/components/ui/Button";
+import { PageHero } from "@/components/layout/PageHero";
 import {
   BUSINESS,
   mapsEmbedUrl,
@@ -25,15 +26,11 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
 
   return (
     <>
-      <section className="bg-[#0a1628] py-16 text-white md:py-20">
-        <div className="mx-auto max-w-7xl px-4 lg:px-6">
-          <h1 className="text-4xl font-bold md:text-5xl">Contact Us</h1>
-          <p className="mt-4 max-w-2xl text-lg text-slate-300">
-            Reach out for quotations, design uploads or any printing enquiry. We
-            are happy to assist by phone, WhatsApp or email.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Get in touch"
+        title="Contact Us"
+        description="Reach out for quotations, design uploads or any printing enquiry. We are happy to assist by phone, WhatsApp or email."
+      />
 
       <section className="py-16 md:py-20">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-2 lg:px-6">

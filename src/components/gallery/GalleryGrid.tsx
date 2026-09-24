@@ -68,8 +68,8 @@ export function GalleryGrid({
               className={cn(
                 "rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-300",
                 filter === cat
-                  ? "scale-105 bg-[#0a1628] text-white shadow-md shadow-slate-900/15"
-                  : "bg-white text-slate-700 ring-1 ring-slate-200 hover:ring-[#1e3a5f]/30 hover:shadow-sm",
+                  ? "scale-105 bg-gradient-to-r from-[#0a1628] to-[#1e3a5f] text-white shadow-lg shadow-slate-900/20 ring-1 ring-white/10"
+                  : "bg-white/90 text-slate-700 ring-1 ring-slate-200 backdrop-blur-sm hover:ring-amber-400/40 hover:shadow-md",
               )}
             >
               {cat}

@@ -76,7 +76,7 @@ export function QuoteForm({
   }
 
   const inputClass =
-    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#1e3a5f] focus:ring-2 focus:ring-[#1e3a5f]/20";
+    "w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm outline-none transition focus:border-amber-500/60 focus:bg-white focus:ring-2 focus:ring-amber-400/25";
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">

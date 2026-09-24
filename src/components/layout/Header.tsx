@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Phone, X } from "lucide-react";
+import { Menu, Phone, Printer, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BUSINESS } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
@@ -26,9 +26,11 @@ function scrollToWork() {
 
 function navClass(active: boolean, extra?: string) {
   return cn(
-    "rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+    "rounded-full px-4 py-2 text-sm font-medium transition-all duration-300",
     extra,
-    active ? "bg-[#0a1628] text-white" : "text-slate-700 hover:bg-slate-100",
+    active
+      ? "bg-gradient-to-r from-[#0a1628] to-[#1e3a5f] text-white shadow-md shadow-slate-900/10"
+      : "text-slate-700 hover:bg-slate-100 hover:text-[#0a1628]",
   );
 }
 
@@ -103,17 +105,22 @@ export function Header() {
       className={cn(
         "sticky top-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-white/95 shadow-md shadow-slate-200/60 backdrop-blur-md"
-          : "bg-white",
+          ? "border-b border-slate-200/60 bg-white/90 shadow-lg shadow-slate-200/40 backdrop-blur-xl"
+          : "bg-white/80 backdrop-blur-sm",
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
-        <Link href="/" className="group flex min-w-0 flex-col">
-          <span className="truncate text-lg font-bold tracking-tight text-[#0a1628] lg:text-xl">
-            {BUSINESS.name}
+        <Link href="/" className="group flex min-w-0 items-center gap-3">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0a1628] to-[#1e3a5f] text-amber-300 shadow-md shadow-[#0a1628]/25 transition group-hover:scale-105 group-hover:shadow-lg">
+            <Printer className="h-5 w-5" strokeWidth={2} />
           </span>
-          <span className="hidden text-xs text-slate-500 sm:block">
-            {BUSINESS.slogan}
+          <span className="flex min-w-0 flex-col">
+            <span className="truncate text-lg font-extrabold tracking-tight text-[#0a1628] lg:text-xl">
+              {BUSINESS.name}
+            </span>
+            <span className="hidden text-xs text-slate-500 sm:block">
+              {BUSINESS.slogan}
+            </span>
           </span>
         </Link>
 

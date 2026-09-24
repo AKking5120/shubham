@@ -27,7 +27,7 @@ export function FloatingActions() {
         href={whatsappLink()}
         target="_blank"
         rel="noopener noreferrer"
-        className="animate-whatsapp-pulse flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-green-600/30 transition hover:scale-110 active:scale-95"
+        className="animate-whatsapp-pulse flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-green-600/35 ring-4 ring-white/90 transition hover:scale-110 active:scale-95"
         aria-label="WhatsApp us"
       >
         <WhatsAppIcon className="h-7 w-7" />

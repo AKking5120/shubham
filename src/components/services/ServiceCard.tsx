@@ -57,7 +57,7 @@ export function ServiceCard({
   return (
     <article
       id={service.slug}
-      className="group overflow-hidden rounded-2xl border border-slate-100/80 bg-white shadow-sm ring-1 ring-slate-100 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-200/60 hover:ring-amber-400/30"
+      className="group surface-card overflow-hidden rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-amber-400/25"
     >
       <button
         type="button"

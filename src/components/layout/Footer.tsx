@@ -21,10 +21,12 @@ const serviceLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#0a1628] text-slate-200">
+    <footer className="relative overflow-hidden bg-[#0a1628] text-slate-200">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-80" />
+      <div className="pointer-events-none absolute -right-40 top-20 h-72 w-72 rounded-full bg-amber-500/5 blur-3xl" />
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 lg:grid-cols-4 lg:px-6">
         <div>
-          <h3 className="text-lg font-bold text-white">{BUSINESS.name}</h3>
+          <h3 className="text-lg font-extrabold text-white">{BUSINESS.name}</h3>
           <p className="mt-2 text-sm text-slate-400">{BUSINESS.slogan}</p>
           <p className="mt-4 text-sm text-slate-400">
             Complete printing solutions for businesses, events and everyday

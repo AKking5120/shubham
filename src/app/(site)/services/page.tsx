@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/home/SectionHeading";
+import { PageHero } from "@/components/layout/PageHero";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { SEO } from "@/lib/constants";
@@ -18,15 +19,11 @@ export default async function ServicesPage() {
 
   return (
     <>
-      <section className="bg-[#0a1628] py-16 text-white md:py-20">
-        <div className="mx-auto max-w-7xl px-4 lg:px-6">
-          <h1 className="text-4xl font-bold md:text-5xl">Our Services</h1>
-          <p className="mt-4 max-w-2xl text-lg text-slate-300">
-            Explore our complete catalogue of printing and stationery services.
-            Every service includes easy quote requests, WhatsApp and call options.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Catalogue"
+        title="Our Services"
+        description="Explore our complete catalogue of printing and stationery services. Every service includes easy quote requests, WhatsApp and call options."
+      />
 
       <section className="py-16 md:py-20">
         <div className="mx-auto max-w-7xl space-y-16 px-4 lg:px-6">
