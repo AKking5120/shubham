@@ -55,9 +55,6 @@ export default function AdminLoginPage() {
         >
           {loading ? "Signing in..." : "Sign In"}
         </button>
-        <p className="mt-4 text-center text-xs text-slate-400">
-          Default demo password: Shubham@2026 (set ADMIN_PASSWORD in .env)
-        </p>
       </form>
     </div>
   );

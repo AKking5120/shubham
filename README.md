@@ -50,6 +50,16 @@ Without Cloudinary, files are saved under `public/uploads/`.
 
 Check **Admin → Settings** for live connection status.
 
+## Email on new enquiry (Resend)
+
+1. Sign up at [resend.com](https://resend.com) and create an API key → `RESEND_API_KEY`.
+2. Set `ENQUIRY_NOTIFY_EMAIL` to the inbox that should get alerts (default: business email in `constants.ts`).
+3. For production, verify your domain in Resend and set `EMAIL_FROM` (e.g. `Shubham Prints <noreply@yourdomain.com>`).  
+   For testing only, you can use `onboarding@resend.dev` as the sender (Resend delivers to your own verified email).
+4. Add vars to `.env.local` and Vercel, then redeploy.
+
+Enquiry form still saves if email fails; errors are logged on the server.
+
 ## Features
 
 - Responsive marketing site (Home, Services, About, Contact) with product showcase on Home

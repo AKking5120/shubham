@@ -1,6 +1,7 @@
 import { getEnquiries } from "@/lib/store";
 import type { CustomerSummary } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
+import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
 
 export default async function AdminCustomersPage() {
   const enquiries = await getEnquiries();
@@ -52,8 +53,16 @@ export default async function AdminCustomersPage() {
             {customers.map((c) => (
               <tr key={c.phone} className="border-t border-slate-100">
                 <td className="px-4 py-3">{c.name}</td>
-                <td className="px-4 py-3">{c.phone}</td>
-                <td className="px-4 py-3">{c.email || "—"}</td>
+                <td className="px-4 py-3">
+                  <PhoneLink phone={c.phone} className="text-[#1e3a5f]" />
+                </td>
+                <td className="px-4 py-3">
+                  {c.email ? (
+                    <EmailLink email={c.email} className="text-[#1e3a5f]" />
+                  ) : (
+                    "—"
+                  )}
+                </td>
                 <td className="px-4 py-3">{c.enquiryCount}</td>
                 <td className="px-4 py-3 text-slate-500">
                   {formatDate(c.lastEnquiry)}

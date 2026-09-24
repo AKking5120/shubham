@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { getEnquiries } from "@/lib/store";
 import { formatDate } from "@/lib/utils";
+import { PhoneLink } from "@/components/ui/ContactLinks";
 
 export default async function AdminDashboardPage() {
   const enquiries = await getEnquiries();
@@ -79,7 +80,9 @@ export default async function AdminDashboardPage() {
                     </Link>
                   </td>
                   <td className="px-6 py-3">{e.customerName}</td>
-                  <td className="px-6 py-3 text-slate-600">{e.phone}</td>
+                  <td className="px-6 py-3">
+                    <PhoneLink phone={e.phone} className="text-[#1e3a5f]" />
+                  </td>
                   <td className="px-6 py-3">{e.service}</td>
                   <td className="px-6 py-3 text-slate-600">{e.quantity || "—"}</td>
                   <td className="px-6 py-3">

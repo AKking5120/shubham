@@ -28,6 +28,11 @@ export function QuoteForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [service, setService] = useState(
+    SERVICE_OPTIONS.includes(defaultService) ? defaultService : "",
+  );
+
+  const showOtherService = service === "Other";
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,12 +41,24 @@ export function QuoteForm({
     const form = e.currentTarget;
     const fd = new FormData(form);
 
+    const selected = String(fd.get("service") ?? "");
+    if (selected === "Other") {
+      const other = String(fd.get("otherService") ?? "").trim();
+      if (!other) {
+        setError("Please specify which printing service you need.");
+        setLoading(false);
+        return;
+      }
+      fd.set("service", `Other — ${other}`);
+    }
+
     try {
       const res = await fetch("/api/enquiries", { method: "POST", body: fd });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Submission failed");
       setSuccess(true);
       form.reset();
+      setService("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -105,13 +122,14 @@ export function QuoteForm({
           </label>
           <input name="email" type="email" className={inputClass} />
         </div>
-        <div>
+        <div className={showOtherService ? "md:col-span-2" : ""}>
           <label className="mb-1 block text-sm font-medium text-slate-700">
             Select Service
           </label>
           <select
             name="service"
-            defaultValue={defaultService}
+            value={service}
+            onChange={(e) => setService(e.target.value)}
             className={inputClass}
           >
             <option value="">Choose a service</option>
@@ -119,6 +137,19 @@ export function QuoteForm({
               <option key={s} value={s}>{s}</option>
             ))}
           </select>
+          {showOtherService && (
+            <div className="mt-3">
+              <label className="mb-1 block text-sm font-medium text-slate-700">
+                Please specify your requirement *
+              </label>
+              <input
+                name="otherService"
+                required
+                className={inputClass}
+                placeholder="e.g. Flex printing, rubber stamp, catalogue..."
+              />
+            </div>
+          )}
         </div>
         <div>
           <label className="mb-1 block text-sm font-medium text-slate-700">

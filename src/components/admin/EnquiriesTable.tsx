@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import type { Enquiry } from "@/lib/types";
 import { ENQUIRY_STATUSES } from "@/lib/constants";
 import { formatDate } from "@/lib/utils";
+import { PhoneLink } from "@/components/ui/ContactLinks";
 
 export function EnquiriesTable({ enquiries }: { enquiries: Enquiry[] }) {
   const [search, setSearch] = useState("");
@@ -88,7 +89,9 @@ export function EnquiriesTable({ enquiries }: { enquiries: Enquiry[] }) {
               <tr key={e.id} className="border-t border-slate-100">
                 <td className="px-4 py-3 font-mono text-xs">{e.id}</td>
                 <td className="px-4 py-3">{e.customerName}</td>
-                <td className="px-4 py-3">{e.phone}</td>
+                <td className="px-4 py-3">
+                  <PhoneLink phone={e.phone} className="text-[#1e3a5f]" />
+                </td>
                 <td className="px-4 py-3">{e.service}</td>
                 <td className="px-4 py-3">{e.quantity || "—"}</td>
                 <td className="px-4 py-3 text-slate-500">{formatDate(e.createdAt)}</td>

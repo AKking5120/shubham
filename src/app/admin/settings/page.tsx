@@ -1,5 +1,7 @@
+import { isEnquiryEmailConfigured } from "@/lib/enquiry-email";
 import { isCloudinaryConfigured } from "@/lib/cloudinary";
 import { BUSINESS } from "@/lib/constants";
+import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
 import { getDataBackend } from "@/lib/store";
 import { isSupabaseConfigured } from "@/lib/supabase/server";
 
@@ -7,6 +9,7 @@ export default function AdminSettingsPage() {
   const backend = getDataBackend();
   const supabaseOn = isSupabaseConfigured();
   const cloudinaryOn = isCloudinaryConfigured();
+  const enquiryEmailOn = isEnquiryEmailConfigured();
 
   return (
     <div className="p-6 lg:p-8">
@@ -47,6 +50,16 @@ export default function AdminSettingsPage() {
                 </span>
               )}
             </li>
+            <li>
+              <span className="font-medium">Enquiry email alerts:</span>{" "}
+              {enquiryEmailOn ? (
+                <span className="text-emerald-700">Resend configured</span>
+              ) : (
+                <span className="text-slate-500">
+                  Not configured — set RESEND_API_KEY in env
+                </span>
+              )}
+            </li>
           </ul>
         </div>
 
@@ -59,7 +72,14 @@ export default function AdminSettingsPage() {
           <ul className="mt-4 space-y-1 text-sm text-slate-700">
             <li>{BUSINESS.name}</li>
             <li>{BUSINESS.owner}</li>
-            <li>{BUSINESS.email}</li>
+            <li>
+              <EmailLink email={BUSINESS.email} className="text-[#1e3a5f]" />
+            </li>
+            {BUSINESS.phones.map((phone) => (
+              <li key={phone}>
+                <PhoneLink phone={phone} className="text-[#1e3a5f]" />
+              </li>
+            ))}
             <li>{BUSINESS.address.full}</li>
           </ul>
         </div>
@@ -77,6 +97,7 @@ export default function AdminSettingsPage() {
             <li>NEXT_PUBLIC_SUPABASE_URL</li>
             <li>SUPABASE_SERVICE_ROLE_KEY (server only — never expose to browser)</li>
             <li>CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET</li>
+            <li>RESEND_API_KEY, ENQUIRY_NOTIFY_EMAIL, EMAIL_FROM (optional)</li>
           </ul>
           <p className="mt-4 text-sm text-slate-600">
             Run <code className="rounded bg-slate-100 px-1">supabase/schema.sql</code> in

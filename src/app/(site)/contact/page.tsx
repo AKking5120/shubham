@@ -11,7 +11,9 @@ import {
   SEO,
   telLink,
   whatsappLink,
+  whatsappLinkForPhone,
 } from "@/lib/constants";
+import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
 
 export const metadata: Metadata = {
   title: `Contact | ${SEO.title}`,
@@ -52,32 +54,46 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               {BUSINESS.phones.map((phone) => (
                 <li key={phone} className="flex gap-3">
                   <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
+                  <PhoneLink
+                    phone={phone}
+                    className="font-medium text-[#1e3a5f]"
+                  />
+                </li>
+              ))}
+              {BUSINESS.phones.map((phone) => (
+                <li key={`wa-${phone}`} className="flex gap-3">
+                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#25D366]" />
                   <a
-                    href={telLink(phone)}
-                    className="font-medium text-[#1e3a5f] hover:underline"
+                    href={whatsappLinkForPhone(phone)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-[#1e3a5f] hover:text-[#25D366] hover:underline"
                   >
-                    +91 {phone}
+                    WhatsApp this number
                   </a>
                 </li>
               ))}
               <li className="flex gap-3">
                 <Mail className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
-                <a
-                  href={`mailto:${BUSINESS.email}`}
-                  className="break-all font-medium text-[#1e3a5f] hover:underline"
-                >
-                  {BUSINESS.email}
-                </a>
+                <EmailLink
+                  email={BUSINESS.email}
+                  className="font-medium text-[#1e3a5f]"
+                />
               </li>
               <li className="flex gap-3 text-slate-700">
                 <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
-                <span>
+                <a
+                  href={mapsLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#1e3a5f] hover:underline"
+                >
                   {BUSINESS.address.line1}
                   <br />
                   {BUSINESS.address.line2}
                   <br />
                   {BUSINESS.address.city}
-                </span>
+                </a>
               </li>
             </ul>
 

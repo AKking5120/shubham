@@ -36,13 +36,38 @@ export const WHATSAPP_DEFAULT_MESSAGE =
 
 export const PRIMARY_PHONE = BUSINESS.phones[0];
 
-export function telLink(phone: string) {
-  return `tel:+91${phone}`;
+/** Footer credit — website designer & developer. */
+export const SITE_CREDIT = {
+  name: "Mr. Prince Kumar Das",
+  role: "Website Designer & Developer",
+  url: "https://github.com/AKking5120",
+};
+
+export function digitsOnlyPhone(phone: string) {
+  const d = phone.replace(/\D/g, "");
+  if (d.length === 12 && d.startsWith("91")) return d.slice(2);
+  if (d.length === 10) return d;
+  return d.replace(/^91/, "");
 }
 
-export function whatsappLink(message?: string) {
+export function telLink(phone: string) {
+  const local = digitsOnlyPhone(phone);
+  return `tel:+91${local}`;
+}
+
+export function mailtoLink(email?: string) {
+  return `mailto:${(email ?? BUSINESS.email).trim()}`;
+}
+
+export function whatsappLink(message?: string, phone?: string) {
   const text = encodeURIComponent(message ?? WHATSAPP_DEFAULT_MESSAGE);
-  return `https://wa.me/91${PRIMARY_PHONE}?text=${text}`;
+  const local = digitsOnlyPhone(phone ?? PRIMARY_PHONE);
+  return `https://wa.me/91${local}?text=${text}`;
+}
+
+export function whatsappLinkForPhone(phone: string, message?: string) {
+  const local = digitsOnlyPhone(phone || PRIMARY_PHONE);
+  return whatsappLink(message, local);
 }
 
 /** Official Google Maps embed for SHUBHAM PRINTS */

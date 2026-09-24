@@ -1,6 +1,16 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { BUSINESS, telLink } from "@/lib/constants";
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import {
+  BUSINESS,
+  mapsLink,
+  SITE_CREDIT,
+  whatsappLinkForPhone,
+} from "@/lib/constants";
+import {
+  EmailLink,
+  formatPhoneDisplay,
+  PhoneLink,
+} from "@/components/ui/ContactLinks";
 
 const quickLinks = [
   { href: "/", label: "Home" },
@@ -64,39 +74,70 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-sm">
             {BUSINESS.phones.map((phone) => (
               <li key={phone}>
-                <a
-                  href={telLink(phone)}
-                  className="flex items-center gap-2 hover:text-amber-400"
+                <PhoneLink
+                  phone={phone}
+                  className="flex items-center gap-2 text-slate-200 hover:text-amber-400"
                 >
                   <Phone className="h-4 w-4 shrink-0" />
-                  +91 {phone}
+                  <span>{formatPhoneDisplay(phone)}</span>
+                </PhoneLink>
+              </li>
+            ))}
+            {BUSINESS.phones.map((phone) => (
+              <li key={`wa-${phone}`}>
+                <a
+                  href={whatsappLinkForPhone(phone)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-slate-200 transition hover:text-[#25D366]"
+                >
+                  <MessageCircle className="h-4 w-4 shrink-0" />
+                  WhatsApp {formatPhoneDisplay(phone)}
                 </a>
               </li>
             ))}
             <li>
-              <a
-                href={`mailto:${BUSINESS.email}`}
-                className="flex items-center gap-2 hover:text-amber-400"
+              <EmailLink
+                email={BUSINESS.email}
+                className="flex items-center gap-2 text-slate-200 hover:text-amber-400"
               >
                 <Mail className="h-4 w-4 shrink-0" />
                 {BUSINESS.email}
-              </a>
+              </EmailLink>
             </li>
-            <li className="flex gap-2">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-              <span>
-                {BUSINESS.address.line1}
-                <br />
-                {BUSINESS.address.line2}
-                <br />
-                {BUSINESS.address.city}
-              </span>
+            <li>
+              <a
+                href={mapsLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-2 transition hover:text-amber-400"
+              >
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+                <span>
+                  {BUSINESS.address.line1}
+                  <br />
+                  {BUSINESS.address.line2}
+                  <br />
+                  {BUSINESS.address.city}
+                </span>
+              </a>
             </li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10 py-4 text-center text-xs text-slate-500">
-        © 2026 {BUSINESS.name}. All Rights Reserved.
+      <div className="border-t border-white/10 px-4 py-5 text-center text-xs text-slate-500">
+        <p>© 2026 {BUSINESS.name}. All Rights Reserved.</p>
+        <p className="mt-2 text-slate-400">
+          {SITE_CREDIT.role} —{" "}
+          <a
+            href={SITE_CREDIT.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-amber-400/90 transition hover:text-amber-300 hover:underline underline-offset-2"
+          >
+            {SITE_CREDIT.name}
+          </a>
+        </p>
       </div>
     </footer>
   );

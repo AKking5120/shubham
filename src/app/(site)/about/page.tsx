@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Mail, MapPin, Phone, User } from "lucide-react";
-import { BUSINESS, PAGE_HERO_IMAGES, SEO, telLink } from "@/lib/constants";
+import { BUSINESS, mapsLink, PAGE_HERO_IMAGES, SEO, whatsappLinkForPhone } from "@/lib/constants";
+import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
@@ -55,13 +56,18 @@ export default function AboutPage() {
                   <p className="text-xs font-semibold uppercase text-slate-500">
                     Address
                   </p>
-                  <p className="text-slate-700">
+                  <a
+                    href={mapsLink()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-slate-700 hover:text-[#1e3a5f] hover:underline"
+                  >
                     {BUSINESS.address.line1}
                     <br />
                     {BUSINESS.address.line2}
                     <br />
                     {BUSINESS.address.city}
-                  </p>
+                  </a>
                 </div>
               </li>
               {BUSINESS.phones.map((phone) => (
@@ -71,11 +77,24 @@ export default function AboutPage() {
                     <p className="text-xs font-semibold uppercase text-slate-500">
                       Phone
                     </p>
+                    <PhoneLink phone={phone} className="font-medium text-[#1e3a5f]" />
+                  </div>
+                </li>
+              ))}
+              {BUSINESS.phones.map((phone) => (
+                <li key={`wa-${phone}`} className="flex gap-3">
+                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#25D366]" />
+                  <div>
+                    <p className="text-xs font-semibold uppercase text-slate-500">
+                      WhatsApp
+                    </p>
                     <a
-                      href={telLink(phone)}
-                      className="font-medium text-[#1e3a5f] hover:underline"
+                      href={whatsappLinkForPhone(phone)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-[#1e3a5f] hover:text-[#25D366] hover:underline"
                     >
-                      +91 {phone}
+                      Chat on WhatsApp
                     </a>
                   </div>
                 </li>
@@ -86,12 +105,7 @@ export default function AboutPage() {
                   <p className="text-xs font-semibold uppercase text-slate-500">
                     Email
                   </p>
-                  <a
-                    href={`mailto:${BUSINESS.email}`}
-                    className="font-medium text-[#1e3a5f] hover:underline"
-                  >
-                    {BUSINESS.email}
-                  </a>
+                  <EmailLink email={BUSINESS.email} className="font-medium text-[#1e3a5f]" />
                 </div>
               </li>
             </ul>

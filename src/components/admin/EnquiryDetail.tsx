@@ -2,8 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import type { Enquiry, EnquiryStatus } from "@/lib/types";
-import { ENQUIRY_STATUSES } from "@/lib/constants";
+import { ENQUIRY_STATUSES, whatsappLinkForPhone } from "@/lib/constants";
 import { formatDate } from "@/lib/utils";
+import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
+import Link from "next/link";
 
 export function EnquiryDetail({ enquiry }: { enquiry: Enquiry }) {
   const router = useRouter();
@@ -43,11 +45,19 @@ export function EnquiryDetail({ enquiry }: { enquiry: Enquiry }) {
         <dl className="mt-8 grid gap-4 sm:grid-cols-2">
           <div>
             <dt className="text-xs font-semibold uppercase text-slate-400">Phone</dt>
-            <dd className="mt-1">{enquiry.phone}</dd>
+            <dd className="mt-1">
+              <PhoneLink phone={enquiry.phone} className="font-medium text-[#1e3a5f]" />
+            </dd>
           </div>
           <div>
             <dt className="text-xs font-semibold uppercase text-slate-400">Email</dt>
-            <dd className="mt-1">{enquiry.email || "—"}</dd>
+            <dd className="mt-1">
+              {enquiry.email ? (
+                <EmailLink email={enquiry.email} className="font-medium text-[#1e3a5f]" />
+              ) : (
+                "—"
+              )}
+            </dd>
           </div>
           <div>
             <dt className="text-xs font-semibold uppercase text-slate-400">Service</dt>
@@ -94,6 +104,28 @@ export function EnquiryDetail({ enquiry }: { enquiry: Enquiry }) {
       </div>
 
       <div className="flex flex-wrap gap-2">
+        <Link
+          href={whatsappLinkForPhone(enquiry.phone)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-xl bg-[#25D366] px-4 py-2 text-sm font-semibold text-white hover:bg-[#1ebe57]"
+        >
+          WhatsApp Customer
+        </Link>
+        <PhoneLink
+          phone={enquiry.phone}
+          className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-[#1e3a5f] hover:bg-slate-50"
+        >
+          Call Customer
+        </PhoneLink>
+        {enquiry.email ? (
+          <EmailLink
+            email={enquiry.email}
+            className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-[#1e3a5f] hover:bg-slate-50"
+          >
+            Email Customer
+          </EmailLink>
+        ) : null}
         {ENQUIRY_STATUSES.filter((s) => s !== "Cancelled").map((status) => (
           <button
             key={status}

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { addEnquiry, getEnquiries } from "@/lib/store";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { sendNewEnquiryEmail } from "@/lib/enquiry-email";
 import { saveUploadedFile } from "@/lib/uploads";
 
 export async function GET() {
@@ -60,6 +61,12 @@ export async function POST(request: Request) {
       message: (body.message ?? "").trim(),
       uploadedFile,
     });
+
+    try {
+      await sendNewEnquiryEmail(enquiry);
+    } catch (err) {
+      console.error("[enquiries] notification email failed:", err);
+    }
 
     return NextResponse.json({ success: true, enquiry });
   } catch {
