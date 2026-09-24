@@ -11,7 +11,7 @@ insert into public.services (
 ) values (
   'svc-7',
   'bulk-copy-printout',
-  'Bulk Copy & Printout',
+  'Bulk Copy / Printout',
   'High-volume photocopy, document printing and printouts for study and office work.',
   'Bulk copying and printout services for students, offices and businesses. Black & white and colour options, A4 and other sizes, binding and finishing available on request.',
   '/services/bulk-copy-printout.jpg',

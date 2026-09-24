@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { ServiceImage } from "@/components/services/ServiceImage";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { HomeHowItWorks } from "@/components/home/HomeHowItWorks";
 import { HomeStats } from "@/components/home/HomeStats";
@@ -88,11 +88,10 @@ export default async function HomePage() {
                   className={`relative overflow-hidden rounded-3xl shadow-2xl ring-2 ring-white/15 transition duration-500 hover:ring-amber-400/50 hover:shadow-amber-500/10 ${i % 2 === 1 ? "mt-8 animate-float-soft-delay" : "animate-float-soft"}`}
                 >
                   <div className="relative aspect-[4/5]">
-                    <Image
+                    <ServiceImage
                       src={p.image}
                       alt={p.name}
                       fill
-                      className="object-cover"
                       priority={i < 2}
                       sizes="(max-width: 1024px) 50vw, 25vw"
                     />

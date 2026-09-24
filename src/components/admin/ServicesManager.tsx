@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ServiceImage } from "@/components/services/ServiceImage";
 import { useState } from "react";
 import type { Service } from "@/lib/types";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
@@ -76,11 +76,10 @@ export function ServicesManager({ initial }: { initial: Service[] }) {
             className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm lg:grid-cols-[160px_1fr]"
           >
             <div className="relative aspect-square overflow-hidden rounded-xl">
-              <Image
+              <ServiceImage
                 src={service.image}
                 alt={service.name}
                 fill
-                className="object-cover"
               />
             </div>
             <div className="space-y-3">

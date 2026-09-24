@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ServiceImage } from "@/components/services/ServiceImage";
 import { Check, Phone } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import type { Product, Service } from "@/lib/types";
@@ -59,11 +59,11 @@ export function ServiceListRow({
         onClick={openGallery}
         className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl text-left ring-1 ring-slate-100"
       >
-        <Image
+        <ServiceImage
           src={service.image}
           alt={service.name}
           fill
-          className="object-cover transition duration-500 hover:scale-105"
+          className="transition duration-500 hover:scale-105"
           sizes="280px"
         />
       </button>

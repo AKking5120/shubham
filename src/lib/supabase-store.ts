@@ -1,3 +1,4 @@
+import { serviceImageForSlug } from "./service-images";
 import { DEFAULT_PRODUCTS, DEFAULT_SERVICES } from "./seed";
 import {
   enquiryToRow,
@@ -16,18 +17,46 @@ async function ensureSeedData() {
     .from("services")
     .select("*", { count: "exact", head: true });
 
-  if ((count ?? 0) > 0) return;
+  if ((count ?? 0) === 0) {
+    await supabase
+      .from("services")
+      .upsert(DEFAULT_SERVICES.map(serviceToRow), { onConflict: "id" });
+    await supabase
+      .from("products")
+      .upsert(DEFAULT_PRODUCTS.map(productToRow), { onConflict: "id" });
+  }
+}
 
-  await supabase
+/** Adds missing services (e.g. Bulk Copy) and fixes image paths in Supabase. */
+async function syncServiceCatalog() {
+  const supabase = getSupabaseAdmin();
+  const { data: existing, error: readError } = await supabase
     .from("services")
-    .upsert(DEFAULT_SERVICES.map(serviceToRow), { onConflict: "id" });
-  await supabase
-    .from("products")
-    .upsert(DEFAULT_PRODUCTS.map(productToRow), { onConflict: "id" });
+    .select("id");
+
+  if (readError) throw readError;
+
+  const ids = new Set((existing ?? []).map((r) => r.id));
+  const missing = DEFAULT_SERVICES.filter((s) => !ids.has(s.id));
+  if (missing.length > 0) {
+    const { error } = await supabase
+      .from("services")
+      .upsert(missing.map(serviceToRow), { onConflict: "id" });
+    if (error) throw error;
+  }
+
+  for (const svc of DEFAULT_SERVICES) {
+    const { error } = await supabase
+      .from("services")
+      .update({ image: serviceImageForSlug(svc.slug) })
+      .eq("id", svc.id);
+    if (error) throw error;
+  }
 }
 
 export async function sbGetServices(): Promise<Service[]> {
   await ensureSeedData();
+  await syncServiceCatalog();
   const { data, error } = await getSupabaseAdmin()
     .from("services")
     .select("*")
@@ -40,6 +69,7 @@ export async function sbGetServices(): Promise<Service[]> {
 
 export async function sbGetAllServices(): Promise<Service[]> {
   await ensureSeedData();
+  await syncServiceCatalog();
   const { data, error } = await getSupabaseAdmin()
     .from("services")
     .select("*")

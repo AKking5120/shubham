@@ -11,7 +11,7 @@ const SERVICE_OPTIONS = [
   "Visiting Card / Tag",
   "Sticker / Banner",
   "Wedding Card",
-  "Bulk Copy & Printout",
+  "Bulk Copy / Printout",
   "Other",
 ];
 

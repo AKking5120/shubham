@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { isSupabaseConfigured } from "./supabase/server";
 import * as sb from "./supabase-store";
+import { normalizeProduct, normalizeService } from "./service-images";
 import { DEFAULT_PRODUCTS, DEFAULT_SERVICES } from "./seed";
 import type { Enquiry, Product, Service } from "./types";
 
@@ -40,15 +41,22 @@ export function getDataBackend(): "supabase" | "json" {
 }
 
 export async function getServices(): Promise<Service[]> {
-  if (isSupabaseConfigured()) return sb.sbGetServices();
+  if (isSupabaseConfigured()) {
+    return (await sb.sbGetServices()).map(normalizeService);
+  }
   const services = await readJson<Service[]>("services.json", DEFAULT_SERVICES);
-  return services.filter((s) => s.enabled).sort((a, b) => a.order - b.order);
+  return services
+    .filter((s) => s.enabled)
+    .sort((a, b) => a.order - b.order)
+    .map(normalizeService);
 }
 
 export async function getAllServices(): Promise<Service[]> {
-  if (isSupabaseConfigured()) return sb.sbGetAllServices();
+  if (isSupabaseConfigured()) {
+    return (await sb.sbGetAllServices()).map(normalizeService);
+  }
   const services = await readJson<Service[]>("services.json", DEFAULT_SERVICES);
-  return services.sort((a, b) => a.order - b.order);
+  return services.sort((a, b) => a.order - b.order).map(normalizeService);
 }
 
 export async function saveServices(services: Service[]): Promise<void> {
@@ -57,8 +65,12 @@ export async function saveServices(services: Service[]): Promise<void> {
 }
 
 export async function getProducts(): Promise<Product[]> {
-  if (isSupabaseConfigured()) return sb.sbGetProducts();
-  return readJson<Product[]>("products.json", DEFAULT_PRODUCTS);
+  if (isSupabaseConfigured()) {
+    return (await sb.sbGetProducts()).map(normalizeProduct);
+  }
+  return (await readJson<Product[]>("products.json", DEFAULT_PRODUCTS)).map(
+    normalizeProduct,
+  );
 }
 
 export async function saveProducts(products: Product[]): Promise<void> {

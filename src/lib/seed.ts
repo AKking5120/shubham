@@ -77,7 +77,7 @@ export const DEFAULT_SERVICES: Service[] = [
   {
     id: "svc-7",
     slug: "bulk-copy-printout",
-    name: "Bulk Copy & Printout",
+    name: "Bulk Copy / Printout",
     shortDescription:
       "High-volume photocopy, document printing and printouts for study and office work.",
     description:

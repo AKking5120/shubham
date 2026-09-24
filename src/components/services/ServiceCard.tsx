@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ServiceImage } from "@/components/services/ServiceImage";
 import { useCallback, useMemo, useState } from "react";
 import { Images, Phone } from "lucide-react";
 import type { Product, Service } from "@/lib/types";
@@ -68,11 +68,11 @@ export function ServiceCard({
         className="relative block w-full aspect-[4/3] overflow-hidden text-left after:pointer-events-none after:absolute after:inset-0 after:bg-gradient-to-t after:from-[#0a1628]/50 after:to-transparent after:opacity-0 after:transition-opacity after:duration-500 group-hover:after:opacity-100"
         aria-label={`View ${service.name} photos`}
       >
-        <Image
+        <ServiceImage
           src={service.image}
           alt={service.name}
           fill
-          className="object-cover transition duration-500 group-hover:scale-105"
+          className="transition duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
         <span className="absolute bottom-3 right-3 flex items-center gap-1 rounded-lg bg-[#0a1628]/80 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm opacity-0 transition group-hover:opacity-100">
