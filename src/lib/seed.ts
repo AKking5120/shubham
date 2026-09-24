@@ -1,5 +1,4 @@
 import type { Product, Service } from "./types";
-import { serviceImageForSlug } from "./service-images";
 
 export const DEFAULT_SERVICES: Service[] = [
   {
@@ -10,7 +9,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Professional bill books for shops and businesses with custom branding.",
     description:
       "Professional bill book printing for businesses and shops. Custom layouts, duplicate/triplicate options, and your business details printed clearly for everyday billing.",
-    image: serviceImageForSlug("bill-book"),
+    image: "/services/bill-book.jpg",
     enabled: true,
     order: 1,
   },
@@ -22,7 +21,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Custom challan books for delivery, logistics and commercial use.",
     description:
       "Custom challan book printing for business and commercial requirements. Numbered pages, company details, and formats tailored to your workflow.",
-    image: serviceImageForSlug("challan-book"),
+    image: "/services/challan-book.jpg",
     enabled: true,
     order: 2,
   },
@@ -34,7 +33,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Elegant letter pads for offices, firms and organizations.",
     description:
       "Professional letter pad printing for businesses, offices and organizations. Premium paper options with your logo and contact details.",
-    image: serviceImageForSlug("letter-pad"),
+    image: "/services/letter-pad.jpg",
     enabled: true,
     order: 3,
   },
@@ -46,7 +45,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Visiting cards and tags for professional branding and retail use.",
     description:
       "Custom visiting cards and tags designed for professional branding and business use. Multiple finishes, sizes and paper stocks available.",
-    image: serviceImageForSlug("visiting-card-tag"),
+    image: "/services/visiting-card-tag.jpg",
     enabled: true,
     order: 4,
   },
@@ -58,7 +57,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Stickers and banners for promotions, events and shop branding.",
     description:
       "Custom stickers and banners for branding, promotions, events and other requirements. Indoor and outdoor options with vivid print quality.",
-    image: serviceImageForSlug("sticker-banner"),
+    image: "/services/sticker-banner.jpg",
     enabled: true,
     order: 5,
   },
@@ -70,7 +69,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Beautiful wedding invitations and matching stationery.",
     description:
       "Beautiful custom wedding card printing for special occasions. Traditional and contemporary designs with premium papers and finishes.",
-    image: serviceImageForSlug("wedding-card"),
+    image: "/services/wedding-card.jpg",
     enabled: true,
     order: 6,
   },
@@ -82,7 +81,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "High-volume photocopy, document printing and printouts for study and office work.",
     description:
       "Bulk copying and printout services for students, offices and businesses. Black & white and colour options, A4 and other sizes, binding and finishing available on request.",
-    image: serviceImageForSlug("bulk-copy-printout"),
+    image: "/services/bulk-copy-printout.jpg",
     enabled: true,
     order: 7,
   },

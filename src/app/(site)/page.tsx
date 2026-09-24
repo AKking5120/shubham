@@ -10,7 +10,7 @@ import { ServiceCard } from "@/components/services/ServiceCard";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { BUSINESS, telLink, whatsappLink } from "@/lib/constants";
-import { getProducts, getServices } from "@/lib/store";
+import { getPublicProducts, getPublicServices } from "@/lib/public-catalog";
 
 const whyChoose = [
   {
@@ -40,7 +40,8 @@ const whyChoose = [
 ];
 
 export default async function HomePage() {
-  const [services, products] = await Promise.all([getServices(), getProducts()]);
+  const services = getPublicServices();
+  const products = getPublicProducts();
 
   const stats = [
     { value: `${services.length}+`, label: "Core services" },

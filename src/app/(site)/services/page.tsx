@@ -4,7 +4,7 @@ import { ServiceListRow } from "@/components/services/ServiceListRow";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { SectionHeading } from "@/components/home/SectionHeading";
 import { PAGE_HERO_IMAGES, SEO } from "@/lib/constants";
-import { getProducts, getServices } from "@/lib/store";
+import { getPublicProducts, getPublicServices } from "@/lib/public-catalog";
 
 export const metadata: Metadata = {
   title: "Our Services",
@@ -12,10 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  const [services, products] = await Promise.all([
-    getServices(),
-    getProducts(),
-  ]);
+  const services = getPublicServices();
+  const products = getPublicProducts();
 
   return (
     <>
