@@ -92,6 +92,7 @@ export const SERVICE_SLUGS = [
   "visiting-card-tag",
   "sticker-banner",
   "wedding-card",
+  "bulk-copy-printout",
 ] as const;
 
 export const ENQUIRY_STATUSES = [

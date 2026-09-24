@@ -5,7 +5,7 @@
     "name": "Bill Book",
     "shortDescription": "Professional bill books for shops and businesses with custom branding.",
     "description": "Professional bill book printing for businesses and shops. Custom layouts, duplicate/triplicate options, and your business details printed clearly for everyday billing.",
-    "image": "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80",
+    "image": "/services/bill-book.jpg",
     "enabled": true,
     "order": 1
   },
@@ -15,7 +15,7 @@
     "name": "Challan Book",
     "shortDescription": "Custom challan books for delivery, logistics and commercial use.",
     "description": "Custom challan book printing for business and commercial requirements. Numbered pages, company details, and formats tailored to your workflow.",
-    "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
+    "image": "/services/challan-book.jpg",
     "enabled": true,
     "order": 2
   },
@@ -25,7 +25,7 @@
     "name": "Letter Pad",
     "shortDescription": "Elegant letter pads for offices, firms and organizations.",
     "description": "Professional letter pad printing for businesses, offices and organizations. Premium paper options with your logo and contact details.",
-    "image": "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80",
+    "image": "/services/letter-pad.jpg",
     "enabled": true,
     "order": 3
   },
@@ -35,7 +35,7 @@
     "name": "Visiting Card / Tag",
     "shortDescription": "Visiting cards and tags for professional branding and retail use.",
     "description": "Custom visiting cards and tags designed for professional branding and business use. Multiple finishes, sizes and paper stocks available.",
-    "image": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80",
+    "image": "/services/visiting-card-tag.jpg",
     "enabled": true,
     "order": 4
   },
@@ -45,7 +45,7 @@
     "name": "Sticker / Banner",
     "shortDescription": "Stickers and banners for promotions, events and shop branding.",
     "description": "Custom stickers and banners for branding, promotions, events and other requirements. Indoor and outdoor options with vivid print quality.",
-    "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+    "image": "/services/sticker-banner.jpg",
     "enabled": true,
     "order": 5
   },
@@ -55,8 +55,18 @@
     "name": "Wedding Card",
     "shortDescription": "Beautiful wedding invitations and matching stationery.",
     "description": "Beautiful custom wedding card printing for special occasions. Traditional and contemporary designs with premium papers and finishes.",
-    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+    "image": "/services/wedding-card.jpg",
     "enabled": true,
     "order": 6
+  },
+  {
+    "id": "svc-7",
+    "slug": "bulk-copy-printout",
+    "name": "Bulk Copy & Printout",
+    "shortDescription": "High-volume photocopy, document printing and printouts for study and office work.",
+    "description": "Bulk copying and printout services for students, offices and businesses. Black & white and colour options, A4 and other sizes, binding and finishing available on request.",
+    "image": "/services/bulk-copy-printout.jpg",
+    "enabled": true,
+    "order": 7
   }
 ]

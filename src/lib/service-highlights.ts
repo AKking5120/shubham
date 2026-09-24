@@ -39,6 +39,12 @@ export function serviceHighlights(service: Service): string[] {
       "Matching envelopes & inserts",
       "Personalised text & motifs",
     ],
+    "bulk-copy-printout": [
+      "Bulk photocopy & document printouts",
+      "Black & white and colour printing",
+      "A4 and custom page sizes",
+      "Binding, spiral and finishing options",
+    ],
   };
 
   return (

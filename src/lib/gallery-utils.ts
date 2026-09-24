@@ -9,6 +9,7 @@ export const SERVICE_GALLERY_CATEGORIES: Record<string, GalleryCategory[]> = {
   "visiting-card-tag": ["Cards"],
   "sticker-banner": ["Stickers", "Banners"],
   "wedding-card": ["Wedding Printing"],
+  "bulk-copy-printout": ["Business Printing", "Stationery"],
 };
 
 export function productsForService(

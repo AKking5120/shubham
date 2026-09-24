@@ -1,7 +1,5 @@
 import type { Product, Service } from "./types";
-
-const unsplash = (id: string, w = 800) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+import { serviceImageForSlug } from "./service-images";
 
 export const DEFAULT_SERVICES: Service[] = [
   {
@@ -12,7 +10,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Professional bill books for shops and businesses with custom branding.",
     description:
       "Professional bill book printing for businesses and shops. Custom layouts, duplicate/triplicate options, and your business details printed clearly for everyday billing.",
-    image: unsplash("photo-1586281380349-632531db7ed4"),
+    image: serviceImageForSlug("bill-book"),
     enabled: true,
     order: 1,
   },
@@ -24,7 +22,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Custom challan books for delivery, logistics and commercial use.",
     description:
       "Custom challan book printing for business and commercial requirements. Numbered pages, company details, and formats tailored to your workflow.",
-    image: unsplash("photo-1450101499163-c8848c66ca85"),
+    image: serviceImageForSlug("challan-book"),
     enabled: true,
     order: 2,
   },
@@ -36,7 +34,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Elegant letter pads for offices, firms and organizations.",
     description:
       "Professional letter pad printing for businesses, offices and organizations. Premium paper options with your logo and contact details.",
-    image: unsplash("photo-1568992687947-868a62a9f521"),
+    image: serviceImageForSlug("letter-pad"),
     enabled: true,
     order: 3,
   },
@@ -48,7 +46,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Visiting cards and tags for professional branding and retail use.",
     description:
       "Custom visiting cards and tags designed for professional branding and business use. Multiple finishes, sizes and paper stocks available.",
-    image: unsplash("photo-1600880292203-757bb62b4baf"),
+    image: serviceImageForSlug("visiting-card-tag"),
     enabled: true,
     order: 4,
   },
@@ -60,7 +58,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Stickers and banners for promotions, events and shop branding.",
     description:
       "Custom stickers and banners for branding, promotions, events and other requirements. Indoor and outdoor options with vivid print quality.",
-    image: unsplash("photo-1563986768609-322da13575f3"),
+    image: serviceImageForSlug("sticker-banner"),
     enabled: true,
     order: 5,
   },
@@ -72,9 +70,21 @@ export const DEFAULT_SERVICES: Service[] = [
       "Beautiful wedding invitations and matching stationery.",
     description:
       "Beautiful custom wedding card printing for special occasions. Traditional and contemporary designs with premium papers and finishes.",
-    image: unsplash("photo-1519741497674-611481863552"),
+    image: serviceImageForSlug("wedding-card"),
     enabled: true,
     order: 6,
+  },
+  {
+    id: "svc-7",
+    slug: "bulk-copy-printout",
+    name: "Bulk Copy & Printout",
+    shortDescription:
+      "High-volume photocopy, document printing and printouts for study and office work.",
+    description:
+      "Bulk copying and printout services for students, offices and businesses. Black & white and colour options, A4 and other sizes, binding and finishing available on request.",
+    image: serviceImageForSlug("bulk-copy-printout"),
+    enabled: true,
+    order: 7,
   },
 ];
 
@@ -84,62 +94,62 @@ export const DEFAULT_PRODUCTS: Product[] = [
     name: "Business Bill Books",
     category: "Business Printing",
     description: "Custom bill books for retail and wholesale businesses.",
-    image: unsplash("photo-1586281380349-632531db7ed4", 600),
+    image: "/services/bill-book.jpg",
   },
   {
     id: "prd-2",
     name: "Office Letterheads",
     category: "Stationery",
     description: "Clean letter pad layouts for professional correspondence.",
-    image: unsplash("photo-1586953208448-b95a79798f07", 600),
+    image: "/services/letter-pad.jpg",
   },
   {
     id: "prd-3",
     name: "Premium Visiting Cards",
     category: "Cards",
     description: "Matte and gloss visiting cards for teams and entrepreneurs.",
-    image: unsplash("photo-1600880292203-757bb62b4baf", 600),
+    image: "/services/visiting-card-tag.jpg",
   },
   {
     id: "prd-4",
     name: "Product Labels",
     category: "Stickers",
     description: "Die-cut stickers for packaging and product branding.",
-    image: unsplash("photo-1611532736597-de2d4265fba3", 600),
+    image: "/services/sticker-banner.jpg",
   },
   {
     id: "prd-5",
     name: "Shop Front Banner",
     category: "Banners",
     description: "Large-format banners for storefronts and events.",
-    image: unsplash("photo-1563986768609-322da13575f3", 600),
+    image: "/services/shop-banner.jpg",
   },
   {
     id: "prd-6",
     name: "Wedding Invitation Set",
     category: "Wedding Printing",
     description: "Invitation cards with matching envelopes and inserts.",
-    image: unsplash("photo-1522673607200-164d1b6ce486", 600),
+    image: "/services/wedding-card.jpg",
   },
   {
     id: "prd-7",
     name: "Challan Books",
     category: "Business Printing",
     description: "Delivery and dispatch challan books with serial numbering.",
-    image: unsplash("photo-1503387762-592deb58ef4e", 600),
+    image: "/services/challan-book.jpg",
   },
   {
     id: "prd-8",
     name: "Garment Tags",
     category: "Cards",
     description: "Branded hang tags for apparel and accessories.",
-    image: unsplash("photo-1441986300917-64674bd600d8", 600),
+    image: "/services/shop-banner.jpg",
   },
   {
     id: "prd-9",
     name: "Promotional Stickers",
     category: "Stickers",
     description: "Vinyl and paper stickers for campaigns and giveaways.",
-    image: unsplash("photo-1618005182384-a83a8bd57fbe", 600),
+    image: "/services/sticker-banner.jpg",
   },
 ];
