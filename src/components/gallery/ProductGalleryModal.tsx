@@ -157,7 +157,7 @@ export function ProductGalleryModal({
             {current.description}
           </p>
 
-          {products.length > 1 && (
+          {products.length > 1 && products.length <= 48 && (
             <div className="mt-5 flex justify-center gap-2 overflow-x-auto pb-1">
               {products.map((p, i) => (
                 <button
@@ -182,6 +182,12 @@ export function ProductGalleryModal({
                 </button>
               ))}
             </div>
+          )}
+          {products.length > 48 && (
+            <p className="mt-4 text-center text-xs text-slate-500">
+              Use arrow keys or the side buttons to browse all {products.length}{" "}
+              designs.
+            </p>
           )}
         </div>
       </div>

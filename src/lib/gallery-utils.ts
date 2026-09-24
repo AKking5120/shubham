@@ -1,3 +1,4 @@
+import { VISITING_CARD_DESIGN_PRODUCTS } from "./visiting-card-designs";
 import type { GalleryCategory } from "./types";
 import type { Product } from "./types";
 
@@ -16,6 +17,9 @@ export function productsForService(
   serviceSlug: string,
   products: Product[],
 ): Product[] {
+  if (serviceSlug === "visiting-card-tag") {
+    return VISITING_CARD_DESIGN_PRODUCTS;
+  }
   const categories = SERVICE_GALLERY_CATEGORIES[serviceSlug];
   if (!categories?.length) return products;
   return products.filter((p) => categories.includes(p.category));
