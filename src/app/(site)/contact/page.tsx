@@ -16,7 +16,7 @@ import {
 import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
 
 export const metadata: Metadata = {
-  title: `Contact | ${SEO.title}`,
+  title: "Contact Us",
   description: SEO.description,
 };
 

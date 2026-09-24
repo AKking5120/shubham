@@ -11,6 +11,7 @@ import {
   ShoppingBag,
   Users,
 } from "lucide-react";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -35,8 +36,10 @@ export function AdminSidebar() {
   return (
     <aside className="flex w-full flex-col border-r border-slate-200 bg-[#0a1628] text-white lg:min-h-screen lg:w-64">
       <div className="border-b border-white/10 p-6">
-        <p className="text-xs uppercase tracking-widest text-slate-400">Admin</p>
-        <p className="mt-1 font-bold">Shubham Prints</p>
+        <BrandLogo size="md" href="/" />
+        <p className="mt-3 text-xs uppercase tracking-widest text-slate-400">
+          Admin panel
+        </p>
       </div>
       <nav className="flex-1 space-y-1 p-4">
         {links.map(({ href, label, icon: Icon }) => (

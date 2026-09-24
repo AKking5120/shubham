@@ -8,6 +8,7 @@ import { SectionHeading } from "@/components/home/SectionHeading";
 import { WhyChooseGrid } from "@/components/home/WhyChooseGrid";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { BUSINESS, telLink, whatsappLink } from "@/lib/constants";
 import { getProducts, getServices } from "@/lib/store";
 
@@ -57,10 +58,9 @@ export default async function HomePage() {
         <div className="pointer-events-none absolute bottom-10 left-10 h-56 w-56 rounded-full bg-blue-500/10 blur-3xl" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 lg:grid-cols-2 lg:px-6 lg:py-24">
           <div className="animate-fade-up">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-amber-300 backdrop-blur-sm">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
-              {BUSINESS.name}
-            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <BrandLogo size="hero" priority href={null} className="ring-amber-400/40" />
+            </div>
             <h1 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight md:text-5xl lg:text-6xl">
               Complete Printing Solutions{" "}
               <span className="text-gradient-light">Under One Roof</span>

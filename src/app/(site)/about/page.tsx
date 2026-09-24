@@ -8,7 +8,7 @@ import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 
 export const metadata: Metadata = {
-  title: `About | ${SEO.title}`,
+  title: "About Us",
   description: SEO.description,
 };
 

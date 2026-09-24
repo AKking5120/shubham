@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { SEO } from "@/lib/constants";
+import { BRAND_LOGO, BUSINESS, SEO } from "@/lib/constants";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -11,8 +11,19 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: SEO.title,
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
+  title: {
+    default: SEO.title,
+    template: `%s | ${BUSINESS.name}`,
+  },
+  applicationName: BUSINESS.name,
   description: SEO.description,
+  icons: {
+    icon: [{ url: BRAND_LOGO, type: "image/jpeg" }],
+    apple: BRAND_LOGO,
+  },
   keywords: [
     "printing",
     "stationery",
@@ -28,6 +39,19 @@ export const metadata: Metadata = {
     description: SEO.description,
     type: "website",
     locale: "en_IN",
+    siteName: BUSINESS.name,
+    images: [
+      {
+        url: BRAND_LOGO,
+        alt: BUSINESS.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: SEO.title,
+    description: SEO.description,
+    images: [BRAND_LOGO],
   },
 };
 

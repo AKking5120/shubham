@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { BUSINESS } from "@/lib/constants";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -36,19 +36,10 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a1628] shadow-lg shadow-black/20">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
-        <Link href="/" className="group flex min-w-0 items-center gap-3">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-amber-400/80 bg-white/10 text-lg font-extrabold text-white shadow-inner">
-            S
-          </span>
-          <span className="flex min-w-0 flex-col">
-            <span className="truncate text-base font-bold tracking-tight text-white lg:text-lg">
-              {BUSINESS.name}
-            </span>
-            <span className="hidden text-[11px] text-slate-400 sm:block">
-              {BUSINESS.slogan}
-            </span>
-          </span>
-        </Link>
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+          <BrandLogo size="md" priority className="sm:hidden" />
+          <BrandLogo size="lg" priority className="hidden sm:block" />
+        </div>
 
         <nav className="hidden items-center gap-0.5 lg:flex">
           {links.map((link) => {

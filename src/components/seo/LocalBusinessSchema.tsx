@@ -1,4 +1,14 @@
-import { BUSINESS, SEO } from "@/lib/constants";
+import { BRAND_LOGO, BUSINESS, SEO } from "@/lib/constants";
+
+function siteOrigin() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return "http://localhost:3000";
+}
 
 export function LocalBusinessSchema() {
   const schema = {
@@ -18,6 +28,8 @@ export function LocalBusinessSchema() {
     },
     areaServed: "New Delhi",
     slogan: BUSINESS.slogan,
+    image: `${siteOrigin()}${BRAND_LOGO}`,
+    logo: `${siteOrigin()}${BRAND_LOGO}`,
   };
 
   return (

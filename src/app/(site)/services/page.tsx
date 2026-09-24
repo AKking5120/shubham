@@ -7,7 +7,7 @@ import { PAGE_HERO_IMAGES, SEO } from "@/lib/constants";
 import { getProducts, getServices } from "@/lib/store";
 
 export const metadata: Metadata = {
-  title: `Services | ${SEO.title}`,
+  title: "Our Services",
   description: SEO.description,
 };
 
