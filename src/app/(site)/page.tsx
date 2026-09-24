@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { QuoteForm } from "@/components/forms/QuoteForm";
-import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import { HomeHowItWorks } from "@/components/home/HomeHowItWorks";
 import { HomeStats } from "@/components/home/HomeStats";
 import { HomeTrustBar } from "@/components/home/HomeTrustBar";
@@ -39,13 +38,8 @@ const whyChoose = [
   },
 ];
 
-type HomePageProps = PageProps<"/">;
-
-export default async function HomePage({ searchParams }: HomePageProps) {
+export default async function HomePage() {
   const [services, products] = await Promise.all([getServices(), getProducts()]);
-  const params = await searchParams;
-  const defaultProductId =
-    typeof params?.product === "string" ? params.product : undefined;
 
   const stats = [
     { value: `${services.length}+`, label: "Core services" },
@@ -124,7 +118,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service, i) => (
               <AnimateOnScroll key={service.id} delay={i * 90}>
-                <ServiceCard service={service} products={products} />
+                <ServiceCard service={service} products={products} compact />
               </AnimateOnScroll>
             ))}
           </div>
@@ -135,25 +129,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
               </Button>
             </div>
           </AnimateOnScroll>
-        </div>
-      </section>
-
-      <section
-        id="work"
-        className="scroll-mt-24 bg-gradient-to-b from-slate-50 via-slate-100/50 to-slate-50 py-16 md:py-24"
-      >
-        <div className="mx-auto max-w-7xl px-4 lg:px-6">
-          <SectionHeading
-            eyebrow="Portfolio"
-            title="Our Work & Products"
-            subtitle="A glimpse of business stationery, cards, stickers, banners and wedding printing."
-          />
-          <div className="mt-12">
-            <GalleryGrid
-              products={products}
-              defaultProductId={defaultProductId}
-            />
-          </div>
         </div>
       </section>
 

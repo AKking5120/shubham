@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { SectionHeading } from "@/components/home/SectionHeading";
 import { PageHero } from "@/components/layout/PageHero";
-import { ServiceCard } from "@/components/services/ServiceCard";
+import { ServiceListRow } from "@/components/services/ServiceListRow";
 import { QuoteForm } from "@/components/forms/QuoteForm";
-import { SEO } from "@/lib/constants";
+import { SectionHeading } from "@/components/home/SectionHeading";
+import { PAGE_HERO_IMAGES, SEO } from "@/lib/constants";
 import { getProducts, getServices } from "@/lib/store";
 
 export const metadata: Metadata = {
@@ -20,28 +20,20 @@ export default async function ServicesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Catalogue"
         title="Our Services"
-        description="Explore our complete catalogue of printing and stationery services. Every service includes easy quote requests, WhatsApp and call options."
+        description="Explore our complete catalogue of printing and stationery services."
+        backgroundImage={PAGE_HERO_IMAGES.services}
       />
 
       <section className="py-16 md:py-20">
-        <div className="mx-auto max-w-7xl space-y-16 px-4 lg:px-6">
-          <SectionHeading
-            title="Printing & Stationery Catalogue"
-            subtitle="Professional printing for shops, offices, events and personal occasions."
-            align="left"
-          />
-          <div className="grid gap-8 lg:grid-cols-2">
-            {services.map((service) => (
-              <ServiceCard
-                key={service.id}
-                service={service}
-                detailed
-                products={products}
-              />
-            ))}
-          </div>
+        <div className="mx-auto max-w-7xl space-y-8 px-4 lg:px-6">
+          {services.map((service) => (
+            <ServiceListRow
+              key={service.id}
+              service={service}
+              products={products}
+            />
+          ))}
         </div>
       </section>
 

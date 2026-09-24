@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "outline" | "whatsapp" | "ghost";
+type Variant =
+  | "primary"
+  | "secondary"
+  | "outline"
+  | "whatsapp"
+  | "ghost"
+  | "light";
 
 const variants: Record<Variant, string> = {
   primary:
@@ -12,6 +18,8 @@ const variants: Record<Variant, string> = {
     "border-2 border-white/80 text-white hover:bg-white/10 backdrop-blur-sm",
   whatsapp: "bg-[#25D366] text-white hover:bg-[#1ebe57]",
   ghost: "text-[#1e3a5f] hover:bg-slate-100",
+  light:
+    "bg-white text-[#0a1628] hover:bg-slate-100 shadow-lg shadow-black/15 ring-1 ring-white/20",
 };
 
 type ButtonProps = {

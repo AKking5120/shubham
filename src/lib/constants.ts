@@ -12,6 +12,18 @@ export const BUSINESS = {
   slogan: "An Unit of Complete Printing Solution",
 };
 
+/** Hero background photos (inner pages, mockup-style). */
+export const PAGE_HERO_IMAGES = {
+  services:
+    "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1600&q=80",
+  about:
+    "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=1600&q=80",
+  contact:
+    "https://images.unsplash.com/photo-1423666639045-f5600c27da9a?auto=format&fit=crop&w=1600&q=80",
+  storefront:
+    "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
+} as const;
+
 export const SEO = {
   title:
     "Shubham Prints & Stationers | Complete Printing Solutions in Jaitpur, New Delhi",

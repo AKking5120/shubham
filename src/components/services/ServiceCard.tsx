@@ -32,10 +32,13 @@ function galleryProductsForService(service: Service, products: Product[]): Produ
 export function ServiceCard({
   service,
   detailed = false,
+  compact = false,
   products = [],
 }: {
   service: Service;
   detailed?: boolean;
+  /** Home grid: only View Service + Get Quote (mockup). */
+  compact?: boolean;
   products?: Product[];
 }) {
   const [galleryOpen, setGalleryOpen] = useState(false);
@@ -93,45 +96,49 @@ export function ServiceCard({
           {detailed ? service.description : service.shortDescription}
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
+          {!detailed && (
+            <Button
+              href={`/services#${service.slug}`}
+              variant="secondary"
+              className="py-2.5 text-xs"
+            >
+              View Service
+            </Button>
+          )}
           <Button
             href={`/contact?service=${encodeURIComponent(service.name)}#quote`}
             variant="primary"
             className="py-2.5 text-xs"
           >
-            Get a Quote
+            Get Quote
           </Button>
-          {!detailed && (
-            <Button
-              href={`/services#${service.slug}`}
-              variant="ghost"
-              className="border border-slate-200 py-2.5 text-xs"
-            >
-              View Service
-            </Button>
+          {!compact && !detailed && (
+            <>
+              <button
+                type="button"
+                onClick={openGallery}
+                className="inline-flex items-center justify-center rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-semibold text-[#1e3a5f] hover:bg-slate-50"
+              >
+                <Images className="mr-1 h-3.5 w-3.5" />
+                Photos
+              </button>
+              <a
+                href={whatsappLink(waText)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-xl bg-[#25D366] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#1ebe57]"
+              >
+                WhatsApp
+              </a>
+              <a
+                href={telLink(BUSINESS.phones[0])}
+                className="inline-flex items-center justify-center gap-1 rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-semibold text-[#1e3a5f]"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                Call
+              </a>
+            </>
           )}
-          <button
-            type="button"
-            onClick={openGallery}
-            className="inline-flex items-center justify-center rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-semibold text-[#1e3a5f] hover:bg-slate-50"
-          >
-            <Images className="mr-1 h-3.5 w-3.5" />
-            Photos
-          </button>
-          <a
-            href={whatsappLink(waText)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-xl bg-[#25D366] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#1ebe57]"
-          >
-            WhatsApp
-          </a>
-          <a
-            href={telLink(BUSINESS.phones[0])}
-            className="inline-flex items-center justify-center gap-1 rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-semibold text-[#1e3a5f]"
-          >
-            <Phone className="h-3.5 w-3.5" />
-            Call
-          </a>
         </div>
       </div>
     </article>

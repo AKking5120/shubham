@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { BUSINESS, SEO } from "@/lib/constants";
+import { Mail, MapPin, Phone, User } from "lucide-react";
+import { BUSINESS, PAGE_HERO_IMAGES, SEO, telLink } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/layout/PageHero";
+import { CtaBanner } from "@/components/layout/CtaBanner";
 
 export const metadata: Metadata = {
   title: `About | ${SEO.title}`,
@@ -13,24 +15,18 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="Our story"
         title={`About ${BUSINESS.name}`}
         description="Your local partner for complete printing solutions in Jaitpur, Badarpur and New Delhi."
+        backgroundImage={PAGE_HERO_IMAGES.about}
       />
 
       <section className="py-16 md:py-20">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2 lg:px-6">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-slate-200/80">
-            <Image
-              src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80"
-              alt="Professional printing workspace"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-          </div>
+        <div className="mx-auto grid max-w-7xl items-start gap-12 px-4 lg:grid-cols-2 lg:px-6">
           <div>
-            <p className="text-lg leading-relaxed text-slate-700">
+            <h2 className="text-2xl font-bold text-[#0a1628]">
+              About {BUSINESS.name}
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-slate-700">
               {BUSINESS.name} provides complete printing solutions for customers
               who need reliable business stationery, promotional materials,
               cards and wedding printing. From bill books and challan books to
@@ -43,28 +39,62 @@ export default function AboutPage() {
               get your printing done with confidence.
             </p>
 
-            <dl className="mt-8 space-y-4 rounded-3xl border border-slate-100 bg-gradient-to-br from-slate-50 to-white p-6 shadow-sm">
-              <div>
-                <dt className="text-sm font-semibold text-slate-500">Owner</dt>
-                <dd className="text-lg font-bold text-[#0a1628]">
-                  {BUSINESS.owner}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-sm font-semibold text-slate-500">Slogan</dt>
-                <dd className="text-[#1e3a5f] italic">{BUSINESS.slogan}</dd>
-              </div>
-              <div>
-                <dt className="text-sm font-semibold text-slate-500">Address</dt>
-                <dd className="text-slate-700">
-                  {BUSINESS.address.line1}
-                  <br />
-                  {BUSINESS.address.line2}
-                  <br />
-                  {BUSINESS.address.city}
-                </dd>
-              </div>
-            </dl>
+            <ul className="mt-8 space-y-4 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <li className="flex gap-3">
+                <User className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
+                <div>
+                  <p className="text-xs font-semibold uppercase text-slate-500">
+                    Owner
+                  </p>
+                  <p className="font-bold text-[#0a1628]">{BUSINESS.owner}</p>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
+                <div>
+                  <p className="text-xs font-semibold uppercase text-slate-500">
+                    Address
+                  </p>
+                  <p className="text-slate-700">
+                    {BUSINESS.address.line1}
+                    <br />
+                    {BUSINESS.address.line2}
+                    <br />
+                    {BUSINESS.address.city}
+                  </p>
+                </div>
+              </li>
+              {BUSINESS.phones.map((phone) => (
+                <li key={phone} className="flex gap-3">
+                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
+                  <div>
+                    <p className="text-xs font-semibold uppercase text-slate-500">
+                      Phone
+                    </p>
+                    <a
+                      href={telLink(phone)}
+                      className="font-medium text-[#1e3a5f] hover:underline"
+                    >
+                      +91 {phone}
+                    </a>
+                  </div>
+                </li>
+              ))}
+              <li className="flex gap-3">
+                <Mail className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
+                <div>
+                  <p className="text-xs font-semibold uppercase text-slate-500">
+                    Email
+                  </p>
+                  <a
+                    href={`mailto:${BUSINESS.email}`}
+                    className="font-medium text-[#1e3a5f] hover:underline"
+                  >
+                    {BUSINESS.email}
+                  </a>
+                </div>
+              </li>
+            </ul>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href="/contact#quote">Get a Quote</Button>
@@ -73,8 +103,20 @@ export default function AboutPage() {
               </Button>
             </div>
           </div>
+
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-2xl ring-1 ring-slate-200">
+            <Image
+              src={PAGE_HERO_IMAGES.storefront}
+              alt="Shubham Prints storefront and printed materials"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
         </div>
       </section>
+
+      <CtaBanner />
     </>
   );
 }

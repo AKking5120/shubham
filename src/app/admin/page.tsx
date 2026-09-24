@@ -1,4 +1,10 @@
 import Link from "next/link";
+import {
+  ImageIcon,
+  Package,
+  Plus,
+  Settings,
+} from "lucide-react";
 import { getEnquiries } from "@/lib/store";
 import { formatDate } from "@/lib/utils";
 
@@ -52,10 +58,13 @@ export default async function AdminDashboardPage() {
             <thead className="bg-slate-50 text-slate-500">
               <tr>
                 <th className="px-6 py-3 font-medium">ID</th>
-                <th className="px-6 py-3 font-medium">Customer</th>
+                <th className="px-6 py-3 font-medium">Name</th>
+                <th className="px-6 py-3 font-medium">Phone</th>
                 <th className="px-6 py-3 font-medium">Service</th>
+                <th className="px-6 py-3 font-medium">Qty</th>
                 <th className="px-6 py-3 font-medium">Status</th>
                 <th className="px-6 py-3 font-medium">Date</th>
+                <th className="px-6 py-3 font-medium">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -70,7 +79,9 @@ export default async function AdminDashboardPage() {
                     </Link>
                   </td>
                   <td className="px-6 py-3">{e.customerName}</td>
+                  <td className="px-6 py-3 text-slate-600">{e.phone}</td>
                   <td className="px-6 py-3">{e.service}</td>
+                  <td className="px-6 py-3 text-slate-600">{e.quantity || "—"}</td>
                   <td className="px-6 py-3">
                     <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium">
                       {e.status}
@@ -79,11 +90,19 @@ export default async function AdminDashboardPage() {
                   <td className="px-6 py-3 text-slate-500">
                     {formatDate(e.createdAt)}
                   </td>
+                  <td className="px-6 py-3">
+                    <Link
+                      href={`/admin/enquiries/${e.id}`}
+                      className="rounded-lg bg-[#1e3a5f] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#0a1628]"
+                    >
+                      View
+                    </Link>
+                  </td>
                 </tr>
               ))}
               {enquiries.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-6 py-8 text-center text-slate-500">
+                  <td colSpan={8} className="px-6 py-8 text-center text-slate-500">
                     No enquiries yet. They will appear here when customers submit
                     the quote form.
                   </td>
@@ -91,6 +110,27 @@ export default async function AdminDashboardPage() {
               )}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <div className="mt-10">
+        <h2 className="text-lg font-semibold text-[#0a1628]">Quick Actions</h2>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { href: "/admin/services", label: "Add Service", icon: Plus },
+            { href: "/admin/gallery", label: "Add Product", icon: Package },
+            { href: "/admin/gallery", label: "Manage Products", icon: ImageIcon },
+            { href: "/admin/settings", label: "Settings", icon: Settings },
+          ].map(({ href, label, icon: Icon }) => (
+            <Link
+              key={label}
+              href={href}
+              className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-[#1e3a5f] shadow-sm transition hover:border-[#1e3a5f]/30 hover:shadow-md"
+            >
+              <Icon className="h-4 w-4" />
+              {label}
+            </Link>
+          ))}
         </div>
       </div>
     </div>
