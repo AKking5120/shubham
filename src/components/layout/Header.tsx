@@ -17,7 +17,7 @@ const links = [
 
 function navClass(active: boolean, extra?: string) {
   return cn(
-    "rounded-lg px-3 py-2 text-sm font-medium transition-all duration-300",
+    "rounded-md px-2.5 py-1.5 text-xs font-medium transition-all duration-300 sm:text-sm",
     extra,
     active
       ? "bg-white/15 text-white"
@@ -35,13 +35,10 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a1628] shadow-lg shadow-black/20">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
-        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-          <BrandLogo size="md" priority className="sm:hidden" />
-          <BrandLogo size="lg" priority className="hidden sm:block" />
-        </div>
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2 lg:gap-3 lg:px-4">
+        <BrandLogo size="sm" priority className="lg:h-12 lg:w-12" />
 
-        <nav className="hidden items-center gap-0.5 lg:flex">
+        <nav className="hidden items-center gap-0 lg:flex">
           {links.map((link) => {
             const isActive =
               link.href === "/" ? pathname === "/" : pathname === link.href;
@@ -58,23 +55,27 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button href="/contact#quote" variant="light" className="py-2.5">
+          <Button
+            href="/contact#quote"
+            variant="light"
+            className="px-4 py-2 text-xs sm:text-sm"
+          >
             Get a Quote
           </Button>
         </div>
 
         <button
           type="button"
-          className="rounded-lg p-2 text-white lg:hidden"
+          className="rounded-lg p-1.5 text-white lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t border-white/10 bg-[#0a1628] px-4 py-4 lg:hidden">
+        <div className="border-t border-white/10 bg-[#0a1628] px-3 py-3 lg:hidden">
           <nav className="flex flex-col gap-1">
             {links.map((link) => {
               const isActive =

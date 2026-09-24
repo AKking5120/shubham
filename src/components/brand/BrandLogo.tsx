@@ -3,19 +3,18 @@ import Link from "next/link";
 import { BRAND_LOGO, BUSINESS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-const SIZE_PX = {
-  xs: 36,
-  sm: 44,
-  md: 52,
-  lg: 72,
-  xl: 96,
-  hero: 112,
+const SIZE_CLASS = {
+  xs: "h-9 w-9",
+  sm: "h-11 w-11",
+  md: "h-14 w-14",
+  lg: "h-[4.5rem] w-[4.5rem]",
+  xl: "h-24 w-24",
+  hero: "h-28 w-28 sm:h-32 sm:w-32",
 } as const;
 
 type BrandLogoProps = {
-  size?: keyof typeof SIZE_PX;
+  size?: keyof typeof SIZE_CLASS;
   className?: string;
-  /** Set to null to render without a link wrapper */
   href?: string | null;
   priority?: boolean;
 };
@@ -26,19 +25,24 @@ export function BrandLogo({
   href = "/",
   priority,
 }: BrandLogoProps) {
-  const px = SIZE_PX[size];
   const image = (
-    <Image
-      src={BRAND_LOGO}
-      alt={`${BUSINESS.name} — ${BUSINESS.slogan}`}
-      width={px}
-      height={px}
-      priority={priority}
+    <span
       className={cn(
-        "rounded-full object-cover shadow-lg ring-2 ring-white/25",
+        "relative inline-block shrink-0 overflow-hidden rounded-xl bg-white shadow-md ring-1 ring-white/40",
+        SIZE_CLASS[size],
         className,
       )}
-    />
+    >
+      <Image
+        src={BRAND_LOGO}
+        alt={`${BUSINESS.name} — ${BUSINESS.slogan}`}
+        fill
+        sizes="(max-width: 640px) 56px, 128px"
+        priority={priority}
+        unoptimized
+        className="object-contain p-0.5"
+      />
+    </span>
   );
 
   if (href === null) {
@@ -46,7 +50,11 @@ export function BrandLogo({
   }
 
   return (
-    <Link href={href} className="inline-block shrink-0 transition hover:opacity-95">
+    <Link
+      href={href}
+      className="inline-block shrink-0 transition hover:opacity-95"
+      aria-label={`${BUSINESS.name} home`}
+    >
       {image}
     </Link>
   );
