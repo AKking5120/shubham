@@ -3,9 +3,13 @@ import path from "path";
 import { isSupabaseConfigured } from "./supabase/server";
 import * as sb from "./supabase-store";
 import { normalizeProduct, normalizeService } from "./service-images";
+import {
+  DEFAULT_SITE_CONTENT,
+  mergeSiteContent,
+  type SiteContent,
+} from "./site-content";
 import { DEFAULT_PRODUCTS, DEFAULT_SERVICES } from "./seed";
 import type { Enquiry, Product, Service } from "./types";
-
 const DATA_DIR = path.join(process.cwd(), "data");
 
 async function ensureDataDir() {
@@ -135,4 +139,55 @@ export async function getEnquiryById(id: string): Promise<Enquiry | null> {
   if (isSupabaseConfigured()) return sb.sbGetEnquiryById(id);
   const enquiries = await getEnquiries();
   return enquiries.find((e) => e.id === id) ?? null;
+}
+
+export async function getSiteContent(): Promise<SiteContent> {
+  const raw = await readJson<Partial<SiteContent>>(
+    "site-content.json",
+    DEFAULT_SITE_CONTENT,
+  );
+  return mergeSiteContent(raw);
+}
+
+export async function saveSiteContent(content: SiteContent): Promise<void> {
+  await writeJson("site-content.json", content);
+}
+
+export type DesignGalleryOverride = {
+  replaceRegistry: boolean;
+  items: Product[];
+};
+
+export async function getDesignGalleryOverrides(): Promise<
+  Record<string, DesignGalleryOverride>
+> {
+  const data = await readJson<{ overrides: Record<string, DesignGalleryOverride> }>(
+    "design-gallery-admin.json",
+    { overrides: {} },
+  );
+  return data.overrides ?? {};
+}
+
+export async function saveDesignGalleryOverrides(
+  overrides: Record<string, DesignGalleryOverride>,
+): Promise<void> {
+  await writeJson("design-gallery-admin.json", { overrides });
+}
+
+/** Slugs with registry-backed or admin-managed design galleries. */
+export async function getDesignGallerySlugs(): Promise<
+  { slug: string; name: string; count: number }[]
+> {
+  const services = await getAllServices();
+  const overrides = await getDesignGalleryOverrides();
+  const { getServiceDesignProducts } = await import("./service-design-gallery");
+
+  return services.map((s) => {
+    const admin = overrides[s.slug];
+    const registry = getServiceDesignProducts(s.slug) ?? [];
+    const count = admin?.replaceRegistry
+      ? admin.items.length
+      : registry.length + (admin?.items?.length ?? 0);
+    return { slug: s.slug, name: s.name, count };
+  });
 }

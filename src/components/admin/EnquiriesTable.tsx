@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import type { Enquiry } from "@/lib/types";
 import { ENQUIRY_STATUSES } from "@/lib/constants";
@@ -8,6 +9,7 @@ import { formatDate } from "@/lib/utils";
 import { PhoneLink } from "@/components/ui/ContactLinks";
 
 export function EnquiriesTable({ enquiries }: { enquiries: Enquiry[] }) {
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const [service, setService] = useState("All");
   const [status, setStatus] = useState("All");
@@ -33,6 +35,12 @@ export function EnquiriesTable({ enquiries }: { enquiries: Enquiry[] }) {
       return matchesSearch && matchesService && matchesStatus && matchesDate;
     });
   }, [enquiries, search, service, status, dateFrom]);
+
+  async function remove(id: string) {
+    if (!confirm("Delete this enquiry permanently?")) return;
+    const res = await fetch(`/api/enquiries/${id}`, { method: "DELETE" });
+    if (res.ok) router.refresh();
+  }
 
   return (
     <div className="space-y-4">
@@ -100,13 +108,20 @@ export function EnquiriesTable({ enquiries }: { enquiries: Enquiry[] }) {
                     {e.status}
                   </span>
                 </td>
-                <td className="px-4 py-3">
+                <td className="px-4 py-3 space-x-2">
                   <Link
                     href={`/admin/enquiries/${e.id}`}
                     className="font-medium text-[#1e3a5f] hover:underline"
                   >
                     View
                   </Link>
+                  <button
+                    type="button"
+                    onClick={() => remove(e.id)}
+                    className="text-red-600 hover:underline text-xs font-semibold"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

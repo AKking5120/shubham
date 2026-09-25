@@ -1,6 +1,7 @@
 import type { GalleryCategory, Product } from "./types";
 import registry from "../../data/gallery-registry.json";
 import visitingCardFiles from "../../data/visiting-card-tag-image-files.json";
+import designGalleryAdmin from "../../data/design-gallery-admin.json";
 
 const PRINTERS_CLUB_BASE =
   "https://printersclub.in/images/template-images/";
@@ -17,6 +18,18 @@ type GalleryRegistryEntry = {
 };
 
 const entries = registry as Record<string, GalleryRegistryEntry>;
+
+type AdminOverride = {
+  replaceRegistry?: boolean;
+  items?: Product[];
+};
+
+function readAdminOverride(slug: string): AdminOverride | null {
+  const raw = designGalleryAdmin as {
+    overrides?: Record<string, AdminOverride>;
+  };
+  return raw.overrides?.[slug] ?? null;
+}
 
 function productsFromRemoteFiles(
   files: string[],
@@ -57,30 +70,45 @@ function productsFromPaths(
 }
 
 export function getServiceDesignProducts(slug: string): Product[] | null {
-  const entry = entries[slug];
-  if (!entry || entry.count === 0) return null;
+  const admin = readAdminOverride(slug);
+  if (admin?.replaceRegistry && admin.items?.length) {
+    return admin.items;
+  }
 
-  if (entry.mode === "remote") {
+  const entry = entries[slug];
+  let base: Product[] | null = null;
+
+  if (!entry || entry.count === 0) {
+    base = null;
+  } else if (entry.mode === "remote") {
     const files =
       slug === "visiting-card-tag"
         ? (visitingCardFiles as string[])
         : [];
-    if (!files.length) return null;
-    return productsFromRemoteFiles(
-      files,
+    if (!files.length) base = null;
+    else {
+      base = productsFromRemoteFiles(
+        files,
+        entry.idPrefix,
+        entry.namePrefix,
+        entry.category,
+      );
+    }
+  } else if (!entry.paths?.length) {
+    base = null;
+  } else {
+    base = productsFromPaths(
+      entry.paths,
       entry.idPrefix,
       entry.namePrefix,
       entry.category,
     );
   }
 
-  if (!entry.paths?.length) return null;
-  return productsFromPaths(
-    entry.paths,
-    entry.idPrefix,
-    entry.namePrefix,
-    entry.category,
-  );
+  const extra = admin?.items ?? [];
+  if (extra.length && base?.length) return [...extra, ...base];
+  if (extra.length) return extra;
+  return base;
 }
 
 /** Sample templates across services for home / gallery previews. */

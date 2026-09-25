@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   ImageIcon,
   LayoutDashboard,
+  LayoutTemplate,
   LogOut,
   Package,
   Settings,
@@ -18,7 +19,8 @@ const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/enquiries", label: "Orders / Enquiries", icon: ShoppingBag },
   { href: "/admin/services", label: "Services", icon: Package },
-  { href: "/admin/gallery", label: "Products / Gallery", icon: ImageIcon },
+  { href: "/admin/gallery", label: "Home Gallery", icon: ImageIcon },
+  { href: "/admin/designs", label: "Design Templates", icon: LayoutTemplate },
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];

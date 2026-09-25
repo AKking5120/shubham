@@ -4,8 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Lock, Menu, MessageSquare, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { BUSINESS, telLink, whatsappLink } from "@/lib/constants";
+import { telLink, whatsappLink } from "@/lib/constants";
+import type { SiteContent } from "@/lib/site-content";
 import { cn } from "@/lib/utils";
+
+export type HeaderSiteContent = Pick<
+  SiteContent,
+  "announcement" | "business" | "contact"
+>;
 
 const links = [
   { href: "/", label: "Home" },
@@ -22,9 +28,10 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function Header() {
+export function Header({ site }: { site: HeaderSiteContent }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const wa = () => whatsappLink(site.contact.whatsappDefaultMessage);
 
   useEffect(() => {
     setOpen(false);
@@ -36,24 +43,27 @@ export function Header() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-1 sm:gap-4 text-center sm:text-left">
           <div className="flex items-center gap-2 justify-center sm:justify-start">
             <span className="bg-amber-400 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
-              Fast Turnaround
+              {site.announcement.badge}
             </span>
             <span className="truncate">
-              GST Bill Books, Spot UV Cards, Doctor Files & Shadi Cards in
-              Badarpur & Jaitpur!
+              {site.announcement.text}
             </span>
           </div>
           <div className="flex items-center gap-3 text-xs">
-            <a href={telLink(BUSINESS.phones[0])} className="hover:underline">
-              {BUSINESS.phones[0]}
+            <a href={telLink(site.business.phones[0])} className="hover:underline">
+              {site.business.phones[0]}
             </a>
-            <span className="hidden sm:inline text-white/40">|</span>
-            <a
-              href={telLink(BUSINESS.phones[1])}
-              className="hover:underline hidden sm:inline"
-            >
-              {BUSINESS.phones[1]}
-            </a>
+            {site.business.phones[1] && (
+              <>
+                <span className="hidden sm:inline text-white/40">|</span>
+                <a
+                  href={telLink(site.business.phones[1])}
+                  className="hover:underline hidden sm:inline"
+                >
+                  {site.business.phones[1]}
+                </a>
+              </>
+            )}
             <span className="hidden md:inline text-white/40">|</span>
             <Link
               href="/admin/login"
@@ -85,7 +95,7 @@ export function Header() {
                   </span>
                 </div>
                 <p className="text-[11px] sm:text-xs text-slate-500 font-medium italic mt-0.5">
-                  “{BUSINESS.slogan}”
+                  “{site.business.slogan}”
                 </p>
               </div>
             </Link>
@@ -112,7 +122,7 @@ export function Header() {
 
             <div className="hidden sm:flex items-center gap-2">
               <a
-                href={whatsappLink()}
+                href={wa()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-1.5 transition"

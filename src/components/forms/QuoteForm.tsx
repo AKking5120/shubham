@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { telLink, whatsappLink, BUSINESS } from "@/lib/constants";
 
-const SERVICE_OPTIONS = [
+const DEFAULT_SERVICE_OPTIONS = [
   "Bill Book",
   "Challan Book",
   "Letter Pad",
@@ -12,13 +12,6 @@ const SERVICE_OPTIONS = [
   "Sticker / Banner",
   "Wedding Card",
   "Bulk Copy / Printout",
-  "ID Card",
-  "Die Cut Visiting Card",
-  "Envelope",
-  "ATM Pouch",
-  "Doctor Files",
-  "UV Texture",
-  "Garment Tags",
   "Other",
 ];
 
@@ -26,18 +19,24 @@ type QuoteFormProps = {
   defaultService?: string;
   compact?: boolean;
   showExtendedFields?: boolean;
+  /** From admin-managed services; falls back to defaults. */
+  serviceOptions?: string[];
 };
 
 export function QuoteForm({
   defaultService = "",
   compact = false,
   showExtendedFields = false,
+  serviceOptions,
 }: QuoteFormProps) {
+  const options = serviceOptions?.length
+    ? serviceOptions
+    : DEFAULT_SERVICE_OPTIONS;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [service, setService] = useState(
-    SERVICE_OPTIONS.includes(defaultService) ? defaultService : "",
+    options.includes(defaultService) ? defaultService : "",
   );
 
   const showOtherService = service === "Other";
@@ -141,7 +140,7 @@ export function QuoteForm({
             className={inputClass}
           >
             <option value="">Choose a service</option>
-            {SERVICE_OPTIONS.map((s) => (
+            {options.map((s) => (
               <option key={s} value={s}>{s}</option>
             ))}
           </select>

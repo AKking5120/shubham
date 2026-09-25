@@ -102,11 +102,34 @@ export function ServicesManager({ initial }: { initial: Service[] }) {
                   Delete
                 </button>
               </div>
+              <div className="grid gap-2 sm:grid-cols-3">
+                <input
+                  value={service.name}
+                  onChange={(e) =>
+                    updateService(service.id, { name: e.target.value })
+                  }
+                  className="rounded-lg border px-3 py-2 text-sm font-semibold sm:col-span-2"
+                  placeholder="Service name"
+                />
+                <input
+                  type="number"
+                  value={service.order}
+                  onChange={(e) =>
+                    updateService(service.id, {
+                      order: Number(e.target.value) || 0,
+                    })
+                  }
+                  className="rounded-lg border px-3 py-2 text-sm"
+                  placeholder="Order"
+                />
+              </div>
               <input
-                value={service.name}
-                onChange={(e) => updateService(service.id, { name: e.target.value })}
-                className="w-full rounded-lg border px-3 py-2 text-sm font-semibold"
-                placeholder="Service name"
+                value={service.slug}
+                onChange={(e) =>
+                  updateService(service.id, { slug: e.target.value })
+                }
+                className="w-full rounded-lg border px-3 py-2 text-sm font-mono"
+                placeholder="URL slug (e.g. bill-book)"
               />
               <ImageUploadField
                 folder="services"
