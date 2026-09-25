@@ -1,4 +1,7 @@
-import { VISITING_CARD_DESIGN_PRODUCTS } from "./visiting-card-designs";
+import {
+  LETTER_HEAD_DESIGN_PRODUCTS,
+  VISITING_CARD_DESIGN_PRODUCTS,
+} from "./service-design-gallery";
 import type { GalleryCategory } from "./types";
 import type { Product } from "./types";
 
@@ -19,6 +22,9 @@ export function productsForService(
 ): Product[] {
   if (serviceSlug === "visiting-card-tag") {
     return VISITING_CARD_DESIGN_PRODUCTS;
+  }
+  if (serviceSlug === "letter-pad") {
+    return LETTER_HEAD_DESIGN_PRODUCTS;
   }
   const categories = SERVICE_GALLERY_CATEGORIES[serviceSlug];
   if (!categories?.length) return products;
