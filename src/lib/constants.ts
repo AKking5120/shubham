@@ -47,6 +47,8 @@ export const SITE_CREDIT = {
   name: "Mr. Prince Kumar Das",
   role: "Website Designer & Developer",
   url: "https://github.com/AKking5120",
+  email: "princekumardas5120@gmail.com",
+  phone: "9540347869",
 };
 
 export function digitsOnlyPhone(phone: string) {

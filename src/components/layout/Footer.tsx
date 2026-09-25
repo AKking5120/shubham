@@ -3,8 +3,10 @@ import { BrandLogo } from "@/components/brand/BrandLogo";
 import { OwnerPhoto } from "@/components/brand/OwnerPhoto";
 import {
   BUSINESS,
+  mailtoLink,
   mapsLink,
   SITE_CREDIT,
+  telLink,
 } from "@/lib/constants";
 
 const quickLinks = [
@@ -86,17 +88,31 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-slate-900 flex flex-col sm:flex-row justify-between items-center gap-2 text-[11px] text-slate-500">
         <p>© 2026 {BUSINESS.name}. All Rights Reserved.</p>
         <p>Local Printing Shop Jaitpur | Badarpur | South Delhi</p>
-        <p className="text-slate-400">
-          {SITE_CREDIT.role} —{" "}
-          <a
-            href={SITE_CREDIT.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-amber-400/90 hover:underline"
-          >
-            {SITE_CREDIT.name}
-          </a>
-        </p>
+        <div className="text-center sm:text-right text-slate-400">
+          <p>
+            {SITE_CREDIT.role} —{" "}
+            <a
+              href={SITE_CREDIT.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber-400/90 hover:underline"
+            >
+              {SITE_CREDIT.name}
+            </a>
+          </p>
+          <p className="mt-0.5 text-slate-500">
+            <a
+              href={mailtoLink(SITE_CREDIT.email)}
+              className="hover:text-amber-400/90"
+            >
+              {SITE_CREDIT.email}
+            </a>
+            <span className="mx-1.5 text-slate-600">|</span>
+            <a href={telLink(SITE_CREDIT.phone)} className="hover:text-amber-400/90">
+              {SITE_CREDIT.phone}
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
