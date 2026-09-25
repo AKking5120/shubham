@@ -31,7 +31,7 @@ export const SEO = {
   title:
     "Shubham Prints & Stationers | Complete Printing Solutions in Jaitpur, New Delhi",
   description:
-    "Shubham Prints & Stationers provides complete printing solutions including bill books, challan books, letter pads, visiting cards, tags, stickers, banners and wedding cards in Jaitpur, Badarpur, New Delhi.",
+    "Shubham Prints & Stationers — bill books, visiting cards, UV texture cards, doctor files, wedding cards, bulk xerox printouts in Jaitpur, Badarpur, New Delhi. Call 9717528176.",
 };
 
 export const WHATSAPP_DEFAULT_MESSAGE =

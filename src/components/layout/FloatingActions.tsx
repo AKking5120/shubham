@@ -15,7 +15,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export function FloatingActions() {
   return (
-    <div className="fixed bottom-5 right-4 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-5 right-4 z-40 flex flex-col items-end gap-3">
       <a
         href={telLink(BUSINESS.phones[0])}
         className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1e3a5f] text-white shadow-lg shadow-slate-900/20 transition hover:scale-105 md:hidden"

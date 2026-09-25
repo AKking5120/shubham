@@ -2,27 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Lock, Menu, MessageSquare, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { BrandLogo } from "@/components/brand/BrandLogo";
-import { Button } from "@/components/ui/Button";
+import { BUSINESS, telLink, whatsappLink } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
+  { href: "/services", label: "Services & Rates" },
+  { href: "/gallery", label: "Design Gallery" },
+  { href: "/contact#quote", label: "Instant Quote" },
+  { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
 ];
 
-function navClass(active: boolean, extra?: string) {
-  return cn(
-    "rounded-md px-2.5 py-1.5 text-xs font-medium transition-all duration-300 sm:text-sm",
-    extra,
-    active
-      ? "bg-white/15 text-white"
-      : "text-slate-300 hover:bg-white/10 hover:text-white",
-  );
+function isActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  if (href.startsWith("/contact#")) return pathname === "/contact";
+  return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 export function Header() {
@@ -34,69 +31,136 @@ export function Header() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a1628] shadow-lg shadow-black/20">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2 lg:gap-3 lg:px-4">
-        <BrandLogo size="sm" priority className="lg:h-12 lg:w-12" />
+    <>
+      <div className="bg-brand-blue text-white text-xs sm:text-sm py-2 px-4">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-1 sm:gap-4 text-center sm:text-left">
+          <div className="flex items-center gap-2 justify-center sm:justify-start">
+            <span className="bg-amber-400 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
+              Fast Turnaround
+            </span>
+            <span className="truncate">
+              GST Bill Books, Spot UV Cards, Doctor Files & Shadi Cards in
+              Badarpur & Jaitpur!
+            </span>
+          </div>
+          <div className="flex items-center gap-3 text-xs">
+            <a href={telLink(BUSINESS.phones[0])} className="hover:underline">
+              {BUSINESS.phones[0]}
+            </a>
+            <span className="hidden sm:inline text-white/40">|</span>
+            <a
+              href={telLink(BUSINESS.phones[1])}
+              className="hover:underline hidden sm:inline"
+            >
+              {BUSINESS.phones[1]}
+            </a>
+            <span className="hidden md:inline text-white/40">|</span>
+            <Link
+              href="/admin/login"
+              className="bg-blue-900 hover:bg-blue-800 text-amber-300 px-2 py-0.5 rounded text-[11px] font-semibold inline-flex items-center gap-1 transition"
+            >
+              <Lock className="w-3 h-3" />
+              Admin Portal
+            </Link>
+          </div>
+        </div>
+      </div>
 
-        <nav className="hidden items-center gap-0 lg:flex">
-          {links.map((link) => {
-            const isActive =
-              link.href === "/" ? pathname === "/" : pathname === link.href;
-            return (
+      <header className="sticky top-0 z-40 glass-header border-b border-slate-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            <Link href="/" className="flex items-center gap-3 shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand-blue via-indigo-800 to-brand-orange p-0.5 shadow-md">
+                <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center text-brand-blue font-extrabold text-xl tracking-tighter">
+                  SP
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-lg sm:text-xl text-slate-900 tracking-tight leading-none">
+                    SHUBHAM PRINTS
+                  </span>
+                  <span className="text-xs bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded border border-amber-300 hidden sm:inline-block">
+                    & Stationers
+                  </span>
+                </div>
+                <p className="text-[11px] sm:text-xs text-slate-500 font-medium italic mt-0.5">
+                  “{BUSINESS.slogan}”
+                </p>
+              </div>
+            </Link>
+
+            <nav className="hidden md:flex items-center gap-0.5 lg:gap-1">
+              {links.map((link) => {
+                const active = isActive(pathname, link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "px-3 py-2 rounded-lg text-sm transition",
+                      active
+                        ? "font-semibold text-brand-blue bg-blue-50"
+                        : "font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100",
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="hidden sm:flex items-center gap-2">
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-1.5 transition"
+              >
+                <MessageSquare className="w-4 h-4" />
+                WhatsApp
+              </a>
+              <Link
+                href="/contact#quote"
+                className="bg-brand-blue hover:bg-indigo-900 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition"
+              >
+                Get Estimate
+              </Link>
+            </div>
+
+            <button
+              type="button"
+              className="md:hidden p-2 text-slate-600 hover:text-slate-900"
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Toggle menu"
+            >
+              {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+
+        {open && (
+          <div className="md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-1 shadow-lg">
+            {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={navClass(isActive)}
+                onClick={() => setOpen(false)}
+                className="block w-full text-left px-3 py-2.5 rounded-lg font-medium text-slate-700 hover:bg-slate-100"
               >
                 {link.label}
               </Link>
-            );
-          })}
-        </nav>
-
-        <div className="hidden lg:block">
-          <Button
-            href="/contact#quote"
-            variant="light"
-            className="px-4 py-2 text-xs sm:text-sm"
-          >
-            Get a Quote
-          </Button>
-        </div>
-
-        <button
-          type="button"
-          className="rounded-lg p-1.5 text-white lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
-
-      {open && (
-        <div className="border-t border-white/10 bg-[#0a1628] px-3 py-3 lg:hidden">
-          <nav className="flex flex-col gap-1">
-            {links.map((link) => {
-              const isActive =
-                link.href === "/" ? pathname === "/" : pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className={navClass(isActive, "text-left")}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-            <Button href="/contact#quote" variant="light" className="mt-2 w-full">
-              Get a Quote
-            </Button>
-          </nav>
-        </div>
-      )}
-    </header>
+            ))}
+            <Link
+              href="/admin/login"
+              onClick={() => setOpen(false)}
+              className="block w-full text-left px-3 py-2.5 rounded-lg font-medium text-amber-700 bg-amber-50 border border-amber-200 mt-2"
+            >
+              Admin Login
+            </Link>
+          </div>
+        )}
+      </header>
+    </>
   );
 }

@@ -83,6 +83,22 @@ export function getServiceDesignProducts(slug: string): Product[] | null {
   );
 }
 
+/** Sample templates across services for home / gallery previews. */
+export function getGalleryPreviewProducts(maxTotal = 12): Product[] {
+  const slugs = Object.keys(entries);
+  const out: Product[] = [];
+  const perSlug = Math.max(2, Math.ceil(maxTotal / slugs.length));
+
+  for (const slug of slugs) {
+    const batch = getServiceDesignProducts(slug);
+    if (!batch?.length) continue;
+    out.push(...batch.slice(0, perSlug));
+    if (out.length >= maxTotal) break;
+  }
+
+  return out.slice(0, maxTotal);
+}
+
 /** @deprecated Use getServiceDesignProducts(slug) */
 export const VISITING_CARD_DESIGN_PRODUCTS =
   getServiceDesignProducts("visiting-card-tag") ?? [];

@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layout/PageHero";
 import { ServiceListRow } from "@/components/services/ServiceListRow";
 import { QuoteForm } from "@/components/forms/QuoteForm";
-import { SectionHeading } from "@/components/home/SectionHeading";
-import { PAGE_HERO_IMAGES, SEO } from "@/lib/constants";
+import { PriceEstimator } from "@/components/services/PriceEstimator";
+import { SEO } from "@/lib/constants";
 import { getPublicProducts, getPublicServices } from "@/lib/public-catalog";
 
 export const metadata: Metadata = {
-  title: "Our Services",
+  title: "Services & Rates",
   description: SEO.description,
 };
 
@@ -17,11 +16,26 @@ export default async function ServicesPage() {
 
   return (
     <>
-      <PageHero
-        title="Our Services"
-        description="Explore our complete catalogue of printing and stationery services."
-        backgroundImage={PAGE_HERO_IMAGES.services}
-      />
+      <section className="bg-slate-50 py-10 md:py-12 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-brand-blue bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+            Interactive Estimator
+          </span>
+          <h1 className="text-3xl font-black text-slate-900">
+            Services Catalog & Live Rate Estimator
+          </h1>
+          <p className="text-slate-600 text-sm max-w-2xl mx-auto">
+            Select paper options, quantities, and finishing to calculate estimated
+            printing costs — then confirm on WhatsApp.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-10 md:py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <PriceEstimator />
+        </div>
+      </section>
 
       <section className="py-16 md:py-20">
         <div className="mx-auto max-w-7xl space-y-8 px-4 lg:px-6">
@@ -35,12 +49,14 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16" id="quote">
+      <section className="bg-slate-100 py-16 border-t border-slate-200" id="quote">
         <div className="mx-auto max-w-3xl px-4 lg:px-6">
-          <SectionHeading
-            title="Request a Quote"
-            subtitle="Fill in your details and we will contact you with pricing and timelines."
-          />
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-black text-slate-900">Request a Quote</h2>
+            <p className="text-slate-600 text-sm mt-1">
+              Fill in your details and we will contact you with pricing and timelines.
+            </p>
+          </div>
           <div className="mt-10 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm md:p-8">
             <QuoteForm showExtendedFields />
           </div>
