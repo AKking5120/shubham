@@ -28,7 +28,7 @@ export function BrandLogo({
   const image = (
     <span
       className={cn(
-        "relative inline-block shrink-0 overflow-hidden rounded-xl bg-white shadow-md ring-1 ring-white/40",
+        "relative inline-block shrink-0 overflow-hidden rounded-full bg-white shadow-md ring-2 ring-white/80",
         SIZE_CLASS[size],
         className,
       )}
@@ -40,7 +40,7 @@ export function BrandLogo({
         sizes="(max-width: 640px) 56px, 128px"
         priority={priority}
         unoptimized
-        className="object-contain p-0.5"
+        className="object-cover"
       />
     </span>
   );

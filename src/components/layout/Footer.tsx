@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import {
   BUSINESS,
   mapsLink,
@@ -26,9 +27,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-brand-orange text-slate-950 font-black flex items-center justify-center text-sm">
-              SP
-            </div>
+            <BrandLogo size="xs" href="/" className="ring-2 ring-slate-700" />
             <span className="font-extrabold text-white text-base">Shubham Prints</span>
           </div>
           <p className="text-slate-400 leading-relaxed">

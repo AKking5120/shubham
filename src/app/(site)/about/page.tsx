@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Mail, MapPin, Phone, User } from "lucide-react";
 import { BUSINESS, mapsLink, PAGE_HERO_IMAGES, SEO, whatsappLinkForPhone } from "@/lib/constants";
 import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
@@ -24,6 +25,7 @@ export default function AboutPage() {
       <section className="py-16 md:py-20">
         <div className="mx-auto grid max-w-7xl items-start gap-12 px-4 lg:grid-cols-2 lg:px-6">
           <div>
+            <BrandLogo size="lg" href={null} className="mb-6 ring-2 ring-slate-200" />
             <h2 className="text-2xl font-bold text-[#0a1628]">
               About {BUSINESS.name}
             </h2>

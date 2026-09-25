@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Lock, Menu, MessageSquare, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { telLink, whatsappLink } from "@/lib/constants";
 import type { SiteContent } from "@/lib/site-content";
 import { cn } from "@/lib/utils";
@@ -80,10 +81,13 @@ export function Header({ site }: { site: HeaderSiteContent }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 shrink-0">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand-blue via-indigo-800 to-brand-orange p-0.5 shadow-md">
-                <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center text-brand-blue font-extrabold text-xl tracking-tighter">
-                  SP
-                </div>
+              <div className="rounded-full bg-gradient-to-tr from-brand-blue via-indigo-800 to-brand-orange p-0.5 shadow-md shrink-0">
+                <BrandLogo
+                  size="sm"
+                  href={null}
+                  priority
+                  className="shadow-none ring-2 ring-white"
+                />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
