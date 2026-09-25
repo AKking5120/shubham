@@ -1,4 +1,5 @@
 import {
+  BILL_BOOK_DESIGN_PRODUCTS,
   LETTER_HEAD_DESIGN_PRODUCTS,
   VISITING_CARD_DESIGN_PRODUCTS,
 } from "./service-design-gallery";
@@ -25,6 +26,9 @@ export function productsForService(
   }
   if (serviceSlug === "letter-pad") {
     return LETTER_HEAD_DESIGN_PRODUCTS;
+  }
+  if (serviceSlug === "bill-book") {
+    return BILL_BOOK_DESIGN_PRODUCTS;
   }
   const categories = SERVICE_GALLERY_CATEGORIES[serviceSlug];
   if (!categories?.length) return products;
