@@ -16,7 +16,7 @@ export const BUSINESS = {
 export const BRAND_LOGO = "/logo.jpg?v=shubham";
 
 /** Proprietor photo (public/owner.jpg) */
-export const OWNER_PHOTO = "/owner.jpg";
+export const OWNER_PHOTO = "/owner.jpg?v=dk";
 
 /** Hero background photos (inner pages, mockup-style). */
 export const PAGE_HERO_IMAGES = {
