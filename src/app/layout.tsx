@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { BRAND_LOGO, BUSINESS, SEO } from "@/lib/constants";
+import { BRAND_LOGO } from "@/lib/constants";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
+import { getSiteContent } from "@/lib/store";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -10,16 +11,18 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSiteContent();
+  return {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ),
   title: {
-    default: SEO.title,
-    template: `%s | ${BUSINESS.name}`,
+    default: site.seo.title,
+    template: `%s | ${site.business.name}`,
   },
-  applicationName: BUSINESS.name,
-  description: SEO.description,
+  applicationName: site.business.name,
+  description: site.seo.description,
   icons: {
     icon: [{ url: BRAND_LOGO, type: "image/jpeg" }],
     apple: BRAND_LOGO,
@@ -35,25 +38,26 @@ export const metadata: Metadata = {
     "New Delhi",
   ],
   openGraph: {
-    title: SEO.title,
-    description: SEO.description,
+    title: site.seo.title,
+    description: site.seo.description,
     type: "website",
     locale: "en_IN",
-    siteName: BUSINESS.name,
+    siteName: site.business.name,
     images: [
       {
         url: BRAND_LOGO,
-        alt: BUSINESS.name,
+        alt: site.business.name,
       },
     ],
   },
   twitter: {
     card: "summary",
-    title: SEO.title,
-    description: SEO.description,
+    title: site.seo.title,
+    description: site.seo.description,
     images: [BRAND_LOGO],
   },
 };
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

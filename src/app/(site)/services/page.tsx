@@ -11,8 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  const services = getPublicServices();
-  const products = getPublicProducts();
+  const [services, products] = await Promise.all([
+    getPublicServices(),
+    getPublicProducts(),
+  ]);
 
   return (
     <>
@@ -58,7 +60,10 @@ export default async function ServicesPage() {
             </p>
           </div>
           <div className="mt-10 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm md:p-8">
-            <QuoteForm showExtendedFields />
+            <QuoteForm
+              showExtendedFields
+              serviceOptions={services.map((s) => s.name).concat(["Other"])}
+            />
           </div>
         </div>
       </section>

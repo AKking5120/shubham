@@ -1,0 +1,32 @@
+{
+  "business": {
+    "name": "Shubham Prints & Stationers",
+    "owner": "Dhirendra Kumar",
+    "phones": ["9717528176", "9910374874"],
+    "email": "shubhamprints02@gmail.com",
+    "address": {
+      "line1": "D-54, Prince Colony, Tanki Road",
+      "line2": "Jaitpur, Badarpur",
+      "city": "New Delhi - 110044",
+      "full": "D-54, Prince Colony, Tanki Road, Jaitpur, Badarpur, New Delhi - 110044"
+    },
+    "slogan": "An Unit of Complete Printing Solution"
+  },
+  "seo": {
+    "title": "Shubham Prints & Stationers | Complete Printing Solutions in Jaitpur, New Delhi",
+    "description": "Shubham Prints & Stationers — bill books, visiting cards, UV texture cards, doctor files, wedding cards, bulk xerox printouts in Jaitpur, Badarpur, New Delhi. Call 9717528176."
+  },
+  "announcement": {
+    "badge": "Fast Turnaround",
+    "text": "GST Bill Books, Spot UV Cards, Doctor Files & Shadi Cards in Badarpur & Jaitpur!"
+  },
+  "hero": {
+    "title": "Complete High-Quality",
+    "highlight": "Printing & Stationery",
+    "description": "Serving South Delhi businesses, doctors, schools & walk-in customers. From GST duplicate bill books to spot UV texture cards, garment tags, doctor files & shadi cards with fast local turnaround."
+  },
+  "contact": {
+    "workingHours": "Monday - Sunday: 9:00 AM - 9:00 PM",
+    "whatsappDefaultMessage": "Hello Shubham Prints & Stationers, I would like to enquire about a printing requirement."
+  }
+}

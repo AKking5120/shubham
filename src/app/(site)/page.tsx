@@ -13,9 +13,10 @@ import {
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { HomeGalleryPreview } from "@/components/home/HomeGalleryPreview";
 import { ServiceCard } from "@/components/services/ServiceCard";
-import { BUSINESS, telLink, whatsappLink } from "@/lib/constants";
+import { telLink, whatsappLink } from "@/lib/constants";
 import { getGalleryPreviewProducts } from "@/lib/service-design-gallery";
 import { getPublicProducts, getPublicServices } from "@/lib/public-catalog";
+import { getSiteContent } from "@/lib/store";
 
 const popularServices = [
   {
@@ -49,9 +50,14 @@ const popularServices = [
 ];
 
 export default async function HomePage() {
-  const services = getPublicServices();
-  const products = getPublicProducts();
+  const [services, products, site] = await Promise.all([
+    getPublicServices(),
+    getPublicProducts(),
+    getSiteContent(),
+  ]);
   const galleryPreview = getGalleryPreviewProducts(8);
+  const { business: BUSINESS, hero, contact } = site;
+  const wa = () => whatsappLink(contact.whatsappDefaultMessage);
 
   return (
     <>
@@ -65,20 +71,18 @@ export default async function HomePage() {
                 {BUSINESS.address.line1}, {BUSINESS.address.line2}
               </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-                Complete High-Quality{" "}
+                {hero.title}{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">
-                  Printing & Stationery
+                  {hero.highlight}
                 </span>{" "}
                 Solutions
               </h1>
               <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Serving South Delhi businesses, doctors, schools & walk-in customers.
-                From GST duplicate bill books to spot UV texture cards, garment tags,
-                doctor files & shadi cards with fast local turnaround.
+                {hero.description}
               </p>
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
                 <a
-                  href={whatsappLink()}
+                  href={wa()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base flex items-center gap-2 shadow-lg shadow-emerald-900/30 transition"
@@ -276,7 +280,10 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="bg-white border border-slate-200 rounded-2xl shadow-xl p-6 sm:p-8">
-            <QuoteForm showExtendedFields />
+            <QuoteForm
+              showExtendedFields
+              serviceOptions={services.map((s) => s.name).concat(["Other"])}
+            />
           </div>
         </div>
       </section>

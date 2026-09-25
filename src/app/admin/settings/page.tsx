@@ -1,11 +1,12 @@
 import { isEnquiryEmailConfigured } from "@/lib/enquiry-email";
 import { isCloudinaryConfigured } from "@/lib/cloudinary";
-import { BUSINESS } from "@/lib/constants";
+import { SiteContentManager } from "@/components/admin/SiteContentManager";
 import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
-import { getDataBackend } from "@/lib/store";
+import { getDataBackend, getSiteContent } from "@/lib/store";
 import { isSupabaseConfigured } from "@/lib/supabase/server";
 
-export default function AdminSettingsPage() {
+export default async function AdminSettingsPage() {
+  const siteContent = await getSiteContent();
   const backend = getDataBackend();
   const supabaseOn = isSupabaseConfigured();
   const cloudinaryOn = isCloudinaryConfigured();
@@ -18,7 +19,17 @@ export default function AdminSettingsPage() {
         Site configuration, database and media storage.
       </p>
 
-      <div className="mt-8 max-w-2xl space-y-6">
+      <div className="mt-8 max-w-3xl space-y-6">
+        <div className="rounded-2xl border border-amber-200 bg-amber-50/50 p-6 shadow-sm">
+          <h2 className="font-semibold text-[#0a1628]">Website content (public site)</h2>
+          <p className="mt-1 text-sm text-slate-600">
+            Business details, announcement bar, home hero, SEO and WhatsApp default message.
+          </p>
+          <div className="mt-6">
+            <SiteContentManager initial={siteContent} />
+          </div>
+        </div>
+
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="font-semibold text-[#0a1628]">Connection status</h2>
           <ul className="mt-4 space-y-2 text-sm">
@@ -64,23 +75,19 @@ export default function AdminSettingsPage() {
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-[#0a1628]">Business details</h2>
-          <p className="mt-2 text-sm text-slate-600">
-            Edit contact info in{" "}
-            <code className="rounded bg-slate-100 px-1">src/lib/constants.ts</code>.
-          </p>
+          <h2 className="font-semibold text-[#0a1628]">Live business preview</h2>
           <ul className="mt-4 space-y-1 text-sm text-slate-700">
-            <li>{BUSINESS.name}</li>
-            <li>{BUSINESS.owner}</li>
+            <li>{siteContent.business.name}</li>
+            <li>{siteContent.business.owner}</li>
             <li>
-              <EmailLink email={BUSINESS.email} className="text-[#1e3a5f]" />
+              <EmailLink email={siteContent.business.email} className="text-[#1e3a5f]" />
             </li>
-            {BUSINESS.phones.map((phone) => (
+            {siteContent.business.phones.map((phone) => (
               <li key={phone}>
                 <PhoneLink phone={phone} className="text-[#1e3a5f]" />
               </li>
             ))}
-            <li>{BUSINESS.address.full}</li>
+            <li>{siteContent.business.address.full}</li>
           </ul>
         </div>
 
