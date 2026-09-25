@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Phone, User } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { OwnerPhoto } from "@/components/brand/OwnerPhoto";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/layout/PageHero";
@@ -43,14 +44,17 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               Call, WhatsApp or visit us in Jaitpur for printing support.
             </p>
 
+            <div className="mt-6 flex flex-col items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-center sm:items-start sm:text-left">
+              <OwnerPhoto size="sm" className="ring-slate-200" />
+              <div>
+                <p className="text-xs font-semibold uppercase text-slate-500">
+                  Owner
+                </p>
+                <p className="font-medium text-slate-800">{BUSINESS.owner}</p>
+              </div>
+            </div>
+
             <ul className="mt-6 space-y-4 text-sm">
-              <li className="flex gap-3">
-                <User className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
-                <div>
-                  <p className="font-semibold text-slate-500">Owner</p>
-                  <p className="font-medium text-slate-800">{BUSINESS.owner}</p>
-                </div>
-              </li>
               {BUSINESS.phones.map((phone) => (
                 <li key={phone} className="flex gap-3">
                   <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />

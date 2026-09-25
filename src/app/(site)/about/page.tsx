@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Mail, MapPin, Phone, User } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { BUSINESS, mapsLink, PAGE_HERO_IMAGES, SEO, whatsappLinkForPhone } from "@/lib/constants";
 import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
 import { BrandLogo } from "@/components/brand/BrandLogo";
+import { OwnerPhoto } from "@/components/brand/OwnerPhoto";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
@@ -43,13 +44,16 @@ export default function AboutPage() {
             </p>
 
             <ul className="mt-8 space-y-4 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-              <li className="flex gap-3">
-                <User className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
-                <div>
+              <li className="flex flex-col items-center gap-3 pb-4 border-b border-slate-200 sm:flex-row sm:items-start">
+                <OwnerPhoto size="md" className="ring-slate-200" />
+                <div className="text-center sm:text-left">
                   <p className="text-xs font-semibold uppercase text-slate-500">
                     Owner
                   </p>
                   <p className="font-bold text-[#0a1628]">{BUSINESS.owner}</p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    Founder &amp; Managing Director
+                  </p>
                 </div>
               </li>
               <li className="flex gap-3">

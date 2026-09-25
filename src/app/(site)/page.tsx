@@ -10,7 +10,7 @@ import {
   PhoneCall,
   Printer,
 } from "lucide-react";
-import { BrandLogo } from "@/components/brand/BrandLogo";
+import { OwnerPhoto } from "@/components/brand/OwnerPhoto";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { HomeGalleryPreview } from "@/components/home/HomeGalleryPreview";
 import { ServiceCard } from "@/components/services/ServiceCard";
@@ -239,13 +239,7 @@ export default async function HomePage() {
               </div>
             </div>
             <div className="lg:col-span-4 bg-slate-900/60 p-6 rounded-2xl border border-blue-700/50 text-center space-y-4">
-              <div className="mx-auto w-fit rounded-full bg-gradient-to-tr from-brand-blue via-indigo-800 to-brand-orange p-0.5 shadow-lg">
-                <BrandLogo
-                  size="lg"
-                  href={null}
-                  className="shadow-none ring-2 ring-white"
-                />
-              </div>
+              <OwnerPhoto size="lg" className="mx-auto ring-amber-400/50" />
               <div>
                 <h3 className="font-bold text-base text-white">{BUSINESS.owner}</h3>
                 <p className="text-xs text-amber-300 font-medium">

@@ -15,6 +15,9 @@ export const BUSINESS = {
 /** Official circular logo (public/logo.jpg) */
 export const BRAND_LOGO = "/logo.jpg?v=shubham";
 
+/** Proprietor photo (public/owner.jpg) */
+export const OWNER_PHOTO = "/owner.jpg";
+
 /** Hero background photos (inner pages, mockup-style). */
 export const PAGE_HERO_IMAGES = {
   services:
