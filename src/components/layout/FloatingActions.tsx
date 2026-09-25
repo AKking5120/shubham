@@ -1,5 +1,6 @@
 "use client";
 
+import { AutoUpButton } from "@/components/layout/AutoUpButton";
 import { Phone } from "lucide-react";
 import { BUSINESS, telLink, whatsappLink } from "@/lib/constants";
 
@@ -15,22 +16,23 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export function FloatingActions() {
   return (
-    <div className="fixed bottom-5 right-4 z-40 flex flex-col items-end gap-3">
-      <a
-        href={telLink(BUSINESS.phones[0])}
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1e3a5f] text-white shadow-lg shadow-slate-900/20 transition hover:scale-105 md:hidden"
-        aria-label="Call now"
-      >
-        <Phone className="h-5 w-5" />
-      </a>
+    <div className="fixed bottom-20 right-4 z-40 flex flex-col items-end gap-3 md:bottom-5">
+      <AutoUpButton />
       <a
         href={whatsappLink()}
         target="_blank"
         rel="noopener noreferrer"
-        className="animate-whatsapp-pulse flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-green-600/35 ring-4 ring-white/90 transition hover:scale-110 active:scale-95"
+        className="animate-whatsapp-pulse hidden h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-green-600/35 ring-4 ring-white/90 transition hover:scale-110 active:scale-95 md:flex"
         aria-label="WhatsApp us"
       >
         <WhatsAppIcon className="h-7 w-7" />
+      </a>
+      <a
+        href={telLink(BUSINESS.phones[0])}
+        className="hidden h-12 w-12 items-center justify-center rounded-full bg-[#1e3a5f] text-white shadow-lg shadow-slate-900/20 transition hover:scale-105 md:flex"
+        aria-label="Call now"
+      >
+        <Phone className="h-5 w-5" />
       </a>
     </div>
   );

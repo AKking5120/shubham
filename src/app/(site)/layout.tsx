@@ -19,9 +19,7 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
       <main className="flex-1">{children}</main>
       <Footer />
       <MobileBottomBar />
-      <div className="hidden md:block">
-        <FloatingActions />
-      </div>
+      <FloatingActions />
     </div>
   );
 }
