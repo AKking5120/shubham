@@ -85,6 +85,18 @@ export const DEFAULT_SERVICES: Service[] = [
     enabled: true,
     order: 7,
   },
+  {
+    id: "svc-8",
+    slug: "id-card",
+    name: "ID Card",
+    shortDescription:
+      "Professional ID cards for staff, students, members and events.",
+    description:
+      "Custom ID card printing with photo, name, designation and barcode or QR options. Durable card stock for schools, offices, factories and events.",
+    image: "/services/id-card.jpg",
+    enabled: true,
+    order: 8,
+  },
 ];
 
 export const DEFAULT_PRODUCTS: Product[] = [

@@ -1,5 +1,6 @@
 import type { GalleryCategory, Product } from "./types";
 import billBookFiles from "../../data/bill-book-image-files.json";
+import idCardFiles from "../../data/id-card-image-files.json";
 import letterHeadFiles from "../../data/letter-head-image-files.json";
 import visitingCardFiles from "../../data/visiting-card-image-files.json";
 
@@ -76,4 +77,12 @@ export const BILL_BOOK_DESIGN_PRODUCTS = productsFromLocalGallery(
   "bb-design",
   "Bill Book Design",
   "Business Printing",
+);
+
+export const ID_CARD_DESIGN_PRODUCTS = productsFromLocalGallery(
+  (idCardFiles as string[]).length,
+  "id-card",
+  "id-design",
+  "ID Card Design",
+  "Cards",
 );

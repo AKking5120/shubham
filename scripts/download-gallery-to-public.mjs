@@ -50,6 +50,20 @@ for (let i = 0; i < files.length; i++) {
   }
 
   if (!buf) {
+    for (let j = 0; j < files.length; j++) {
+      if (j === i) continue;
+      const altUrl = files[j].startsWith("http")
+        ? files[j]
+        : `${BASE}${encodeURI(files[j])}`;
+      buf = await tryDownload(altUrl);
+      if (buf) {
+        console.warn(`FALLBACK ${i + 1} <- ${files[j]} (CDN 404 for ${remote})`);
+        break;
+      }
+    }
+  }
+
+  if (!buf) {
     console.error(`FAIL ${i + 1}: ${remote}`);
     process.exit(1);
   }

@@ -12,6 +12,7 @@ const SERVICE_OPTIONS = [
   "Sticker / Banner",
   "Wedding Card",
   "Bulk Copy / Printout",
+  "ID Card",
   "Other",
 ];
 

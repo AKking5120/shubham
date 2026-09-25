@@ -1,5 +1,6 @@
 import {
   BILL_BOOK_DESIGN_PRODUCTS,
+  ID_CARD_DESIGN_PRODUCTS,
   LETTER_HEAD_DESIGN_PRODUCTS,
   VISITING_CARD_DESIGN_PRODUCTS,
 } from "./service-design-gallery";
@@ -12,6 +13,7 @@ export const SERVICE_GALLERY_CATEGORIES: Record<string, GalleryCategory[]> = {
   "challan-book": ["Business Printing"],
   "letter-pad": ["Stationery"],
   "visiting-card-tag": ["Cards"],
+  "id-card": ["Cards"],
   "sticker-banner": ["Stickers", "Banners"],
   "wedding-card": ["Wedding Printing"],
   "bulk-copy-printout": ["Business Printing", "Stationery"],
@@ -29,6 +31,9 @@ export function productsForService(
   }
   if (serviceSlug === "bill-book") {
     return BILL_BOOK_DESIGN_PRODUCTS;
+  }
+  if (serviceSlug === "id-card") {
+    return ID_CARD_DESIGN_PRODUCTS;
   }
   const categories = SERVICE_GALLERY_CATEGORIES[serviceSlug];
   if (!categories?.length) return products;

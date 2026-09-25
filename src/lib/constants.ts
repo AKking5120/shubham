@@ -93,6 +93,7 @@ export const SERVICE_SLUGS = [
   "sticker-banner",
   "wedding-card",
   "bulk-copy-printout",
+  "id-card",
 ] as const;
 
 export const ENQUIRY_STATUSES = [

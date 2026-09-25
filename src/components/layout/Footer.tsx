@@ -28,6 +28,7 @@ const serviceLinks = [
   { href: "/services#sticker-banner", label: "Sticker / Banner" },
   { href: "/services#wedding-card", label: "Wedding Card" },
   { href: "/services#bulk-copy-printout", label: "Bulk Copy / Printout" },
+  { href: "/services#id-card", label: "ID Card" },
 ];
 
 export function Footer() {

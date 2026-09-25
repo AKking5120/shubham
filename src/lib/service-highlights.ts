@@ -45,6 +45,12 @@ export function serviceHighlights(service: Service): string[] {
       "A4 and custom page sizes",
       "Binding, spiral and finishing options",
     ],
+    "id-card": [
+      "Staff, student & member ID layouts",
+      "Photo, name & designation fields",
+      "Barcode / QR options available",
+      "Durable PVC or laminated cards",
+    ],
   };
 
   return (

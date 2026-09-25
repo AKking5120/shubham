@@ -9,6 +9,7 @@ export const SERVICE_IMAGES: Record<string, string> = {
   "sticker-banner": "/services/sticker-banner.jpg",
   "wedding-card": "/services/wedding-card.jpg",
   "bulk-copy-printout": "/services/bulk-copy-printout.jpg",
+  "id-card": "/services/id-card.jpg",
 };
 
 const PRODUCT_IMAGES: Record<string, string> = {
