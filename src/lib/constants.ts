@@ -12,8 +12,8 @@ export const BUSINESS = {
   slogan: "An Unit of Complete Printing Solution",
 };
 
-/** Official logo (public/logo.jpg) */
-export const BRAND_LOGO = "/logo.jpg";
+/** Official circular logo (public/logo.jpg) */
+export const BRAND_LOGO = "/logo.jpg?v=shubham";
 
 /** Hero background photos (inner pages, mockup-style). */
 export const PAGE_HERO_IMAGES = {

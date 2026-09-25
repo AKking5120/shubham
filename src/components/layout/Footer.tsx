@@ -27,7 +27,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <BrandLogo size="xs" href="/" className="ring-2 ring-slate-700" />
+            <BrandLogo size="sm" href="/" className="ring-2 ring-slate-600" />
             <span className="font-extrabold text-white text-base">Shubham Prints</span>
           </div>
           <p className="text-slate-400 leading-relaxed">

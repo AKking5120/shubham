@@ -81,14 +81,11 @@ export function Header({ site }: { site: HeaderSiteContent }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-center gap-3 shrink-0">
-              <div className="rounded-full bg-gradient-to-tr from-brand-blue via-indigo-800 to-brand-orange p-0.5 shadow-md shrink-0">
-                <BrandLogo
-                  size="sm"
-                  href={null}
-                  priority
-                  className="shadow-none ring-2 ring-white"
-                />
-              </div>
+              <BrandLogo
+                size="nav"
+                href={null}
+                className="shadow-lg ring-2 ring-brand-orange/40"
+              />
               <div>
                 <div className="flex items-center gap-1.5">
                   <span className="font-extrabold text-lg sm:text-xl text-slate-900 tracking-tight leading-none">

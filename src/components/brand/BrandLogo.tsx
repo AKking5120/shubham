@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { BRAND_LOGO, BUSINESS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -7,6 +6,7 @@ const SIZE_CLASS = {
   xs: "h-9 w-9",
   sm: "h-11 w-11",
   md: "h-14 w-14",
+  nav: "h-12 w-12 sm:h-14 sm:w-14",
   lg: "h-[4.5rem] w-[4.5rem]",
   xl: "h-24 w-24",
   hero: "h-28 w-28 sm:h-32 sm:w-32",
@@ -23,24 +23,24 @@ export function BrandLogo({
   size = "md",
   className,
   href = "/",
-  priority,
 }: BrandLogoProps) {
   const image = (
     <span
       className={cn(
-        "relative inline-block shrink-0 overflow-hidden rounded-full bg-white shadow-md ring-2 ring-white/80",
+        "relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-md ring-2 ring-white/80",
         SIZE_CLASS[size],
         className,
       )}
     >
-      <Image
+      {/* Native img — reliable on Vercel/CDN for public/logo.jpg */}
+      <img
         src={BRAND_LOGO}
         alt={`${BUSINESS.name} — ${BUSINESS.slogan}`}
-        fill
-        sizes="(max-width: 640px) 56px, 128px"
-        priority={priority}
-        unoptimized
-        className="object-cover"
+        width={128}
+        height={128}
+        className="h-full w-full object-contain p-0.5"
+        decoding="async"
+        fetchPriority={size === "nav" || size === "hero" ? "high" : "auto"}
       />
     </span>
   );
