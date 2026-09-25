@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import type { DesignGalleryOverride } from "@/lib/store";
 import {
@@ -23,6 +24,14 @@ export async function PUT(request: Request) {
   const body = (await request.json()) as {
     overrides: Record<string, DesignGalleryOverride>;
   };
-  await saveDesignGalleryOverrides(body.overrides ?? {});
-  return NextResponse.json({ success: true });
+  try {
+    await saveDesignGalleryOverrides(body.overrides ?? {});
+    revalidatePath("/");
+    revalidatePath("/services");
+    revalidatePath("/gallery");
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Save failed";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }

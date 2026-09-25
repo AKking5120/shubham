@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { Product } from "@/lib/types";
 import { GALLERY_CATEGORIES } from "@/lib/constants";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { adminFetch } from "@/lib/admin-fetch";
 
 export function GalleryManager({ initial }: { initial: Product[] }) {
   const [products, setProducts] = useState(initial);
@@ -19,13 +20,17 @@ export function GalleryManager({ initial }: { initial: Product[] }) {
 
   async function saveAll() {
     setSaving(true);
-    const res = await fetch("/api/products", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(products),
-    });
-    setSaving(false);
-    setMessage(res.ok ? "Gallery updated." : "Save failed.");
+    try {
+      await adminFetch("/api/products", {
+        method: "PUT",
+        body: JSON.stringify(products),
+      });
+      setMessage("Gallery saved successfully.");
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "Save failed.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   function addProduct() {

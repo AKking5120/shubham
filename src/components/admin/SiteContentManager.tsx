@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { SiteContent } from "@/lib/site-content";
+import { adminFetch } from "@/lib/admin-fetch";
 
 export function SiteContentManager({ initial }: { initial: SiteContent }) {
   const [content, setContent] = useState(initial);
@@ -50,17 +51,17 @@ export function SiteContentManager({ initial }: { initial: SiteContent }) {
         },
       },
     };
-    const res = await fetch("/api/admin/site-content", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(full),
-    });
-    setSaving(false);
-    if (res.ok) {
+    try {
+      await adminFetch("/api/admin/site-content", {
+        method: "PUT",
+        body: JSON.stringify(full),
+      });
       setContent(full);
-      setMessage("Site content saved. Refresh the public site to see updates.");
-    } else {
-      setMessage("Save failed.");
+      setMessage("Site content saved successfully.");
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "Save failed.");
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -75,7 +76,13 @@ export function SiteContentManager({ initial }: { initial: SiteContent }) {
         >
           {saving ? "Saving..." : "Save Site Content"}
         </button>
-        {message && <p className="text-sm text-emerald-700">{message}</p>}
+        {message && (
+          <p
+            className={`text-sm ${message.includes("success") ? "text-emerald-700" : "text-red-600"}`}
+          >
+            {message}
+          </p>
+        )}
       </div>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">

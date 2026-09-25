@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getAllServices, getServices, saveServices } from "@/lib/store";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import type { Service } from "@/lib/types";
@@ -15,9 +16,16 @@ export async function PUT(request: Request) {
   if (!authed) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const services = (await request.json()) as Service[];
-  await saveServices(services);
-  return NextResponse.json({ success: true });
+  try {
+    const services = (await request.json()) as Service[];
+    await saveServices(services);
+    revalidatePath("/");
+    revalidatePath("/services");
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Save failed";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {

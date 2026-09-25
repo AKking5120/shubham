@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   LayoutTemplate,
   LogOut,
+  Calculator,
   Package,
   Settings,
   ShoppingBag,
@@ -21,6 +22,7 @@ const links = [
   { href: "/admin/services", label: "Services", icon: Package },
   { href: "/admin/gallery", label: "Home Gallery", icon: ImageIcon },
   { href: "/admin/designs", label: "Design Templates", icon: LayoutTemplate },
+  { href: "/admin/calculator", label: "Price Calculator", icon: Calculator },
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
@@ -30,7 +32,10 @@ export function AdminSidebar() {
   const router = useRouter();
 
   async function logout() {
-    await fetch("/api/admin/login", { method: "DELETE" });
+    await fetch("/api/admin/login", {
+      method: "DELETE",
+      credentials: "include",
+    });
     router.push("/admin/login");
     router.refresh();
   }

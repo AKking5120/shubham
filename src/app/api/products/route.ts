@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getProducts, saveProducts } from "@/lib/store";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import type { Product } from "@/lib/types";
@@ -13,7 +14,14 @@ export async function PUT(request: Request) {
   if (!authed) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const products = (await request.json()) as Product[];
-  await saveProducts(products);
-  return NextResponse.json({ success: true });
+  try {
+    const products = (await request.json()) as Product[];
+    await saveProducts(products);
+    revalidatePath("/");
+    revalidatePath("/gallery");
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Save failed";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }

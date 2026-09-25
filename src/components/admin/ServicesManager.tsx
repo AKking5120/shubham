@@ -4,6 +4,7 @@ import { ServiceImage } from "@/components/services/ServiceImage";
 import { useState } from "react";
 import type { Service } from "@/lib/types";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { adminFetch } from "@/lib/admin-fetch";
 
 export function ServicesManager({ initial }: { initial: Service[] }) {
   const [services, setServices] = useState(initial);
@@ -19,13 +20,17 @@ export function ServicesManager({ initial }: { initial: Service[] }) {
   async function saveAll() {
     setSaving(true);
     setMessage("");
-    const res = await fetch("/api/services", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(services),
-    });
-    setSaving(false);
-    setMessage(res.ok ? "Services saved successfully." : "Failed to save.");
+    try {
+      await adminFetch("/api/services", {
+        method: "PUT",
+        body: JSON.stringify(services),
+      });
+      setMessage("Services saved successfully.");
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "Failed to save.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   async function addService() {
@@ -66,7 +71,13 @@ export function ServicesManager({ initial }: { initial: Service[] }) {
         >
           {saving ? "Saving..." : "Save Changes"}
         </button>
-        {message && <p className="text-sm text-emerald-700">{message}</p>}
+        {message && (
+          <p
+            className={`text-sm ${message.includes("success") ? "text-emerald-700" : "text-red-600"}`}
+          >
+            {message}
+          </p>
+        )}
       </div>
 
       <div className="space-y-6">

@@ -1,0 +1,178 @@
+{
+  "visiting_cards": {
+    "name": "Visiting Cards / Garment Tags",
+    "papers": [
+      {
+        "name": "300 GSM Art Card (Standard)",
+        "baseRate": 0.35
+      },
+      {
+        "name": "350 GSM Heavy Premium Board",
+        "baseRate": 0.5
+      },
+      {
+        "name": "Velvet Soft Touch Board",
+        "baseRate": 0.85
+      }
+    ],
+    "quantities": [
+      100,
+      500,
+      1000,
+      2000
+    ],
+    "finishings": [
+      {
+        "id": "f1",
+        "name": "Spot UV Texture",
+        "cost": 200
+      },
+      {
+        "id": "f2",
+        "name": "Round Corner Cut",
+        "cost": 100
+      },
+      {
+        "id": "f3",
+        "name": "Gold Foil Stamping",
+        "cost": 350
+      }
+    ],
+    "qtyUnit": "Pcs",
+    "finishPerQty": false
+  },
+  "bill_books": {
+    "name": "Bill Books & Challan Pads",
+    "papers": [
+      {
+        "name": "Duplicate Carbonless (50 Sets)",
+        "baseRate": 65
+      },
+      {
+        "name": "Triplicate Carbonless (50 Sets)",
+        "baseRate": 95
+      },
+      {
+        "name": "Single Sunlit Paper (100 Sheets)",
+        "baseRate": 45
+      }
+    ],
+    "quantities": [
+      5,
+      10,
+      20,
+      50
+    ],
+    "finishings": [
+      {
+        "id": "f1",
+        "name": "Red Serial Numbering",
+        "cost": 50
+      },
+      {
+        "id": "f2",
+        "name": "Hard Binder Binding",
+        "cost": 80
+      }
+    ],
+    "qtyUnit": "Books",
+    "finishPerQty": true
+  },
+  "doctor_files": {
+    "name": "Doctor Files & Envelopes",
+    "papers": [
+      {
+        "name": "Standard Laminated Doctor Folder",
+        "baseRate": 18
+      },
+      {
+        "name": "ATM Protection Card Pouch",
+        "baseRate": 4.5
+      },
+      {
+        "name": "Printed Envelope (9x4 inch)",
+        "baseRate": 2.2
+      }
+    ],
+    "quantities": [
+      100,
+      250,
+      500,
+      1000
+    ],
+    "finishings": [
+      {
+        "id": "f1",
+        "name": "Inside File Clip",
+        "cost": 3
+      },
+      {
+        "id": "f2",
+        "name": "Gloss Outer Lamination",
+        "cost": 2
+      }
+    ],
+    "qtyUnit": "Pcs",
+    "finishPerQty": false
+  },
+  "banners": {
+    "name": "Flex Banners & Stickers",
+    "papers": [
+      {
+        "name": "Star Flex Banner (Per Sq Ft)",
+        "baseRate": 12
+      },
+      {
+        "name": "Gloss Vinyl Sticker (Per Sq Ft)",
+        "baseRate": 25
+      }
+    ],
+    "quantities": [
+      20,
+      50,
+      100,
+      200
+    ],
+    "finishings": [
+      {
+        "id": "f1",
+        "name": "Metal Eyelets & Ropes",
+        "cost": 30
+      }
+    ],
+    "qtyUnit": "SqFt",
+    "finishPerQty": false
+  },
+  "bulk_prints": {
+    "name": "Bulk Copying & Printouts",
+    "papers": [
+      {
+        "name": "Single Side B/W Xerox (75 GSM)",
+        "baseRate": 0.75
+      },
+      {
+        "name": "Double Side B/W Xerox",
+        "baseRate": 1.2
+      },
+      {
+        "name": "Full Color A4 Laser Printout",
+        "baseRate": 5
+      }
+    ],
+    "quantities": [
+      100,
+      500,
+      1000,
+      5000
+    ],
+    "finishings": [
+      {
+        "id": "f1",
+        "name": "Spiral Binding with Transparent Cover",
+        "cost": 30
+      }
+    ],
+    "qtyUnit": "Pcs",
+    "finishPerQty": false
+  }
+}

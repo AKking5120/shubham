@@ -1,6 +1,8 @@
 import Link from "next/link";
 import {
+  Calculator,
   ImageIcon,
+  LayoutTemplate,
   Package,
   Plus,
   Settings,
@@ -120,13 +122,15 @@ export default async function AdminDashboardPage() {
         <h2 className="text-lg font-semibold text-[#0a1628]">Quick Actions</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { href: "/admin/services", label: "Add Service", icon: Plus },
-            { href: "/admin/gallery", label: "Add Product", icon: Package },
-            { href: "/admin/gallery", label: "Manage Products", icon: ImageIcon },
-            { href: "/admin/settings", label: "Settings", icon: Settings },
-          ].map(({ href, label, icon: Icon }) => (
+            { id: "services", href: "/admin/services", label: "Manage Services", icon: Package },
+            { id: "calculator", href: "/admin/calculator", label: "Price Calculator", icon: Calculator },
+            { id: "designs", href: "/admin/designs", label: "Design Templates", icon: LayoutTemplate },
+            { id: "gallery", href: "/admin/gallery", label: "Home Gallery", icon: ImageIcon },
+            { id: "settings", href: "/admin/settings", label: "Site Content", icon: Settings },
+            { id: "enquiries", href: "/admin/enquiries", label: "All Enquiries", icon: Plus },
+          ].map(({ id, href, label, icon: Icon }) => (
             <Link
-              key={label}
+              key={id}
               href={href}
               className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-[#1e3a5f] shadow-sm transition hover:border-[#1e3a5f]/30 hover:shadow-md"
             >

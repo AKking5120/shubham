@@ -60,3 +60,12 @@ create policy "Public insert enquiries"
   with check (true);
 
 -- Service role key (used in Next.js API) bypasses RLS.
+
+-- Admin-editable JSON (site content, price calculator, design overrides)
+create table if not exists public.app_settings (
+  key text primary key,
+  value jsonb not null default '{}',
+  updated_at timestamptz not null default now()
+);
+
+alter table public.app_settings enable row level security;

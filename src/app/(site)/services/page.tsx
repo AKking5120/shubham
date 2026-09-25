@@ -4,6 +4,7 @@ import { QuoteForm } from "@/components/forms/QuoteForm";
 import { PriceEstimator } from "@/components/services/PriceEstimator";
 import { SEO } from "@/lib/constants";
 import { getPublicProducts, getPublicServices } from "@/lib/public-catalog";
+import { getPriceCalculator } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "Services & Rates",
@@ -11,9 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  const [services, products] = await Promise.all([
+  const [services, products, calculator] = await Promise.all([
     getPublicServices(),
     getPublicProducts(),
+    getPriceCalculator(),
   ]);
 
   return (
@@ -35,7 +37,7 @@ export default async function ServicesPage() {
 
       <section className="py-10 md:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PriceEstimator />
+          <PriceEstimator config={calculator} />
         </div>
       </section>
 

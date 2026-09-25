@@ -4,6 +4,10 @@ import { isSupabaseConfigured } from "./supabase/server";
 import * as sb from "./supabase-store";
 import { normalizeProduct, normalizeService } from "./service-images";
 import {
+  DEFAULT_PRICE_CALCULATOR,
+  type PriceCalculatorConfig,
+} from "./price-calculator";
+import {
   DEFAULT_SITE_CONTENT,
   mergeSiteContent,
   type SiteContent,
@@ -37,7 +41,47 @@ async function readJson<T>(filename: string, fallback: T): Promise<T> {
 
 async function writeJson<T>(filename: string, data: T): Promise<void> {
   await ensureDataDir();
-  await fs.writeFile(filePath(filename), JSON.stringify(data, null, 2), "utf-8");
+  try {
+    await fs.writeFile(
+      filePath(filename),
+      JSON.stringify(data, null, 2),
+      "utf-8",
+    );
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    throw new Error(
+      `Could not save ${filename} (${msg}). On Vercel, enable Supabase and run app_settings SQL, or host on a server with writable data/.`,
+    );
+  }
+}
+
+async function readAppJson<T>(
+  supabaseKey: string,
+  filename: string,
+  fallback: T,
+): Promise<T> {
+  if (isSupabaseConfigured()) {
+    const fromDb = await sb.sbGetAppSetting<T>(supabaseKey);
+    if (fromDb) return fromDb;
+  }
+  return readJson(filename, fallback);
+}
+
+async function writeAppJson<T>(
+  supabaseKey: string,
+  filename: string,
+  data: T,
+): Promise<void> {
+  if (isSupabaseConfigured()) {
+    try {
+      await sb.sbSetAppSetting(supabaseKey, data);
+      return;
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      if (!msg.includes("app_settings")) throw e;
+    }
+  }
+  await writeJson(filename, data);
 }
 
 export function getDataBackend(): "supabase" | "json" {
@@ -142,7 +186,8 @@ export async function getEnquiryById(id: string): Promise<Enquiry | null> {
 }
 
 export async function getSiteContent(): Promise<SiteContent> {
-  const raw = await readJson<Partial<SiteContent>>(
+  const raw = await readAppJson<Partial<SiteContent>>(
+    "site_content",
     "site-content.json",
     DEFAULT_SITE_CONTENT,
   );
@@ -150,7 +195,21 @@ export async function getSiteContent(): Promise<SiteContent> {
 }
 
 export async function saveSiteContent(content: SiteContent): Promise<void> {
-  await writeJson("site-content.json", content);
+  await writeAppJson("site_content", "site-content.json", content);
+}
+
+export async function getPriceCalculator(): Promise<PriceCalculatorConfig> {
+  return readAppJson<PriceCalculatorConfig>(
+    "price_calculator",
+    "price-calculator.json",
+    DEFAULT_PRICE_CALCULATOR,
+  );
+}
+
+export async function savePriceCalculator(
+  config: PriceCalculatorConfig,
+): Promise<void> {
+  await writeAppJson("price_calculator", "price-calculator.json", config);
 }
 
 export type DesignGalleryOverride = {
@@ -161,7 +220,8 @@ export type DesignGalleryOverride = {
 export async function getDesignGalleryOverrides(): Promise<
   Record<string, DesignGalleryOverride>
 > {
-  const data = await readJson<{ overrides: Record<string, DesignGalleryOverride> }>(
+  const data = await readAppJson<{ overrides: Record<string, DesignGalleryOverride> }>(
+    "design_gallery_admin",
     "design-gallery-admin.json",
     { overrides: {} },
   );
@@ -171,7 +231,9 @@ export async function getDesignGalleryOverrides(): Promise<
 export async function saveDesignGalleryOverrides(
   overrides: Record<string, DesignGalleryOverride>,
 ): Promise<void> {
-  await writeJson("design-gallery-admin.json", { overrides });
+  await writeAppJson("design_gallery_admin", "design-gallery-admin.json", {
+    overrides,
+  });
 }
 
 /** Slugs with registry-backed or admin-managed design galleries. */

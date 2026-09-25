@@ -108,7 +108,9 @@ export default async function AdminSettingsPage() {
           </ul>
           <p className="mt-4 text-sm text-slate-600">
             Run <code className="rounded bg-slate-100 px-1">supabase/schema.sql</code> in
-            the Supabase SQL Editor before first use.
+            the Supabase SQL Editor before first use (includes{" "}
+            <code className="rounded bg-slate-100 px-1">app_settings</code> for site content
+            &amp; price calculator on Vercel).
           </p>
         </div>
       </div>

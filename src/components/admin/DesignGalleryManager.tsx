@@ -6,6 +6,7 @@ import type { Product, Service } from "@/lib/types";
 import type { DesignGalleryOverride } from "@/lib/store";
 import { GALLERY_CATEGORIES } from "@/lib/constants";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { adminFetch } from "@/lib/admin-fetch";
 
 type Props = {
   services: Service[];
@@ -68,13 +69,17 @@ export function DesignGalleryManager({
   async function save() {
     setSaving(true);
     setMessage("");
-    const res = await fetch("/api/admin/design-gallery", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ overrides }),
-    });
-    setSaving(false);
-    setMessage(res.ok ? "Design gallery settings saved." : "Save failed.");
+    try {
+      await adminFetch("/api/admin/design-gallery", {
+        method: "PUT",
+        body: JSON.stringify({ overrides }),
+      });
+      setMessage("Design gallery settings saved.");
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "Save failed.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -110,7 +115,13 @@ export function DesignGalleryManager({
         >
           {saving ? "Saving..." : "Save All Design Settings"}
         </button>
-        {message && <span className="text-sm text-emerald-700">{message}</span>}
+        {message && (
+          <span
+            className={`text-sm ${message.includes("saved") ? "text-emerald-700" : "text-red-600"}`}
+          >
+            {message}
+          </span>
+        )}
       </div>
 
       <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm space-y-3">

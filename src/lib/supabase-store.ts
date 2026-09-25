@@ -186,3 +186,36 @@ export async function sbGetEnquiryById(id: string): Promise<Enquiry | null> {
   if (error) throw error;
   return data ? rowToEnquiry(data) : null;
 }
+
+/** JSON blobs (site content, price calculator, design overrides). Table optional. */
+export async function sbGetAppSetting<T>(key: string): Promise<T | null> {
+  const { data, error } = await getSupabaseAdmin()
+    .from("app_settings")
+    .select("value")
+    .eq("key", key)
+    .maybeSingle();
+
+  if (error) {
+    if (error.code === "42P01" || error.message?.includes("app_settings")) {
+      return null;
+    }
+    throw error;
+  }
+  return (data?.value as T) ?? null;
+}
+
+export async function sbSetAppSetting<T>(key: string, value: T): Promise<void> {
+  const { error } = await getSupabaseAdmin().from("app_settings").upsert(
+    { key, value, updated_at: new Date().toISOString() },
+    { onConflict: "key" },
+  );
+
+  if (error) {
+    if (error.code === "42P01" || error.message?.includes("app_settings")) {
+      throw new Error(
+        "Supabase table app_settings missing. Run the latest supabase/schema.sql in SQL Editor.",
+      );
+    }
+    throw error;
+  }
+}

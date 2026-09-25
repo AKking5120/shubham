@@ -3,115 +3,44 @@
 import { Calculator, MessageSquare } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { whatsappLink } from "@/lib/constants";
+import type { PriceCalculatorConfig } from "@/lib/price-calculator";
 
-type Paper = { name: string; baseRate: number };
-type Finishing = { id: string; name: string; cost: number };
-
-const calcDatabase: Record<
-  string,
-  {
-    name: string;
-    papers: Paper[];
-    quantities: number[];
-    finishings: Finishing[];
-    qtyUnit: string;
-    finishPerQty: boolean;
-  }
-> = {
-  visiting_cards: {
-    name: "Visiting Cards / Garment Tags",
-    papers: [
-      { name: "300 GSM Art Card (Standard)", baseRate: 0.35 },
-      { name: "350 GSM Heavy Premium Board", baseRate: 0.5 },
-      { name: "Velvet Soft Touch Board", baseRate: 0.85 },
-    ],
-    quantities: [100, 500, 1000, 2000],
-    finishings: [
-      { id: "f1", name: "Spot UV Texture", cost: 200 },
-      { id: "f2", name: "Round Corner Cut", cost: 100 },
-      { id: "f3", name: "Gold Foil Stamping", cost: 350 },
-    ],
-    qtyUnit: "Pcs",
-    finishPerQty: false,
-  },
-  bill_books: {
-    name: "Bill Books & Challan Pads",
-    papers: [
-      { name: "Duplicate Carbonless (50 Sets)", baseRate: 65 },
-      { name: "Triplicate Carbonless (50 Sets)", baseRate: 95 },
-      { name: "Single Sunlit Paper (100 Sheets)", baseRate: 45 },
-    ],
-    quantities: [5, 10, 20, 50],
-    finishings: [
-      { id: "f1", name: "Red Serial Numbering", cost: 50 },
-      { id: "f2", name: "Hard Binder Binding", cost: 80 },
-    ],
-    qtyUnit: "Books",
-    finishPerQty: true,
-  },
-  doctor_files: {
-    name: "Doctor Files & Envelopes",
-    papers: [
-      { name: "Standard Laminated Doctor Folder", baseRate: 18 },
-      { name: "ATM Protection Card Pouch", baseRate: 4.5 },
-      { name: "Printed Envelope (9x4 inch)", baseRate: 2.2 },
-    ],
-    quantities: [100, 250, 500, 1000],
-    finishings: [
-      { id: "f1", name: "Inside File Clip", cost: 3 },
-      { id: "f2", name: "Gloss Outer Lamination", cost: 2 },
-    ],
-    qtyUnit: "Pcs",
-    finishPerQty: false,
-  },
-  banners: {
-    name: "Flex Banners & Stickers",
-    papers: [
-      { name: "Star Flex Banner (Per Sq Ft)", baseRate: 12 },
-      { name: "Gloss Vinyl Sticker (Per Sq Ft)", baseRate: 25 },
-    ],
-    quantities: [20, 50, 100, 200],
-    finishings: [{ id: "f1", name: "Metal Eyelets & Ropes", cost: 30 }],
-    qtyUnit: "SqFt",
-    finishPerQty: false,
-  },
-  bulk_prints: {
-    name: "Bulk Copying & Printouts",
-    papers: [
-      { name: "Single Side B/W Xerox (75 GSM)", baseRate: 0.75 },
-      { name: "Double Side B/W Xerox", baseRate: 1.2 },
-      { name: "Full Color A4 Laser Printout", baseRate: 5 },
-    ],
-    quantities: [100, 500, 1000, 5000],
-    finishings: [
-      {
-        id: "f1",
-        name: "Spiral Binding with Transparent Cover",
-        cost: 30,
-      },
-    ],
-    qtyUnit: "Pcs",
-    finishPerQty: false,
-  },
+type Props = {
+  config: PriceCalculatorConfig;
 };
 
-export function PriceEstimator() {
-  const [category, setCategory] = useState("visiting_cards");
+export function PriceEstimator({ config }: Props) {
+  const keys = Object.keys(config);
+  const firstKey = keys[0] ?? "visiting_cards";
+
+  const [category, setCategory] = useState(firstKey);
   const [paperIdx, setPaperIdx] = useState(0);
-  const [quantity, setQuantity] = useState(1000);
+  const [quantity, setQuantity] = useState(
+    () => config[firstKey]?.quantities[2] ?? config[firstKey]?.quantities[0] ?? 100,
+  );
   const [checked, setChecked] = useState<Record<string, boolean>>({});
 
-  const catData = calcDatabase[category];
+  const catData = config[category] ?? config[firstKey];
 
-  const resetOptions = useCallback((key: string) => {
-    const data = calcDatabase[key];
-    setPaperIdx(0);
-    setQuantity(data.quantities[2] ?? data.quantities[0]);
-    setChecked({});
-  }, []);
+  const resetOptions = useCallback(
+    (key: string) => {
+      const data = config[key];
+      if (!data) return;
+      setPaperIdx(0);
+      setQuantity(data.quantities[2] ?? data.quantities[0] ?? 100);
+      setChecked({});
+    },
+    [config],
+  );
 
   const { total, perUnit, finishLabel } = useMemo(() => {
+    if (!catData) {
+      return { total: 0, perUnit: "0", finishLabel: "—" };
+    }
     const paper = catData.papers[paperIdx] ?? catData.papers[0];
+    if (!paper) {
+      return { total: 0, perUnit: "0", finishLabel: "—" };
+    }
     let sum = paper.baseRate * quantity;
     const finishNames: string[] = [];
 
@@ -124,11 +53,19 @@ export function PriceEstimator() {
     const rounded = Math.round(sum);
     return {
       total: rounded,
-      perUnit: (rounded / quantity).toFixed(2),
+      perUnit: quantity ? (rounded / quantity).toFixed(2) : "0",
       finishLabel:
         finishNames.length > 0 ? finishNames.join(", ") : "Standard Cut",
     };
   }, [catData, paperIdx, quantity, checked]);
+
+  if (!catData || keys.length === 0) {
+    return (
+      <p className="text-sm text-slate-600">
+        Price calculator is not configured. Admin can set it up in the admin panel.
+      </p>
+    );
+  }
 
   const paper = catData.papers[paperIdx] ?? catData.papers[0];
 
@@ -158,7 +95,7 @@ export function PriceEstimator() {
               }}
               className="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-brand-blue focus:outline-none"
             >
-              {Object.entries(calcDatabase).map(([key, val]) => (
+              {Object.entries(config).map(([key, val]) => (
                 <option key={key} value={key}>{val.name}</option>
               ))}
             </select>
@@ -175,7 +112,7 @@ export function PriceEstimator() {
                 className="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm font-semibold"
               >
                 {catData.papers.map((p, idx) => (
-                  <option key={p.name} value={idx}>{p.name}</option>
+                  <option key={`${p.name}-${idx}`} value={idx}>{p.name}</option>
                 ))}
               </select>
             </div>
