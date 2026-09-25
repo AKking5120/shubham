@@ -29,6 +29,11 @@ const serviceLinks = [
   { href: "/services#wedding-card", label: "Wedding Card" },
   { href: "/services#bulk-copy-printout", label: "Bulk Copy / Printout" },
   { href: "/services#id-card", label: "ID Card" },
+  { href: "/services#die-cut-visiting-card", label: "Die Cut Visiting Card" },
+  { href: "/services#envelope", label: "Envelope" },
+  { href: "/services#atm-pouch", label: "ATM Pouch" },
+  { href: "/services#doctor-files", label: "Doctor Files" },
+  { href: "/services#garment-tags", label: "Garment Tags" },
 ];
 
 export function Footer() {

@@ -13,6 +13,12 @@ const SERVICE_OPTIONS = [
   "Wedding Card",
   "Bulk Copy / Printout",
   "ID Card",
+  "Die Cut Visiting Card",
+  "Envelope",
+  "ATM Pouch",
+  "Doctor Files",
+  "UV Texture",
+  "Garment Tags",
   "Other",
 ];
 

@@ -1,20 +1,22 @@
 import type { GalleryCategory, Product } from "./types";
-import billBookFiles from "../../data/bill-book-image-files.json";
-import idCardFiles from "../../data/id-card-image-files.json";
-import letterHeadFiles from "../../data/letter-head-image-files.json";
-import visitingCardFiles from "../../data/visiting-card-image-files.json";
+import registry from "../../data/gallery-registry.json";
+import visitingCardFiles from "../../data/visiting-card-tag-image-files.json";
 
 const PRINTERS_CLUB_BASE =
   "https://printersclub.in/images/template-images/";
 
-function printersClubUrl(file: string): string {
-  return `${PRINTERS_CLUB_BASE}${encodeURI(file)}`;
-}
+type GalleryRegistryEntry = {
+  mode: "local" | "remote";
+  count: number;
+  folder?: string;
+  paths?: string[];
+  dataFile?: string;
+  idPrefix: string;
+  namePrefix: string;
+  category: GalleryCategory;
+};
 
-function localGalleryUrl(folder: string, index: number): string {
-  const n = String(index + 1).padStart(2, "0");
-  return `/gallery/${folder}/${n}.jpg`;
-}
+const entries = registry as Record<string, GalleryRegistryEntry>;
 
 function productsFromRemoteFiles(
   files: string[],
@@ -30,19 +32,18 @@ function productsFromRemoteFiles(
       category,
       description:
         "Design template — share your business details for printing.",
-      image: printersClubUrl(file),
+      image: `${PRINTERS_CLUB_BASE}${encodeURI(file)}`,
     };
   });
 }
 
-function productsFromLocalGallery(
-  count: number,
-  folder: string,
+function productsFromPaths(
+  paths: string[],
   idPrefix: string,
   namePrefix: string,
   category: GalleryCategory,
 ): Product[] {
-  return Array.from({ length: count }, (_, index) => {
+  return paths.map((image, index) => {
     const n = index + 1;
     return {
       id: `${idPrefix}-${n}`,
@@ -50,39 +51,38 @@ function productsFromLocalGallery(
       category,
       description:
         "Design template — share your business details for printing.",
-      image: localGalleryUrl(folder, index),
+      image,
     };
   });
 }
 
-export const VISITING_CARD_DESIGN_PRODUCTS = productsFromRemoteFiles(
-  visitingCardFiles as string[],
-  "vc-design",
-  "Visiting Card Design",
-  "Cards",
-);
+export function getServiceDesignProducts(slug: string): Product[] | null {
+  const entry = entries[slug];
+  if (!entry || entry.count === 0) return null;
 
-/** Hosted locally — Printers Club JPGs 21–40 are 404 on their CDN. */
-export const LETTER_HEAD_DESIGN_PRODUCTS = productsFromLocalGallery(
-  (letterHeadFiles as string[]).length,
-  "letter-head",
-  "lh-design",
-  "Letter Head Design",
-  "Stationery",
-);
+  if (entry.mode === "remote") {
+    const files =
+      slug === "visiting-card-tag"
+        ? (visitingCardFiles as string[])
+        : [];
+    if (!files.length) return null;
+    return productsFromRemoteFiles(
+      files,
+      entry.idPrefix,
+      entry.namePrefix,
+      entry.category,
+    );
+  }
 
-export const BILL_BOOK_DESIGN_PRODUCTS = productsFromLocalGallery(
-  (billBookFiles as string[]).length,
-  "bill-book",
-  "bb-design",
-  "Bill Book Design",
-  "Business Printing",
-);
+  if (!entry.paths?.length) return null;
+  return productsFromPaths(
+    entry.paths,
+    entry.idPrefix,
+    entry.namePrefix,
+    entry.category,
+  );
+}
 
-export const ID_CARD_DESIGN_PRODUCTS = productsFromLocalGallery(
-  (idCardFiles as string[]).length,
-  "id-card",
-  "id-design",
-  "ID Card Design",
-  "Cards",
-);
+/** @deprecated Use getServiceDesignProducts(slug) */
+export const VISITING_CARD_DESIGN_PRODUCTS =
+  getServiceDesignProducts("visiting-card-tag") ?? [];

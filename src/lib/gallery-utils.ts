@@ -1,9 +1,4 @@
-import {
-  BILL_BOOK_DESIGN_PRODUCTS,
-  ID_CARD_DESIGN_PRODUCTS,
-  LETTER_HEAD_DESIGN_PRODUCTS,
-  VISITING_CARD_DESIGN_PRODUCTS,
-} from "./service-design-gallery";
+import { getServiceDesignProducts } from "./service-design-gallery";
 import type { GalleryCategory } from "./types";
 import type { Product } from "./types";
 
@@ -13,8 +8,14 @@ export const SERVICE_GALLERY_CATEGORIES: Record<string, GalleryCategory[]> = {
   "challan-book": ["Business Printing"],
   "letter-pad": ["Stationery"],
   "visiting-card-tag": ["Cards"],
+  "die-cut-visiting-card": ["Cards"],
   "id-card": ["Cards"],
+  "garment-tags": ["Cards"],
+  "envelope": ["Stationery"],
+  "doctor-files": ["Stationery"],
   "sticker-banner": ["Stickers", "Banners"],
+  "uv-texture": ["Stickers"],
+  "atm-pouch": ["Business Printing"],
   "wedding-card": ["Wedding Printing"],
   "bulk-copy-printout": ["Business Printing", "Stationery"],
 };
@@ -23,18 +24,9 @@ export function productsForService(
   serviceSlug: string,
   products: Product[],
 ): Product[] {
-  if (serviceSlug === "visiting-card-tag") {
-    return VISITING_CARD_DESIGN_PRODUCTS;
-  }
-  if (serviceSlug === "letter-pad") {
-    return LETTER_HEAD_DESIGN_PRODUCTS;
-  }
-  if (serviceSlug === "bill-book") {
-    return BILL_BOOK_DESIGN_PRODUCTS;
-  }
-  if (serviceSlug === "id-card") {
-    return ID_CARD_DESIGN_PRODUCTS;
-  }
+  const catalog = getServiceDesignProducts(serviceSlug);
+  if (catalog?.length) return catalog;
+
   const categories = SERVICE_GALLERY_CATEGORIES[serviceSlug];
   if (!categories?.length) return products;
   return products.filter((p) => categories.includes(p.category));

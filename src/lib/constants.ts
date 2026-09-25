@@ -94,6 +94,12 @@ export const SERVICE_SLUGS = [
   "wedding-card",
   "bulk-copy-printout",
   "id-card",
+  "die-cut-visiting-card",
+  "envelope",
+  "atm-pouch",
+  "doctor-files",
+  "uv-texture",
+  "garment-tags",
 ] as const;
 
 export const ENQUIRY_STATUSES = [

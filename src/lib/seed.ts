@@ -97,6 +97,78 @@ export const DEFAULT_SERVICES: Service[] = [
     enabled: true,
     order: 8,
   },
+  {
+    id: "svc-9",
+    slug: "die-cut-visiting-card",
+    name: "Die Cut Visiting Card",
+    shortDescription:
+      "Premium die-cut and shaped visiting cards for standout branding.",
+    description:
+      "Special die-cut visiting cards including metal, velvet, UV and custom shapes. Choose from our design gallery and print with your details.",
+    image: "/services/die-cut-visiting-card.jpg",
+    enabled: true,
+    order: 9,
+  },
+  {
+    id: "svc-10",
+    slug: "envelope",
+    name: "Envelope",
+    shortDescription:
+      "Business and gift envelopes in standard and custom sizes.",
+    description:
+      "Printed envelopes for offices, invitations and gifting. Multiple sizes and layouts with your logo and address details.",
+    image: "/services/envelope.jpg",
+    enabled: true,
+    order: 10,
+  },
+  {
+    id: "svc-11",
+    slug: "atm-pouch",
+    name: "ATM Pouch",
+    shortDescription:
+      "Pouches for ATM cards, RC, driving licence and documents.",
+    description:
+      "Custom ATM and document pouches for banks, dealers and corporate use. Durable print with your branding.",
+    image: "/services/atm-pouch.jpg",
+    enabled: true,
+    order: 11,
+  },
+  {
+    id: "svc-12",
+    slug: "doctor-files",
+    name: "Doctor Files",
+    shortDescription:
+      "Files and folders for clinics, hospitals and medical practice.",
+    description:
+      "Doctor file and hospital stationery printing for OPD, records and corporate healthcare branding.",
+    image: "/services/doctor-files.jpg",
+    enabled: true,
+    order: 12,
+  },
+  {
+    id: "svc-13",
+    slug: "uv-texture",
+    name: "UV Texture",
+    shortDescription:
+      "UV texture artwork for cards, labels and premium print effects.",
+    description:
+      "UV texture design templates for high-end print finishes. Ideal for cards, packaging accents and special effects.",
+    image: "/services/uv-texture.jpg",
+    enabled: true,
+    order: 13,
+  },
+  {
+    id: "svc-14",
+    slug: "garment-tags",
+    name: "Garment Tags",
+    shortDescription:
+      "Hang tags and garment labels for apparel and retail brands.",
+    description:
+      "Custom garment tags and hang labels for clothing, accessories and retail. Multiple shapes and stringing options.",
+    image: "/services/garment-tags.jpg",
+    enabled: true,
+    order: 14,
+  },
 ];
 
 export const DEFAULT_PRODUCTS: Product[] = [

@@ -51,6 +51,42 @@ export function serviceHighlights(service: Service): string[] {
       "Barcode / QR options available",
       "Durable PVC or laminated cards",
     ],
+    "die-cut-visiting-card": [
+      "Shaped & premium die-cut cards",
+      "Metal, velvet & UV finish options",
+      "Stand-out branding for businesses",
+      "Wide design gallery to choose from",
+    ],
+    envelope: [
+      "Business & gift envelope sizes",
+      "Logo and return address printing",
+      "Standard and custom dimensions",
+      "Ideal for offices and invitations",
+    ],
+    "atm-pouch": [
+      "ATM, RC & document pouches",
+      "Dealer and bank branding options",
+      "Durable materials for daily use",
+      "Multiple layout templates",
+    ],
+    "doctor-files": [
+      "Clinic and hospital file layouts",
+      "OPD and record-keeping formats",
+      "Professional medical branding",
+      "Custom text and logo placement",
+    ],
+    "uv-texture": [
+      "UV texture templates for premium print",
+      "Suitable for cards and labels",
+      "High-impact visual effects",
+      "Print-ready artwork references",
+    ],
+    "garment-tags": [
+      "Apparel hang tags & labels",
+      "Retail and boutique branding",
+      "Multiple tag shapes and sizes",
+      "Stringing and finishing on request",
+    ],
   };
 
   return (
