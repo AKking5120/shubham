@@ -41,8 +41,8 @@ export function Header({ site }: { site: HeaderSiteContent }) {
   return (
     <>
       <div className="bg-brand-blue text-white text-xs sm:text-sm py-2 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-1 sm:gap-4 text-center sm:text-left">
-          <div className="flex items-center gap-2 justify-center sm:justify-start">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row-reverse sm:justify-between items-center gap-1 sm:gap-4 text-center sm:text-right">
+          <div className="flex items-center gap-2 justify-center sm:justify-end sm:flex-row-reverse">
             <span className="bg-amber-400 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
               {site.announcement.badge}
             </span>
@@ -50,7 +50,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               {site.announcement.text}
             </span>
           </div>
-          <div className="flex items-center gap-3 text-xs">
+          <div className="flex items-center gap-3 text-xs sm:flex-row-reverse">
             <a href={telLink(site.business.phones[0])} className="hover:underline">
               {site.business.phones[0]}
             </a>
@@ -79,38 +79,36 @@ export function Header({ site }: { site: HeaderSiteContent }) {
 
       <header className="sticky top-0 z-40 glass-header border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-[5.25rem] sm:h-[5.5rem]">
-            <Link href="/" className="flex items-center gap-3.5 shrink-0">
-              <BrandLogo
-                size="nav"
-                href={null}
-                className="shadow-lg ring-2 ring-brand-orange/40"
-              />
-              <div className="min-w-0">
-                <div className="font-brand flex flex-wrap items-end gap-x-2 gap-y-0 leading-none">
-                  <span
-                    className="text-[1.55rem] sm:text-[1.85rem] lg:text-[2.05rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
-                  >
-                    Shubham
-                  </span>
-                  <span
-                    className="text-[1.4rem] sm:text-[1.65rem] lg:text-[1.8rem] font-extrabold uppercase tracking-[0.06em] text-[#dc2626] drop-shadow-sm"
-                  >
-                    Prints
-                  </span>
-                  <span
-                    className="mb-0.5 hidden text-xs font-bold text-amber-800 bg-gradient-to-r from-amber-100 to-amber-50 px-2 py-0.5 rounded-md border border-amber-300/80 sm:inline-block"
-                  >
-                    &amp; Stationers
-                  </span>
-                </div>
-                <p className="text-[11px] sm:text-xs text-slate-500 font-medium italic mt-1 max-w-[14rem] sm:max-w-none truncate sm:whitespace-normal">
-                  “{site.business.slogan}”
-                </p>
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 h-[5.25rem] sm:h-[5.5rem] md:grid-cols-[1fr_auto_1fr] md:gap-4">
+            <div className="flex items-center gap-2 justify-self-start">
+              <button
+                type="button"
+                className="md:hidden p-2 text-slate-600 hover:text-slate-900"
+                onClick={() => setOpen((v) => !v)}
+                aria-label="Toggle menu"
+              >
+                {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+              <div className="hidden sm:flex items-center gap-2 flex-row-reverse sm:flex-row">
+                <a
+                  href={wa()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-1.5 transition"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  WhatsApp
+                </a>
+                <Link
+                  href="/contact#quote"
+                  className="bg-brand-blue hover:bg-indigo-900 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition"
+                >
+                  Get Estimate
+                </Link>
               </div>
-            </Link>
+            </div>
 
-            <nav className="hidden md:flex items-center gap-0.5 lg:gap-1">
+            <nav className="hidden md:flex items-center justify-center gap-0.5 lg:gap-1 justify-self-center">
               {links.map((link) => {
                 const active = isActive(pathname, link.href);
                 return (
@@ -130,32 +128,38 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               })}
             </nav>
 
-            <div className="hidden sm:flex items-center gap-2">
-              <a
-                href={wa()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-1.5 transition"
-              >
-                <MessageSquare className="w-4 h-4" />
-                WhatsApp
-              </a>
-              <Link
-                href="/contact#quote"
-                className="bg-brand-blue hover:bg-indigo-900 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition"
-              >
-                Get Estimate
-              </Link>
-            </div>
-
-            <button
-              type="button"
-              className="md:hidden p-2 text-slate-600 hover:text-slate-900"
-              onClick={() => setOpen((v) => !v)}
-              aria-label="Toggle menu"
+            <Link
+              href="/"
+              className="flex flex-row-reverse items-center gap-3.5 shrink-0 justify-self-end text-right min-w-0 max-w-[min(100%,14rem)] sm:max-w-none"
             >
-              {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+              <BrandLogo
+                size="nav"
+                href={null}
+                className="shadow-lg ring-2 ring-brand-orange/40"
+              />
+              <div className="min-w-0">
+                <div className="font-brand flex flex-wrap items-end justify-end gap-x-2 gap-y-0 leading-none">
+                  <span
+                    className="text-[1.55rem] sm:text-[1.85rem] lg:text-[2.05rem] font-extrabold tracking-tight bg-gradient-to-l from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
+                  >
+                    Shubham
+                  </span>
+                  <span
+                    className="text-[1.4rem] sm:text-[1.65rem] lg:text-[1.8rem] font-extrabold uppercase tracking-[0.06em] text-[#dc2626] drop-shadow-sm"
+                  >
+                    Prints
+                  </span>
+                  <span
+                    className="mb-0.5 hidden text-xs font-bold text-amber-800 bg-gradient-to-r from-amber-100 to-amber-50 px-2 py-0.5 rounded-md border border-amber-300/80 sm:inline-block"
+                  >
+                    &amp; Stationers
+                  </span>
+                </div>
+                <p className="text-[11px] sm:text-xs text-slate-500 font-medium italic mt-1 truncate sm:whitespace-normal">
+                  “{site.business.slogan}”
+                </p>
+              </div>
+            </Link>
           </div>
         </div>
 
