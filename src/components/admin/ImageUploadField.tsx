@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Upload } from "lucide-react";
 
 type ImageUploadFieldProps = {
-  folder: "gallery" | "services";
+  folder: "gallery" | "services" | "shop";
   onUploaded: (url: string) => void;
   label?: string;
 };

@@ -17,13 +17,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    if (!["gallery", "services", "enquiries"].includes(folder)) {
+    if (!["gallery", "services", "enquiries", "shop"].includes(folder)) {
       return NextResponse.json({ error: "Invalid folder" }, { status: 400 });
     }
 
     const url = await saveUploadedFile(
       file,
-      folder as "gallery" | "services" | "enquiries",
+      folder as "gallery" | "services" | "enquiries" | "shop",
     );
 
     return NextResponse.json({ success: true, url });

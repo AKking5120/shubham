@@ -14,6 +14,7 @@ import { OwnerPhoto } from "@/components/brand/OwnerPhoto";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { HomeGalleryPreview } from "@/components/home/HomeGalleryPreview";
 import { HomeHeroSlider } from "@/components/home/HomeHeroSlider";
+import { ShopPhotosSection } from "@/components/home/ShopPhotosSection";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { telLink, whatsappLink } from "@/lib/constants";
 import { getGalleryPreviewProducts } from "@/lib/service-design-gallery";
@@ -194,6 +195,13 @@ export default async function HomePage() {
       </section>
 
       <HomeGalleryPreview products={galleryPreview} />
+
+      <ShopPhotosSection
+        title={site.shopGallery.title}
+        subtitle={site.shopGallery.subtitle}
+        photos={site.shopGallery.photos}
+        addressLine={BUSINESS.address.full}
+      />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div className="bg-brand-blue rounded-3xl p-6 sm:p-10 text-white relative overflow-hidden shadow-xl">

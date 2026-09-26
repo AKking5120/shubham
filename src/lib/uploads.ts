@@ -4,7 +4,7 @@ import { uploadBufferToCloudinary, isCloudinaryConfigured } from "./cloudinary";
 
 export async function saveUploadedFile(
   file: File,
-  folder: "enquiries" | "gallery" | "services",
+  folder: "enquiries" | "gallery" | "services" | "shop",
 ): Promise<string> {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);

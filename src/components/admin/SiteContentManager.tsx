@@ -1,11 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import type { SiteContent } from "@/lib/site-content";
+import {
+  mergeSiteContent,
+  type ShopPhoto,
+  type SiteContent,
+} from "@/lib/site-content";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { adminFetch } from "@/lib/admin-fetch";
 
 export function SiteContentManager({ initial }: { initial: SiteContent }) {
-  const [content, setContent] = useState(initial);
+  const [content, setContent] = useState(() => mergeSiteContent(initial));
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -36,6 +41,49 @@ export function SiteContentManager({ initial }: { initial: SiteContent }) {
       phones[index] = value;
       return { ...prev, business: { ...prev.business, phones } };
     });
+  }
+
+  function patchShopGallery(field: "title" | "subtitle", value: string) {
+    setContent((prev) => ({
+      ...prev,
+      shopGallery: { ...prev.shopGallery, [field]: value },
+    }));
+  }
+
+  function updateShopPhoto(index: number, patch: Partial<ShopPhoto>) {
+    setContent((prev) => {
+      const photos = prev.shopGallery.photos.map((p, i) =>
+        i === index ? { ...p, ...patch } : p,
+      );
+      return { ...prev, shopGallery: { ...prev.shopGallery, photos } };
+    });
+  }
+
+  function addShopPhoto() {
+    setContent((prev) => ({
+      ...prev,
+      shopGallery: {
+        ...prev.shopGallery,
+        photos: [
+          ...prev.shopGallery.photos,
+          {
+            id: `shop-${Date.now()}`,
+            image: "",
+            caption: "Shop photo",
+          },
+        ],
+      },
+    }));
+  }
+
+  function removeShopPhoto(index: number) {
+    setContent((prev) => ({
+      ...prev,
+      shopGallery: {
+        ...prev.shopGallery,
+        photos: prev.shopGallery.photos.filter((_, i) => i !== index),
+      },
+    }));
   }
 
   async function save() {
@@ -180,6 +228,79 @@ export function SiteContentManager({ initial }: { initial: SiteContent }) {
           onChange={(e) => patch("hero", "description", e.target.value)}
           placeholder="Hero description"
         />
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
+        <h2 className="font-semibold text-[#0a1628]">Shop photos (home page)</h2>
+        <p className="text-sm text-slate-600">
+          Upload real photos of your shop, counter and machines. Shown in the
+          &quot;Our Shop&quot; section on the home page.
+        </p>
+        <input
+          className="w-full rounded-lg border px-3 py-2 text-sm"
+          value={content.shopGallery?.title ?? ""}
+          onChange={(e) => patchShopGallery("title", e.target.value)}
+          placeholder="Section title"
+        />
+        <textarea
+          className="w-full rounded-lg border px-3 py-2 text-sm"
+          rows={2}
+          value={content.shopGallery?.subtitle ?? ""}
+          onChange={(e) => patchShopGallery("subtitle", e.target.value)}
+          placeholder="Short description"
+        />
+        <div className="space-y-4">
+          {(content.shopGallery?.photos ?? []).map((photo, index) => (
+            <div
+              key={photo.id}
+              className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-3"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm font-semibold text-slate-700">
+                  Photo {index + 1}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeShopPhoto(index)}
+                  className="text-xs font-semibold text-red-600 hover:underline"
+                >
+                  Remove
+                </button>
+              </div>
+              {photo.image && (
+                <img
+                  src={photo.image}
+                  alt=""
+                  className="h-28 w-full max-w-xs rounded-lg object-cover border"
+                />
+              )}
+              <input
+                className="w-full rounded-lg border px-3 py-2 text-sm bg-white"
+                value={photo.image}
+                onChange={(e) => updateShopPhoto(index, { image: e.target.value })}
+                placeholder="Image URL"
+              />
+              <ImageUploadField
+                folder="shop"
+                label="Upload shop photo"
+                onUploaded={(url) => updateShopPhoto(index, { image: url })}
+              />
+              <input
+                className="w-full rounded-lg border px-3 py-2 text-sm bg-white"
+                value={photo.caption}
+                onChange={(e) => updateShopPhoto(index, { caption: e.target.value })}
+                placeholder="Caption (e.g. Front counter, UV machine)"
+              />
+            </div>
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={addShopPhoto}
+          className="rounded-lg border border-dashed border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+        >
+          + Add shop photo
+        </button>
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
