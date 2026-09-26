@@ -2,7 +2,7 @@ import { isEnquiryEmailConfigured } from "@/lib/enquiry-email";
 import { isCloudinaryConfigured } from "@/lib/cloudinary";
 import { SiteContentManager } from "@/components/admin/SiteContentManager";
 import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
-import { getDataBackend, getSiteContent } from "@/lib/store";
+import { adminSaveBlockedReason, getDataBackend, getSiteContent } from "@/lib/store";
 import { isSupabaseConfigured } from "@/lib/supabase/server";
 
 export default async function AdminSettingsPage() {
@@ -11,6 +11,7 @@ export default async function AdminSettingsPage() {
   const supabaseOn = isSupabaseConfigured();
   const cloudinaryOn = isCloudinaryConfigured();
   const enquiryEmailOn = isEnquiryEmailConfigured();
+  const saveBlocked = adminSaveBlockedReason();
 
   return (
     <div className="p-6 lg:p-8">
@@ -18,6 +19,16 @@ export default async function AdminSettingsPage() {
       <p className="mt-1 text-sm text-slate-600">
         Site configuration, database and media storage.
       </p>
+
+      {saveBlocked && (
+        <div
+          className="mt-6 max-w-3xl rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-900"
+          role="alert"
+        >
+          <p className="font-semibold">Admin save is disabled on this deployment</p>
+          <p className="mt-2 leading-relaxed">{saveBlocked}</p>
+        </div>
+      )}
 
       <div className="mt-8 max-w-3xl space-y-6">
         <div className="rounded-2xl border border-amber-200 bg-amber-50/50 p-6 shadow-sm">

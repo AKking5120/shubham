@@ -67,21 +67,40 @@ async function readAppJson<T>(
   return readJson(filename, fallback);
 }
 
+function vercelAdminSaveHint(): string {
+  return (
+    "On Vercel, admin saves use Supabase (not data/ files). " +
+    "In Vercel → Settings → Environment Variables, set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY, redeploy, " +
+    "then run supabase/schema.sql in the Supabase SQL Editor (creates the app_settings table)."
+  );
+}
+
 async function writeAppJson<T>(
   supabaseKey: string,
   filename: string,
   data: T,
 ): Promise<void> {
   if (isSupabaseConfigured()) {
-    try {
-      await sb.sbSetAppSetting(supabaseKey, data);
-      return;
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e);
-      if (!msg.includes("app_settings")) throw e;
-    }
+    await sb.sbSetAppSetting(supabaseKey, data);
+    return;
   }
+
+  if (process.env.VERCEL) {
+    throw new Error(vercelAdminSaveHint());
+  }
+
   await writeJson(filename, data);
+}
+
+/** Whether admin JSON settings can be saved in this environment. */
+export function canSaveAppSettings(): boolean {
+  if (isSupabaseConfigured()) return true;
+  return !process.env.VERCEL;
+}
+
+export function adminSaveBlockedReason(): string | null {
+  if (canSaveAppSettings()) return null;
+  return vercelAdminSaveHint();
 }
 
 export function getDataBackend(): "supabase" | "json" {
