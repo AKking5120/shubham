@@ -80,11 +80,11 @@ export function Header({ site }: { site: HeaderSiteContent }) {
       <header
         className="sticky top-0 z-40 glass-header border-b border-white/40 shadow-sm"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid h-20 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 sm:gap-3">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
+          <div className="flex h-20 w-full items-center gap-2 sm:gap-3">
             <Link
               href="/"
-              className="relative z-20 flex min-w-0 items-center gap-2.5 sm:gap-3 text-left"
+              className="relative z-20 flex shrink-0 items-center gap-2.5 sm:gap-3 text-left"
             >
               <BrandLogo
                 size="nav"
@@ -119,7 +119,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
             </Link>
 
             <nav
-              className="relative z-10 hidden lg:flex min-w-0 items-center justify-center gap-0.5 overflow-x-auto px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="relative z-10 hidden min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto px-1 lg:flex [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               aria-label="Main"
             >
               {links.map((link) => {
@@ -142,7 +142,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               })}
             </nav>
 
-            <div className="relative z-20 flex items-center justify-end gap-2">
+            <div className="relative z-20 ml-auto flex shrink-0 items-center justify-end gap-2 lg:ml-0">
               <div className="hidden sm:flex items-center gap-2">
                 <a
                   href={wa()}
