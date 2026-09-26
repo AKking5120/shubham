@@ -81,41 +81,43 @@ export function Header({ site }: { site: HeaderSiteContent }) {
         className="sticky top-0 z-40 glass-header border-b border-white/40 shadow-sm"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-[5.25rem] sm:h-[5.5rem] gap-2">
-            <Link href="/" className="flex items-center gap-3 shrink-0 min-w-0 max-w-[50%] sm:max-w-none">
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3 h-[5.25rem] sm:h-[5.5rem]">
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 sm:gap-3 min-w-0 max-w-[min(100%,15.5rem)] sm:max-w-[17rem] lg:max-w-[18rem] shrink-0"
+            >
               <BrandLogo
                 size="nav"
                 href={null}
                 className="shadow-lg ring-2 ring-brand-orange/40 shrink-0"
               />
-              <div className="min-w-0 hidden sm:block">
-                <div className="font-brand flex flex-wrap items-end gap-x-2 gap-y-0 leading-none">
+              <div className="min-w-0 hidden sm:block overflow-hidden">
+                <div className="font-brand flex items-baseline gap-x-2 whitespace-nowrap leading-none">
                   <span
-                    className="text-[1.5rem] sm:text-[1.85rem] lg:text-[2.05rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
+                    className="text-[1.45rem] sm:text-[1.75rem] xl:text-[2rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
                   >
                     Shubham
                   </span>
                   <span
-                    className="text-[1.35rem] sm:text-[1.65rem] lg:text-[1.8rem] font-extrabold uppercase tracking-[0.05em] text-[#dc2626] drop-shadow-sm"
+                    className="text-[1.25rem] sm:text-[1.55rem] xl:text-[1.75rem] font-extrabold uppercase tracking-[0.04em] text-[#dc2626]"
                   >
                     Prints
                   </span>
-                  <span
-                    className="mb-0.5 hidden md:inline text-xs font-bold text-amber-800 bg-gradient-to-r from-amber-100 to-amber-50 px-2 py-0.5 rounded-md border border-amber-300/80"
-                  >
-                    &amp; Stationers
-                  </span>
                 </div>
                 <p
-                  className="text-[11px] sm:text-xs text-slate-600 font-medium italic mt-1 line-clamp-1 max-w-[11rem] md:max-w-xs lg:max-w-sm"
-                  title={site.business.slogan}
+                  className="mt-1 text-[10px] sm:text-[11px] leading-snug text-slate-600 line-clamp-2 lg:line-clamp-1"
+                  title={`${site.business.name} — ${site.business.slogan}`}
                 >
-                  “{site.business.slogan}”
+                  <span className="font-semibold text-amber-800">&amp; Stationers</span>
+                  <span className="hidden xl:inline font-medium italic text-slate-500">
+                    {" "}
+                    · “{site.business.slogan}”
+                  </span>
                 </p>
               </div>
             </Link>
 
-            <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 flex-1 justify-center min-w-0 px-1">
+            <nav className="hidden xl:flex items-center justify-center gap-0.5 min-w-0 px-1">
               {links.map((link) => {
                 const active = isActive(pathname, link.href);
                 return (
@@ -135,7 +137,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               })}
             </nav>
 
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center justify-end gap-2 shrink-0">
               <div className="hidden sm:flex items-center gap-2">
                 <a
                   href={wa()}
@@ -155,7 +157,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               </div>
               <button
                 type="button"
-                className="lg:hidden p-2 text-slate-600 hover:text-slate-900"
+                className="xl:hidden p-2 text-slate-600 hover:text-slate-900"
                 onClick={() => setOpen((v) => !v)}
                 aria-label="Toggle menu"
               >
@@ -166,7 +168,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
         </div>
 
         {open && (
-          <div className="lg:hidden glass-header-mobile-menu border-t border-white/50 px-4 pt-3 pb-6 space-y-1 shadow-lg">
+          <div className="xl:hidden glass-header-mobile-menu border-t border-white/50 px-4 pt-3 pb-6 space-y-1 shadow-lg">
             {links.map((link) => (
               <Link
                 key={link.href}
