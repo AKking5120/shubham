@@ -62,10 +62,14 @@ create policy "Public insert enquiries"
 -- Service role key (used in Next.js API) bypasses RLS.
 
 -- Admin-editable JSON (site content, price calculator, design overrides)
+-- If you only need this table on an existing project, run supabase/app_settings_only.sql
 create table if not exists public.app_settings (
   key text primary key,
-  value jsonb not null default '{}',
+  value jsonb not null default '{}'::jsonb,
   updated_at timestamptz not null default now()
 );
 
 alter table public.app_settings enable row level security;
+
+grant all on table public.app_settings to service_role;
+grant all on table public.app_settings to postgres;
