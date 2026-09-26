@@ -122,7 +122,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
 
             <div className="col-start-2 min-w-0 w-full overflow-hidden px-1">
               <nav
-                className="hidden min-[1500px]:flex items-center justify-center gap-0.5 w-max max-w-full mx-auto"
+                className="hidden xl:flex items-center justify-center gap-0.5 w-max max-w-full mx-auto"
                 aria-label="Main"
               >
                 {links.map((link) => {
@@ -132,36 +132,14 @@ export function Header({ site }: { site: HeaderSiteContent }) {
                       key={link.href}
                       href={link.href}
                       className={cn(
-                        "px-2.5 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition",
+                        "px-2 xl:px-2.5 min-[1500px]:px-3 py-2 rounded-lg text-sm min-[1500px]:text-[15px] font-semibold whitespace-nowrap transition",
                         active
                           ? "text-brand-blue bg-blue-50/80"
                           : "text-slate-600 hover:text-slate-900 hover:bg-white/50",
                       )}
                     >
-                      {link.label}
-                    </Link>
-                  );
-                })}
-              </nav>
-
-              <nav
-                className="hidden xl:flex min-[1500px]:hidden items-center justify-center gap-0.5 w-max max-w-full mx-auto"
-                aria-label="Main compact"
-              >
-                {links.map((link) => {
-                  const active = isActive(pathname, link.href);
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={cn(
-                        "px-2 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition",
-                        active
-                          ? "text-brand-blue bg-blue-50/80"
-                          : "text-slate-600 hover:text-slate-900 hover:bg-white/50",
-                      )}
-                    >
-                      {link.short}
+                      <span className="min-[1500px]:hidden">{link.short}</span>
+                      <span className="hidden min-[1500px]:inline">{link.label}</span>
                     </Link>
                   );
                 })}
