@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 const AUTO_MS = 5000;
 
 export function HomeHeroSlider() {
-  const slides = HOME_HERO_SLIDES;
+  const slides = [...HOME_HERO_SLIDES];
   const count = slides.length;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
