@@ -49,7 +49,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   announcement: {
     badge: "Fast Turnaround",
     text:
-      "GST Bill Books, Spot UV Cards, Doctor Files & Shadi Cards in Badarpur & Jaitpur!",
+      "GST Bill Books, Spot UV Cards, Doctor Files & Wedding Card in Badarpur & Jaitpur!",
   },
   hero: {
     title: "Complete High-Quality",

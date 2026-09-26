@@ -6,7 +6,7 @@ const SIZE_CLASS = {
   xs: "h-9 w-9",
   sm: "h-11 w-11",
   md: "h-14 w-14",
-  nav: "h-12 w-12 sm:h-14 sm:w-14",
+  nav: "h-14 w-14 sm:h-16 sm:w-16",
   lg: "h-[4.5rem] w-[4.5rem]",
   xl: "h-24 w-24",
   hero: "h-28 w-28 sm:h-32 sm:w-32",

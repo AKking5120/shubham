@@ -79,8 +79,8 @@ export function Header({ site }: { site: HeaderSiteContent }) {
 
       <header className="sticky top-0 z-40 glass-header border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center justify-between h-[5.25rem] sm:h-[5.5rem]">
+            <Link href="/" className="flex items-center gap-3.5 shrink-0">
               <BrandLogo
                 size="nav"
                 href={null}
@@ -89,17 +89,17 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               <div className="min-w-0">
                 <div className="font-brand flex flex-wrap items-end gap-x-2 gap-y-0 leading-none">
                   <span
-                    className="text-[1.4rem] sm:text-[1.65rem] lg:text-[1.85rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
+                    className="text-[1.55rem] sm:text-[1.85rem] lg:text-[2.05rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
                   >
                     Shubham
                   </span>
                   <span
-                    className="text-[1.25rem] sm:text-[1.45rem] lg:text-[1.6rem] font-extrabold uppercase tracking-[0.06em] text-[#dc2626] drop-shadow-sm"
+                    className="text-[1.4rem] sm:text-[1.65rem] lg:text-[1.8rem] font-extrabold uppercase tracking-[0.06em] text-[#dc2626] drop-shadow-sm"
                   >
                     Prints
                   </span>
                   <span
-                    className="mb-0.5 hidden text-[11px] font-bold text-amber-800 bg-gradient-to-r from-amber-100 to-amber-50 px-2 py-0.5 rounded-md border border-amber-300/80 sm:inline-block"
+                    className="mb-0.5 hidden text-xs font-bold text-amber-800 bg-gradient-to-r from-amber-100 to-amber-50 px-2 py-0.5 rounded-md border border-amber-300/80 sm:inline-block"
                   >
                     &amp; Stationers
                   </span>
