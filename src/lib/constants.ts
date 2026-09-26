@@ -9,7 +9,7 @@ export const BUSINESS = {
     city: "New Delhi - 110044",
     full: "D-54, Prince Colony, Tanki Road, Jaitpur, Badarpur, New Delhi - 110044",
   },
-  slogan: "An Unit of Complete Printing Solution",
+  slogan: "A Unit of Complete Printing Solution",
 };
 
 /** Official circular logo (public/logo.jpg) */

@@ -81,30 +81,30 @@ export function Header({ site }: { site: HeaderSiteContent }) {
         className="sticky top-0 z-40 glass-header border-b border-white/40 shadow-sm"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-3 h-20">
+          <div className="grid h-20 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 sm:gap-3">
             <Link
               href="/"
-              className="flex items-center gap-3 shrink-0 text-left"
+              className="relative z-20 flex min-w-0 items-center gap-2.5 sm:gap-3 text-left"
             >
               <BrandLogo
                 size="nav"
                 href={null}
                 className="shadow-lg ring-2 ring-brand-orange/40 shrink-0"
               />
-              <div className="hidden sm:block">
-                <div className="font-brand flex flex-wrap items-end gap-x-2 gap-y-0 leading-none">
+              <div className="hidden min-w-0 sm:block">
+                <div className="font-brand flex flex-nowrap items-end gap-x-1.5 sm:gap-x-2 leading-none whitespace-nowrap">
                   <span
-                    className="text-xl sm:text-2xl 2xl:text-[2.05rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
+                    className="text-lg sm:text-xl xl:text-2xl 2xl:text-[2.05rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
                   >
                     Shubham
                   </span>
                   <span
-                    className="text-lg sm:text-xl 2xl:text-[1.8rem] font-extrabold uppercase tracking-[0.05em] text-[#dc2626]"
+                    className="text-base sm:text-lg xl:text-xl 2xl:text-[1.8rem] font-extrabold text-[#dc2626]"
                   >
                     Prints
                   </span>
                   <span
-                    className="mb-0.5 hidden md:inline text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-300/80"
+                    className="mb-0.5 hidden xl:inline text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-300/80"
                   >
                     &amp; Stationers
                   </span>
@@ -119,7 +119,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
             </Link>
 
             <nav
-              className="hidden lg:flex items-center justify-center flex-1 min-w-0 mx-1 xl:mx-3 gap-0.5"
+              className="relative z-10 hidden lg:flex min-w-0 items-center justify-center gap-0.5 overflow-x-auto px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               aria-label="Main"
             >
               {links.map((link) => {
@@ -142,7 +142,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               })}
             </nav>
 
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="relative z-20 flex items-center justify-end gap-2">
               <div className="hidden sm:flex items-center gap-2">
                 <a
                   href={wa()}
