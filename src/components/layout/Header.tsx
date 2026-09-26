@@ -81,10 +81,12 @@ export function Header({ site }: { site: HeaderSiteContent }) {
         className="sticky top-0 z-40 glass-header border-b border-white/40 shadow-sm"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-3 h-[5.25rem] sm:h-[5.5rem]">
+          <div
+            className="grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-2 sm:gap-x-3 xl:gap-x-4 h-[5.25rem] sm:h-[5.5rem]"
+          >
             <Link
               href="/"
-              className="flex items-center gap-2.5 sm:gap-3 shrink-0"
+              className="relative z-10 flex items-center gap-2.5 sm:gap-3 shrink-0 pr-1"
             >
               <BrandLogo
                 size="nav"
@@ -110,7 +112,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
                   &amp; Stationers
                 </p>
                 <p
-                  className="hidden 2xl:block text-[11px] text-slate-500 font-medium italic mt-0.5 max-w-[14rem] line-clamp-1"
+                  className="hidden min-[1700px]:block text-[11px] text-slate-500 font-medium italic mt-0.5 max-w-[14rem] line-clamp-1"
                   title={site.business.slogan}
                 >
                   “{site.business.slogan}”
@@ -118,53 +120,55 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               </div>
             </Link>
 
-            <nav
-              className="hidden 2xl:flex items-center justify-center flex-1 min-w-0 gap-0.5 px-2"
-              aria-label="Main"
-            >
-              {links.map((link) => {
-                const active = isActive(pathname, link.href);
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={cn(
-                      "px-3 py-2 rounded-lg text-[15px] font-semibold whitespace-nowrap transition",
-                      active
-                        ? "text-brand-blue bg-blue-50/80"
-                        : "text-slate-600 hover:text-slate-900 hover:bg-white/50",
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-            </nav>
+            <div className="col-start-2 min-w-0 w-full overflow-hidden px-1">
+              <nav
+                className="hidden min-[1500px]:flex items-center justify-center gap-0.5 w-max max-w-full mx-auto"
+                aria-label="Main"
+              >
+                {links.map((link) => {
+                  const active = isActive(pathname, link.href);
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        "px-2.5 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition",
+                        active
+                          ? "text-brand-blue bg-blue-50/80"
+                          : "text-slate-600 hover:text-slate-900 hover:bg-white/50",
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
+              </nav>
 
-            <nav
-              className="hidden xl:flex 2xl:hidden items-center justify-center flex-1 min-w-0 gap-0.5 px-1"
-              aria-label="Main compact"
-            >
-              {links.map((link) => {
-                const active = isActive(pathname, link.href);
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={cn(
-                      "px-2 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition",
-                      active
-                        ? "text-brand-blue bg-blue-50/80"
-                        : "text-slate-600 hover:text-slate-900 hover:bg-white/50",
-                    )}
-                  >
-                    {link.short}
-                  </Link>
-                );
-              })}
-            </nav>
+              <nav
+                className="hidden xl:flex min-[1500px]:hidden items-center justify-center gap-0.5 w-max max-w-full mx-auto"
+                aria-label="Main compact"
+              >
+                {links.map((link) => {
+                  const active = isActive(pathname, link.href);
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        "px-2 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition",
+                        active
+                          ? "text-brand-blue bg-blue-50/80"
+                          : "text-slate-600 hover:text-slate-900 hover:bg-white/50",
+                      )}
+                    >
+                      {link.short}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
 
-            <div className="flex items-center justify-end gap-2 shrink-0">
+            <div className="col-start-3 flex items-center justify-end gap-2 shrink-0">
               <div className="hidden sm:flex items-center gap-2">
                 <a
                   href={wa()}
