@@ -21,16 +21,16 @@ export const OWNER_PHOTO = "/owner.jpg?v=dk";
 /** Home page banner carousel (below navbar). */
 export const HOME_HERO_SLIDES = [
   {
-    src: "/banners/home-slide-1.jpg",
-    alt: "Shubham Prints and Stationers — bill books, stickers, tags, pamphlets and more",
+    src: "/banners/home-slide-1.jpg?v=3",
+    alt: "Shubham Prints and Stationers — printer, wedding cards, bill books and more",
   },
   {
-    src: "/banners/home-slide-2.jpg",
-    alt: "Shubham Prints — wedding cards, flex board and printing services in Jaitpur",
+    src: "/banners/home-slide-2.jpg?v=3",
+    alt: "Shubham Prints — wedding cards, flex board, visiting cards and letter head",
   },
   {
-    src: "/banners/home-slide-3.jpg",
-    alt: "Shubham Prints — wedding invitations, flex board, visiting cards and stationery",
+    src: "/banners/home-slide-3.jpg?v=3",
+    alt: "Shubham Prints — wedding invitations, flex board, bill books and stickers",
   },
 ] as const;
 

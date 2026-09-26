@@ -42,7 +42,7 @@ export function HomeHeroSlider() {
       onBlurCapture={() => setPaused(false)}
     >
       <div
-        className="relative mx-auto w-full max-w-[1920px] overflow-hidden aspect-[1024/571]"
+        className="relative mx-auto w-full max-w-[1920px] overflow-hidden aspect-[1024/338]"
       >
         {slides.map((slide, i) => (
           <div
@@ -57,7 +57,7 @@ export function HomeHeroSlider() {
               src={slide.src}
               alt={slide.alt}
               width={1024}
-              height={571}
+              height={338}
               className="h-full w-full object-contain object-center"
               decoding={i === 0 ? "sync" : "async"}
               fetchPriority={i === 0 ? "high" : "low"}
