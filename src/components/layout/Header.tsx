@@ -86,16 +86,25 @@ export function Header({ site }: { site: HeaderSiteContent }) {
                 href={null}
                 className="shadow-lg ring-2 ring-brand-orange/40"
               />
-              <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-lg sm:text-xl text-slate-900 tracking-tight leading-none">
-                    SHUBHAM PRINTS
+              <div className="min-w-0">
+                <div className="font-brand flex flex-wrap items-end gap-x-2 gap-y-0 leading-none">
+                  <span
+                    className="text-[1.4rem] sm:text-[1.65rem] lg:text-[1.85rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
+                  >
+                    Shubham
                   </span>
-                  <span className="text-xs bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded border border-amber-300 hidden sm:inline-block">
-                    & Stationers
+                  <span
+                    className="text-[1.25rem] sm:text-[1.45rem] lg:text-[1.6rem] font-extrabold uppercase tracking-[0.06em] text-[#dc2626] drop-shadow-sm"
+                  >
+                    Prints
+                  </span>
+                  <span
+                    className="mb-0.5 hidden text-[11px] font-bold text-amber-800 bg-gradient-to-r from-amber-100 to-amber-50 px-2 py-0.5 rounded-md border border-amber-300/80 sm:inline-block"
+                  >
+                    &amp; Stationers
                   </span>
                 </div>
-                <p className="text-[11px] sm:text-xs text-slate-500 font-medium italic mt-0.5">
+                <p className="text-[11px] sm:text-xs text-slate-500 font-medium italic mt-1 max-w-[14rem] sm:max-w-none truncate sm:whitespace-normal">
                   “{site.business.slogan}”
                 </p>
               </div>

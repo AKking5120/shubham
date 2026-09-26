@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { BRAND_LOGO } from "@/lib/constants";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
@@ -9,6 +9,12 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const brandFont = Poppins({
+  variable: "--font-brand",
+  subsets: ["latin"],
+  weight: ["700", "800"],
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -61,7 +67,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${brandFont.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         {children}
         <LocalBusinessSchema />
