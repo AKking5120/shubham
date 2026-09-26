@@ -38,7 +38,7 @@ export function BrandLogo({
         alt={`${BUSINESS.name} — ${BUSINESS.slogan}`}
         width={128}
         height={128}
-        className="h-full w-full object-contain p-0.5"
+        className="h-full w-full object-cover object-center"
         decoding="async"
         fetchPriority={size === "nav" || size === "hero" ? "high" : "auto"}
       />

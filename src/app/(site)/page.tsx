@@ -13,6 +13,7 @@ import {
 import { OwnerPhoto } from "@/components/brand/OwnerPhoto";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { HomeGalleryPreview } from "@/components/home/HomeGalleryPreview";
+import { HomeHeroSlider } from "@/components/home/HomeHeroSlider";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { telLink, whatsappLink } from "@/lib/constants";
 import { getGalleryPreviewProducts } from "@/lib/service-design-gallery";
@@ -62,6 +63,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <HomeHeroSlider />
       <section className="relative bg-slate-900 text-white overflow-hidden py-12 lg:py-20">
         <div className="absolute inset-0 opacity-20 hero-dot-pattern" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

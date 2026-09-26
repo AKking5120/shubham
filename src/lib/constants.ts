@@ -13,10 +13,26 @@ export const BUSINESS = {
 };
 
 /** Official circular logo (public/logo.jpg) */
-export const BRAND_LOGO = "/logo.jpg?v=shubham";
+export const BRAND_LOGO = "/logo.jpg?v=gold-s";
 
 /** Proprietor photo (public/owner.jpg) */
 export const OWNER_PHOTO = "/owner.jpg?v=dk";
+
+/** Home page banner carousel (below navbar). */
+export const HOME_HERO_SLIDES = [
+  {
+    src: "/banners/home-slide-1.jpg",
+    alt: "Shubham Prints and Stationers — bill books, stickers, tags, pamphlets and more",
+  },
+  {
+    src: "/banners/home-slide-2.jpg",
+    alt: "Shubham Prints — wedding cards, flex board and printing services in Jaitpur",
+  },
+  {
+    src: "/banners/home-slide-3.jpg",
+    alt: "Shubham Prints — wedding invitations, flex board, visiting cards and stationery",
+  },
+] as const;
 
 /** Hero background photos (inner pages, mockup-style). */
 export const PAGE_HERO_IMAGES = {
