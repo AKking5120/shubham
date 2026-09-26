@@ -80,13 +80,13 @@ export function Header({ site }: { site: HeaderSiteContent }) {
       <header
         className="sticky top-0 z-40 glass-header border-b border-white/40 shadow-sm"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto pl-2 pr-3 sm:pl-4 sm:pr-6 lg:pl-5 lg:pr-8">
           <div
-            className="grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-2 sm:gap-x-3 xl:gap-x-4 h-[5.25rem] sm:h-[5.5rem]"
+            className="grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-1 sm:gap-x-2 xl:gap-x-3 h-[5.25rem] sm:h-[5.5rem]"
           >
             <Link
               href="/"
-              className="relative z-10 flex items-center gap-2.5 sm:gap-3 shrink-0 pr-1"
+              className="relative z-10 col-start-1 row-start-1 justify-self-start flex items-center gap-2.5 sm:gap-3 shrink-0 -ml-0.5 sm:ml-0 text-left"
             >
               <BrandLogo
                 size="nav"
@@ -112,7 +112,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
                   &amp; Stationers
                 </p>
                 <p
-                  className="hidden min-[1700px]:block text-[11px] text-slate-500 font-medium italic mt-0.5 max-w-[14rem] line-clamp-1"
+                  className="hidden lg:block text-[11px] text-slate-500 font-medium italic mt-0.5 max-w-[14rem] line-clamp-1"
                   title={site.business.slogan}
                 >
                   “{site.business.slogan}”
@@ -120,9 +120,9 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               </div>
             </Link>
 
-            <div className="col-start-2 min-w-0 w-full overflow-hidden px-1">
+            <div className="col-start-2 row-start-1 min-w-0 w-full overflow-hidden pl-1 pr-0 xl:pl-3">
               <nav
-                className="hidden xl:flex items-center justify-center gap-0.5 w-max max-w-full mx-auto"
+                className="hidden xl:flex items-center justify-start gap-0.5 w-full max-w-full"
                 aria-label="Main"
               >
                 {links.map((link) => {
