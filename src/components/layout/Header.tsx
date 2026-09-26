@@ -80,39 +80,35 @@ export function Header({ site }: { site: HeaderSiteContent }) {
       <header
         className="sticky top-0 z-40 glass-header border-b border-white/40 shadow-sm"
       >
-        <div className="max-w-7xl mx-auto pl-2 pr-3 sm:pl-4 sm:pr-6 lg:pl-5 lg:pr-8">
-          <div
-            className="grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-1 sm:gap-x-2 xl:gap-x-3 h-[5.25rem] sm:h-[5.5rem]"
-          >
+        <div className="max-w-7xl mx-auto px-3 sm:px-5 lg:px-6">
+          <div className="flex items-center gap-2 sm:gap-3 h-[5.25rem] sm:h-[5.5rem]">
             <Link
               href="/"
-              className="relative z-10 col-start-1 row-start-1 justify-self-start flex items-center gap-2.5 sm:gap-3 shrink-0 -ml-0.5 sm:ml-0 text-left"
+              className="flex items-center gap-2.5 sm:gap-3 shrink-0 text-left min-w-0 max-w-[46%] sm:max-w-[15rem] lg:max-w-[17rem] xl:max-w-[14.5rem] min-[1720px]:max-w-[17rem]"
             >
               <BrandLogo
                 size="nav"
                 href={null}
                 className="shadow-lg ring-2 ring-brand-orange/40 shrink-0"
               />
-              <div className="hidden sm:block">
-                <div className="font-brand flex items-baseline gap-x-2 whitespace-nowrap leading-none">
+              <div className="hidden sm:block min-w-0 overflow-hidden">
+                <div className="font-brand flex items-baseline gap-x-1.5 sm:gap-x-2 whitespace-nowrap leading-none">
                   <span
-                    className="text-[1.5rem] sm:text-[1.85rem] 2xl:text-[2.05rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
+                    className="text-[1.4rem] sm:text-[1.65rem] xl:text-[1.5rem] min-[1720px]:text-[1.85rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
                   >
                     Shubham
                   </span>
                   <span
-                    className="text-[1.35rem] sm:text-[1.65rem] 2xl:text-[1.8rem] font-extrabold uppercase tracking-[0.04em] text-[#dc2626]"
+                    className="text-[1.2rem] sm:text-[1.45rem] xl:text-[1.35rem] min-[1720px]:text-[1.65rem] font-extrabold uppercase tracking-[0.04em] text-[#dc2626]"
                   >
                     Prints
                   </span>
                 </div>
-                <p
-                  className="mt-1 text-[11px] text-amber-800 font-semibold leading-tight"
-                >
+                <p className="mt-1 text-[11px] text-amber-800 font-semibold leading-tight">
                   &amp; Stationers
                 </p>
                 <p
-                  className="hidden lg:block text-[11px] text-slate-500 font-medium italic mt-0.5 max-w-[14rem] line-clamp-1"
+                  className="hidden min-[1720px]:block text-[11px] text-slate-500 font-medium italic mt-0.5 line-clamp-1"
                   title={site.business.slogan}
                 >
                   “{site.business.slogan}”
@@ -120,48 +116,46 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               </div>
             </Link>
 
-            <div className="col-start-2 row-start-1 min-w-0 w-full overflow-hidden pl-1 pr-0 xl:pl-3">
-              <nav
-                className="hidden xl:flex items-center justify-start gap-0.5 w-full max-w-full"
-                aria-label="Main"
-              >
-                {links.map((link) => {
-                  const active = isActive(pathname, link.href);
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={cn(
-                        "px-2 xl:px-2.5 min-[1500px]:px-3 py-2 rounded-lg text-sm min-[1500px]:text-[15px] font-semibold whitespace-nowrap transition",
-                        active
-                          ? "text-brand-blue bg-blue-50/80"
-                          : "text-slate-600 hover:text-slate-900 hover:bg-white/50",
-                      )}
-                    >
-                      <span className="min-[1500px]:hidden">{link.short}</span>
-                      <span className="hidden min-[1500px]:inline">{link.label}</span>
-                    </Link>
-                  );
-                })}
-              </nav>
-            </div>
+            <nav
+              className="hidden xl:flex flex-1 items-center justify-center gap-0.5 min-w-0 px-1"
+              aria-label="Main"
+            >
+              {links.map((link) => {
+                const active = isActive(pathname, link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "px-1.5 xl:px-2 min-[1720px]:px-2.5 py-2 rounded-lg text-[13px] min-[1720px]:text-sm font-semibold whitespace-nowrap transition",
+                      active
+                        ? "text-brand-blue bg-blue-50/80"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-white/50",
+                    )}
+                  >
+                    <span className="min-[1720px]:hidden">{link.short}</span>
+                    <span className="hidden min-[1720px]:inline">{link.label}</span>
+                  </Link>
+                );
+              })}
+            </nav>
 
-            <div className="col-start-3 flex items-center justify-end gap-2 shrink-0">
-              <div className="hidden sm:flex items-center gap-2">
+            <div className="flex items-center justify-end gap-1.5 sm:gap-2 shrink-0 ml-auto xl:ml-0">
+              <div className="hidden sm:flex items-center gap-1.5 sm:gap-2">
                 <a
                   href={wa()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 xl:px-3.5 py-2 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-1.5 transition whitespace-nowrap"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 sm:px-3.5 py-2 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-1.5 transition whitespace-nowrap"
                 >
                   <MessageSquare className="w-4 h-4 shrink-0" />
-                  <span className="hidden md:inline">WhatsApp</span>
+                  <span className="hidden lg:inline">WhatsApp</span>
                 </a>
                 <Link
                   href="/contact#quote"
-                  className="bg-brand-blue hover:bg-indigo-900 text-white px-3 xl:px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition whitespace-nowrap"
+                  className="bg-brand-blue hover:bg-indigo-900 text-white px-2.5 sm:px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition whitespace-nowrap"
                 >
-                  Get Estimate
+                  <span className="hidden md:inline">Get </span>Estimate
                 </Link>
               </div>
               <button
