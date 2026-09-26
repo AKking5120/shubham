@@ -80,35 +80,37 @@ export function Header({ site }: { site: HeaderSiteContent }) {
       <header
         className="sticky top-0 z-40 glass-header border-b border-white/40 shadow-sm"
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-5 lg:px-6">
-          <div className="flex items-center gap-2 sm:gap-3 h-[5.25rem] sm:h-[5.5rem]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-3 h-20">
             <Link
               href="/"
-              className="flex items-center gap-2.5 sm:gap-3 shrink-0 text-left min-w-0 max-w-[46%] sm:max-w-[15rem] lg:max-w-[17rem] xl:max-w-[14.5rem] min-[1720px]:max-w-[17rem]"
+              className="flex items-center gap-3 shrink-0 text-left"
             >
               <BrandLogo
                 size="nav"
                 href={null}
                 className="shadow-lg ring-2 ring-brand-orange/40 shrink-0"
               />
-              <div className="hidden sm:block min-w-0 overflow-hidden">
-                <div className="font-brand flex items-baseline gap-x-1.5 sm:gap-x-2 whitespace-nowrap leading-none">
+              <div className="hidden sm:block">
+                <div className="font-brand flex flex-wrap items-end gap-x-2 gap-y-0 leading-none">
                   <span
-                    className="text-[1.4rem] sm:text-[1.65rem] xl:text-[1.5rem] min-[1720px]:text-[1.85rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
+                    className="text-xl sm:text-2xl 2xl:text-[2.05rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
                   >
                     Shubham
                   </span>
                   <span
-                    className="text-[1.2rem] sm:text-[1.45rem] xl:text-[1.35rem] min-[1720px]:text-[1.65rem] font-extrabold uppercase tracking-[0.04em] text-[#dc2626]"
+                    className="text-lg sm:text-xl 2xl:text-[1.8rem] font-extrabold uppercase tracking-[0.05em] text-[#dc2626]"
                   >
                     Prints
                   </span>
+                  <span
+                    className="mb-0.5 hidden md:inline text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-300/80"
+                  >
+                    &amp; Stationers
+                  </span>
                 </div>
-                <p className="mt-1 text-[11px] text-amber-800 font-semibold leading-tight">
-                  &amp; Stationers
-                </p>
                 <p
-                  className="hidden min-[1720px]:block text-[11px] text-slate-500 font-medium italic mt-0.5 line-clamp-1"
+                  className="hidden 2xl:block text-[11px] text-slate-500 font-medium italic mt-1 max-w-xs line-clamp-1"
                   title={site.business.slogan}
                 >
                   “{site.business.slogan}”
@@ -117,7 +119,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
             </Link>
 
             <nav
-              className="hidden xl:flex flex-1 items-center justify-center gap-0.5 min-w-0 px-1"
+              className="hidden lg:flex items-center justify-center flex-1 min-w-0 mx-1 xl:mx-3 gap-0.5"
               aria-label="Main"
             >
               {links.map((link) => {
@@ -127,40 +129,40 @@ export function Header({ site }: { site: HeaderSiteContent }) {
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      "px-1.5 xl:px-2 min-[1720px]:px-2.5 py-2 rounded-lg text-[13px] min-[1720px]:text-sm font-semibold whitespace-nowrap transition",
+                      "px-2 lg:px-2.5 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition",
                       active
-                        ? "text-brand-blue bg-blue-50/80"
-                        : "text-slate-600 hover:text-slate-900 hover:bg-white/50",
+                        ? "font-semibold text-brand-blue bg-blue-50/90"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-white/60",
                     )}
                   >
-                    <span className="min-[1720px]:hidden">{link.short}</span>
-                    <span className="hidden min-[1720px]:inline">{link.label}</span>
+                    <span className="2xl:hidden">{link.short}</span>
+                    <span className="hidden 2xl:inline">{link.label}</span>
                   </Link>
                 );
               })}
             </nav>
 
-            <div className="flex items-center justify-end gap-1.5 sm:gap-2 shrink-0 ml-auto xl:ml-0">
-              <div className="hidden sm:flex items-center gap-1.5 sm:gap-2">
+            <div className="flex items-center gap-2 shrink-0">
+              <div className="hidden sm:flex items-center gap-2">
                 <a
                   href={wa()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 sm:px-3.5 py-2 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-1.5 transition whitespace-nowrap"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-1.5 transition"
                 >
-                  <MessageSquare className="w-4 h-4 shrink-0" />
-                  <span className="hidden lg:inline">WhatsApp</span>
+                  <MessageSquare className="w-4 h-4" />
+                  WhatsApp
                 </a>
                 <Link
                   href="/contact#quote"
-                  className="bg-brand-blue hover:bg-indigo-900 text-white px-2.5 sm:px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition whitespace-nowrap"
+                  className="bg-brand-blue hover:bg-indigo-900 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition"
                 >
-                  <span className="hidden md:inline">Get </span>Estimate
+                  Get Estimate
                 </Link>
               </div>
               <button
                 type="button"
-                className="xl:hidden p-2 text-slate-600 hover:text-slate-900"
+                className="lg:hidden p-2 text-slate-600 hover:text-slate-900"
                 onClick={() => setOpen((v) => !v)}
                 aria-label="Toggle menu"
               >
@@ -171,7 +173,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
         </div>
 
         {open && (
-          <div className="xl:hidden glass-header-mobile-menu border-t border-white/50 px-4 pt-3 pb-6 space-y-1 shadow-lg">
+          <div className="lg:hidden glass-header-mobile-menu border-t border-white/50 px-4 pt-3 pb-6 space-y-1 shadow-lg">
             {links.map((link) => (
               <Link
                 key={link.href}
