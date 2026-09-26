@@ -33,7 +33,7 @@ export function HomeHeroSlider() {
 
   return (
     <section
-      className="relative w-full border-b border-slate-200 bg-slate-900"
+      className="relative w-full border-b border-slate-200 bg-slate-100"
       aria-roledescription="carousel"
       aria-label="Promotional banners"
       onMouseEnter={() => setPaused(true)}
@@ -42,7 +42,7 @@ export function HomeHeroSlider() {
       onBlurCapture={() => setPaused(false)}
     >
       <div
-        className="relative mx-auto w-full max-w-[1920px] overflow-hidden aspect-[16/7] min-h-[140px] max-h-[min(42vh,440px)] sm:aspect-[21/8] md:max-h-[480px]"
+        className="relative mx-auto w-full max-w-[1920px] overflow-hidden aspect-[1024/571]"
       >
         {slides.map((slide, i) => (
           <div
@@ -56,9 +56,9 @@ export function HomeHeroSlider() {
             <img
               src={slide.src}
               alt={slide.alt}
-              width={1920}
-              height={800}
-              className="h-full w-full object-cover object-center"
+              width={1024}
+              height={571}
+              className="h-full w-full object-contain object-center"
               decoding={i === 0 ? "sync" : "async"}
               fetchPriority={i === 0 ? "high" : "low"}
             />
