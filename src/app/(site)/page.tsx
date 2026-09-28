@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { SEO } from "@/lib/constants";
 import {
   CheckCircle,
   ChevronRight,
@@ -20,6 +22,12 @@ import { telLink, whatsappLink } from "@/lib/constants";
 import { getGalleryPreviewProducts } from "@/lib/service-design-gallery";
 import { getPublicProducts, getPublicServices } from "@/lib/public-catalog";
 import { getSiteContent } from "@/lib/store";
+
+export const metadata: Metadata = {
+  title: { absolute: SEO.title },
+  description: SEO.description,
+  alternates: { canonical: "/" },
+};
 
 const popularServices = [
   {

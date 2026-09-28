@@ -77,3 +77,15 @@ npm start
 
 Set all env variables on your host (Vercel, VPS, etc.).  
 If using JSON fallback, ensure `data/` and `public/uploads/` are writable.
+
+## SEO & custom domain
+
+1. **Vercel** → Project → **Settings → Domains** — add your domain (e.g. `shubhamprints.in` and `www`). Point DNS at Vercel as shown in the dashboard.
+2. **Environment variable** (Production + Preview): set `NEXT_PUBLIC_SITE_URL` to your live URL, e.g. `https://www.yourdomain.com` (no trailing slash). Redeploy.
+3. After deploy, check:
+   - `https://yourdomain.com/robots.txt`
+   - `https://yourdomain.com/sitemap.xml`
+4. **Google Search Console** — [search.google.com/search-console](https://search.google.com/search-console): add property → verify with HTML tag → copy the `content` value into `GOOGLE_SITE_VERIFICATION` in Vercel → redeploy.
+5. In Search Console, submit sitemap: `https://yourdomain.com/sitemap.xml`.
+6. **Google Business Profile** — keep name, address, phone identical to the website; link your domain in the profile.
+7. **Admin → Site content** — edit SEO title & description for local keywords (Jaitpur, Badarpur, wedding cards, bill books, etc.).

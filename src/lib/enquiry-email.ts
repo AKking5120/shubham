@@ -1,18 +1,9 @@
 import { BUSINESS } from "@/lib/constants";
+import { getSiteUrl } from "@/lib/site-url";
 import type { Enquiry } from "@/lib/types";
 
 export function isEnquiryEmailConfigured(): boolean {
   return Boolean(process.env.RESEND_API_KEY?.trim());
-}
-
-function siteBaseUrl(): string {
-  if (process.env.NEXT_PUBLIC_SITE_URL) {
-    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
-  }
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  return "http://localhost:3000";
 }
 
 function escapeHtml(value: string): string {
@@ -30,7 +21,7 @@ function row(label: string, value: string | null | undefined): string {
 }
 
 function buildEnquiryEmailHtml(enquiry: Enquiry): string {
-  const adminUrl = `${siteBaseUrl()}/admin/enquiries/${encodeURIComponent(enquiry.id)}`;
+  const adminUrl = `${getSiteUrl()}/admin/enquiries/${encodeURIComponent(enquiry.id)}`;
   const rows = [
     row("Enquiry ID", enquiry.id),
     row("Name", enquiry.customerName),

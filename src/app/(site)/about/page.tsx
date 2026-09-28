@@ -12,6 +12,7 @@ import { CtaBanner } from "@/components/layout/CtaBanner";
 export const metadata: Metadata = {
   title: "About Us",
   description: SEO.description,
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

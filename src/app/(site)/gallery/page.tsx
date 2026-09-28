@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Design Gallery",
   description:
     "Browse visiting card, bill book, letter pad and wedding design templates from Shubham Prints & Stationers.",
+  alternates: { canonical: "/gallery" },
 };
 
 export default function GalleryPage() {

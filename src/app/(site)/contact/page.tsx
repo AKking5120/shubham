@@ -19,6 +19,7 @@ import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
 export const metadata: Metadata = {
   title: "Contact Us",
   description: SEO.description,
+  alternates: { canonical: "/contact" },
 };
 
 type ContactPageProps = PageProps<"/contact">;

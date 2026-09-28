@@ -51,7 +51,28 @@ export const SEO = {
     "Shubham Prints & Stationers | Complete Printing Solutions in Jaitpur, New Delhi",
   description:
     "Shubham Prints & Stationers — bill books, visiting cards, UV texture cards, doctor files, wedding cards, bulk xerox printouts in Jaitpur, Badarpur, New Delhi. Call 9717528176.",
+  keywords: [
+    "Shubham Prints",
+    "printing shop Jaitpur",
+    "printing Badarpur",
+    "bill book printing Delhi",
+    "GST bill book",
+    "visiting card printing",
+    "wedding card printing",
+    "doctor file printing",
+    "xerox printout",
+    "letter head printing",
+    "flex board printing",
+    "stationery shop New Delhi",
+    "printer near me Jaitpur",
+  ],
 };
+
+/** Google Business / Maps listing coordinates */
+export const BUSINESS_GEO = {
+  latitude: 28.5001417,
+  longitude: 77.331092,
+} as const;
 
 export const WHATSAPP_DEFAULT_MESSAGE =
   "Hello Shubham Prints & Stationers, I would like to enquire about a printing requirement.";

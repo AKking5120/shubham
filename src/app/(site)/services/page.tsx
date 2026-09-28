@@ -9,6 +9,7 @@ import { getPriceCalculator } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Services & Rates",
   description: SEO.description,
+  alternates: { canonical: "/services" },
 };
 
 export default async function ServicesPage() {
