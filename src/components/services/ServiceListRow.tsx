@@ -11,7 +11,9 @@ import {
   productsForService,
   SERVICE_GALLERY_CATEGORIES,
 } from "@/lib/gallery-utils";
+import { AddServiceToCartButton } from "@/components/cart/AddServiceToCartButton";
 import { telLink, whatsappLink, BUSINESS } from "@/lib/constants";
+import type { PriceCalculatorConfig } from "@/lib/price-calculator";
 import type { GalleryCategory } from "@/lib/types";
 
 function galleryProductsForService(service: Service, products: Product[]): Product[] {
@@ -33,9 +35,11 @@ function galleryProductsForService(service: Service, products: Product[]): Produ
 export function ServiceListRow({
   service,
   products = [],
+  calculator,
 }: {
   service: Service;
   products?: Product[];
+  calculator: PriceCalculatorConfig;
 }) {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const highlights = serviceHighlights(service);
@@ -90,6 +94,7 @@ export function ServiceListRow({
       </div>
 
       <div className="flex flex-col gap-2 md:items-stretch">
+        <AddServiceToCartButton service={service} calculator={calculator} />
         <Button
           href={`/contact?service=${encodeURIComponent(service.name)}#quote`}
           variant="secondary"

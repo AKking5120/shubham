@@ -2,14 +2,16 @@ import { serviceImageForSlug } from "./service-images";
 import { DEFAULT_PRODUCTS, DEFAULT_SERVICES } from "./seed";
 import {
   enquiryToRow,
+  orderToRow,
   productToRow,
   rowToEnquiry,
+  rowToOrder,
   rowToProduct,
   rowToService,
   serviceToRow,
 } from "./supabase/mappers";
 import { getSupabaseAdmin } from "./supabase/server";
-import type { Enquiry, Product, Service } from "./types";
+import type { Enquiry, Order, Product, Service } from "./types";
 
 async function ensureSeedData() {
   const supabase = getSupabaseAdmin();
@@ -188,6 +190,91 @@ export async function sbGetEnquiryById(id: string): Promise<Enquiry | null> {
 }
 
 /** JSON blobs (site content, price calculator, design overrides). Table optional. */
+export async function sbGetOrders(): Promise<Order[]> {
+  const { data, error } = await getSupabaseAdmin()
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    if (error.code === "42P01" || error.message?.includes("orders")) {
+      return [];
+    }
+    throw error;
+  }
+  return (data ?? []).map((row) => rowToOrder(row));
+}
+
+export async function sbAddOrder(
+  data: Omit<Order, "id" | "createdAt" | "updatedAt">,
+): Promise<Order> {
+  const now = new Date().toISOString();
+  const order: Order = {
+    ...data,
+    id: `ORD-${Date.now()}`,
+    createdAt: now,
+    updatedAt: now,
+  };
+  const { error } = await getSupabaseAdmin()
+    .from("orders")
+    .insert(orderToRow(order));
+
+  if (error) throw error;
+  return order;
+}
+
+export async function sbUpdateOrder(
+  id: string,
+  patch: Partial<Order>,
+): Promise<Order | null> {
+  const existing = await sbGetOrderById(id);
+  if (!existing) return null;
+
+  const merged: Order = {
+    ...existing,
+    ...patch,
+    updatedAt: new Date().toISOString(),
+  };
+
+  const { error } = await getSupabaseAdmin()
+    .from("orders")
+    .update(orderToRow(merged))
+    .eq("id", id);
+
+  if (error) throw error;
+  return merged;
+}
+
+export async function sbGetOrderById(id: string): Promise<Order | null> {
+  const { data, error } = await getSupabaseAdmin()
+    .from("orders")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data ? rowToOrder(data) : null;
+}
+
+export async function sbTrackOrder(
+  orderNumber: string,
+  phone: string,
+): Promise<Order | null> {
+  const normalizedPhone = phone.replace(/\D/g, "").slice(-10);
+  const { data, error } = await getSupabaseAdmin()
+    .from("orders")
+    .select("*")
+    .eq("order_number", orderNumber.trim())
+    .maybeSingle();
+
+  if (error) throw error;
+  if (!data) return null;
+  const order = rowToOrder(data);
+  const orderPhone = order.phone.replace(/\D/g, "").slice(-10);
+  if (orderPhone !== normalizedPhone) return null;
+  return order;
+}
+
 export async function sbGetAppSetting<T>(key: string): Promise<T | null> {
   const { data, error } = await getSupabaseAdmin()
     .from("app_settings")

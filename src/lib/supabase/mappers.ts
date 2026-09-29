@@ -1,5 +1,14 @@
-import type { EnquiryRow, ProductRow, ServiceRow } from "./server";
-import type { Enquiry, Product, Service } from "../types";
+import type { EnquiryRow, OrderRow, ProductRow, ServiceRow } from "./server";
+import type {
+  Enquiry,
+  Order,
+  OrderLineItem,
+  OrderStatus,
+  PaymentMethod,
+  PaymentStatus,
+  Product,
+  Service,
+} from "../types";
 import type { EnquiryStatus, GalleryCategory } from "../types";
 
 export function rowToService(row: ServiceRow): Service {
@@ -63,6 +72,64 @@ export function rowToEnquiry(row: EnquiryRow): Enquiry {
     uploadedFile: row.uploaded_file,
     status: row.status as EnquiryStatus,
     createdAt: row.created_at ?? new Date().toISOString(),
+  };
+}
+
+export function rowToOrder(row: OrderRow): Order {
+  const items = (Array.isArray(row.items) ? row.items : []) as OrderLineItem[];
+  return {
+    id: row.id,
+    orderNumber: row.order_number,
+    customerName: row.customer_name,
+    phone: row.phone,
+    email: row.email,
+    addressLine1: row.address_line1,
+    addressLine2: row.address_line2,
+    city: row.city,
+    pincode: row.pincode,
+    items,
+    subtotal: Number(row.subtotal),
+    deliveryFee: Number(row.delivery_fee),
+    total: Number(row.total),
+    paymentMethod: row.payment_method as PaymentMethod,
+    paymentStatus: row.payment_status as PaymentStatus,
+    razorpayOrderId: row.razorpay_order_id,
+    razorpayPaymentId: row.razorpay_payment_id,
+    status: row.status as OrderStatus,
+    notes: row.notes,
+    createdAt: row.created_at ?? new Date().toISOString(),
+    updatedAt: row.updated_at ?? row.created_at ?? new Date().toISOString(),
+  };
+}
+
+export function orderToRow(
+  order: Omit<Order, "createdAt" | "updatedAt"> & {
+    createdAt?: string;
+    updatedAt?: string;
+  },
+): OrderRow {
+  return {
+    id: order.id,
+    order_number: order.orderNumber,
+    customer_name: order.customerName,
+    phone: order.phone,
+    email: order.email,
+    address_line1: order.addressLine1,
+    address_line2: order.addressLine2,
+    city: order.city,
+    pincode: order.pincode,
+    items: order.items,
+    subtotal: order.subtotal,
+    delivery_fee: order.deliveryFee,
+    total: order.total,
+    payment_method: order.paymentMethod,
+    payment_status: order.paymentStatus,
+    razorpay_order_id: order.razorpayOrderId,
+    razorpay_payment_id: order.razorpayPaymentId,
+    status: order.status,
+    notes: order.notes,
+    created_at: order.createdAt,
+    updated_at: order.updatedAt,
   };
 }
 

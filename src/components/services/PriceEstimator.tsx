@@ -1,7 +1,8 @@
 "use client";
 
-import { Calculator, MessageSquare } from "lucide-react";
+import { Calculator, MessageSquare, ShoppingCart } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
+import { useCart } from "@/components/cart/CartProvider";
 import { whatsappLink } from "@/lib/constants";
 import type { PriceCalculatorConfig } from "@/lib/price-calculator";
 
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export function PriceEstimator({ config }: Props) {
+  const { addItem } = useCart();
   const keys = Object.keys(config);
   const firstKey = keys[0] ?? "visiting_cards";
 
@@ -72,6 +74,17 @@ export function PriceEstimator({ config }: Props) {
   function sendToWhatsApp() {
     const msg = `Namaste Shubham Prints! I calculated a rate quote on your website:\n\n- Item: ${paper.name}\n- Quantity: ${quantity} ${catData.qtyUnit}\n- Finishing: ${finishLabel}\n- Estimated Price: ₹${total}\n\nPlease confirm availability and payment options.`;
     window.open(whatsappLink(msg), "_blank", "noopener,noreferrer");
+  }
+
+  function addEstimateToCart() {
+    addItem({
+      kind: "calculator",
+      refId: category,
+      title: catData.name,
+      quantity: 1,
+      unitPrice: total,
+      options: `${paper.name} · ${quantity} ${catData.qtyUnit} · ${finishLabel}`,
+    });
   }
 
   return (
@@ -197,6 +210,14 @@ export function PriceEstimator({ config }: Props) {
           </div>
 
           <div className="space-y-2 pt-6">
+            <button
+              type="button"
+              onClick={addEstimateToCart}
+              className="w-full bg-brand-blue hover:bg-indigo-800 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-md transition"
+            >
+              <ShoppingCart className="w-4 h-4" />
+              Add estimate to cart
+            </button>
             <button
               type="button"
               onClick={sendToWhatsApp}

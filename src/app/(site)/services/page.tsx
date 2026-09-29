@@ -49,6 +49,7 @@ export default async function ServicesPage() {
               key={service.id}
               service={service}
               products={products}
+              calculator={calculator}
             />
           ))}
         </div>

@@ -13,7 +13,8 @@ import {
   type SiteContent,
 } from "./site-content";
 import { DEFAULT_PRODUCTS, DEFAULT_SERVICES } from "./seed";
-import type { Enquiry, Product, Service } from "./types";
+import type { Enquiry, Order, Product, Service } from "./types";
+import { generateOrderNumber } from "./order-utils";
 const DATA_DIR = path.join(process.cwd(), "data");
 
 async function ensureDataDir() {
@@ -256,6 +257,73 @@ export async function saveDesignGalleryOverrides(
 }
 
 /** Slugs with registry-backed or admin-managed design galleries. */
+export async function getOrders(): Promise<Order[]> {
+  if (isSupabaseConfigured()) return sb.sbGetOrders();
+  const list = await readJson<Order[]>("orders.json", []);
+  return list.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
+}
+
+export async function addOrder(
+  data: Omit<Order, "id" | "orderNumber" | "createdAt" | "updatedAt"> & {
+    orderNumber?: string;
+  },
+): Promise<Order> {
+  if (isSupabaseConfigured()) {
+    const orderNumber = data.orderNumber ?? generateOrderNumber();
+    return sb.sbAddOrder({ ...data, orderNumber });
+  }
+  const orders = await readJson<Order[]>("orders.json", []);
+  const now = new Date().toISOString();
+  const order: Order = {
+    ...data,
+    orderNumber: data.orderNumber ?? generateOrderNumber(),
+    id: `ORD-${Date.now()}`,
+    createdAt: now,
+    updatedAt: now,
+  };
+  orders.unshift(order);
+  await writeJson("orders.json", orders);
+  return order;
+}
+
+export async function updateOrder(
+  id: string,
+  patch: Partial<Order>,
+): Promise<Order | null> {
+  if (isSupabaseConfigured()) return sb.sbUpdateOrder(id, patch);
+  const orders = await readJson<Order[]>("orders.json", []);
+  const idx = orders.findIndex((o) => o.id === id);
+  if (idx === -1) return null;
+  orders[idx] = {
+    ...orders[idx],
+    ...patch,
+    updatedAt: new Date().toISOString(),
+  };
+  await writeJson("orders.json", orders);
+  return orders[idx];
+}
+
+export async function getOrderById(id: string): Promise<Order | null> {
+  if (isSupabaseConfigured()) return sb.sbGetOrderById(id);
+  const orders = await getOrders();
+  return orders.find((o) => o.id === id) ?? null;
+}
+
+export async function trackOrder(
+  orderNumber: string,
+  phone: string,
+): Promise<Order | null> {
+  if (isSupabaseConfigured()) return sb.sbTrackOrder(orderNumber, phone);
+  const normalizedPhone = phone.replace(/\D/g, "").slice(-10);
+  const orders = await getOrders();
+  const order = orders.find((o) => o.orderNumber === orderNumber.trim());
+  if (!order) return null;
+  if (order.phone.replace(/\D/g, "").slice(-10) !== normalizedPhone) return null;
+  return order;
+}
+
 export async function getDesignGallerySlugs(): Promise<
   { slug: string; name: string; count: number }[]
 > {

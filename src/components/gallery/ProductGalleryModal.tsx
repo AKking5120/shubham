@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
+import { AddProductToCartButton } from "@/components/cart/AddProductToCartButton";
 import type { Product } from "@/lib/types";
 
 type ProductGalleryModalProps = {
@@ -156,6 +157,9 @@ export function ProductGalleryModal({
           <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-slate-300">
             {current.description}
           </p>
+          <div className="mt-4 flex justify-center">
+            <AddProductToCartButton product={current} />
+          </div>
 
           {products.length > 1 && products.length <= 48 && (
             <div className="mt-5 flex justify-center gap-2 overflow-x-auto pb-1">

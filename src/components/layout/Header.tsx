@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Lock, Menu, MessageSquare, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/brand/BrandLogo";
+import { CartIconLink } from "@/components/cart/CartIconLink";
 import { telLink, whatsappLink } from "@/lib/constants";
 import type { SiteContent } from "@/lib/site-content";
 import { cn } from "@/lib/utils";
@@ -142,7 +143,16 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               })}
             </nav>
 
-            <div className="relative z-20 ml-auto flex shrink-0 items-center justify-end gap-2 lg:ml-0">
+            <div className="relative z-20 ml-auto flex shrink-0 items-center justify-end gap-1 sm:gap-2 lg:ml-0">
+              <Link
+                href="/track-order"
+                className="hidden md:inline-flex px-2 py-2 text-sm font-medium text-slate-600 hover:text-brand-blue"
+              >
+                Track
+              </Link>
+              <CartIconLink
+                className="relative inline-flex p-2 text-slate-600 hover:text-brand-blue"
+              />
               <div className="hidden sm:flex items-center gap-2">
                 <a
                   href={wa()}
@@ -184,6 +194,20 @@ export function Header({ site }: { site: HeaderSiteContent }) {
                 {link.label}
               </Link>
             ))}
+            <Link
+              href="/cart"
+              onClick={() => setOpen(false)}
+              className="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-white/60"
+            >
+              Cart
+            </Link>
+            <Link
+              href="/track-order"
+              onClick={() => setOpen(false)}
+              className="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-white/60"
+            >
+              Track order
+            </Link>
             <Link
               href="/admin/login"
               onClick={() => setOpen(false)}

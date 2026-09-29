@@ -21,6 +21,30 @@ export type ProductRow = {
   created_at?: string;
 };
 
+export type OrderRow = {
+  id: string;
+  order_number: string;
+  customer_name: string;
+  phone: string;
+  email: string;
+  address_line1: string;
+  address_line2: string;
+  city: string;
+  pincode: string;
+  items: unknown;
+  subtotal: number;
+  delivery_fee: number;
+  total: number;
+  payment_method: string;
+  payment_status: string;
+  razorpay_order_id: string | null;
+  razorpay_payment_id: string | null;
+  status: string;
+  notes: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
 export type EnquiryRow = {
   id: string;
   customer_name: string;

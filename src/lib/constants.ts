@@ -152,6 +152,40 @@ export const ENQUIRY_STATUSES = [
   "Cancelled",
 ] as const;
 
+export const ORDER_STATUSES = [
+  "placed",
+  "confirmed",
+  "in_production",
+  "ready",
+  "out_for_delivery",
+  "delivered",
+  "cancelled",
+] as const;
+
+export const ORDER_STATUS_LABELS: Record<
+  (typeof ORDER_STATUSES)[number],
+  string
+> = {
+  placed: "Order placed",
+  confirmed: "Confirmed",
+  in_production: "In production",
+  ready: "Ready for pickup / dispatch",
+  out_for_delivery: "Out for delivery",
+  delivered: "Delivered",
+  cancelled: "Cancelled",
+};
+
+export const PAYMENT_METHODS = ["cod", "razorpay"] as const;
+
+/** Flat delivery within Delhi (pincode 110xxx). */
+export const DELHI_DELIVERY_FEE_INR = 80;
+
+/** Delhi NCR pincodes served for online orders. */
+export function isDelhiDeliveryPincode(pincode: string): boolean {
+  const p = pincode.replace(/\D/g, "");
+  return p.length === 6 && p.startsWith("110");
+}
+
 export const GALLERY_CATEGORIES = [
   "Business Printing",
   "Cards",
