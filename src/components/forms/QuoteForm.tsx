@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
-import { telLink, whatsappLink, BUSINESS } from "@/lib/constants";
 
 const DEFAULT_SERVICE_OPTIONS = [
   "Bill Book",
@@ -80,14 +79,6 @@ export function QuoteForm({
         <p className="mt-2 text-slate-600">
           Your requirement has been received. We will contact you soon.
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Button href={whatsappLink()} external variant="whatsapp">
-            WhatsApp Us
-          </Button>
-          <Button href={telLink(BUSINESS.phones[0])} variant="secondary">
-            Call Now
-          </Button>
-        </div>
         <button
           type="button"
           className="mt-4 text-sm text-[#1e3a5f] underline"

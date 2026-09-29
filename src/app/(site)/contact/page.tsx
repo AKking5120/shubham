@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { OwnerPhoto } from "@/components/brand/OwnerPhoto";
 import { QuoteForm } from "@/components/forms/QuoteForm";
-import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/layout/PageHero";
 import {
   BUSINESS,
@@ -10,11 +9,8 @@ import {
   mapsLink,
   PAGE_HERO_IMAGES,
   SEO,
-  telLink,
-  whatsappLink,
-  whatsappLinkForPhone,
 } from "@/lib/constants";
-import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
+import { EmailLink } from "@/components/ui/ContactLinks";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -42,7 +38,8 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
           <aside className="lg:col-span-3">
             <h2 className="text-xl font-bold text-[#0a1628]">Get In Touch</h2>
             <p className="mt-2 text-sm text-slate-600">
-              Call, WhatsApp or visit us in Jaitpur for printing support.
+              Send a message below or visit us in Jaitpur. Phone & WhatsApp are
+              listed in the site footer.
             </p>
 
             <div className="mt-6 flex flex-col items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-center sm:items-start sm:text-left">
@@ -56,28 +53,6 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
             </div>
 
             <ul className="mt-6 space-y-4 text-sm">
-              {BUSINESS.phones.map((phone) => (
-                <li key={phone} className="flex gap-3">
-                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
-                  <PhoneLink
-                    phone={phone}
-                    className="font-medium text-[#1e3a5f]"
-                  />
-                </li>
-              ))}
-              {BUSINESS.phones.map((phone) => (
-                <li key={`wa-${phone}`} className="flex gap-3">
-                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#25D366]" />
-                  <a
-                    href={whatsappLinkForPhone(phone)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium text-[#1e3a5f] hover:text-[#25D366] hover:underline"
-                  >
-                    WhatsApp this number
-                  </a>
-                </li>
-              ))}
               <li className="flex gap-3">
                 <Mail className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
                 <EmailLink
@@ -102,14 +77,6 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               </li>
             </ul>
 
-            <div className="mt-6 flex flex-col gap-2">
-              <Button href={whatsappLink()} external variant="whatsapp" className="w-full">
-                WhatsApp
-              </Button>
-              <Button href={telLink(BUSINESS.phones[0])} variant="secondary" className="w-full">
-                Call Now
-              </Button>
-            </div>
           </aside>
 
           <div

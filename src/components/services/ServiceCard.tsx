@@ -2,7 +2,7 @@
 
 import { ServiceImage } from "@/components/services/ServiceImage";
 import { useCallback, useMemo, useState } from "react";
-import { Images, Phone } from "lucide-react";
+import { Images } from "lucide-react";
 import type { Product, Service } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { ProductGalleryModal } from "@/components/gallery/ProductGalleryModal";
@@ -10,7 +10,6 @@ import {
   productsForService,
   SERVICE_GALLERY_CATEGORIES,
 } from "@/lib/gallery-utils";
-import { telLink, whatsappLink, BUSINESS } from "@/lib/constants";
 import type { GalleryCategory } from "@/lib/types";
 
 function galleryProductsForService(service: Service, products: Product[]): Product[] {
@@ -42,8 +41,6 @@ export function ServiceCard({
   products?: Product[];
 }) {
   const [galleryOpen, setGalleryOpen] = useState(false);
-  const waText = `Hello, I would like a quote for ${service.name}.`;
-
   const galleryItems = useMemo(
     () => galleryProductsForService(service, products),
     [service, products],
@@ -110,38 +107,21 @@ export function ServiceCard({
             </Button>
           )}
           <Button
-            href={`/contact?service=${encodeURIComponent(service.name)}#quote`}
+            href={`/services#${service.slug}`}
             variant="primary"
             className="py-2.5 text-xs"
           >
-            Get Quote
+            Order
           </Button>
           {!compact && !detailed && (
-            <>
-              <button
-                type="button"
-                onClick={openGallery}
-                className="inline-flex items-center justify-center rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-semibold text-[#1e3a5f] hover:bg-slate-50"
-              >
-                <Images className="mr-1 h-3.5 w-3.5" />
-                Photos
-              </button>
-              <a
-                href={whatsappLink(waText)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-xl bg-[#25D366] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#1ebe57]"
-              >
-                WhatsApp
-              </a>
-              <a
-                href={telLink(BUSINESS.phones[0])}
-                className="inline-flex items-center justify-center gap-1 rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-semibold text-[#1e3a5f]"
-              >
-                <Phone className="h-3.5 w-3.5" />
-                Call
-              </a>
-            </>
+            <button
+              type="button"
+              onClick={openGallery}
+              className="inline-flex items-center justify-center rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-semibold text-[#1e3a5f] hover:bg-slate-50"
+            >
+              <Images className="mr-1 h-3.5 w-3.5" />
+              Photos
+            </button>
           )}
         </div>
       </div>

@@ -1,13 +1,10 @@
 import Link from "next/link";
-import { MessageCircle, ShoppingBag, Truck } from "lucide-react";
-import { telLink, whatsappLink } from "@/lib/constants";
+import { ShoppingBag, Truck } from "lucide-react";
 import type { SiteContent } from "@/lib/site-content";
 
-type Props = Pick<SiteContent, "hero" | "business" | "contact">;
+type Props = Pick<SiteContent, "hero">;
 
-export function HomeHeroSimple({ hero, business, contact }: Props) {
-  const wa = whatsappLink(contact.whatsappDefaultMessage);
-
+export function HomeHeroSimple({ hero }: Props) {
   return (
     <section className="border-b border-slate-200 bg-gradient-to-b from-slate-50 to-white">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
@@ -22,10 +19,7 @@ export function HomeHeroSimple({ hero, business, contact }: Props) {
           {hero.description}
         </p>
         <p className="mt-3 text-center text-sm text-slate-500">
-          Delhi delivery · COD & online pay (soon) ·{" "}
-          <a href={telLink(business.phones[0])} className="font-semibold text-brand-blue hover:underline">
-            {business.phones[0]}
-          </a>
+          Delhi delivery · COD & online pay (soon) · Phone & WhatsApp in footer
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -36,15 +30,6 @@ export function HomeHeroSimple({ hero, business, contact }: Props) {
             <ShoppingBag className="h-4 w-4" />
             Order online
           </Link>
-          <a
-            href={wa}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-emerald-700"
-          >
-            <MessageCircle className="h-4 w-4" />
-            WhatsApp
-          </a>
           <Link
             href="/track-order"
             className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"

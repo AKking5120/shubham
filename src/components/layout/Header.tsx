@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Lock, Menu, MessageSquare, X } from "lucide-react";
+import { Lock, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { CartIconLink } from "@/components/cart/CartIconLink";
-import { telLink, whatsappLink } from "@/lib/constants";
 import type { SiteContent } from "@/lib/site-content";
 import { cn } from "@/lib/utils";
 
@@ -19,7 +18,6 @@ const links = [
   { href: "/", label: "Home", short: "Home" },
   { href: "/services", label: "Services & Rates", short: "Services" },
   { href: "/gallery", label: "Design Gallery", short: "Gallery" },
-  { href: "/contact#quote", label: "Instant Quote", short: "Quote" },
   { href: "/about", label: "About Us", short: "About" },
   { href: "/contact", label: "Contact", short: "Contact" },
 ];
@@ -33,8 +31,6 @@ function isActive(pathname: string, href: string) {
 export function Header({ site }: { site: HeaderSiteContent }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const wa = () => whatsappLink(site.contact.whatsappDefaultMessage);
-
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
@@ -52,21 +48,6 @@ export function Header({ site }: { site: HeaderSiteContent }) {
             </span>
           </div>
           <div className="flex items-center gap-3 text-xs shrink-0">
-            <a href={telLink(site.business.phones[0])} className="hover:underline">
-              {site.business.phones[0]}
-            </a>
-            {site.business.phones[1] && (
-              <>
-                <span className="hidden sm:inline text-white/40">|</span>
-                <a
-                  href={telLink(site.business.phones[1])}
-                  className="hover:underline hidden sm:inline"
-                >
-                  {site.business.phones[1]}
-                </a>
-              </>
-            )}
-            <span className="hidden md:inline text-white/40">|</span>
             <Link
               href="/admin/login"
               className="bg-blue-900 hover:bg-blue-800 text-amber-300 px-2 py-0.5 rounded text-[11px] font-semibold inline-flex items-center gap-1 transition"
@@ -153,23 +134,12 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               <CartIconLink
                 className="relative inline-flex p-2 text-slate-600 hover:text-brand-blue"
               />
-              <div className="hidden sm:flex items-center gap-2">
-                <a
-                  href={wa()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-1.5 transition"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  WhatsApp
-                </a>
-                <Link
-                  href="/contact#quote"
-                  className="bg-brand-blue hover:bg-indigo-900 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition"
-                >
-                  Get Estimate
-                </Link>
-              </div>
+              <Link
+                href="/services"
+                className="hidden sm:inline-flex bg-brand-blue hover:bg-indigo-900 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition"
+              >
+                Order online
+              </Link>
               <button
                 type="button"
                 className="lg:hidden p-2 text-slate-600 hover:text-slate-900"

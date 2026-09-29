@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { BUSINESS, mapsLink, PAGE_HERO_IMAGES, SEO, whatsappLinkForPhone } from "@/lib/constants";
-import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
+import { Mail, MapPin } from "lucide-react";
+import { BUSINESS, mapsLink, PAGE_HERO_IMAGES, SEO } from "@/lib/constants";
+import { EmailLink } from "@/components/ui/ContactLinks";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { OwnerPhoto } from "@/components/brand/OwnerPhoto";
 import { Button } from "@/components/ui/Button";
@@ -77,35 +77,6 @@ export default function AboutPage() {
                   </a>
                 </div>
               </li>
-              {BUSINESS.phones.map((phone) => (
-                <li key={phone} className="flex gap-3">
-                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
-                  <div>
-                    <p className="text-xs font-semibold uppercase text-slate-500">
-                      Phone
-                    </p>
-                    <PhoneLink phone={phone} className="font-medium text-[#1e3a5f]" />
-                  </div>
-                </li>
-              ))}
-              {BUSINESS.phones.map((phone) => (
-                <li key={`wa-${phone}`} className="flex gap-3">
-                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#25D366]" />
-                  <div>
-                    <p className="text-xs font-semibold uppercase text-slate-500">
-                      WhatsApp
-                    </p>
-                    <a
-                      href={whatsappLinkForPhone(phone)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-medium text-[#1e3a5f] hover:text-[#25D366] hover:underline"
-                    >
-                      Chat on WhatsApp
-                    </a>
-                  </div>
-                </li>
-              ))}
               <li className="flex gap-3">
                 <Mail className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
                 <div>
@@ -118,7 +89,7 @@ export default function AboutPage() {
             </ul>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/contact#quote">Get a Quote</Button>
+              <Button href="/contact">Contact us</Button>
               <Button href="/services" variant="secondary">
                 Our Services
               </Button>

@@ -1,9 +1,9 @@
 "use client";
 
-import { Calculator, MessageSquare, ShoppingCart } from "lucide-react";
+import Link from "next/link";
+import { Calculator, ShoppingCart } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
-import { whatsappLink } from "@/lib/constants";
 import type { PriceCalculatorConfig } from "@/lib/price-calculator";
 
 type Props = {
@@ -70,11 +70,6 @@ export function PriceEstimator({ config }: Props) {
   }
 
   const paper = catData.papers[paperIdx] ?? catData.papers[0];
-
-  function sendToWhatsApp() {
-    const msg = `Namaste Shubham Prints! I calculated a rate quote on your website:\n\n- Item: ${paper.name}\n- Quantity: ${quantity} ${catData.qtyUnit}\n- Finishing: ${finishLabel}\n- Estimated Price: ₹${total}\n\nPlease confirm availability and payment options.`;
-    window.open(whatsappLink(msg), "_blank", "noopener,noreferrer");
-  }
 
   function addEstimateToCart() {
     addItem({
@@ -218,20 +213,12 @@ export function PriceEstimator({ config }: Props) {
               <ShoppingCart className="w-4 h-4" />
               Add estimate to cart
             </button>
-            <button
-              type="button"
-              onClick={sendToWhatsApp}
-              className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-md transition"
-            >
-              <MessageSquare className="w-4 h-4" />
-              Order This Estimate via WhatsApp
-            </button>
-            <a
-              href="/contact#quote"
+            <Link
+              href="/cart"
               className="block w-full text-center bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 rounded-xl text-xs font-semibold"
             >
-              Request Custom Modifications
-            </a>
+              View cart & checkout
+            </Link>
           </div>
         </div>
       </div>

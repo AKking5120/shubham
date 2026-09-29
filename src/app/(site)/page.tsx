@@ -28,11 +28,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <HomeHeroSimple
-        hero={site.hero}
-        business={site.business}
-        contact={site.contact}
-      />
+      <HomeHeroSimple hero={site.hero} />
 
       <HomeSolutionCards />
 
@@ -76,7 +72,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
           <h2 className="text-2xl font-black">Ready to print?</h2>
           <p className="mt-2 text-sm text-blue-100">
-            Start your order online or message us on WhatsApp for bulk jobs.
+            Start your order online — phone & WhatsApp are in the footer.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link

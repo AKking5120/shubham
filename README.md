@@ -89,3 +89,13 @@ If using JSON fallback, ensure `data/` and `public/uploads/` are writable.
 5. In Search Console, submit sitemap: `https://yourdomain.com/sitemap.xml`.
 6. **Google Business Profile** — keep name, address, phone identical to the website; link your domain in the profile.
 7. **Admin → Site content** — edit SEO title & description for local keywords (Jaitpur, Badarpur, wedding cards, bill books, etc.).
+
+## Razorpay (online pay)
+
+1. Razorpay Dashboard → **API Keys** (use **Test** mode first).
+2. Vercel env (never commit secrets):
+   - `NEXT_PUBLIC_RAZORPAY_KEY_ID` = Key ID (`rzp_test_...` or live)
+   - `RAZORPAY_KEY_ID` = same Key ID
+   - `RAZORPAY_KEY_SECRET` = Secret from dashboard
+3. Redeploy. Checkout → **Pay online (Razorpay)** opens the test gateway.
+4. Test card: `4111 1111 1111 1111`, any future expiry, any CVV (Razorpay docs).

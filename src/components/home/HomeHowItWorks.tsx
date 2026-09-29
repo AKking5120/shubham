@@ -30,7 +30,7 @@ export function HomeHowItWorks() {
         <SectionHeading
           eyebrow="Order in 3 steps"
           title="How online ordering works"
-          subtitle="Upload specs at checkout notes or WhatsApp artwork after placing the order."
+          subtitle="Add notes at checkout for size, paper and artwork details."
         />
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {steps.map((step, i) => (

@@ -6,7 +6,6 @@ import { ArrowRight, Eye } from "lucide-react";
 import { useState } from "react";
 import type { Product } from "@/lib/types";
 import { ProductGalleryModal } from "@/components/gallery/ProductGalleryModal";
-import { whatsappLink } from "@/lib/constants";
 
 export function HomeGalleryPreview({ products }: { products: Product[] }) {
   const [gallery, setGallery] = useState<{
@@ -29,7 +28,7 @@ export function HomeGalleryPreview({ products }: { products: Product[] }) {
                 Popular Design Templates
               </h2>
               <p className="text-slate-600 text-sm">
-                Select a sample template and inquire on WhatsApp for custom printing.
+                Select a sample template and add designs to your cart to order.
               </p>
             </div>
             <Link
@@ -73,16 +72,6 @@ export function HomeGalleryPreview({ products }: { products: Product[] }) {
                       <Eye className="w-3.5 h-3.5" />
                       Preview
                     </button>
-                    <a
-                      href={whatsappLink(
-                        `Namaste Shubham Prints! I am interested in design: ${p.name}. Please share rate and customization.`,
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-2 rounded-xl text-xs font-bold"
-                    >
-                      WA
-                    </a>
                   </div>
                 </div>
               </div>

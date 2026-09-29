@@ -6,8 +6,12 @@ import {
 import { lineTotal } from "@/lib/cart-types";
 import type { CartLineItem } from "@/lib/cart-types";
 import { normalizeOrderPhone, orderTotals } from "@/lib/order-utils";
-import { isRazorpayConfigured } from "@/lib/razorpay";
-import { addOrder } from "@/lib/store";
+import { getPublicRazorpayKeyId, isRazorpayConfigured } from "@/lib/razorpay";
+import {
+  createRazorpayOrder,
+  isRazorpayServerReady,
+} from "@/lib/razorpay-server";
+import { addOrder, updateOrder } from "@/lib/store";
 import type { OrderLineItem, PaymentMethod } from "@/lib/types";
 
 type CreateOrderBody = {
@@ -54,7 +58,7 @@ export async function POST(request: Request) {
 
     const paymentMethod = body.paymentMethod === "razorpay" ? "razorpay" : "cod";
 
-    if (paymentMethod === "razorpay" && !isRazorpayConfigured()) {
+    if (paymentMethod === "razorpay" && !isRazorpayServerReady()) {
       return NextResponse.json(
         {
           error:
@@ -92,12 +96,41 @@ export async function POST(request: Request) {
       deliveryFee,
       total,
       paymentMethod,
-      paymentStatus: paymentMethod === "cod" ? "pending" : "pending",
+      paymentStatus: "pending",
       razorpayOrderId: null,
       razorpayPaymentId: null,
       status: "placed",
       notes: (body.notes ?? "").trim(),
     });
+
+    if (paymentMethod === "razorpay" && isRazorpayConfigured()) {
+      const rzOrder = await createRazorpayOrder({
+        amountInr: total,
+        receipt: order.orderNumber,
+        notes: {
+          order_id: order.id,
+          order_number: order.orderNumber,
+        },
+      });
+
+      const withRz = await updateOrder(order.id, {
+        razorpayOrderId: rzOrder.id,
+      });
+
+      const keyId = getPublicRazorpayKeyId() ?? process.env.RAZORPAY_KEY_ID;
+
+      return NextResponse.json({
+        order: withRz ?? order,
+        razorpayCheckout: {
+          keyId,
+          amount: rzOrder.amount,
+          currency: rzOrder.currency,
+          razorpayOrderId: rzOrder.id,
+          internalOrderId: order.id,
+          orderNumber: order.orderNumber,
+        },
+      });
+    }
 
     return NextResponse.json({ order });
   } catch (err) {

@@ -21,8 +21,8 @@ export default function GalleryPage() {
           </span>
           <h1 className="text-3xl font-black">Print Design & Card Template Gallery</h1>
           <p className="text-slate-300 text-sm max-w-2xl mx-auto">
-            Pick a design and send your business details on WhatsApp for fast
-            printing. Open any service page for the full template list.
+            Pick a design and add it to your cart. Open any service page for
+            the full template list.
           </p>
         </div>
       </section>

@@ -1,10 +1,9 @@
 "use client";
 
 import { ServiceImage } from "@/components/services/ServiceImage";
-import { Check, Phone } from "lucide-react";
+import { Check } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import type { Product, Service } from "@/lib/types";
-import { Button } from "@/components/ui/Button";
 import { ProductGalleryModal } from "@/components/gallery/ProductGalleryModal";
 import { serviceHighlights } from "@/lib/service-highlights";
 import {
@@ -12,7 +11,6 @@ import {
   SERVICE_GALLERY_CATEGORIES,
 } from "@/lib/gallery-utils";
 import { AddServiceToCartButton } from "@/components/cart/AddServiceToCartButton";
-import { telLink, whatsappLink, BUSINESS } from "@/lib/constants";
 import type { PriceCalculatorConfig } from "@/lib/price-calculator";
 import type { GalleryCategory } from "@/lib/types";
 
@@ -43,8 +41,6 @@ export function ServiceListRow({
 }) {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const highlights = serviceHighlights(service);
-  const waText = `Hello, I would like a quote for ${service.name}.`;
-
   const galleryItems = useMemo(
     () => galleryProductsForService(service, products),
     [service, products],
@@ -95,28 +91,6 @@ export function ServiceListRow({
 
       <div className="flex flex-col gap-2 md:items-stretch">
         <AddServiceToCartButton service={service} calculator={calculator} />
-        <Button
-          href={`/contact?service=${encodeURIComponent(service.name)}#quote`}
-          variant="secondary"
-          className="w-full py-2.5 text-sm"
-        >
-          Get a Quote
-        </Button>
-        <Button
-          href={whatsappLink(waText)}
-          external
-          variant="whatsapp"
-          className="w-full py-2.5 text-sm"
-        >
-          WhatsApp Us
-        </Button>
-        <a
-          href={telLink(BUSINESS.phones[0])}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-[#1e3a5f] px-4 py-2.5 text-sm font-semibold text-[#1e3a5f] transition hover:bg-slate-50"
-        >
-          <Phone className="h-4 w-4" />
-          Call Now
-        </a>
       </div>
 
       {galleryOpen && (

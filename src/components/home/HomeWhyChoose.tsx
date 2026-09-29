@@ -36,8 +36,8 @@ export function HomeWhyChoose() {
         </div>
         <p className="mt-8 text-center text-sm text-slate-600">
           Bulk or custom job?{" "}
-          <Link href="/contact#quote" className="font-semibold text-brand-blue hover:underline">
-            Request a quote
+          <Link href="/contact" className="font-semibold text-brand-blue hover:underline">
+            Contact form
           </Link>{" "}
           or call us directly.
         </p>

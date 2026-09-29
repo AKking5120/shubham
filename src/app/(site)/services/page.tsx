@@ -31,7 +31,7 @@ export default async function ServicesPage() {
           </h1>
           <p className="text-slate-600 text-sm max-w-2xl mx-auto">
             Select paper options, quantities, and finishing to calculate estimated
-            printing costs — then confirm on WhatsApp.
+            printing costs — then add to cart and checkout.
           </p>
         </div>
       </section>

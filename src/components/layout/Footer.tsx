@@ -7,13 +7,15 @@ import {
   mapsLink,
   SITE_CREDIT,
   telLink,
+  whatsappLink,
+  whatsappLinkForPhone,
 } from "@/lib/constants";
 
 const quickLinks = [
   { href: "/", label: "Home Page" },
   { href: "/services", label: "Services & Rates" },
   { href: "/gallery", label: "Design Gallery" },
-  { href: "/contact#quote", label: "Get Custom Quote" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const specialties = [
@@ -70,8 +72,45 @@ export function Footer() {
         <div className="space-y-2">
           <h4 className="font-bold text-white text-sm">Contact Details</h4>
           <p>{BUSINESS.address.full}</p>
-          <p className="text-amber-400 font-semibold">
-            Ph: {BUSINESS.phones[0]} / {BUSINESS.phones[1]}
+          <p className="font-semibold text-amber-400">
+            <a href={telLink(BUSINESS.phones[0])} className="hover:underline">
+              {BUSINESS.phones[0]}
+            </a>
+            {BUSINESS.phones[1] && (
+              <>
+                {" "}
+                /{" "}
+                <a
+                  href={telLink(BUSINESS.phones[1])}
+                  className="hover:underline"
+                >
+                  {BUSINESS.phones[1]}
+                </a>
+              </>
+            )}
+          </p>
+          <p className="pt-1">
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 font-semibold text-[#25D366] hover:underline"
+            >
+              WhatsApp (main)
+            </a>
+            {BUSINESS.phones[1] && (
+              <>
+                <span className="text-slate-600"> · </span>
+                <a
+                  href={whatsappLinkForPhone(BUSINESS.phones[1])}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-[#25D366] hover:underline"
+                >
+                  WhatsApp alt
+                </a>
+              </>
+            )}
           </p>
           <p>{BUSINESS.email}</p>
           <a

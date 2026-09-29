@@ -6,6 +6,7 @@ import { useState } from "react";
 import { DELHI_DELIVERY_FEE_INR } from "@/lib/constants";
 import { lineTotal } from "@/lib/cart-types";
 import { useCart } from "@/components/cart/CartProvider";
+import { loadRazorpayScript } from "@/lib/razorpay-checkout";
 import { isRazorpayPublicReady } from "@/lib/razorpay";
 
 export function CheckoutForm() {
@@ -52,12 +53,85 @@ export function CheckoutForm() {
         return;
       }
 
+      if (paymentMethod === "razorpay" && data.razorpayCheckout) {
+        const checkout = data.razorpayCheckout as {
+          keyId: string;
+          amount: number;
+          currency: string;
+          razorpayOrderId: string;
+          internalOrderId: string;
+          orderNumber: string;
+        };
+
+        const loaded = await loadRazorpayScript();
+        if (!loaded || !window.Razorpay) {
+          setError("Could not load payment gateway. Try COD or refresh.");
+          return;
+        }
+
+        const customerName = String(form.get("customerName") ?? "");
+        const phone = String(form.get("phone") ?? "");
+        const email = String(form.get("email") ?? "");
+
+        await new Promise<void>((resolve, reject) => {
+          const rzp = new window.Razorpay!({
+            key: checkout.keyId,
+            amount: checkout.amount,
+            currency: checkout.currency,
+            name: "Print Services",
+            description: `Order ${checkout.orderNumber}`,
+            order_id: checkout.razorpayOrderId,
+            prefill: {
+              name: customerName,
+              email,
+              contact: phone,
+            },
+            theme: { color: "#1e3a8a" },
+            handler: async (response) => {
+              try {
+                const verifyRes = await fetch("/api/orders/razorpay/verify", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    internalOrderId: checkout.internalOrderId,
+                    razorpayOrderId: response.razorpay_order_id,
+                    razorpayPaymentId: response.razorpay_payment_id,
+                    razorpaySignature: response.razorpay_signature,
+                  }),
+                });
+                const verifyData = await verifyRes.json();
+                if (!verifyRes.ok) {
+                  reject(new Error(verifyData.error ?? "Payment failed."));
+                  return;
+                }
+                clearCart();
+                router.push(
+                  `/order/success?no=${encodeURIComponent(checkout.orderNumber)}`,
+                );
+                resolve();
+              } catch {
+                reject(new Error("Payment verification failed."));
+              }
+            },
+            modal: {
+              ondismiss: () => {
+                reject(new Error("Payment cancelled."));
+              },
+            },
+          });
+          rzp.open();
+        });
+        return;
+      }
+
       clearCart();
       router.push(
         `/order/success?no=${encodeURIComponent(data.order.orderNumber)}`,
       );
-    } catch {
-      setError("Network error. Please try again.");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Network error. Please try again.",
+      );
     } finally {
       setLoading(false);
     }

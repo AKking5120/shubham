@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/Button";
 
 export function CtaBanner({
   title = "Your Printing Our Priority",
-  buttonHref = "/contact#quote",
-  buttonLabel = "Get a Quote",
+  buttonHref = "/services",
+  buttonLabel = "Order online",
 }: {
   title?: string;
   buttonHref?: string;
