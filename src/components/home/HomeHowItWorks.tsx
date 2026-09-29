@@ -1,24 +1,24 @@
 "use client";
 
-import { FileText, MessageCircle, PackageCheck } from "lucide-react";
+import { PackageCheck, ShoppingCart, Upload } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionHeading } from "@/components/home/SectionHeading";
 
 const steps = [
   {
-    icon: MessageCircle,
-    title: "Share your requirement",
-    text: "Use the quote form, WhatsApp or call us with quantity, size and design details.",
+    icon: ShoppingCart,
+    title: "Choose & add to cart",
+    text: "Pick services or designs, set quantity, and add estimated items to your cart.",
   },
   {
-    icon: FileText,
-    title: "Get pricing & proof",
-    text: "We confirm options, paper type and timeline — and share proofs when needed.",
+    icon: Upload,
+    title: "Checkout",
+    text: "Enter Delhi delivery address, pay COD (or online when enabled), and confirm.",
   },
   {
     icon: PackageCheck,
-    title: "Print & collect",
-    text: "Quality-checked printing ready for pickup or delivery as discussed.",
+    title: "Track delivery",
+    text: "Use your order ID on Track Order — we update status until delivered.",
   },
 ];
 
@@ -28,9 +28,9 @@ export function HomeHowItWorks() {
       <div className="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
       <div className="mx-auto max-w-7xl px-4 lg:px-6">
         <SectionHeading
-          eyebrow="Simple process"
-          title="How It Works"
-          subtitle="From first message to finished print — a straightforward experience with direct support."
+          eyebrow="Order in 3 steps"
+          title="How online ordering works"
+          subtitle="Upload specs at checkout notes or WhatsApp artwork after placing the order."
         />
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {steps.map((step, i) => (
