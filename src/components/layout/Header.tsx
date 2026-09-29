@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Lock, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/brand/BrandLogo";
+import { UserAuthLinks } from "@/components/auth/UserAuthLinks";
 import { CartIconLink } from "@/components/cart/CartIconLink";
 import type { SiteContent } from "@/lib/site-content";
 import { cn } from "@/lib/utils";
@@ -125,6 +126,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
             </nav>
 
             <div className="relative z-20 ml-auto flex shrink-0 items-center justify-end gap-1 sm:gap-2 lg:ml-0">
+              <UserAuthLinks />
               <Link
                 href="/track-order"
                 className="hidden md:inline-flex px-2 py-2 text-sm font-medium text-slate-600 hover:text-brand-blue"
@@ -178,6 +180,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
             >
               Track order
             </Link>
+            <UserAuthLinks variant="mobile" />
             <Link
               href="/admin/login"
               onClick={() => setOpen(false)}
