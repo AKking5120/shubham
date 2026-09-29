@@ -219,7 +219,14 @@ export async function sbAddOrder(
     .from("orders")
     .insert(orderToRow(order));
 
-  if (error) throw error;
+  if (error) {
+    if (error.code === "42P01" || error.message?.includes("orders")) {
+      throw new Error(
+        "Orders table missing in Supabase. Run supabase/orders_only.sql in the SQL Editor, then try again.",
+      );
+    }
+    throw error;
+  }
   return order;
 }
 

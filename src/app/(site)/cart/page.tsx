@@ -31,7 +31,19 @@ export default function CartPage() {
                 <div>
                   <p className="font-semibold text-slate-900">{item.title}</p>
                   {item.options && (
-                    <p className="text-xs text-slate-500 mt-1">{item.options}</p>
+                    <p className="text-xs text-slate-500 mt-1 whitespace-pre-wrap">
+                      {item.options}
+                    </p>
+                  )}
+                  {item.fileUrl && (
+                    <a
+                      href={item.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-brand-blue hover:underline mt-1 inline-block"
+                    >
+                      View uploaded artwork
+                    </a>
                   )}
                   <p className="text-sm text-slate-600 mt-1">
                     ₹{item.unitPrice} each (estimate)

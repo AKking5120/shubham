@@ -274,6 +274,11 @@ export async function addOrder(
     const orderNumber = data.orderNumber ?? generateOrderNumber();
     return sb.sbAddOrder({ ...data, orderNumber });
   }
+  if (process.env.VERCEL) {
+    throw new Error(
+      "Online orders need Supabase on Vercel. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY, run supabase/orders_only.sql, then redeploy.",
+    );
+  }
   const orders = await readJson<Order[]>("orders.json", []);
   const now = new Date().toISOString();
   const order: Order = {

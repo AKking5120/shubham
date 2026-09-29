@@ -11,6 +11,7 @@ import {
   createRazorpayOrder,
   isRazorpayServerReady,
 } from "@/lib/razorpay-server";
+import { formatApiError } from "@/lib/api-errors";
 import { addOrder, updateOrder } from "@/lib/store";
 import type { OrderLineItem, PaymentMethod } from "@/lib/types";
 
@@ -104,37 +105,60 @@ export async function POST(request: Request) {
     });
 
     if (paymentMethod === "razorpay" && isRazorpayConfigured()) {
-      const rzOrder = await createRazorpayOrder({
-        amountInr: total,
-        receipt: order.orderNumber,
-        notes: {
-          order_id: order.id,
-          order_number: order.orderNumber,
-        },
-      });
+      try {
+        const rzOrder = await createRazorpayOrder({
+          amountInr: total,
+          receipt: order.orderNumber,
+          notes: {
+            order_id: order.id.slice(0, 64),
+            order_number: order.orderNumber.slice(0, 64),
+          },
+        });
 
-      const withRz = await updateOrder(order.id, {
-        razorpayOrderId: rzOrder.id,
-      });
-
-      const keyId = getPublicRazorpayKeyId() ?? process.env.RAZORPAY_KEY_ID;
-
-      return NextResponse.json({
-        order: withRz ?? order,
-        razorpayCheckout: {
-          keyId,
-          amount: rzOrder.amount,
-          currency: rzOrder.currency,
+        const withRz = await updateOrder(order.id, {
           razorpayOrderId: rzOrder.id,
-          internalOrderId: order.id,
-          orderNumber: order.orderNumber,
-        },
-      });
+        });
+
+        const keyId = getPublicRazorpayKeyId() ?? process.env.RAZORPAY_KEY_ID;
+        if (!keyId) {
+          return NextResponse.json(
+            {
+              error:
+                "Razorpay Key ID missing on server. Set NEXT_PUBLIC_RAZORPAY_KEY_ID and RAZORPAY_KEY_ID in Vercel.",
+            },
+            { status: 500 },
+          );
+        }
+
+        return NextResponse.json({
+          order: withRz ?? order,
+          razorpayCheckout: {
+            keyId,
+            amount: rzOrder.amount,
+            currency: rzOrder.currency,
+            razorpayOrderId: rzOrder.id,
+            internalOrderId: order.id,
+            orderNumber: order.orderNumber,
+          },
+        });
+      } catch (rzErr) {
+        console.error("Razorpay order create failed:", rzErr);
+        return NextResponse.json(
+          {
+            error: formatApiError(
+              rzErr,
+              "Razorpay payment could not start. Check Key ID and Key Secret match (same CSV), or use COD.",
+            ),
+          },
+          { status: 502 },
+        );
+      }
     }
 
     return NextResponse.json({ order });
   } catch (err) {
-    const msg = err instanceof Error ? err.message : "Could not place order.";
+    console.error("Create order failed:", err);
+    const msg = formatApiError(err, "Could not place order.");
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

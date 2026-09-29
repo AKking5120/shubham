@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { Calculator, ShoppingCart } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
+import { ConfigureOrderModal } from "@/components/cart/ConfigureOrderModal";
 import { useCart } from "@/components/cart/CartProvider";
+import { sizeOptionsForCalculator } from "@/lib/service-order-sizes";
 import type { PriceCalculatorConfig } from "@/lib/price-calculator";
 
 type Props = {
@@ -12,6 +14,7 @@ type Props = {
 
 export function PriceEstimator({ config }: Props) {
   const { addItem } = useCart();
+  const [configureOpen, setConfigureOpen] = useState(false);
   const keys = Object.keys(config);
   const firstKey = keys[0] ?? "visiting_cards";
 
@@ -71,16 +74,7 @@ export function PriceEstimator({ config }: Props) {
 
   const paper = catData.papers[paperIdx] ?? catData.papers[0];
 
-  function addEstimateToCart() {
-    addItem({
-      kind: "calculator",
-      refId: category,
-      title: catData.name,
-      quantity: 1,
-      unitPrice: total,
-      options: `${paper.name} · ${quantity} ${catData.qtyUnit} · ${finishLabel}`,
-    });
-  }
+  const calcOptions = `${paper.name} · ${quantity} ${catData.qtyUnit} · ${finishLabel}`;
 
   return (
     <div className="bg-white border border-slate-200 rounded-2xl shadow-lg p-6 lg:p-8">
@@ -207,12 +201,30 @@ export function PriceEstimator({ config }: Props) {
           <div className="space-y-2 pt-6">
             <button
               type="button"
-              onClick={addEstimateToCart}
+              onClick={() => setConfigureOpen(true)}
               className="w-full bg-brand-blue hover:bg-indigo-800 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-md transition"
             >
               <ShoppingCart className="w-4 h-4" />
-              Add estimate to cart
+              Select size & design → cart
             </button>
+            <ConfigureOrderModal
+              open={configureOpen}
+              onClose={() => setConfigureOpen(false)}
+              title={`Cart: ${catData.name}`}
+              sizeOptions={sizeOptionsForCalculator(category)}
+              priceHint={`Estimate ₹${total} · ${calcOptions}`}
+              onConfirm={({ optionsSummary, fileUrl }) => {
+                addItem({
+                  kind: "calculator",
+                  refId: category,
+                  title: catData.name,
+                  quantity: 1,
+                  unitPrice: total,
+                  options: `${calcOptions} | ${optionsSummary}`,
+                  fileUrl,
+                });
+              }}
+            />
             <Link
               href="/cart"
               className="block w-full text-center bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 rounded-xl text-xs font-semibold"

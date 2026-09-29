@@ -272,8 +272,8 @@ export function CheckoutForm() {
                 </span>
                 <span className="block text-xs text-slate-600">
                   {razorpayReady
-                    ? "UPI, cards & netbanking."
-                    : "Coming soon — use COD for now."}
+                    ? "UPI, cards & netbanking (test mode)."
+                    : "Add Razorpay keys in Vercel env, redeploy, or use COD."}
                 </span>
               </span>
             </label>
