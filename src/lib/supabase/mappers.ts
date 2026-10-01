@@ -1,5 +1,12 @@
-import type { EnquiryRow, OrderRow, ProductRow, ServiceRow } from "./server";
 import type {
+  EnquiryRow,
+  OrderRow,
+  ProductRow,
+  ProfileRow,
+  ServiceRow,
+} from "./server";
+import type {
+  CustomerProfile,
   Enquiry,
   Order,
   OrderLineItem,
@@ -75,11 +82,42 @@ export function rowToEnquiry(row: EnquiryRow): Enquiry {
   };
 }
 
+export function rowToProfile(row: ProfileRow): CustomerProfile {
+  return {
+    id: row.id,
+    fullName: row.full_name,
+    phone: row.phone,
+    email: row.email,
+    addressLine1: row.address_line1,
+    addressLine2: row.address_line2,
+    city: row.city,
+    pincode: row.pincode,
+    updatedAt: row.updated_at ?? new Date().toISOString(),
+  };
+}
+
+export function profileToRow(
+  profile: Omit<CustomerProfile, "updatedAt"> & { updatedAt?: string },
+): ProfileRow {
+  return {
+    id: profile.id,
+    full_name: profile.fullName,
+    phone: profile.phone,
+    email: profile.email,
+    address_line1: profile.addressLine1,
+    address_line2: profile.addressLine2,
+    city: profile.city,
+    pincode: profile.pincode,
+    updated_at: profile.updatedAt,
+  };
+}
+
 export function rowToOrder(row: OrderRow): Order {
   const items = (Array.isArray(row.items) ? row.items : []) as OrderLineItem[];
   return {
     id: row.id,
     orderNumber: row.order_number,
+    userId: row.user_id ?? null,
     customerName: row.customer_name,
     phone: row.phone,
     email: row.email,
@@ -111,6 +149,7 @@ export function orderToRow(
   return {
     id: order.id,
     order_number: order.orderNumber,
+    user_id: order.userId,
     customer_name: order.customerName,
     phone: order.phone,
     email: order.email,

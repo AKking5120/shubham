@@ -8,8 +8,9 @@ import { lineTotal } from "@/lib/cart-types";
 import { useCart } from "@/components/cart/CartProvider";
 import { loadRazorpayScript } from "@/lib/razorpay-checkout";
 import { isRazorpayPublicReady } from "@/lib/razorpay";
+import type { CheckoutDefaults } from "@/lib/checkout-defaults";
 
-export function CheckoutForm() {
+export function CheckoutForm({ defaults }: { defaults?: CheckoutDefaults }) {
   const router = useRouter();
   const { items, subtotal, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
@@ -34,6 +35,7 @@ export function CheckoutForm() {
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
           customerName: form.get("customerName"),
           phone: form.get("phone"),
@@ -167,6 +169,7 @@ export function CheckoutForm() {
             <input
               name="customerName"
               required
+              defaultValue={defaults?.customerName ?? ""}
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2"
             />
           </label>
@@ -176,6 +179,7 @@ export function CheckoutForm() {
               name="phone"
               required
               inputMode="tel"
+              defaultValue={defaults?.phone ?? ""}
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2"
             />
           </label>
@@ -184,6 +188,7 @@ export function CheckoutForm() {
             <input
               name="email"
               type="email"
+              defaultValue={defaults?.email ?? ""}
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2"
             />
           </label>
@@ -192,6 +197,7 @@ export function CheckoutForm() {
             <input
               name="addressLine1"
               required
+              defaultValue={defaults?.addressLine1 ?? ""}
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2"
             />
           </label>
@@ -199,6 +205,7 @@ export function CheckoutForm() {
             Address line 2
             <input
               name="addressLine2"
+              defaultValue={defaults?.addressLine2 ?? ""}
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2"
             />
           </label>
@@ -206,7 +213,7 @@ export function CheckoutForm() {
             City
             <input
               name="city"
-              defaultValue="New Delhi"
+              defaultValue={defaults?.city ?? "New Delhi"}
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2"
             />
           </label>
@@ -218,6 +225,7 @@ export function CheckoutForm() {
               pattern="110\d{3}"
               title="Delhi pincode (110xxx)"
               placeholder="110044"
+              defaultValue={defaults?.pincode ?? ""}
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2"
             />
           </label>

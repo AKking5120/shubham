@@ -7,13 +7,11 @@ import {
   DEFAULT_PRICE_CALCULATOR,
   type PriceCalculatorConfig,
 } from "./price-calculator";
-import {
-  DEFAULT_SITE_CONTENT,
-  mergeSiteContent,
-  type SiteContent,
-} from "./site-content";
+import { mergeSiteContent } from "./merge-site-content";
+import { DEFAULT_SITE_CONTENT } from "./site-content-defaults";
+import type { SiteContent } from "./site-content-types";
 import { DEFAULT_PRODUCTS, DEFAULT_SERVICES } from "./seed";
-import type { Enquiry, Order, Product, Service } from "./types";
+import type { CustomerProfile, Enquiry, Order, Product, Service } from "./types";
 import { generateOrderNumber } from "./order-utils";
 const DATA_DIR = path.join(process.cwd(), "data");
 
@@ -314,6 +312,34 @@ export async function getOrderById(id: string): Promise<Order | null> {
   if (isSupabaseConfigured()) return sb.sbGetOrderById(id);
   const orders = await getOrders();
   return orders.find((o) => o.id === id) ?? null;
+}
+
+export async function getOrdersByUserId(userId: string): Promise<Order[]> {
+  if (!isSupabaseConfigured()) return [];
+  return sb.sbGetOrdersByUserId(userId);
+}
+
+export async function getCustomerProfile(
+  userId: string,
+): Promise<CustomerProfile | null> {
+  if (!isSupabaseConfigured()) return null;
+  return sb.sbGetProfile(userId);
+}
+
+export async function saveCustomerProfileFromCheckout(
+  userId: string,
+  details: {
+    fullName: string;
+    phone: string;
+    email: string;
+    addressLine1: string;
+    addressLine2: string;
+    city: string;
+    pincode: string;
+  },
+): Promise<void> {
+  if (!isSupabaseConfigured()) return;
+  await sb.sbUpsertProfileFromCheckout(userId, details);
 }
 
 export async function trackOrder(

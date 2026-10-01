@@ -12,7 +12,8 @@ import {
   isRazorpayServerReady,
 } from "@/lib/razorpay-server";
 import { formatApiError } from "@/lib/api-errors";
-import { addOrder, updateOrder } from "@/lib/store";
+import { getSupabaseUser } from "@/lib/supabase/server-auth";
+import { addOrder, saveCustomerProfileFromCheckout, updateOrder } from "@/lib/store";
 import type { OrderLineItem, PaymentMethod } from "@/lib/types";
 
 type CreateOrderBody = {
@@ -84,10 +85,16 @@ export async function POST(request: Request) {
       DELHI_DELIVERY_FEE_INR,
     );
 
+    const authUser = await getSupabaseUser();
+    const userId = authUser?.id ?? null;
+    const customerEmail =
+      (body.email ?? "").trim() || authUser?.email?.trim() || "";
+
     const order = await addOrder({
+      userId,
       customerName: body.customerName.trim(),
       phone: normalizeOrderPhone(body.phone),
-      email: (body.email ?? "").trim(),
+      email: customerEmail,
       addressLine1: body.addressLine1.trim(),
       addressLine2: (body.addressLine2 ?? "").trim(),
       city: (body.city ?? "New Delhi").trim(),
@@ -103,6 +110,18 @@ export async function POST(request: Request) {
       status: "placed",
       notes: (body.notes ?? "").trim(),
     });
+
+    if (userId) {
+      await saveCustomerProfileFromCheckout(userId, {
+        fullName: body.customerName.trim(),
+        phone: normalizeOrderPhone(body.phone),
+        email: customerEmail,
+        addressLine1: body.addressLine1.trim(),
+        addressLine2: (body.addressLine2 ?? "").trim(),
+        city: (body.city ?? "New Delhi").trim(),
+        pincode: body.pincode.replace(/\D/g, ""),
+      });
+    }
 
     if (paymentMethod === "razorpay" && isRazorpayConfigured()) {
       try {

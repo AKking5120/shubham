@@ -17,6 +17,7 @@ export type HeaderSiteContent = Pick<
 
 const links = [
   { href: "/", label: "Home", short: "Home" },
+  { href: "/shop", label: "Shop & Quote", short: "Shop" },
   { href: "/services", label: "Services & Rates", short: "Services" },
   { href: "/gallery", label: "Design Gallery", short: "Gallery" },
   { href: "/about", label: "About Us", short: "About" },
@@ -137,10 +138,10 @@ export function Header({ site }: { site: HeaderSiteContent }) {
                 className="relative inline-flex p-2 text-slate-600 hover:text-brand-blue"
               />
               <Link
-                href="/services"
+                href="/shop"
                 className="hidden sm:inline-flex bg-brand-blue hover:bg-indigo-900 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition"
               >
-                Order online
+                WhatsApp quote
               </Link>
               <button
                 type="button"

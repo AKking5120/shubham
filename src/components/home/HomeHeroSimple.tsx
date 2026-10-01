@@ -1,42 +1,86 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ShoppingBag, Truck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { SiteContent } from "@/lib/site-content";
+import { HOME_HERO_SLIDES, whatsappLink } from "@/lib/constants";
+import { HomeMarqueeStrip } from "@/components/home/HomeMarqueeStrip";
 
 type Props = Pick<SiteContent, "hero">;
 
 export function HomeHeroSimple({ hero }: Props) {
-  return (
-    <section className="border-b border-slate-200 bg-gradient-to-b from-slate-50 to-white">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-        <p className="text-center text-sm font-semibold uppercase tracking-widest text-brand-blue">
-          Online printing store
-        </p>
-        <h1 className="mt-3 text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
-          {hero.title}{" "}
-          <span className="text-brand-blue">{hero.highlight}</span>
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-base text-slate-600 sm:text-lg">
-          {hero.description}
-        </p>
-        <p className="mt-3 text-center text-sm text-slate-500">
-          Delhi delivery · COD & online pay (soon) · Phone & WhatsApp in footer
-        </p>
+  const bgRaw = HOME_HERO_SLIDES[0]?.src ?? "/banners/home-slide-1.jpg";
+  const bg = bgRaw.split("?")[0];
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-blue px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-indigo-900"
+  return (
+    <section className="relative border-b border-slate-800">
+      <HomeMarqueeStrip />
+
+      <div className="relative min-h-[min(92vh,820px)] overflow-hidden">
+        <Image
+          src={bg}
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-slate-950/92 via-slate-900/78 to-slate-900/55"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(34,211,238,0.12),transparent_55%)]"
+          aria-hidden
+        />
+
+        <div className="relative mx-auto flex min-h-[min(92vh,820px)] max-w-7xl flex-col justify-center px-4 py-16 sm:px-6 lg:px-10 lg:py-20">
+          <p
+            className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-400/40 bg-slate-900/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-100 backdrop-blur-sm"
           >
-            <ShoppingBag className="h-4 w-4" />
-            Order online
-          </Link>
-          <Link
-            href="/track-order"
-            className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
+            <span className="text-cyan-400" aria-hidden>◆</span>
+            Premium printing solutions
+          </p>
+
+          <h1
+            className="mt-8 max-w-4xl text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-[3.35rem]"
           >
-            <Truck className="h-4 w-4" />
-            Track order
-          </Link>
+            {hero.title}{" "}
+            <span
+              className="bg-gradient-to-r from-cyan-300 via-sky-400 to-cyan-400 bg-clip-text text-transparent"
+            >
+              {hero.highlight}
+            </span>{" "}
+            {hero.trailing ?? ""}
+          </h1>
+
+          <p className="mt-6 max-w-xl text-base text-slate-200 sm:text-lg">
+            {hero.description}
+          </p>
+
+          <p className="mt-4 text-sm font-medium text-slate-300">
+            Fast delivery <span className="text-cyan-400/80">•</span> Premium
+            quality <span className="text-cyan-400/80">•</span> WhatsApp quotes
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 to-sky-500 px-7 py-3.5 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-500/25 transition hover:from-cyan-300 hover:to-sky-400"
+            >
+              Get a quote
+              <ArrowRight
+                className="h-4 w-4 transition group-hover:translate-x-0.5"
+              />
+            </a>
+            <Link
+              href="/shop"
+              className="inline-flex items-center rounded-xl border-2 border-cyan-400/70 bg-transparent px-7 py-3.5 text-sm font-bold text-white transition hover:bg-cyan-400/10"
+            >
+              View products
+            </Link>
+          </div>
         </div>
       </div>
     </section>

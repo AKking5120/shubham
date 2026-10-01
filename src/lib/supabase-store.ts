@@ -4,14 +4,16 @@ import {
   enquiryToRow,
   orderToRow,
   productToRow,
+  profileToRow,
   rowToEnquiry,
   rowToOrder,
   rowToProduct,
+  rowToProfile,
   rowToService,
   serviceToRow,
 } from "./supabase/mappers";
 import { getSupabaseAdmin } from "./supabase/server";
-import type { Enquiry, Order, Product, Service } from "./types";
+import type { CustomerProfile, Enquiry, Order, Product, Service } from "./types";
 
 async function ensureSeedData() {
   const supabase = getSupabaseAdmin();
@@ -261,6 +263,80 @@ export async function sbGetOrderById(id: string): Promise<Order | null> {
 
   if (error) throw error;
   return data ? rowToOrder(data) : null;
+}
+
+export async function sbGetOrdersByUserId(userId: string): Promise<Order[]> {
+  const { data, error } = await getSupabaseAdmin()
+    .from("orders")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    if (error.code === "42P01" || error.message?.includes("orders")) {
+      return [];
+    }
+    if (error.message?.includes("user_id")) {
+      throw new Error(
+        "Orders table needs user_id column. Run supabase/user_orders_and_profiles.sql in Supabase SQL Editor.",
+      );
+    }
+    throw error;
+  }
+  return (data ?? []).map((row) => rowToOrder(row));
+}
+
+export async function sbGetProfile(userId: string): Promise<CustomerProfile | null> {
+  const { data, error } = await getSupabaseAdmin()
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .maybeSingle();
+
+  if (error) {
+    if (error.code === "42P01" || error.message?.includes("profiles")) {
+      return null;
+    }
+    throw error;
+  }
+  return data ? rowToProfile(data) : null;
+}
+
+export async function sbUpsertProfileFromCheckout(
+  userId: string,
+  details: {
+    fullName: string;
+    phone: string;
+    email: string;
+    addressLine1: string;
+    addressLine2: string;
+    city: string;
+    pincode: string;
+  },
+): Promise<void> {
+  const now = new Date().toISOString();
+  const row = profileToRow({
+    id: userId,
+    fullName: details.fullName,
+    phone: details.phone,
+    email: details.email,
+    addressLine1: details.addressLine1,
+    addressLine2: details.addressLine2,
+    city: details.city,
+    pincode: details.pincode,
+    updatedAt: now,
+  });
+
+  const { error } = await getSupabaseAdmin()
+    .from("profiles")
+    .upsert({ ...row, updated_at: now }, { onConflict: "id" });
+
+  if (error) {
+    if (error.code === "42P01" || error.message?.includes("profiles")) {
+      return;
+    }
+    throw error;
+  }
 }
 
 export async function sbTrackOrder(

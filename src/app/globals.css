@@ -236,6 +236,19 @@ body {
   animation: pulse-soft 2.5s ease-in-out infinite;
 }
 
+@keyframes home-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-home-marquee {
+  animation: home-marquee 35s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up,
   .animate-fade-up-delay-1,
@@ -247,7 +260,8 @@ body {
   .animate-float-soft,
   .animate-float-soft-delay,
   .animate-shimmer-line,
-  .animate-whatsapp-pulse {
+  .animate-whatsapp-pulse,
+  .animate-home-marquee {
     animation: none !important;
   }
 }

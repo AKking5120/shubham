@@ -20,6 +20,7 @@ create table if not exists public.orders (
   razorpay_payment_id text,
   status text not null default 'placed',
   notes text not null default '',
+  user_id uuid references auth.users (id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

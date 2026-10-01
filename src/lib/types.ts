@@ -51,6 +51,18 @@ export interface CustomerSummary {
   lastEnquiry: string;
 }
 
+export interface CustomerProfile {
+  id: string;
+  fullName: string;
+  phone: string;
+  email: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  pincode: string;
+  updatedAt: string;
+}
+
 export interface SiteSettings {
   adminPasswordHash?: string;
 }
@@ -72,6 +84,7 @@ export interface OrderLineItem {
 export interface Order {
   id: string;
   orderNumber: string;
+  userId: string | null;
   customerName: string;
   phone: string;
   email: string;

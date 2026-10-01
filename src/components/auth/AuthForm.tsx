@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/brand/BrandLogo";
+import { formatAuthError } from "@/lib/auth-errors";
 import { absoluteUrl } from "@/lib/site-url";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
@@ -20,8 +21,76 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
 
   const isLogin = mode === "login";
+
+  useEffect(() => {
+    if (searchParams.get("error") === "confirm_failed") {
+      setError(
+        "Email confirmation link did not work (expired or already used). Try signing in, or resend confirmation below.",
+      );
+    }
+  }, [searchParams]);
+
+  const emailRedirect = absoluteUrl(
+    `/auth/callback?next=${encodeURIComponent(next)}`,
+  );
+
+  async function resendConfirmation() {
+    const trimmed = email.trim();
+    if (!trimmed) {
+      setError("Enter your email above, then tap Resend confirmation.");
+      return;
+    }
+    setResendLoading(true);
+    setError("");
+    try {
+      const supabase = createSupabaseBrowserClient();
+      const { error: resendError } = await supabase.auth.resend({
+        type: "signup",
+        email: trimmed,
+        options: { emailRedirectTo: emailRedirect },
+      });
+      if (resendError) {
+        setError(formatAuthError(resendError));
+      } else {
+        setInfo("Confirmation email sent. Check inbox and spam.");
+      }
+    } catch {
+      setError("Could not send email. Try again in a minute.");
+    } finally {
+      setResendLoading(false);
+    }
+  }
+
+  async function sendPasswordReset() {
+    const trimmed = email.trim();
+    if (!trimmed) {
+      setError("Enter your email above, then tap Forgot password.");
+      return;
+    }
+    setResendLoading(true);
+    setError("");
+    try {
+      const supabase = createSupabaseBrowserClient();
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(
+        trimmed,
+        {
+          redirectTo: absoluteUrl("/auth/callback?next=/reset-password"),
+        },
+      );
+      if (resetError) {
+        setError(formatAuthError(resetError));
+      } else {
+        setInfo("Password reset link sent. Open it from your email.");
+      }
+    } catch {
+      setError("Could not send reset email.");
+    } finally {
+      setResendLoading(false);
+    }
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -38,7 +107,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
           password,
         });
         if (signInError) {
-          setError(signInError.message);
+          setError(formatAuthError(signInError));
           setLoading(false);
           return;
         }
@@ -52,13 +121,11 @@ export function AuthForm({ mode }: { mode: Mode }) {
         password,
         options: {
           data: { full_name: fullName.trim() },
-          emailRedirectTo: absoluteUrl(
-            `/auth/callback?next=${encodeURIComponent(next)}`,
-          ),
+          emailRedirectTo: emailRedirect,
         },
       });
       if (signUpError) {
-        setError(signUpError.message);
+        setError(formatAuthError(signUpError));
         setLoading(false);
         return;
       }
@@ -141,9 +208,30 @@ export function AuthForm({ mode }: { mode: Mode }) {
         </div>
 
         {error && (
-          <p className="text-sm text-red-600 rounded-lg bg-red-50 px-3 py-2">
-            {error}
-          </p>
+          <div className="text-sm text-red-800 rounded-lg bg-red-50 px-3 py-2 space-y-2">
+            <p>{error}</p>
+            {isLogin && (
+              <div className="flex flex-wrap gap-2 pt-1">
+                <button
+                  type="button"
+                  disabled={resendLoading}
+                  onClick={() => resendConfirmation()}
+                  className="text-xs font-semibold text-brand-blue hover:underline disabled:opacity-50"
+                >
+                  Resend confirmation
+                </button>
+                <span className="text-red-300">·</span>
+                <button
+                  type="button"
+                  disabled={resendLoading}
+                  onClick={() => sendPasswordReset()}
+                  className="text-xs font-semibold text-brand-blue hover:underline disabled:opacity-50"
+                >
+                  Forgot password?
+                </button>
+              </div>
+            )}
+          </div>
         )}
         {info && (
           <p className="text-sm text-emerald-800 rounded-lg bg-emerald-50 px-3 py-2">

@@ -16,8 +16,10 @@ export function TrackOrderForm() {
   const [phone, setPhone] = useState("");
 
   useEffect(() => {
-    const no = searchParams.get("no");
+    const no = searchParams.get("no") ?? searchParams.get("order");
+    const ph = searchParams.get("phone");
     if (no) setOrderNumber(no);
+    if (ph) setPhone(ph);
   }, [searchParams]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

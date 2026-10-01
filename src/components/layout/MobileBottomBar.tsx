@@ -15,11 +15,11 @@ export function MobileBottomBar() {
         <span>Home</span>
       </Link>
       <Link
-        href="/services"
+        href="/shop"
         className="flex flex-col items-center gap-0.5 text-[10px] text-blue-300 font-medium"
       >
         <ShoppingBag className="w-5 h-5" />
-        <span>Order</span>
+        <span>Shop</span>
       </Link>
       <Link
         href="/track-order"

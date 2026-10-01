@@ -5,8 +5,12 @@ import { isSupabaseAuthConfigured } from "@/lib/supabase/auth-config";
 import { absoluteUrl } from "@/lib/site-url";
 
 export async function GET(request: NextRequest) {
-  const next = request.nextUrl.searchParams.get("next") ?? "/account";
-  const redirectTo = new URL(next, request.url);
+  const nextParam = request.nextUrl.searchParams.get("next");
+  const next = nextParam ?? "/account";
+  const type = request.nextUrl.searchParams.get("type");
+  const redirectPath =
+    type === "recovery" ? "/reset-password" : next;
+  const redirectTo = new URL(redirectPath, request.url);
 
   if (!isSupabaseAuthConfigured()) {
     return NextResponse.redirect(absoluteUrl("/login"));

@@ -21,9 +21,22 @@ export type ProductRow = {
   created_at?: string;
 };
 
+export type ProfileRow = {
+  id: string;
+  full_name: string;
+  phone: string;
+  email: string;
+  address_line1: string;
+  address_line2: string;
+  city: string;
+  pincode: string;
+  updated_at?: string;
+};
+
 export type OrderRow = {
   id: string;
   order_number: string;
+  user_id: string | null;
   customer_name: string;
   phone: string;
   email: string;

@@ -221,6 +221,12 @@ export function SiteContentManager({ initial }: { initial: SiteContent }) {
           onChange={(e) => patch("hero", "highlight", e.target.value)}
           placeholder="Highlighted words (gradient)"
         />
+        <input
+          className="w-full rounded-lg border px-3 py-2 text-sm"
+          value={content.hero.trailing ?? ""}
+          onChange={(e) => patch("hero", "trailing", e.target.value)}
+          placeholder="Headline end (e.g. for Every Business)"
+        />
         <textarea
           className="w-full rounded-lg border px-3 py-2 text-sm"
           rows={3}
