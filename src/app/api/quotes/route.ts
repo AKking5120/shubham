@@ -76,8 +76,11 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     }
-    if (!pagesSet) {
-      return NextResponse.json({ error: "Enter pages / set." }, { status: 400 });
+    if (!["Single", "Duplicate", "Replicate"].includes(pagesSet)) {
+      return NextResponse.json(
+        { error: "Choose single, duplicate, or replicate." },
+        { status: 400 },
+      );
     }
     if (!isPrintingColor(printingColor)) {
       return NextResponse.json({ error: "Choose a printing color." }, { status: 400 });

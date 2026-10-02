@@ -152,7 +152,14 @@ export function ProductQuoteDialog({
                 </label>
                 <label className="block text-sm font-medium text-slate-700">
                   Pages / set
-                  <input name="pagesSet" required placeholder="e.g. 1, 50, duplicate" className={`mt-1 ${inputClass}`} />
+                  <select name="pagesSet" required defaultValue="" className={`mt-1 ${inputClass}`}>
+                    <option value="" disabled>
+                      e.g. single, duplicate, replicate
+                    </option>
+                    <option value="Single">Single</option>
+                    <option value="Duplicate">Duplicate</option>
+                    <option value="Replicate">Replicate</option>
+                  </select>
                 </label>
                 <label className="block text-sm font-medium text-slate-700">
                   Printing color

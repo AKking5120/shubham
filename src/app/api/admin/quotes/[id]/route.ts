@@ -77,7 +77,20 @@ export async function PATCH(request: Request, { params }: Ctx) {
     }
     patch.quantity = quantity;
   }
-  if (body.pagesSet !== undefined) patch.pagesSet = cleanText(body.pagesSet, 40);
+  if (body.pagesSet !== undefined) {
+    const pagesSet = cleanText(body.pagesSet, 40);
+    const current = await getQuoteInquiry(id);
+    const allowed =
+      ["Single", "Duplicate", "Replicate"].includes(pagesSet) ||
+      (current && pagesSet === current.pagesSet);
+    if (!pagesSet || !allowed) {
+      return NextResponse.json(
+        { error: "Pages / set must be single, duplicate, or replicate." },
+        { status: 400 },
+      );
+    }
+    patch.pagesSet = pagesSet;
+  }
   if (body.printingColor !== undefined) {
     if (!isPrintingColor(String(body.printingColor))) {
       return NextResponse.json({ error: "Unknown printing color." }, { status: 400 });

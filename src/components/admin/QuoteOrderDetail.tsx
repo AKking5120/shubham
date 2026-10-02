@@ -208,7 +208,14 @@ export function QuoteOrderDetail({ quote }: { quote: QuoteInquiry }) {
           </label>
           <label className="text-sm font-medium text-slate-700">
             Pages / set
-            <input value={pagesSet} onChange={(e) => setPagesSet(e.target.value)} className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2" />
+            <select value={pagesSet} onChange={(e) => setPagesSet(e.target.value)} className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2">
+              {pagesSet && !["Single", "Duplicate", "Replicate"].includes(pagesSet) && (
+                <option value={pagesSet}>{pagesSet}</option>
+              )}
+              <option value="Single">Single</option>
+              <option value="Duplicate">Duplicate</option>
+              <option value="Replicate">Replicate</option>
+            </select>
           </label>
           <label className="text-sm font-medium text-slate-700">
             Printing color
