@@ -30,7 +30,7 @@ export function ProductQuoteDialog({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [fileName, setFileName] = useState("");
-  const [reference, setReference] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -63,7 +63,7 @@ export function ProductQuoteDialog({
       const res = await fetch("/api/quotes", { method: "POST", body: fd });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Submission failed");
-      setReference(String(data.reference ?? ""));
+      setSubmitted(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
@@ -103,15 +103,13 @@ export function ProductQuoteDialog({
         </div>
 
         <div className="overflow-y-auto px-5 py-4">
-          {reference ? (
+          {submitted ? (
             <div className="rounded-2xl border border-green-200 bg-green-50 p-6 text-center">
               <h3 className="text-xl font-bold text-[#0a1628]">Quote request sent</h3>
               <p className="mt-2 text-sm text-slate-600">
                 We have your requirements. The shop will contact you with the price.
-                An Order ID is created only after you confirm the order.
+                Your Order ID will be shared after the order is confirmed.
               </p>
-              <p className="mt-4 text-sm text-slate-500">Reference</p>
-              <p className="font-mono text-lg font-bold text-[#1e3a5f]">{reference}</p>
               <button
                 type="button"
                 className="mt-5 text-sm font-medium text-[#1e3a5f] underline"

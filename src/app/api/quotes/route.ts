@@ -91,7 +91,7 @@ export async function POST(request: Request) {
       artwork = await saveArtwork(file);
     }
 
-    const inquiry = await createQuoteInquiry({
+    await createQuoteInquiry({
       customerName,
       phone,
       email,
@@ -111,9 +111,8 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      reference: inquiry.id,
       message:
-        "Your quote request has been submitted. We will contact you with the price. An Order ID is issued only after you confirm the order.",
+        "Your quote request has been submitted. We will contact you with the price.",
     });
   } catch (err) {
     if (artwork) {
