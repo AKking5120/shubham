@@ -180,7 +180,7 @@ export type PublicTrackedOrder = {
     amount: number;
     status: PaymentStatus;
     statusLabel: string;
-    upiId: string;
+    upiId?: string;
     qrDataUrl?: string;
   } | null;
 };

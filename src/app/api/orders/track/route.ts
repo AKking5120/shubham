@@ -23,16 +23,23 @@ export async function GET(request: Request) {
         { status: 404 },
       );
     }
-    const payment = quote.payment
-      ? {
-          ...quote.payment,
-          qrDataUrl: await paymentQrDataUrl({
-            upiId: quote.payment.upiId,
-            amount: quote.payment.amount,
-            orderId: quote.orderId,
-          }),
-        }
-      : null;
+    const payment =
+      quote.payment?.status === "unpaid"
+        ? {
+            ...quote.payment,
+            qrDataUrl: await paymentQrDataUrl({
+              upiId: quote.payment.upiId,
+              amount: quote.payment.amount,
+              orderId: quote.orderId,
+            }),
+          }
+        : quote.payment
+          ? {
+              amount: quote.payment.amount,
+              status: quote.payment.status,
+              statusLabel: "Payment done",
+            }
+          : null;
     return NextResponse.json({ kind: "quote", quote: { ...quote, payment } });
   }
 

@@ -186,7 +186,7 @@ export function TrackOrderForm() {
             </ol>
           )}
         </div>
-        {quote.payment?.qrDataUrl && (
+        {quote.payment?.status === "unpaid" && quote.payment.qrDataUrl && (
           <aside className="rounded-2xl border border-slate-200 bg-white p-5 text-center shadow-sm">
             <p className="text-sm font-semibold text-[#0a1628]">Pay with UPI</p>
             <img
@@ -197,18 +197,12 @@ export function TrackOrderForm() {
             <p className="mt-3 text-2xl font-bold text-[#0a1628]">
               ₹{quote.payment.amount.toLocaleString("en-IN")}
             </p>
-            <p
-              className={`mt-2 text-sm font-semibold ${
-                quote.payment.status === "full_paid"
-                  ? "text-emerald-700"
-                  : quote.payment.status === "advance_received"
-                    ? "text-amber-700"
-                    : "text-slate-600"
-              }`}
-            >
-              {quote.payment.statusLabel}
-            </p>
-            <p className="mt-2 break-all text-xs text-slate-500">{quote.payment.upiId}</p>
+            <p className="mt-2 text-sm text-slate-500">Payment not received</p>
+          </aside>
+        )}
+        {quote.payment && quote.payment.status !== "unpaid" && (
+          <aside className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center shadow-sm">
+            <p className="text-lg font-bold text-emerald-800">Payment done</p>
           </aside>
         )}
         </div>
