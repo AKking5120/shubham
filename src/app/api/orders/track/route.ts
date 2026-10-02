@@ -28,7 +28,7 @@ export async function GET(request: Request) {
         ? {
             ...quote.payment,
             qrDataUrl: await paymentQrDataUrl({
-              upiId: quote.payment.upiId,
+              upiId,
               amount: quote.payment.amount,
               orderId: quote.orderId,
             }),
