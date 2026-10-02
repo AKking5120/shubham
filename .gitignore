@@ -44,3 +44,5 @@ next-env.d.ts
 /data/private-uploads
 /data/quote-inquiries.json
 /data/quote-inquiries.json.*.tmp
+/data/payment-settings.json
+/data/payment-settings.json.*.tmp

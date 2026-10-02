@@ -84,6 +84,52 @@ export type QuoteStatusEvent = {
   by: string;
 };
 
+export const PAYMENT_STATUSES = ["unpaid", "advance_received", "full_paid"] as const;
+
+export type PaymentStatus = (typeof PAYMENT_STATUSES)[number];
+
+export const PAYMENT_STATUS_LABELS: Record<PaymentStatus, string> = {
+  unpaid: "Payment pending",
+  advance_received: "Advance received",
+  full_paid: "Full payment done",
+};
+
+/** Default shop UPI. Admin can change this from the quote order screen. */
+export const DEFAULT_UPI_ID = "919910374874@wahdfcbank";
+
+export function isPaymentStatus(value: string): value is PaymentStatus {
+  return (PAYMENT_STATUSES as readonly string[]).includes(value);
+}
+
+export function isUpiId(value: string): boolean {
+  return /^[a-zA-Z0-9.\-_]{2,64}@[a-zA-Z]{2,64}$/.test(value);
+}
+
+/** Rupees, up to 2 decimal places. Empty clears the QR. */
+export function parsePaymentAmount(value: unknown): number | null | undefined {
+  if (value === undefined) return undefined;
+  if (value === null || String(value).trim() === "") return null;
+  const n = Number(String(value).replace(/,/g, "").trim());
+  if (!Number.isFinite(n) || n <= 0 || n > 10000000) return undefined;
+  return Math.round(n * 100) / 100;
+}
+
+export function upiPayUri(opts: {
+  upiId: string;
+  payeeName: string;
+  amount: number;
+  orderId: string;
+}): string {
+  const q = [
+    `pa=${encodeURIComponent(opts.upiId)}`,
+    `pn=${encodeURIComponent(opts.payeeName)}`,
+    `am=${encodeURIComponent(opts.amount.toFixed(2))}`,
+    "cu=INR",
+    `tn=${encodeURIComponent(opts.orderId)}`,
+  ].join("&");
+  return `upi://pay?${q}`;
+}
+
 export type QuoteInquiry = {
   id: string;
   customerName: string;
@@ -106,6 +152,9 @@ export type QuoteInquiry = {
   orderCreatedAt: string | null;
   adminNotes: string;
   expectedCompletion: string | null;
+  /** Amount encoded in this customer's UPI QR. Null until admin sets it. */
+  paymentAmount: number | null;
+  paymentStatus: PaymentStatus;
   createdAt: string;
   updatedAt: string;
   history: QuoteStatusEvent[];
@@ -127,6 +176,13 @@ export type PublicTrackedOrder = {
   expectedCompletion: string | null;
   cancelled: boolean;
   timeline: { key: string; label: string; state: "done" | "current" | "upcoming" }[];
+  payment: {
+    amount: number;
+    status: PaymentStatus;
+    statusLabel: string;
+    upiId: string;
+    qrDataUrl?: string;
+  } | null;
 };
 
 const ORDER_ID_RE = /^ORD-\d{4}-\d{5}$/;
@@ -196,7 +252,10 @@ export function nextSerial(
   return candidate;
 }
 
-export function toPublicTrackedOrder(inquiry: QuoteInquiry): PublicTrackedOrder | null {
+export function toPublicTrackedOrder(
+  inquiry: QuoteInquiry,
+  upiId: string,
+): PublicTrackedOrder | null {
   if (!inquiry.orderId) return null;
   const currentIndex = inquiry.status === "cancelled"
     ? -1
@@ -219,6 +278,15 @@ export function toPublicTrackedOrder(inquiry: QuoteInquiry): PublicTrackedOrder 
       : null,
     expectedCompletion: inquiry.expectedCompletion,
     cancelled: inquiry.status === "cancelled",
+    payment:
+      inquiry.orderId && inquiry.paymentAmount && inquiry.paymentAmount > 0
+        ? {
+            amount: inquiry.paymentAmount,
+            status: inquiry.paymentStatus ?? "unpaid",
+            statusLabel: PAYMENT_STATUS_LABELS[inquiry.paymentStatus ?? "unpaid"],
+            upiId,
+          }
+        : null,
     timeline: CUSTOMER_TIMELINE.map((step, index) => ({
       key: step.key,
       label: step.label,

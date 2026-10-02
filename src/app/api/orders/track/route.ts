@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { trackOrder } from "@/lib/store";
-import { getQuoteByOrderId } from "@/lib/quote-store";
+import { getPaymentSettings, getQuoteByOrderId } from "@/lib/quote-store";
+import { paymentQrDataUrl } from "@/lib/payment-qr";
 import { isQuoteOrderId, toPublicTrackedOrder } from "@/lib/quote-workflow";
 
 export async function GET(request: Request) {
@@ -14,14 +15,25 @@ export async function GET(request: Request) {
 
   if (isQuoteOrderId(orderNumber)) {
     const inquiry = await getQuoteByOrderId(orderNumber);
-    const quote = inquiry ? toPublicTrackedOrder(inquiry) : null;
+    const { upiId } = await getPaymentSettings();
+    const quote = inquiry ? toPublicTrackedOrder(inquiry, upiId) : null;
     if (!quote) {
       return NextResponse.json(
         { error: "No order found for that Order ID." },
         { status: 404 },
       );
     }
-    return NextResponse.json({ kind: "quote", quote });
+    const payment = quote.payment
+      ? {
+          ...quote.payment,
+          qrDataUrl: await paymentQrDataUrl({
+            upiId: quote.payment.upiId,
+            amount: quote.payment.amount,
+            orderId: quote.orderId,
+          }),
+        }
+      : null;
+    return NextResponse.json({ kind: "quote", quote: { ...quote, payment } });
   }
 
   if (!phone.trim()) {

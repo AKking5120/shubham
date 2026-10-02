@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { QuoteOrderDetail } from "@/components/admin/QuoteOrderDetail";
-import { getQuoteInquiry } from "@/lib/quote-store";
+import { paymentQrDataUrl } from "@/lib/payment-qr";
+import { getPaymentSettings, getQuoteInquiry } from "@/lib/quote-store";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -9,6 +10,15 @@ export default async function AdminQuoteDetailPage({ params }: Props) {
   const { id } = await params;
   const quote = await getQuoteInquiry(id);
   if (!quote) notFound();
+  const { upiId } = await getPaymentSettings();
+  const qrDataUrl =
+    quote.orderId && quote.paymentAmount
+      ? await paymentQrDataUrl({
+          upiId,
+          amount: quote.paymentAmount,
+          orderId: quote.orderId,
+        })
+      : null;
 
   return (
     <div className="p-6 lg:p-8">
@@ -16,7 +26,7 @@ export default async function AdminQuoteDetailPage({ params }: Props) {
         ← Back to quote orders
       </Link>
       <div className="mt-6">
-        <QuoteOrderDetail quote={quote} />
+        <QuoteOrderDetail quote={quote} upiId={upiId} qrDataUrl={qrDataUrl} />
       </div>
     </div>
   );

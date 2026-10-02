@@ -3,10 +3,12 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getQuoteInquiry, updateQuoteInquiry, type QuotePatch } from "@/lib/quote-store";
 import {
   cleanText,
+  isPaymentStatus,
   isPrintingColor,
   isQuoteStatus,
   isValidEmail,
   normalizeMobile,
+  parsePaymentAmount,
 } from "@/lib/quote-workflow";
 
 type Ctx = { params: Promise<{ id: string }> };
@@ -99,6 +101,22 @@ export async function PATCH(request: Request, { params }: Ctx) {
   }
   if (body.description !== undefined) {
     patch.description = cleanText(body.description, 2000);
+  }
+  if (body.paymentAmount !== undefined) {
+    const amount = parsePaymentAmount(body.paymentAmount);
+    if (amount === undefined) {
+      return NextResponse.json(
+        { error: "Enter a payment amount in rupees, or leave it blank." },
+        { status: 400 },
+      );
+    }
+    patch.paymentAmount = amount;
+  }
+  if (body.paymentStatus !== undefined) {
+    if (!isPaymentStatus(String(body.paymentStatus))) {
+      return NextResponse.json({ error: "Unknown payment status." }, { status: 400 });
+    }
+    patch.paymentStatus = body.paymentStatus;
   }
 
   const updated = await updateQuoteInquiry(id, patch, "admin");

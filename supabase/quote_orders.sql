@@ -22,6 +22,8 @@ create table if not exists public.quote_inquiries (
   order_created_at timestamptz,
   admin_notes text not null default '',
   expected_completion date,
+  payment_amount numeric,
+  payment_status text not null default 'unpaid',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

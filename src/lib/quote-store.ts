@@ -3,11 +3,15 @@ import path from "path";
 import { randomBytes } from "crypto";
 import { isSupabaseConfigured, getSupabaseAdmin } from "./supabase/server";
 import {
+  DEFAULT_UPI_ID,
   QUOTE_STATUSES,
+  isPaymentStatus,
   isPrintingColor,
   isQuoteStatus,
+  isUpiId,
   nextSerial,
   type ArtworkFile,
+  type PaymentStatus,
   type PrintingColor,
   type QuoteInquiry,
   type QuoteStatus,
@@ -46,6 +50,8 @@ export type QuotePatch = {
   pagesSet?: string;
   printingColor?: PrintingColor;
   description?: string;
+  paymentAmount?: number | null;
+  paymentStatus?: PaymentStatus;
 };
 
 let chain: Promise<unknown> = Promise.resolve();
@@ -73,11 +79,23 @@ function event(
   };
 }
 
+function withPayment(quote: QuoteInquiry): QuoteInquiry {
+  const status = isPaymentStatus(String(quote.paymentStatus ?? ""))
+    ? quote.paymentStatus
+    : "unpaid";
+  const amount = quote.paymentAmount;
+  return {
+    ...quote,
+    paymentAmount: typeof amount === "number" && amount > 0 ? amount : null,
+    paymentStatus: status,
+  };
+}
+
 async function readFileInquiries(): Promise<QuoteInquiry[]> {
   try {
     const raw = await fs.readFile(FILE, "utf-8");
     const parsed = JSON.parse(raw) as QuoteInquiry[];
-    return Array.isArray(parsed) ? parsed : [];
+    return Array.isArray(parsed) ? parsed.map(withPayment) : [];
   } catch {
     return [];
   }
@@ -121,6 +139,13 @@ function rowToInquiry(
     orderCreatedAt: row.order_created_at ? String(row.order_created_at) : null,
     adminNotes: String(row.admin_notes ?? ""),
     expectedCompletion: row.expected_completion ? String(row.expected_completion).slice(0, 10) : null,
+    paymentAmount:
+      row.payment_amount == null || row.payment_amount === ""
+        ? null
+        : Number(row.payment_amount) || null,
+    paymentStatus: isPaymentStatus(String(row.payment_status ?? ""))
+      ? (row.payment_status as PaymentStatus)
+      : "unpaid",
     createdAt: String(row.created_at ?? new Date().toISOString()),
     updatedAt: String(row.updated_at ?? new Date().toISOString()),
     history,
@@ -294,6 +319,8 @@ export async function createQuoteInquiry(input: NewQuoteInput): Promise<QuoteInq
         orderCreatedAt: null,
         adminNotes: "",
         expectedCompletion: null,
+        paymentAmount: null,
+        paymentStatus: "unpaid",
         createdAt: now,
         updatedAt: now,
         history,
@@ -356,6 +383,8 @@ export async function createQuoteInquiry(input: NewQuoteInput): Promise<QuoteInq
       orderCreatedAt: null,
       adminNotes: "",
       expectedCompletion: null,
+      paymentAmount: null,
+      paymentStatus: "unpaid",
       createdAt: now,
       updatedAt: now,
       history,
@@ -395,23 +424,28 @@ export async function updateQuoteInquiry(
 
     if (isSupabaseConfigured()) {
       const supabase = getSupabaseAdmin();
-      const { error } = await supabase
-        .from("quote_inquiries")
-        .update({
-          customer_name: next.customerName,
-          phone: next.phone,
-          email: next.email,
-          size: next.size,
-          quantity: next.quantity,
-          pages_set: next.pagesSet,
-          printing_color: next.printingColor,
-          description: next.description,
-          status: next.status,
-          admin_notes: next.adminNotes,
-          expected_completion: next.expectedCompletion,
-          updated_at: next.updatedAt,
-        })
-        .eq("id", id);
+      const payload: Record<string, unknown> = {
+        customer_name: next.customerName,
+        phone: next.phone,
+        email: next.email,
+        size: next.size,
+        quantity: next.quantity,
+        pages_set: next.pagesSet,
+        printing_color: next.printingColor,
+        description: next.description,
+        status: next.status,
+        admin_notes: next.adminNotes,
+        expected_completion: next.expectedCompletion,
+        payment_amount: next.paymentAmount,
+        payment_status: next.paymentStatus,
+        updated_at: next.updatedAt,
+      };
+      let { error } = await supabase.from("quote_inquiries").update(payload).eq("id", id);
+      if (error && /payment_amount|payment_status|42703/i.test(error.message ?? "")) {
+        delete payload.payment_amount;
+        delete payload.payment_status;
+        ({ error } = await supabase.from("quote_inquiries").update(payload).eq("id", id));
+      }
       if (error) throw error;
       if (statusChanged) {
         const last = next.history[next.history.length - 1];
@@ -540,6 +574,30 @@ export async function generateQuoteOrderId(id: string, actor = "admin"): Promise
     await writeFileInquiries(list);
     return next;
   });
+}
+
+const PAYMENT_FILE = path.join(process.cwd(), "data", "payment-settings.json");
+
+export async function getPaymentSettings(): Promise<{ upiId: string }> {
+  try {
+    const raw = await fs.readFile(PAYMENT_FILE, "utf-8");
+    const parsed = JSON.parse(raw) as { upiId?: string };
+    if (parsed.upiId && isUpiId(parsed.upiId)) return { upiId: parsed.upiId };
+  } catch {
+    /* use the default UPI until admin saves one */
+  }
+  return { upiId: DEFAULT_UPI_ID };
+}
+
+export async function savePaymentSettings(upiId: string): Promise<{ upiId: string }> {
+  if (!isUpiId(upiId)) {
+    throw new Error("Enter a valid UPI ID.");
+  }
+  await fs.mkdir(path.dirname(PAYMENT_FILE), { recursive: true });
+  const tmp = `${PAYMENT_FILE}.${process.pid}.tmp`;
+  await fs.writeFile(tmp, JSON.stringify({ upiId }, null, 2), "utf-8");
+  await fs.rename(tmp, PAYMENT_FILE);
+  return { upiId };
 }
 
 export { QUOTE_STATUSES };

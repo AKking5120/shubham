@@ -3,10 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
+  PAYMENT_STATUSES,
+  PAYMENT_STATUS_LABELS,
   PRINTING_COLORS,
   QUOTE_STATUSES,
   QUOTE_STATUS_LABELS,
   printingColorLabel,
+  type PaymentStatus,
   type QuoteInquiry,
   type QuoteStatus,
 } from "@/lib/quote-workflow";
@@ -14,7 +17,15 @@ import { formatDate } from "@/lib/utils";
 import { EmailLink, PhoneLink } from "@/components/ui/ContactLinks";
 import { whatsappLinkForPhone } from "@/lib/constants";
 
-export function QuoteOrderDetail({ quote }: { quote: QuoteInquiry }) {
+export function QuoteOrderDetail({
+  quote,
+  upiId: initialUpi,
+  qrDataUrl,
+}: {
+  quote: QuoteInquiry;
+  upiId: string;
+  qrDataUrl: string | null;
+}) {
   const router = useRouter();
   const [status, setStatus] = useState<QuoteStatus>(quote.status);
   const [notes, setNotes] = useState(quote.adminNotes);
@@ -27,6 +38,13 @@ export function QuoteOrderDetail({ quote }: { quote: QuoteInquiry }) {
   const [pagesSet, setPagesSet] = useState(quote.pagesSet);
   const [printingColor, setPrintingColor] = useState(quote.printingColor);
   const [description, setDescription] = useState(quote.description);
+  const [upiId, setUpiId] = useState(initialUpi);
+  const [paymentAmount, setPaymentAmount] = useState(
+    quote.paymentAmount ? String(quote.paymentAmount) : "",
+  );
+  const [paymentStatus, setPaymentStatus] = useState<PaymentStatus>(
+    quote.paymentStatus ?? "unpaid",
+  );
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -60,6 +78,40 @@ export function QuoteOrderDetail({ quote }: { quote: QuoteInquiry }) {
       return;
     }
     setMessage("Saved.");
+    router.refresh();
+  }
+
+  async function savePayment(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    setError("");
+    setMessage("");
+    const upiRes = await fetch("/api/admin/payment-settings", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ upiId }),
+    });
+    const upiData = await upiRes.json();
+    if (!upiRes.ok) {
+      setBusy(false);
+      setError(upiData.error ?? "Could not save the UPI ID.");
+      return;
+    }
+    const res = await fetch(`/api/admin/quotes/${quote.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        paymentAmount,
+        paymentStatus,
+      }),
+    });
+    const data = await res.json();
+    setBusy(false);
+    if (!res.ok) {
+      setError(data.error ?? "Could not save payment.");
+      return;
+    }
+    setMessage("Payment QR saved. It now shows on order tracking.");
     router.refresh();
   }
 
@@ -137,6 +189,65 @@ export function QuoteOrderDetail({ quote }: { quote: QuoteInquiry }) {
             {quote.description || "—"}
           </p>
         </div>
+
+        <form
+          onSubmit={savePayment}
+          className="mt-6 rounded-2xl border border-amber-200 bg-amber-50/40 p-4"
+        >
+          <h3 className="font-semibold text-[#0a1628]">Payment QR</h3>
+          <p className="mt-1 text-sm text-slate-600">
+            Set this customer&apos;s amount after you confirm the order. The tracking page shows their QR. Mark advance or full payment once the money arrives.
+          </p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <label className="text-sm font-medium text-slate-700 sm:col-span-2">
+              UPI ID
+              <input
+                value={upiId}
+                onChange={(e) => setUpiId(e.target.value.trim())}
+                className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2"
+              />
+            </label>
+            <label className="text-sm font-medium text-slate-700">
+              QR amount (₹)
+              <input
+                value={paymentAmount}
+                onChange={(e) => setPaymentAmount(e.target.value)}
+                inputMode="decimal"
+                placeholder="e.g. 1500"
+                className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2"
+              />
+            </label>
+            <label className="text-sm font-medium text-slate-700">
+              Payment status
+              <select
+                value={paymentStatus}
+                onChange={(e) => setPaymentStatus(e.target.value as PaymentStatus)}
+                className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2"
+              >
+                {PAYMENT_STATUSES.map((s) => (
+                  <option key={s} value={s}>
+                    {s === "unpaid" ? "Payment not received" : PAYMENT_STATUS_LABELS[s]}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          {qrDataUrl && (
+            <div className="mt-4 flex items-center gap-4">
+              <img src={qrDataUrl} alt="Payment QR preview" className="h-28 w-28 rounded-lg bg-white" />
+              <p className="text-sm text-slate-600">
+                This QR is for {quote.orderId} · ₹{quote.paymentAmount}
+              </p>
+            </div>
+          )}
+          <button
+            type="submit"
+            disabled={busy || !quote.orderId}
+            className="mt-4 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-bold text-[#0a1628] disabled:opacity-60"
+          >
+            {quote.orderId ? "Save payment QR" : "Generate Order ID before adding a QR"}
+          </button>
+        </form>
 
         <div className="mt-6 flex flex-wrap gap-3">
           <a
