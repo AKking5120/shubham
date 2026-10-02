@@ -1,5 +1,6 @@
--- Quote inquiries, confirmed orders, artwork, and status history.
--- Run in the Supabase SQL editor. Service role (Next.js API) bypasses RLS.
+-- Shubham Prints — quote orders for Supabase
+-- Supabase Dashboard → SQL Editor → New query → paste this whole file → Run
+-- Safe to run again. It will not delete existing rows.
 
 create table if not exists public.quote_inquiries (
   id text primary key,
@@ -27,6 +28,12 @@ create table if not exists public.quote_inquiries (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.quote_inquiries
+  add column if not exists payment_amount numeric;
+
+alter table public.quote_inquiries
+  add column if not exists payment_status text not null default 'unpaid';
 
 create table if not exists public.quote_orders (
   id text primary key,
@@ -61,6 +68,8 @@ create index if not exists quote_inquiries_status_idx
   on public.quote_inquiries (status);
 create index if not exists quote_inquiries_phone_idx
   on public.quote_inquiries (phone);
+create index if not exists quote_inquiries_order_id_idx
+  on public.quote_inquiries (order_id);
 create index if not exists quote_status_history_inquiry_idx
   on public.quote_status_history (inquiry_id, changed_at);
 
