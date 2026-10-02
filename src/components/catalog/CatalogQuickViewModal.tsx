@@ -13,6 +13,7 @@ type Props = {
   categoryName: string;
   subcategoryName: string;
   onClose: () => void;
+  onGetQuote: () => void;
 };
 
 export function CatalogQuickViewModal({
@@ -21,6 +22,7 @@ export function CatalogQuickViewModal({
   categoryName,
   subcategoryName,
   onClose,
+  onGetQuote,
 }: Props) {
   if (!open || !product) return null;
 
@@ -68,13 +70,20 @@ export function CatalogQuickViewModal({
               {product.priceLabel}
             </p>
           )}
+          <button
+            type="button"
+            onClick={onGetQuote}
+            className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 py-3.5 text-sm font-bold uppercase tracking-wide text-[#0a1628]"
+          >
+            Get quote
+          </button>
           <a
             href={wa}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex w-full items-center justify-center rounded-xl bg-[#25D366] py-3.5 text-sm font-bold text-white hover:bg-[#1ebe57]"
+            className="flex w-full items-center justify-center rounded-xl bg-[#25D366] py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-[#1ebe57]"
           >
-            Get quote on WhatsApp
+            Contact
           </a>
           <p className="text-center text-xs text-slate-500">
             Share quantity, size & design — we reply from Jaitpur, Delhi.

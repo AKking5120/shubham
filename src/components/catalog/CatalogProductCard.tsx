@@ -1,23 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import { MessageCircle } from "lucide-react";
 import type { CatalogProduct } from "@/lib/print-catalog";
 
 type Props = {
   product: CatalogProduct;
   categoryName: string;
   subcategoryName: string;
-  whatsappHref: string;
   onQuickView: () => void;
+  onGetQuote: () => void;
 };
 
 export function CatalogProductCard({
   product,
   categoryName,
   subcategoryName,
-  whatsappHref,
   onQuickView,
+  onGetQuote,
 }: Props) {
   return (
     <article className="group flex flex-col bg-white">
@@ -47,15 +46,13 @@ export function CatalogProductCard({
           >
             Quick view
           </button>
-          <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-1 items-center justify-center gap-1.5 bg-[#25D366] py-2.5 text-xs font-bold uppercase text-white hover:bg-[#1ebe57]"
+          <button
+            type="button"
+            onClick={onGetQuote}
+            className="flex-1 bg-amber-500 py-2.5 text-xs font-bold uppercase tracking-wide text-[#0a1628] hover:bg-amber-400"
           >
-            <MessageCircle className="h-4 w-4" />
-            Quote
-          </a>
+            Get quote
+          </button>
         </div>
       </div>
       <div className="border border-t-0 border-slate-200 px-3 py-4 text-center">
@@ -73,6 +70,13 @@ export function CatalogProductCard({
             {product.priceLabel}
           </p>
         )}
+        <button
+          type="button"
+          onClick={onGetQuote}
+          className="mt-3 w-full rounded-lg bg-[#0a1628] py-2.5 text-xs font-bold uppercase tracking-wide text-white hover:bg-[#1e3a5f]"
+        >
+          Get quote
+        </button>
       </div>
     </article>
   );

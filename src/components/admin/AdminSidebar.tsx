@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   ImageIcon,
+  ClipboardList,
   Inbox,
   LayoutDashboard,
   LayoutTemplate,
@@ -20,6 +21,7 @@ import { cn } from "@/lib/utils";
 const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/orders", label: "Online orders", icon: ShoppingBag },
+  { href: "/admin/quotes", label: "Quote orders", icon: ClipboardList },
   { href: "/admin/enquiries", label: "Quote enquiries", icon: Inbox },
   { href: "/admin/services", label: "Services", icon: Package },
   { href: "/admin/gallery", label: "Home Gallery", icon: ImageIcon },

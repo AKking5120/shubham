@@ -14,7 +14,7 @@ export default function TrackOrderPage() {
         Track your order
       </h1>
       <p className="text-center text-sm text-slate-600 mt-2 mb-8">
-        Enter your order ID and mobile number from checkout.
+        Enter your Order ID to see the latest print status.
       </p>
       <Suspense fallback={<p className="text-center text-sm text-slate-500">Loading…</p>}>
         <TrackOrderForm />

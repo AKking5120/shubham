@@ -37,3 +37,38 @@ export async function uploadBufferToCloudinary(
 
   return result.secure_url;
 }
+
+/** Artwork is stored as an authenticated asset so the CDN URL is not public. */
+export async function uploadArtworkToCloudinary(
+  buffer: Buffer,
+  options: { publicId: string; resourceType: "image" | "raw" },
+): Promise<{ publicId: string; resourceType: "image" | "raw" }> {
+  const cld = getCloudinary();
+  const dataUri = `data:application/octet-stream;base64,${buffer.toString("base64")}`;
+  const result = await cld.uploader.upload(dataUri, {
+    folder: "shubham-prints/quote-artwork",
+    public_id: options.publicId,
+    resource_type: options.resourceType,
+    type: "authenticated",
+    access_mode: "authenticated",
+    overwrite: false,
+  });
+  return {
+    publicId: result.public_id,
+    resourceType: options.resourceType,
+  };
+}
+
+export function signedArtworkUrl(options: {
+  publicId: string;
+  resourceType: "image" | "raw";
+}): string {
+  const cld = getCloudinary();
+  return cld.url(options.publicId, {
+    resource_type: options.resourceType,
+    type: "authenticated",
+    sign_url: true,
+    secure: true,
+    flags: "attachment",
+  });
+}

@@ -66,7 +66,9 @@ export default async function ShopProductsPage({ params }: Props) {
         <CatalogProductGrid
           title={subcategory.name}
           categoryName={category.name}
+          categorySlug={category.slug}
           subcategoryName={subcategory.name}
+          subcategorySlug={subcategory.slug}
           products={subcategory.products}
         />
       </div>

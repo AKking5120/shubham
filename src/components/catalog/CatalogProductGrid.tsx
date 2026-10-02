@@ -1,27 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import {
-  catalogWhatsAppQuote,
-  type CatalogProduct,
-} from "@/lib/print-catalog";
+import type { CatalogProduct } from "@/lib/print-catalog";
 import { CatalogProductCard } from "@/components/catalog/CatalogProductCard";
 import { CatalogQuickViewModal } from "@/components/catalog/CatalogQuickViewModal";
+import { ProductQuoteDialog } from "@/components/catalog/ProductQuoteDialog";
 
 type Props = {
   categoryName: string;
+  categorySlug: string;
   subcategoryName: string;
+  subcategorySlug: string;
   products: CatalogProduct[];
   title?: string;
 };
 
 export function CatalogProductGrid({
   categoryName,
+  categorySlug,
   subcategoryName,
+  subcategorySlug,
   products,
   title,
 }: Props) {
   const [active, setActive] = useState<CatalogProduct | null>(null);
+  const [quoteFor, setQuoteFor] = useState<CatalogProduct | null>(null);
   const best = products.filter((p) => p.bestSeller);
   const rest = products.filter((p) => !p.bestSeller);
 
@@ -39,12 +42,8 @@ export function CatalogProductGrid({
             product={product}
             categoryName={categoryName}
             subcategoryName={subcategoryName}
-            whatsappHref={catalogWhatsAppQuote({
-              productName: product.name,
-              categoryName,
-              subcategoryName,
-            })}
             onQuickView={() => setActive(product)}
+            onGetQuote={() => setQuoteFor(product)}
           />
         ))}
       </div>
@@ -73,6 +72,20 @@ export function CatalogProductGrid({
         categoryName={categoryName}
         subcategoryName={subcategoryName}
         onClose={() => setActive(null)}
+        onGetQuote={() => {
+          if (active) setQuoteFor(active);
+          setActive(null);
+        }}
+      />
+      <ProductQuoteDialog
+        key={quoteFor?.slug ?? "quote"}
+        open={Boolean(quoteFor)}
+        product={quoteFor}
+        categoryName={categoryName}
+        categorySlug={categorySlug}
+        subcategoryName={subcategoryName}
+        subcategorySlug={subcategorySlug}
+        onClose={() => setQuoteFor(null)}
       />
     </>
   );

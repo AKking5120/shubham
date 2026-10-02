@@ -127,6 +127,7 @@ export default async function AdminDashboardPage() {
             { id: "designs", href: "/admin/designs", label: "Design Templates", icon: LayoutTemplate },
             { id: "gallery", href: "/admin/gallery", label: "Home Gallery", icon: ImageIcon },
             { id: "settings", href: "/admin/settings", label: "Site Content", icon: Settings },
+            { id: "quotes", href: "/admin/quotes", label: "Quote orders", icon: Plus },
             { id: "enquiries", href: "/admin/enquiries", label: "All Enquiries", icon: Plus },
           ].map(({ id, href, label, icon: Icon }) => (
             <Link

@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# private customer artwork and local quote records
+/data/private-uploads
+/data/quote-inquiries.json
+/data/quote-inquiries.json.*.tmp
