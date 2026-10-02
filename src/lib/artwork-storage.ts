@@ -2,9 +2,9 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomBytes } from "crypto";
 import { uploadArtworkToCloudinary, isCloudinaryConfigured } from "./cloudinary";
-import type { ArtworkFile } from "./quote-workflow";
+import { MAX_ARTWORK_BYTES, type ArtworkFile } from "./quote-workflow";
 
-const MAX_BYTES = 12 * 1024 * 1024;
+const MAX_BYTES = MAX_ARTWORK_BYTES;
 
 const ALLOWED_EXT = new Set([
   "jpg",
@@ -55,7 +55,7 @@ export function assertArtworkFile(file: File): void {
     throw artworkError("Choose a design file to upload.");
   }
   if (file.size > MAX_BYTES) {
-    throw artworkError("File is too large. Maximum size is 12 MB.");
+    throw artworkError("File is too large. Maximum size is 40 MB.");
   }
   const base = path.basename(file.name || "design");
   if (base.includes("..") || base.includes("/") || base.includes("\\") || base.includes("\0")) {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { catalogWhatsAppQuote, type CatalogProduct } from "@/lib/print-catalog";
-import { PRINTING_COLORS } from "@/lib/quote-workflow";
+import { MAX_ARTWORK_BYTES, PRINTING_COLORS } from "@/lib/quote-workflow";
 
 type Props = {
   open: boolean;
@@ -56,6 +56,12 @@ export function ProductQuoteDialog({
     setError("");
     const form = e.currentTarget;
     const fd = new FormData(form);
+    const artwork = fd.get("artwork");
+    if (artwork instanceof File && artwork.size > MAX_ARTWORK_BYTES) {
+      setError("File is too large. Maximum size is 40 MB.");
+      setLoading(false);
+      return;
+    }
     fd.set("categorySlug", categorySlug);
     fd.set("productCategorySlug", subcategorySlug);
     fd.set("productSlug", product.slug);
@@ -187,7 +193,7 @@ export function ProductQuoteDialog({
                 <span className="mt-1 block text-xs text-slate-500">
                   {fileName
                     ? `Selected: ${fileName}`
-                    : "Optional. JPG, PNG, WEBP, PDF, AI, PSD, EPS or CDR. Up to 12 MB."}
+                    : "Optional. JPG, PNG, WEBP, PDF, AI, PSD, EPS or CDR. Up to 40 MB."}
                 </span>
               </label>
 

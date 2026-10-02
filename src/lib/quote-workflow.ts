@@ -1,5 +1,8 @@
 /** Quote → confirmed order workflow. Pure helpers (no I/O). */
 
+/** Design files such as CorelDRAW (.cdr) are often larger than a photo. */
+export const MAX_ARTWORK_BYTES = 40 * 1024 * 1024;
+
 export const QUOTE_STATUSES = [
   "new_quote",
   "contacted",
