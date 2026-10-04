@@ -62,6 +62,9 @@ const IMG = {
   birthday5: "/products/birthday-card-5.jpg",
   bulk: "/services/bulk-copy-printout.jpg",
   envelope: "/products/envelope.jpg",
+  envelope2: "/products/envelope-2.jpg",
+  envelope3: "/products/envelope-3.jpg",
+  envelope4: "/products/envelope-4.jpg",
   atm: "/products/atm-pouch.jpg",
   folder: "/products/folder.jpg",
   tags: "/products/garment-tags.jpg",
@@ -173,7 +176,10 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         description: "Printed envelopes all sizes.",
         image: IMG.envelope,
         products: products([
-          { slug: "envelope-standard", name: "Printed envelopes", image: IMG.envelope },
+          { slug: "envelope-window", name: "Window envelope 9x4", image: IMG.envelope, bestSeller: true },
+          { slug: "envelope-floral", name: "Floral window envelope", image: IMG.envelope2 },
+          { slug: "envelope-invitation", name: "Invitation envelope 6x8", image: IMG.envelope3 },
+          { slug: "envelope-card", name: "Card envelope 5x7", image: IMG.envelope4 },
         ]),
       },
       {
