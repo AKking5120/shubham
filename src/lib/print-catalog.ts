@@ -42,9 +42,10 @@ const IMG = {
   bill: "/products/bill-book.jpg",
   bill2: "/products/bill-book-2.jpg",
   challan: "/products/bill-book-3.jpg",
-  letter: "/products/letterhead.jpg",
-  letter2: "/products/letterhead.jpg",
-  letter3: "/products/letterhead.jpg",
+  letter: "/services/letter-pad.jpg",
+  letterhead: "/products/letterhead.jpg",
+  letterhead2: "/products/letterhead-2.jpg",
+  letterhead3: "/products/letterhead-3.jpg",
   card: "/products/business-card.jpg",
   card2: "/products/business-card-2.jpg",
   card3: "/products/business-card-3.jpg",
@@ -91,7 +92,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
     name: "Office Stationery",
     shortLabel: "Stationery",
     description: "Bill books, letter pads, cards, pads, envelopes & office print.",
-    image: IMG.letter,
+    image: IMG.letterhead,
     iconKey: "stationery",
     subcategories: [
       {
@@ -109,11 +110,11 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         slug: "letter-pads",
         name: "Letter pads",
         description: "Branded letterheads for offices & firms.",
-        image: IMG.letter,
+        image: IMG.letterhead,
         products: products([
-          { slug: "letterhead", name: "Letterhead", image: IMG.letter, bestSeller: true },
-          { slug: "letter-pad-a4", name: "A4 letter pad", image: IMG.letter2, priceLabel: "From ₹8/sheet approx." },
-          { slug: "letter-pad-premium", name: "Premium letter pad", image: IMG.letter3 },
+          { slug: "letterhead", name: "70 GSM Maplitho letterhead", image: IMG.letterhead, bestSeller: true },
+          { slug: "letter-pad-a4", name: "100 GSM Excel Bond letterhead", image: IMG.letterhead2, priceLabel: "From ₹8/sheet approx." },
+          { slug: "letterhead-templates", name: "Letterhead templates", image: IMG.letterhead3 },
         ]),
       },
       {
