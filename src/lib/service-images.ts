@@ -10,7 +10,7 @@ export const SERVICE_IMAGES: Record<string, string> = {
   "wedding-card": "/products/wedding-card.jpg",
   "bulk-copy-printout": "/services/bulk-copy-printout.jpg",
   "id-card": "/services/id-card.jpg",
-  "die-cut-visiting-card": "/products/business-card.jpg",
+  "die-cut-visiting-card": "/products/business-card-2.jpg",
   envelope: "/products/envelope.jpg",
   "atm-pouch": "/products/atm-pouch.jpg",
   "doctor-files": "/products/folder.jpg",
