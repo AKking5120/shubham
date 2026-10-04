@@ -46,6 +46,11 @@ const IMG = {
   wedding: "/services/wedding-card.jpg",
   bulk: "/services/bulk-copy-printout.jpg",
   challan: "/services/challan-book.jpg",
+  atm: "/services/atm-pouch.jpg",
+  envelope: "/services/envelope.jpg",
+  folder: "/services/doctor-files.jpg",
+  tags: "/services/garment-tags.jpg",
+  sticker: "/services/sticker-banner.jpg",
 };
 
 function products(
@@ -85,8 +90,9 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         description: "Branded letterheads for offices & firms.",
         image: IMG.letter,
         products: products([
+          { slug: "letterhead", name: "Letterhead", image: IMG.letter, bestSeller: true },
           { slug: "letter-pad-a4", name: "A4 letter pad", image: IMG.letter, priceLabel: "From ₹8/sheet approx." },
-          { slug: "letter-pad-premium", name: "Premium letter pad", image: IMG.letter, bestSeller: true },
+          { slug: "letter-pad-premium", name: "Premium letter pad", image: IMG.letter },
         ]),
       },
       {
@@ -136,9 +142,27 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         slug: "envelopes",
         name: "Envelopes",
         description: "Printed envelopes all sizes.",
-        image: IMG.letter,
+        image: IMG.envelope,
         products: products([
-          { slug: "envelope-standard", name: "Printed envelopes", image: IMG.letter },
+          { slug: "envelope-standard", name: "Printed envelopes", image: IMG.envelope },
+        ]),
+      },
+      {
+        slug: "atm-pouch",
+        name: "ATM pouch",
+        description: "Printed ATM pouches and card holders.",
+        image: IMG.atm,
+        products: products([
+          { slug: "atm-pouch", name: "ATM pouch", image: IMG.atm, bestSeller: true },
+        ]),
+      },
+      {
+        slug: "file-folders",
+        name: "File folders",
+        description: "Printed office folders and doctor files.",
+        image: IMG.folder,
+        products: products([
+          { slug: "printed-folder", name: "Printed folder", image: IMG.folder },
         ]),
       },
       {
@@ -208,11 +232,11 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         slug: "garment-tags",
         name: "Garment tags & labels",
         description: "Hang tags, stickers & label rolls.",
-        image: IMG.card,
+        image: IMG.tags,
         products: products([
-          { slug: "hang-tag", name: "Garment hang tags", image: IMG.card },
-          { slug: "hanger-sticker", name: "Hanger stickers", image: IMG.card },
-          { slug: "label-roll", name: "Product labels", image: IMG.card },
+          { slug: "hang-tag", name: "Garment hang tags", image: IMG.tags, bestSeller: true },
+          { slug: "hanger-sticker", name: "Hanger stickers", image: IMG.sticker },
+          { slug: "label-roll", name: "Product labels", image: IMG.tags },
         ]),
       },
       {
@@ -236,13 +260,22 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         ]),
       },
       {
+        slug: "stickers",
+        name: "Stickers",
+        description: "Product stickers, labels and sticker sheets.",
+        image: IMG.sticker,
+        products: products([
+          { slug: "custom-sticker", name: "Custom sticker", image: IMG.sticker, bestSeller: true },
+        ]),
+      },
+      {
         slug: "posters-pamphlets",
         name: "Posters & pamphlets",
         description: "Flyers, pamphlets & posters.",
         image: IMG.bulk,
         products: products([
-          { slug: "pamphlet", name: "Pamphlet / flyer", image: IMG.bulk },
-          { slug: "poster", name: "Poster printing", image: IMG.bulk },
+          { slug: "pamphlet", name: "Pamphlet", image: IMG.bulk, bestSeller: true },
+          { slug: "poster", name: "Poster", image: IMG.banner },
         ]),
       },
     ],
@@ -329,6 +362,15 @@ export const PRINT_CATALOG: CatalogCategory[] = [
             name: "Full wedding stationery set",
             image: IMG.wedding,
           },
+        ]),
+      },
+      {
+        slug: "birthday-cards",
+        name: "Birthday cards",
+        description: "Birthday invitations and greeting cards.",
+        image: IMG.wedding,
+        products: products([
+          { slug: "birthday-card", name: "Birthday card", image: IMG.wedding, bestSeller: true },
         ]),
       },
     ],
