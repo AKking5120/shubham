@@ -71,6 +71,9 @@ const IMG = {
   folder2: "/products/folder-2.jpg",
   tags: "/products/garment-tags.jpg",
   sticker: "/products/sticker.jpg",
+  sticker2: "/products/sticker-2.jpg",
+  sticker3: "/products/sticker-3.jpg",
+  sticker4: "/products/sticker-4.jpg",
   pamphlet: "/products/pamphlet.jpg",
   pamphlet2: "/products/pamphlet-2.jpg",
   pamphlet3: "/products/pamphlet-3.jpg",
@@ -275,7 +278,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         image: IMG.tags,
         products: products([
           { slug: "hang-tag", name: "Garment hang tags", image: IMG.tags, bestSeller: true },
-          { slug: "hanger-sticker", name: "Hanger stickers", image: IMG.sticker },
+          { slug: "hanger-sticker", name: "Hanger stickers", image: IMG.tags },
           { slug: "label-roll", name: "Product labels", image: IMG.tags },
         ]),
       },
@@ -305,7 +308,10 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         description: "Product stickers, labels and sticker sheets.",
         image: IMG.sticker,
         products: products([
-          { slug: "custom-sticker", name: "Custom sticker", image: IMG.sticker, bestSeller: true },
+          { slug: "custom-sticker", name: "Menu sticker", image: IMG.sticker, bestSeller: true },
+          { slug: "flash-sale-sticker", name: "Flash sale sticker", image: IMG.sticker2 },
+          { slug: "label-sticker-sheet", name: "Label sticker sheet", image: IMG.sticker3 },
+          { slug: "sale-sticker-sheet", name: "Sale sticker sheet", image: IMG.sticker4 },
         ]),
       },
       {
