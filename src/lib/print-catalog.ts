@@ -72,6 +72,8 @@ const IMG = {
   tags: "/products/garment-tags.jpg",
   sticker: "/products/sticker.jpg",
   pamphlet: "/products/pamphlet.jpg",
+  pamphlet2: "/products/pamphlet-2.jpg",
+  pamphlet3: "/products/pamphlet-3.jpg",
   poster: "/products/poster.jpg",
 };
 
@@ -313,6 +315,8 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         image: IMG.pamphlet,
         products: products([
           { slug: "pamphlet", name: "Pamphlet", image: IMG.pamphlet, bestSeller: true },
+          { slug: "travel-pamphlet", name: "Travel pamphlet", image: IMG.pamphlet2 },
+          { slug: "school-pamphlet", name: "School pamphlet", image: IMG.pamphlet3 },
           { slug: "poster", name: "Poster", image: IMG.poster },
         ]),
       },
