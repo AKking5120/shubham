@@ -67,6 +67,7 @@ const IMG = {
   envelope4: "/products/envelope-4.jpg",
   atm: "/products/atm-pouch.jpg",
   folder: "/products/folder.jpg",
+  folder2: "/products/folder-2.jpg",
   tags: "/products/garment-tags.jpg",
   sticker: "/products/sticker.jpg",
   pamphlet: "/products/pamphlet.jpg",
@@ -197,7 +198,8 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         description: "Printed office folders and doctor files.",
         image: IMG.folder,
         products: products([
-          { slug: "printed-folder", name: "Printed folder", image: IMG.folder },
+          { slug: "printed-folder", name: "Printed folder", image: IMG.folder, bestSeller: true },
+          { slug: "folder-inside", name: "Folder inside pocket", image: IMG.folder2 },
         ]),
       },
       {
