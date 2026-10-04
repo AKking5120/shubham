@@ -205,7 +205,7 @@ export const DEFAULT_PRODUCTS: Product[] = [
     name: "Shop Front Banner",
     category: "Banners",
     description: "Large-format banners for storefronts and events.",
-    image: "/products/poster.jpg",
+    image: "/services/shop-banner.jpg",
   },
   {
     id: "prd-6",

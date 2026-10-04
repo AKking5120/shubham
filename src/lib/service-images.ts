@@ -23,7 +23,7 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "prd-2": "/products/letterhead.jpg",
   "prd-3": "/products/business-card.jpg",
   "prd-4": "/products/sticker.jpg",
-  "prd-5": "/products/poster.jpg",
+  "prd-5": "/services/shop-banner.jpg",
   "prd-6": "/products/wedding-card.jpg",
   "prd-7": "/products/bill-book-3.jpg",
   "prd-8": "/products/garment-tags.jpg",
