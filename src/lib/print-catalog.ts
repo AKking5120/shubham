@@ -70,6 +70,8 @@ const IMG = {
   folder: "/products/folder.jpg",
   folder2: "/products/folder-2.jpg",
   tags: "/products/garment-tags.jpg",
+  tags2: "/products/garment-tags-2.jpg",
+  tags3: "/products/garment-tags-3.jpg",
   sticker: "/products/sticker.jpg",
   sticker2: "/products/sticker-2.jpg",
   sticker3: "/products/sticker-3.jpg",
@@ -277,9 +279,9 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         description: "Hang tags, stickers & label rolls.",
         image: IMG.tags,
         products: products([
-          { slug: "hang-tag", name: "Garment hang tags", image: IMG.tags, bestSeller: true },
-          { slug: "hanger-sticker", name: "Hanger stickers", image: IMG.tags },
-          { slug: "label-roll", name: "Product labels", image: IMG.tags },
+          { slug: "hang-tag", name: "Gloss and matt hang tags", image: IMG.tags, bestSeller: true },
+          { slug: "hanger-sticker", name: "Texture and UV tags", image: IMG.tags2 },
+          { slug: "label-roll", name: "PVC tags and threads", image: IMG.tags3 },
         ]),
       },
       {
