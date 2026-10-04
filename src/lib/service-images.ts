@@ -1,33 +1,33 @@
 import type { Product, Service } from "./types";
 
-/** Local service preview images (hosted in /public/services). */
+/** Local service preview images (hosted in /public/products and /public/services). */
 export const SERVICE_IMAGES: Record<string, string> = {
-  "bill-book": "/services/bill-book.jpg",
-  "challan-book": "/services/challan-book.jpg",
-  "letter-pad": "/services/letter-pad.jpg",
-  "visiting-card-tag": "/services/visiting-card-tag.jpg",
-  "sticker-banner": "/services/sticker-banner.jpg",
-  "wedding-card": "/services/wedding-card.jpg",
+  "bill-book": "/products/bill-book.jpg",
+  "challan-book": "/products/bill-book.jpg",
+  "letter-pad": "/products/letterhead.jpg",
+  "visiting-card-tag": "/products/business-card.jpg",
+  "sticker-banner": "/products/sticker.jpg",
+  "wedding-card": "/products/wedding-card.jpg",
   "bulk-copy-printout": "/services/bulk-copy-printout.jpg",
   "id-card": "/services/id-card.jpg",
-  "die-cut-visiting-card": "/services/die-cut-visiting-card.jpg",
-  envelope: "/services/envelope.jpg",
-  "atm-pouch": "/services/atm-pouch.jpg",
-  "doctor-files": "/services/doctor-files.jpg",
+  "die-cut-visiting-card": "/products/business-card.jpg",
+  envelope: "/products/envelope.jpg",
+  "atm-pouch": "/products/atm-pouch.jpg",
+  "doctor-files": "/products/folder.jpg",
   "uv-texture": "/services/uv-texture.jpg",
-  "garment-tags": "/services/garment-tags.jpg",
+  "garment-tags": "/products/garment-tags.jpg",
 };
 
 const PRODUCT_IMAGES: Record<string, string> = {
-  "prd-1": "/services/bill-book.jpg",
-  "prd-2": "/services/letter-pad.jpg",
-  "prd-3": "/services/visiting-card-tag.jpg",
-  "prd-4": "/services/sticker-banner.jpg",
-  "prd-5": "/services/shop-banner.jpg",
-  "prd-6": "/services/wedding-card.jpg",
-  "prd-7": "/services/challan-book.jpg",
-  "prd-8": "/services/shop-banner.jpg",
-  "prd-9": "/services/sticker-banner.jpg",
+  "prd-1": "/products/bill-book.jpg",
+  "prd-2": "/products/letterhead.jpg",
+  "prd-3": "/products/business-card.jpg",
+  "prd-4": "/products/sticker.jpg",
+  "prd-5": "/products/poster.jpg",
+  "prd-6": "/products/wedding-card.jpg",
+  "prd-7": "/products/bill-book.jpg",
+  "prd-8": "/products/garment-tags.jpg",
+  "prd-9": "/products/sticker.jpg",
 };
 
 export function serviceImageForSlug(slug: string): string {

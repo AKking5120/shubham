@@ -5,7 +5,7 @@
     "name": "Bill Book",
     "shortDescription": "Professional bill books for shops and businesses with custom branding.",
     "description": "Professional bill book printing for businesses and shops. Custom layouts, duplicate/triplicate options, and your business details printed clearly for everyday billing.",
-    "image": "/services/bill-book.jpg",
+    "image": "/products/bill-book.jpg",
     "enabled": true,
     "order": 1
   },
@@ -15,7 +15,7 @@
     "name": "Challan Book",
     "shortDescription": "Custom challan books for delivery, logistics and commercial use.",
     "description": "Custom challan book printing for business and commercial requirements. Numbered pages, company details, and formats tailored to your workflow.",
-    "image": "/services/challan-book.jpg",
+    "image": "/products/bill-book.jpg",
     "enabled": true,
     "order": 2
   },
@@ -25,7 +25,7 @@
     "name": "Letter Pad",
     "shortDescription": "Elegant letter pads for offices, firms and organizations.",
     "description": "Professional letter pad printing for businesses, offices and organizations. Premium paper options with your logo and contact details.",
-    "image": "/services/letter-pad.jpg",
+    "image": "/products/letterhead.jpg",
     "enabled": true,
     "order": 3
   },
@@ -35,7 +35,7 @@
     "name": "Visiting Card / Tag",
     "shortDescription": "Visiting cards and tags for professional branding and retail use.",
     "description": "Custom visiting cards and tags designed for professional branding and business use. Multiple finishes, sizes and paper stocks available.",
-    "image": "/services/visiting-card-tag.jpg",
+    "image": "/products/business-card.jpg",
     "enabled": true,
     "order": 4
   },
@@ -45,7 +45,7 @@
     "name": "Sticker / Banner",
     "shortDescription": "Stickers and banners for promotions, events and shop branding.",
     "description": "Custom stickers and banners for branding, promotions, events and other requirements. Indoor and outdoor options with vivid print quality.",
-    "image": "/services/sticker-banner.jpg",
+    "image": "/products/sticker.jpg",
     "enabled": true,
     "order": 5
   },
@@ -55,7 +55,7 @@
     "name": "Wedding Card",
     "shortDescription": "Beautiful wedding invitations and matching stationery.",
     "description": "Beautiful custom wedding card printing for special occasions. Traditional and contemporary designs with premium papers and finishes.",
-    "image": "/services/wedding-card.jpg",
+    "image": "/products/wedding-card.jpg",
     "enabled": true,
     "order": 6
   },
@@ -85,7 +85,7 @@
     "name": "Die Cut Visiting Card",
     "shortDescription": "Premium die-cut and shaped visiting cards for standout branding.",
     "description": "Special die-cut visiting cards including metal, velvet, UV and custom shapes. Choose from our design gallery and print with your details.",
-    "image": "/services/die-cut-visiting-card.jpg",
+    "image": "/products/business-card.jpg",
     "enabled": true,
     "order": 9
   },
@@ -95,7 +95,7 @@
     "name": "Envelope",
     "shortDescription": "Business and gift envelopes in standard and custom sizes.",
     "description": "Printed envelopes for offices, invitations and gifting. Multiple sizes and layouts with your logo and address details.",
-    "image": "/services/envelope.jpg",
+    "image": "/products/envelope.jpg",
     "enabled": true,
     "order": 10
   },
@@ -105,7 +105,7 @@
     "name": "ATM Pouch",
     "shortDescription": "Pouches for ATM cards, RC, driving licence and documents.",
     "description": "Custom ATM and document pouches for banks, dealers and corporate use. Durable print with your branding.",
-    "image": "/services/atm-pouch.jpg",
+    "image": "/products/atm-pouch.jpg",
     "enabled": true,
     "order": 11
   },
@@ -115,7 +115,7 @@
     "name": "Doctor Files",
     "shortDescription": "Files and folders for clinics, hospitals and medical practice.",
     "description": "Doctor file and hospital stationery printing for OPD, records and corporate healthcare branding.",
-    "image": "/services/doctor-files.jpg",
+    "image": "/products/folder.jpg",
     "enabled": true,
     "order": 12
   },
@@ -135,7 +135,7 @@
     "name": "Garment Tags",
     "shortDescription": "Hang tags and garment labels for apparel and retail brands.",
     "description": "Custom garment tags and hang labels for clothing, accessories and retail. Multiple shapes and stringing options.",
-    "image": "/services/garment-tags.jpg",
+    "image": "/products/garment-tags.jpg",
     "enabled": true,
     "order": 14
   }

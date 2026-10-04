@@ -4,62 +4,62 @@
     "name": "Business Bill Books",
     "category": "Business Printing",
     "description": "Custom bill books for retail and wholesale businesses.",
-    "image": "/services/bill-book.jpg"
+    "image": "/products/bill-book.jpg"
   },
   {
     "id": "prd-2",
     "name": "Office Letterheads",
     "category": "Stationery",
     "description": "Clean letter pad layouts for professional correspondence.",
-    "image": "/services/letter-pad.jpg"
+    "image": "/products/letterhead.jpg"
   },
   {
     "id": "prd-3",
     "name": "Premium Visiting Cards",
     "category": "Cards",
     "description": "Matte and gloss visiting cards for teams and entrepreneurs.",
-    "image": "/services/visiting-card-tag.jpg"
+    "image": "/products/business-card.jpg"
   },
   {
     "id": "prd-4",
     "name": "Product Labels",
     "category": "Stickers",
     "description": "Die-cut stickers for packaging and product branding.",
-    "image": "/services/sticker-banner.jpg"
+    "image": "/products/sticker.jpg"
   },
   {
     "id": "prd-5",
     "name": "Shop Front Banner",
     "category": "Banners",
     "description": "Large-format banners for storefronts and events.",
-    "image": "/services/shop-banner.jpg"
+    "image": "/products/poster.jpg"
   },
   {
     "id": "prd-6",
     "name": "Wedding Invitation Set",
     "category": "Wedding Printing",
     "description": "Invitation cards with matching envelopes and inserts.",
-    "image": "/services/wedding-card.jpg"
+    "image": "/products/wedding-card.jpg"
   },
   {
     "id": "prd-7",
     "name": "Challan Books",
     "category": "Business Printing",
     "description": "Delivery and dispatch challan books with serial numbering.",
-    "image": "/services/challan-book.jpg"
+    "image": "/products/bill-book.jpg"
   },
   {
     "id": "prd-8",
     "name": "Garment Tags",
     "category": "Cards",
     "description": "Branded hang tags for apparel and accessories.",
-    "image": "/services/shop-banner.jpg"
+    "image": "/products/garment-tags.jpg"
   },
   {
     "id": "prd-9",
     "name": "Promotional Stickers",
     "category": "Stickers",
     "description": "Vinyl and paper stickers for campaigns and giveaways.",
-    "image": "/services/sticker-banner.jpg"
+    "image": "/products/sticker.jpg"
   }
 ]
