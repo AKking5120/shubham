@@ -1,6 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { randomBytes } from "crypto";
+import { sbGetAppSetting, sbSetAppSetting } from "./supabase-store";
 import { isSupabaseConfigured, getSupabaseAdmin } from "./supabase/server";
 import {
   DEFAULT_UPI_ID,
@@ -252,9 +253,10 @@ function missingTable(error: { code?: string; message?: string } | null): boolea
 }
 
 export async function listQuoteInquiries(): Promise<QuoteInquiry[]> {
+  let list: QuoteInquiry[];
   if (isSupabaseConfigured()) {
     try {
-      return await sbList();
+      list = await sbList();
     } catch (err) {
       const e = err as { code?: string; message?: string };
       if (missingTable(e)) {
@@ -264,17 +266,22 @@ export async function listQuoteInquiries(): Promise<QuoteInquiry[]> {
       }
       throw err;
     }
+  } else {
+    list = await readFileInquiries();
+    list.sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
   }
-  const list = await readFileInquiries();
-  return list.sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  );
+  return applySavedPayments(list);
 }
 
 export async function getQuoteInquiry(id: string): Promise<QuoteInquiry | null> {
-  if (isSupabaseConfigured()) return sbOne(id);
-  const list = await readFileInquiries();
-  return list.find((q) => q.id === id) ?? null;
+  const quote = isSupabaseConfigured()
+    ? await sbOne(id)
+    : (await readFileInquiries()).find((q) => q.id === id) ?? null;
+  if (!quote) return null;
+  const [withPaymentSaved] = await applySavedPayments([quote]);
+  return withPaymentSaved;
 }
 
 export async function getQuoteByOrderId(orderId: string): Promise<QuoteInquiry | null> {
@@ -288,10 +295,13 @@ export async function getQuoteByOrderId(orderId: string): Promise<QuoteInquiry |
       .maybeSingle();
     if (error) throw error;
     if (!data) return null;
-    return sbOne(String(data.id));
+    return getQuoteInquiry(String(data.id));
   }
   const list = await readFileInquiries();
-  return list.find((q) => q.orderId === key) ?? null;
+  const quote = list.find((q) => q.orderId === key) ?? null;
+  if (!quote) return null;
+  const [withPaymentSaved] = await applySavedPayments([quote]);
+  return withPaymentSaved;
 }
 
 export async function createQuoteInquiry(input: NewQuoteInput): Promise<QuoteInquiry> {
@@ -447,6 +457,9 @@ export async function updateQuoteInquiry(
         ({ error } = await supabase.from("quote_inquiries").update(payload).eq("id", id));
       }
       if (error) throw error;
+      if (patch.paymentAmount !== undefined || patch.paymentStatus !== undefined) {
+        await rememberOrderPayment(id, next.paymentAmount, next.paymentStatus);
+      }
       if (statusChanged) {
         const last = next.history[next.history.length - 1];
         const { error: hError } = await supabase.from("quote_status_history").insert({
@@ -467,6 +480,9 @@ export async function updateQuoteInquiry(
     if (idx === -1) return null;
     list[idx] = next;
     await writeFileInquiries(list);
+    if (patch.paymentAmount !== undefined || patch.paymentStatus !== undefined) {
+      await rememberOrderPayment(id, next.paymentAmount, next.paymentStatus);
+    }
     return next;
   });
 }
@@ -577,26 +593,101 @@ export async function generateQuoteOrderId(id: string, actor = "admin"): Promise
 }
 
 const PAYMENT_FILE = path.join(process.cwd(), "data", "payment-settings.json");
+const PAYMENT_KEY = "quote_payment";
 
-export async function getPaymentSettings(): Promise<{ upiId: string }> {
+type SavedOrderPayment = { amount: number | null; status: PaymentStatus };
+
+type PaymentConfig = {
+  upiId: string;
+  orders: Record<string, SavedOrderPayment>;
+};
+
+function emptyPaymentConfig(): PaymentConfig {
+  return { upiId: DEFAULT_UPI_ID, orders: {} };
+}
+
+function normalizePaymentConfig(raw: Partial<PaymentConfig> | null): PaymentConfig {
+  const base = emptyPaymentConfig();
+  if (!raw) return base;
+  if (raw.upiId && isUpiId(raw.upiId)) base.upiId = raw.upiId;
+  if (raw.orders && typeof raw.orders === "object") {
+    for (const [id, value] of Object.entries(raw.orders)) {
+      if (!value || typeof value !== "object") continue;
+      const amount =
+        typeof value.amount === "number" && value.amount > 0 ? value.amount : null;
+      const status = isPaymentStatus(String(value.status ?? ""))
+        ? value.status
+        : "unpaid";
+      base.orders[id] = { amount, status };
+    }
+  }
+  return base;
+}
+
+async function readPaymentConfig(): Promise<PaymentConfig> {
+  if (isSupabaseConfigured()) {
+    const fromDb = await sbGetAppSetting<PaymentConfig>(PAYMENT_KEY);
+    if (fromDb) return normalizePaymentConfig(fromDb);
+  }
   try {
     const raw = await fs.readFile(PAYMENT_FILE, "utf-8");
-    const parsed = JSON.parse(raw) as { upiId?: string };
-    if (parsed.upiId && isUpiId(parsed.upiId)) return { upiId: parsed.upiId };
+    return normalizePaymentConfig(JSON.parse(raw) as PaymentConfig);
   } catch {
-    /* use the default UPI until admin saves one */
+    return emptyPaymentConfig();
   }
-  return { upiId: DEFAULT_UPI_ID };
+}
+
+async function writePaymentConfig(config: PaymentConfig): Promise<void> {
+  if (isSupabaseConfigured()) {
+    await sbSetAppSetting(PAYMENT_KEY, config);
+    return;
+  }
+  if (process.env.VERCEL) {
+    throw new Error(
+      "Payment QR needs Supabase on Vercel. Set the Supabase keys and run supabase/quote_orders.sql.",
+    );
+  }
+  await fs.mkdir(path.dirname(PAYMENT_FILE), { recursive: true });
+  const tmp = `${PAYMENT_FILE}.${process.pid}.tmp`;
+  await fs.writeFile(tmp, JSON.stringify(config, null, 2), "utf-8");
+  await fs.rename(tmp, PAYMENT_FILE);
+}
+
+async function applySavedPayments(list: QuoteInquiry[]): Promise<QuoteInquiry[]> {
+  const config = await readPaymentConfig();
+  return list.map((quote) => {
+    const saved = config.orders[quote.id];
+    if (!saved || quote.paymentAmount) return withPayment(quote);
+    return withPayment({
+      ...quote,
+      paymentAmount: saved.amount,
+      paymentStatus: saved.status,
+    });
+  });
+}
+
+async function rememberOrderPayment(
+  id: string,
+  amount: number | null,
+  status: PaymentStatus,
+): Promise<void> {
+  const config = await readPaymentConfig();
+  config.orders[id] = { amount, status };
+  await writePaymentConfig(config);
+}
+
+export async function getPaymentSettings(): Promise<{ upiId: string }> {
+  const config = await readPaymentConfig();
+  return { upiId: config.upiId };
 }
 
 export async function savePaymentSettings(upiId: string): Promise<{ upiId: string }> {
   if (!isUpiId(upiId)) {
     throw new Error("Enter a valid UPI ID.");
   }
-  await fs.mkdir(path.dirname(PAYMENT_FILE), { recursive: true });
-  const tmp = `${PAYMENT_FILE}.${process.pid}.tmp`;
-  await fs.writeFile(tmp, JSON.stringify({ upiId }, null, 2), "utf-8");
-  await fs.rename(tmp, PAYMENT_FILE);
+  const config = await readPaymentConfig();
+  config.upiId = upiId;
+  await writePaymentConfig(config);
   return { upiId };
 }
 

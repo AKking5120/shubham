@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   PAYMENT_STATUSES,
   PAYMENT_STATUS_LABELS,
@@ -45,7 +45,33 @@ export function QuoteOrderDetail({
   const [paymentStatus, setPaymentStatus] = useState<PaymentStatus>(
     quote.paymentStatus ?? "unpaid",
   );
+  const [liveQr, setLiveQr] = useState<string | null>(qrDataUrl);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (!quote.orderId || !paymentAmount.trim()) return;
+    const controller = new AbortController();
+    const timer = setTimeout(async () => {
+      const params = new URLSearchParams({
+        amount: paymentAmount.trim(),
+        orderId: quote.orderId ?? "",
+        upiId,
+      });
+      try {
+        const res = await fetch(`/api/admin/payment-qr?${params}`, {
+          signal: controller.signal,
+        });
+        const data = await res.json();
+        if (res.ok && data.qrDataUrl) setLiveQr(data.qrDataUrl);
+      } catch {
+        /* ignore aborted preview requests */
+      }
+    }, 300);
+    return () => {
+      controller.abort();
+      clearTimeout(timer);
+    };
+  }, [paymentAmount, upiId, quote.orderId]);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -211,7 +237,10 @@ export function QuoteOrderDetail({
               QR amount (₹)
               <input
                 value={paymentAmount}
-                onChange={(e) => setPaymentAmount(e.target.value)}
+                onChange={(e) => {
+                  setPaymentAmount(e.target.value);
+                  if (!e.target.value.trim()) setLiveQr(null);
+                }}
                 inputMode="decimal"
                 placeholder="e.g. 1500"
                 className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2"
@@ -232,11 +261,11 @@ export function QuoteOrderDetail({
               </select>
             </label>
           </div>
-          {qrDataUrl && (
+          {liveQr && (
             <div className="mt-4 flex items-center gap-4">
-              <img src={qrDataUrl} alt="Payment QR preview" className="h-28 w-28 rounded-lg bg-white" />
+              <img src={liveQr} alt="Payment QR preview" className="h-36 w-36 rounded-lg bg-white" />
               <p className="text-sm text-slate-600">
-                This QR is for {quote.orderId} · ₹{quote.paymentAmount}
+                QR for {quote.orderId}. Save it so the customer can see it on tracking while payment is not received.
               </p>
             </div>
           )}

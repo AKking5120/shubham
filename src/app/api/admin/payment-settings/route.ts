@@ -19,6 +19,11 @@ export async function PATCH(request: Request) {
   if (!isUpiId(upiId)) {
     return NextResponse.json({ error: "Enter a valid UPI ID." }, { status: 400 });
   }
-  const saved = await savePaymentSettings(upiId);
-  return NextResponse.json(saved);
+  try {
+    const saved = await savePaymentSettings(upiId);
+    return NextResponse.json(saved);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Could not save the UPI ID.";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
