@@ -21,7 +21,7 @@ export const DEFAULT_SERVICES: Service[] = [
       "Custom challan books for delivery, logistics and commercial use.",
     description:
       "Custom challan book printing for business and commercial requirements. Numbered pages, company details, and formats tailored to your workflow.",
-    image: "/products/bill-book.jpg",
+    image: "/products/bill-book-3.jpg",
     enabled: true,
     order: 2,
   },
@@ -219,7 +219,7 @@ export const DEFAULT_PRODUCTS: Product[] = [
     name: "Challan Books",
     category: "Business Printing",
     description: "Delivery and dispatch challan books with serial numbering.",
-    image: "/products/bill-book.jpg",
+    image: "/products/bill-book-3.jpg",
   },
   {
     id: "prd-8",

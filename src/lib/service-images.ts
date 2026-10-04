@@ -3,7 +3,7 @@ import type { Product, Service } from "./types";
 /** Local service preview images (hosted in /public/products and /public/services). */
 export const SERVICE_IMAGES: Record<string, string> = {
   "bill-book": "/products/bill-book.jpg",
-  "challan-book": "/products/bill-book.jpg",
+  "challan-book": "/products/bill-book-3.jpg",
   "letter-pad": "/products/letterhead.jpg",
   "visiting-card-tag": "/products/business-card.jpg",
   "sticker-banner": "/products/sticker.jpg",
@@ -25,7 +25,7 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "prd-4": "/products/sticker.jpg",
   "prd-5": "/products/poster.jpg",
   "prd-6": "/products/wedding-card.jpg",
-  "prd-7": "/products/bill-book.jpg",
+  "prd-7": "/products/bill-book-3.jpg",
   "prd-8": "/products/garment-tags.jpg",
   "prd-9": "/products/sticker.jpg",
 };

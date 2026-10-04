@@ -40,8 +40,8 @@ export type CatalogCategory = {
 
 const IMG = {
   bill: "/products/bill-book.jpg",
-  bill2: "/products/bill-book.jpg",
-  challan: "/products/bill-book.jpg",
+  bill2: "/products/bill-book-2.jpg",
+  challan: "/products/bill-book-3.jpg",
   letter: "/products/letterhead.jpg",
   letter2: "/products/letterhead.jpg",
   letter3: "/products/letterhead.jpg",
