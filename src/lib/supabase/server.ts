@@ -74,6 +74,14 @@ export type EnquiryRow = {
   created_at?: string;
 };
 
+export type ReviewRow = {
+  id: string;
+  customer_name: string;
+  rating: number;
+  message: string;
+  created_at?: string;
+};
+
 export function isSupabaseConfigured(): boolean {
   return Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&

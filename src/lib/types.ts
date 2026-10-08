@@ -51,6 +51,20 @@ export interface CustomerSummary {
   lastEnquiry: string;
 }
 
+export interface Review {
+  id: string;
+  customerName: string;
+  rating: number;
+  message: string;
+  createdAt: string;
+}
+
+export interface SiteStats {
+  visits: number;
+  orders: number;
+  completedOrders: number;
+}
+
 export interface CustomerProfile {
   id: string;
   fullName: string;

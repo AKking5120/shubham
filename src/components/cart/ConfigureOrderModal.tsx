@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import { sizeOptionsForService } from "@/lib/service-order-sizes";
 
@@ -218,9 +217,6 @@ export function ConfigureOrderModal({
               />
             )}
           </div>
-          <Link href="/gallery" className="mt-2 inline-block text-xs text-brand-blue hover:underline">
-            Browse design gallery →
-          </Link>
         </fieldset>
 
         <label className="mt-4 block text-sm font-medium text-slate-700">

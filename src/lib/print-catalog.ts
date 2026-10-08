@@ -495,3 +495,49 @@ export const CATALOG_HOME_STRIP = PRINT_CATALOG.map((c) => ({
   image: c.image,
   iconKey: c.iconKey,
 }));
+
+export type CatalogSearchHit = {
+  product: CatalogProduct;
+  categorySlug: string;
+  categoryName: string;
+  subcategorySlug: string;
+  subcategoryName: string;
+  href: string;
+};
+
+export function flattenCatalogProducts(): CatalogSearchHit[] {
+  const hits: CatalogSearchHit[] = [];
+  for (const category of PRINT_CATALOG) {
+    for (const subcategory of category.subcategories) {
+      for (const product of subcategory.products) {
+        hits.push({
+          product,
+          categorySlug: category.slug,
+          categoryName: category.name,
+          subcategorySlug: subcategory.slug,
+          subcategoryName: subcategory.name,
+          href: `/shop/${category.slug}/${subcategory.slug}`,
+        });
+      }
+    }
+  }
+  return hits;
+}
+
+export function searchCatalog(query: string, categorySlug?: string) {
+  const q = query.trim().toLowerCase();
+  return flattenCatalogProducts().filter((hit) => {
+    if (categorySlug && hit.categorySlug !== categorySlug) return false;
+    if (!q) return true;
+    const hay = [
+      hit.product.name,
+      hit.product.description,
+      hit.categoryName,
+      hit.subcategoryName,
+      hit.product.badge ?? "",
+    ]
+      .join(" ")
+      .toLowerCase();
+    return hay.includes(q);
+  });
+}

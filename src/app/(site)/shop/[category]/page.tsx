@@ -43,7 +43,7 @@ export default async function ShopCategoryPage({ params }: Props) {
           {category.description} Tap a product type to see items and WhatsApp
           quote.
         </p>
-        <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {category.subcategories.map((sub) => (
             <SubcategoryTile
               key={sub.slug}

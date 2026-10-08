@@ -48,23 +48,23 @@ export default function ShopPage() {
                   View all
                 </Link>
               </div>
-              <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+              <div className="mt-8 grid grid-cols-2 gap-7 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {category.subcategories.map((sub) => (
                   <Link
                     key={sub.slug}
                     href={`/shop/${category.slug}/${sub.slug}`}
                     className="group text-center"
                   >
-                    <div className="relative mx-auto aspect-square max-w-[180px] overflow-hidden rounded-xl bg-slate-100 ring-1 ring-slate-200">
+                    <div className="relative mx-auto aspect-square max-w-[230px] overflow-hidden rounded-xl bg-slate-100 ring-1 ring-slate-200">
                       <Image
                         src={sub.image}
                         alt={sub.name}
                         fill
                         className="object-cover transition group-hover:scale-105"
-                        sizes="180px"
+                        sizes="230px"
                       />
                     </div>
-                    <p className="mt-3 text-sm font-semibold text-slate-800 group-hover:text-brand-blue">
+                    <p className="mt-4 text-base font-semibold text-slate-800 group-hover:text-brand-blue">
                       {sub.name}
                     </p>
                   </Link>

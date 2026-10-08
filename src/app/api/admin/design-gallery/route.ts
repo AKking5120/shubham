@@ -28,7 +28,6 @@ export async function PUT(request: Request) {
     await saveDesignGalleryOverrides(body.overrides ?? {});
     revalidatePath("/");
     revalidatePath("/services");
-    revalidatePath("/gallery");
     return NextResponse.json({ success: true });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Save failed";

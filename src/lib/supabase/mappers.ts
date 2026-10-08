@@ -3,6 +3,7 @@ import type {
   OrderRow,
   ProductRow,
   ProfileRow,
+  ReviewRow,
   ServiceRow,
 } from "./server";
 import type {
@@ -14,6 +15,7 @@ import type {
   PaymentMethod,
   PaymentStatus,
   Product,
+  Review,
   Service,
 } from "../types";
 import type { EnquiryStatus, GalleryCategory } from "../types";
@@ -189,5 +191,25 @@ export function enquiryToRow(
     uploaded_file: enquiry.uploadedFile,
     status: enquiry.status,
     created_at: enquiry.createdAt,
+  };
+}
+
+export function rowToReview(row: ReviewRow): Review {
+  return {
+    id: row.id,
+    customerName: row.customer_name,
+    rating: Number(row.rating),
+    message: row.message,
+    createdAt: row.created_at ?? new Date().toISOString(),
+  };
+}
+
+export function reviewToRow(review: Review): ReviewRow {
+  return {
+    id: review.id,
+    customer_name: review.customerName,
+    rating: review.rating,
+    message: review.message,
+    created_at: review.createdAt,
   };
 }

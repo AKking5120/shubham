@@ -11,7 +11,15 @@ import { mergeSiteContent } from "./merge-site-content";
 import { DEFAULT_SITE_CONTENT } from "./site-content-defaults";
 import type { SiteContent } from "./site-content-types";
 import { DEFAULT_PRODUCTS, DEFAULT_SERVICES } from "./seed";
-import type { CustomerProfile, Enquiry, Order, Product, Service } from "./types";
+import type {
+  CustomerProfile,
+  Enquiry,
+  Order,
+  Product,
+  Review,
+  Service,
+  SiteStats,
+} from "./types";
 import { generateOrderNumber } from "./order-utils";
 const DATA_DIR = path.join(process.cwd(), "data");
 
@@ -353,6 +361,69 @@ export async function trackOrder(
   if (!order) return null;
   if (order.phone.replace(/\D/g, "").slice(-10) !== normalizedPhone) return null;
   return order;
+}
+
+export async function getReviews(): Promise<Review[]> {
+  if (isSupabaseConfigured()) return sb.sbGetReviews();
+  const list = await readJson<Review[]>("reviews.json", []);
+  return list.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
+}
+
+export async function addReview(
+  data: Omit<Review, "id" | "createdAt">,
+): Promise<Review> {
+  if (isSupabaseConfigured()) return sb.sbAddReview(data);
+  const reviews = await readJson<Review[]>("reviews.json", []);
+  const review: Review = {
+    ...data,
+    id: `REV-${Date.now()}`,
+    createdAt: new Date().toISOString(),
+  };
+  reviews.unshift(review);
+  await writeJson("reviews.json", reviews);
+  return review;
+}
+
+export async function incrementSiteVisits(): Promise<number> {
+  if (isSupabaseConfigured()) {
+    try {
+      return await sb.sbIncrementVisits();
+    } catch {
+      return 0;
+    }
+  }
+  const current = await readJson<{ visits: number }>("site-stats.json", {
+    visits: 0,
+  });
+  const next = (current.visits ?? 0) + 1;
+  await writeJson("site-stats.json", { visits: next });
+  return next;
+}
+
+export async function getSiteStats(): Promise<SiteStats> {
+  const orders = await getOrders();
+  const completedOrders = orders.filter((o) => o.status === "delivered").length;
+  let visits = 0;
+  if (isSupabaseConfigured()) {
+    try {
+      const remote = await sb.sbGetSiteStats();
+      return {
+        visits: remote.visits,
+        orders: remote.orders || orders.length,
+        completedOrders: remote.completedOrders || completedOrders,
+      };
+    } catch {
+      visits = 0;
+    }
+  } else {
+    const local = await readJson<{ visits: number }>("site-stats.json", {
+      visits: 0,
+    });
+    visits = local.visits ?? 0;
+  }
+  return { visits, orders: orders.length, completedOrders };
 }
 
 export async function getDesignGallerySlugs(): Promise<

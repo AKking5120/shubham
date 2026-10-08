@@ -55,18 +55,18 @@ export function CatalogProductCard({
           </button>
         </div>
       </div>
-      <div className="border border-t-0 border-slate-200 px-3 py-4 text-center">
-        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+      <div className="border border-t-0 border-slate-200 px-4 py-5 text-center">
+        <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
           {categoryName}
         </p>
-        <h3 className="mt-1 text-sm font-semibold text-slate-900 line-clamp-2">
+        <h3 className="mt-1.5 text-base font-semibold text-slate-900 line-clamp-2">
           {product.name}
         </h3>
-        <p className="mt-1 text-xs text-slate-500 line-clamp-1">
+        <p className="mt-1 text-[13px] text-slate-500 line-clamp-1">
           {subcategoryName}
         </p>
         {product.priceLabel && (
-          <p className="mt-2 text-sm font-bold text-slate-900">
+          <p className="mt-2 text-base font-bold text-slate-900">
             {product.priceLabel}
           </p>
         )}

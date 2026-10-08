@@ -19,8 +19,6 @@ const links = [
   { href: "/", label: "Home", short: "Home" },
   { href: "/shop", label: "Shop & Quote", short: "Shop" },
   { href: "/services", label: "Services & Rates", short: "Services" },
-  { href: "/gallery", label: "Design Gallery", short: "Gallery" },
-  { href: "/about", label: "About Us", short: "About" },
   { href: "/contact", label: "Contact", short: "Contact" },
 ];
 
@@ -76,21 +74,12 @@ export function Header({ site }: { site: HeaderSiteContent }) {
                 className="shadow-lg ring-2 ring-brand-orange/40 shrink-0"
               />
               <div className="hidden min-w-0 sm:block">
-                <div className="font-brand flex flex-nowrap items-end gap-x-1.5 sm:gap-x-2 leading-none whitespace-nowrap">
-                  <span
-                    className="text-lg sm:text-xl xl:text-2xl 2xl:text-[2.05rem] font-extrabold tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent"
-                  >
+                <div className="font-brand flex flex-nowrap items-end gap-x-2 leading-none whitespace-nowrap">
+                  <span className="text-2xl sm:text-3xl xl:text-4xl 2xl:text-[2.75rem] font-black tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent">
                     Shubham
                   </span>
-                  <span
-                    className="text-base sm:text-lg xl:text-xl 2xl:text-[1.8rem] font-extrabold text-[#dc2626]"
-                  >
+                  <span className="mb-0.5 text-xl sm:text-2xl xl:text-3xl 2xl:text-[2.35rem] font-black italic tracking-tight text-[#dc2626]">
                     Prints
-                  </span>
-                  <span
-                    className="mb-0.5 hidden xl:inline text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-300/80"
-                  >
-                    &amp; Stationers
                   </span>
                 </div>
                 <p
@@ -137,12 +126,6 @@ export function Header({ site }: { site: HeaderSiteContent }) {
               <CartIconLink
                 className="relative inline-flex p-2 text-slate-600 hover:text-brand-blue"
               />
-              <Link
-                href="/shop"
-                className="hidden sm:inline-flex bg-brand-blue hover:bg-indigo-900 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition"
-              >
-                WhatsApp quote
-              </Link>
               <button
                 type="button"
                 className="lg:hidden p-2 text-slate-600 hover:text-slate-900"

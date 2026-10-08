@@ -1,0 +1,561 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head><meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta name="author" content="Printers club of India Limited" />
+
+    <!-- jQuery library - SERVED LOCALLY ON PURPOSE: ajax.googleapis.com fails on
+         every normal page load on several client PCs (ERR_CONTENT_DECODING_FAILED,
+         proxy / AV TLS inspection), which kills every script on the page. The CDN
+         is kept only as a rescue if the local file is ever missing. -->
+    <script type="text/javascript" src="foojs/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        if (!window.jQuery) { document.write('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"><\/script>'); }
+    </script>
+    <script type="text/javascript">
+        document.onkeydown = function (e) {
+            if (event.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(window).on('beforeunload', function () {
+            $("#blockMessage").css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
+            $("#blockMessage").css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+            $("#blockMessage").show();
+        });
+        // Mobile back/forward (bfcache) restores the page snapshot with the
+        // beforeunload overlay still visible; pageshow fires on that restore.
+        $(window).on('pageshow', function() {
+                    $("#blockMessage").hide();
+        });
+        function SetLoadingMessage(val) {
+            $("#blockMessage").css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
+            $("#blockMessage").css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+            if (val == true)
+                $("#blockMessage").show();
+            else
+                $("#blockMessage").hide();
+        }
+    </script>
+    <!-- Stylesheets
+    ============================================= -->
+    <link rel="icon" type="image/png" href="f_Icon.ico" /><link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&amp;display=swap" rel="stylesheet" type="text/css" /><link rel="stylesheet" href="can_css/bootstrap.css" type="text/css" /><link rel="stylesheet" href="can_css/style.css" type="text/css" /><link rel="stylesheet" href="can_css/swiper.css" type="text/css" /><link rel="stylesheet" href="can_css/dark.css" type="text/css" /><link rel="stylesheet" href="can_css/font-icons.css" type="text/css" /><link rel="stylesheet" href="can_css/animate.css" type="text/css" /><link rel="stylesheet" href="can_css/magnific-popup.css" type="text/css" /><link rel="stylesheet" href="can_css/custom.css" type="text/css" /><link rel="stylesheet" href="can_css/select2.min.css" type="text/css" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Document Title
+    ============================================= -->
+    <title>
+	Download Free Design Files - ENVELOPE - 9x4
+</title>
+    <style type="text/css">
+        .loading-message {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #00FFFF; /* CYAN */
+            border-right: 16px solid #FF00FF; /* Megenta */
+            border-bottom: 16px solid #FFFF33; /* Yellow */
+            border-left: 16px solid #000000; /* Yellow */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            margin: 0px auto;
+            margin-top: 100px;
+            animation: spin 2s linear infinite;
+        }
+
+        .block-ui-style {
+            height: 100%;
+            min-height: 100%;
+            display: none;
+            z-index: 6;
+            position: absolute;
+            border: none;
+            background-color: #5e0000;
+            width: 100%;
+            opacity: 0.6;
+        }
+
+        .dark-link {
+            color: white;
+            font-size: 11px;
+        }
+
+            .dark-link:hover {
+                color: yellow;
+            }
+    </style>
+    <script type="text/javascript">
+        function getQueryStringValue(key) {
+            return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        }
+    </script>
+    
+    <script type="text/javascript">
+        function checkLogin() {
+            /*if ($("#ctl00_infoLoginUser").text().trim() == "") {
+                alert("Downloads are only available to our Members. No Fees in Becoming Member.");
+                return false;
+            }*/
+            return confirm('All these design templates are just for help. You yourself would have to take care of color, photo, transparency and any kind of lense command. As same color as on computer screen cannot achieved in printing on paper. ये सभी डिज़ाइन टेम्प्लेट केवल मदद के लिए हैं। आपको खुद कलर, फोटो, ट्रांसपेरेंसी और किसी भी तरह की लैंस कमांड का ध्यान रखना होगा। कंप्यूटर स्क्रीन पर जैसा रंग कागज पर छपाई में हासिल नहीं किया जा सकता है।')
+        }
+    </script>
+    <style type="text/css">
+        .backButton {
+            position: sticky;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            opacity: 0.5;
+        }
+
+            .backButton:hover {
+                opacity: 1;
+            }
+    </style>
+<link href="App_Themes/can_New/select2.min.css" type="text/css" rel="stylesheet" /><link href="App_Themes/can_New/StyleSheet.css" type="text/css" rel="stylesheet" /><link href="App_Themes/can_New/templateItem.css" type="text/css" rel="stylesheet" /></head>
+<body class="stretched"><a href="https://printersclub.in/cdn-cgi/content?id=RcLqzvPC1I6WJEo0i5TGMT9w_jmKXSL17zopr8c5Bxw-1790304763.405352-1.2.1.1-oLwfozsu3eBLasncT9pplL9GRsA2TqoHCpTr4.xAY3no.2XnobsdYgjQ5hMBH_Xo" aria-hidden="true" rel="nofollow noopener" style="display: none !important; visibility: hidden !important"></a>
+    <script type="text/javascript">
+        SetLoadingMessage(true);
+    </script>
+    <form method="post" action="./t_ViewTemplateItems.aspx?ID=53&amp;title=ENVELOPE+-+9x4" id="aspnetForm">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTY5ODQ0NjgyNw9kFgJmD2QWAgIDD2QWBgIDDxYCHgdWaXNpYmxlaGQCBA8PFgIfAGhkZAIFD2QWBGYPZBYCZg9kFgoCAQ8PFgIeB0VuYWJsZWRoZGQCAw8PFgIfAWhkZAIJDxYCHgtfIUl0ZW1Db3VudAIIFhBmD2QWAgICDxUEIy4uL2ltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjM5XzEuanBnBUVOVi0xJy4uL2ltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjM5X0VOVi0xLnppcCRpbWFnZXMvdGVtcGxhdGUtaW1hZ2VzLzYzOV9FTlYtMS56aXBkAgEPZBYEAgEPFgIfAGhkAgIPFQQkLi4vaW1hZ2VzL3RlbXBsYXRlLWltYWdlcy82NDBfMjIuanBnBUVOVi0yIy4uL2ltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjQwXzIuemlwIGltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjQwXzIuemlwZAICD2QWBAIBDxYCHwBoZAICDxUEIy4uL2ltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjU5XzMuanBnBUVOVi0zJy4uL2ltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjU5X0VOVi0zLnppcCRpbWFnZXMvdGVtcGxhdGUtaW1hZ2VzLzY1OV9FTlYtMy56aXBkAgMPZBYEAgEPFgIfAGhkAgIPFQQjLi4vaW1hZ2VzL3RlbXBsYXRlLWltYWdlcy82NjBfNC5qcGcFRU5WLTQnLi4vaW1hZ2VzL3RlbXBsYXRlLWltYWdlcy82NjBfRU5WLTQuemlwJGltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjYwX0VOVi00LnppcGQCBA9kFgICAg8VBCQuLi9pbWFnZXMvdGVtcGxhdGUtaW1hZ2VzLzY2MV81NS5qcGcFRU5WLTUnLi4vaW1hZ2VzL3RlbXBsYXRlLWltYWdlcy82NjFfRU5WLTUuemlwJGltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjYxX0VOVi01LnppcGQCBQ9kFgQCAQ8WAh8AaGQCAg8VBCMuLi9pbWFnZXMvdGVtcGxhdGUtaW1hZ2VzLzY2NV82LmpwZwVFTlYtNicuLi9pbWFnZXMvdGVtcGxhdGUtaW1hZ2VzLzY2NV9FTlYtNi56aXAkaW1hZ2VzL3RlbXBsYXRlLWltYWdlcy82NjVfRU5WLTYuemlwZAIGD2QWBAIBDxYCHwBoZAICDxUEIy4uL2ltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjY2XzcuanBnBUVOVi03Jy4uL2ltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjY2X0VOVi03LnppcCRpbWFnZXMvdGVtcGxhdGUtaW1hZ2VzLzY2Nl9FTlYtNy56aXBkAgcPZBYEAgEPFgIfAGhkAgIPFQQjLi4vaW1hZ2VzL3RlbXBsYXRlLWltYWdlcy82NjdfOC5qcGcFRU5WLTgnLi4vaW1hZ2VzL3RlbXBsYXRlLWltYWdlcy82NjdfRU5WLTguemlwJGltYWdlcy90ZW1wbGF0ZS1pbWFnZXMvNjY3X0VOVi04LnppcGQCCw8PFgIfAWhkZAINDw8WAh8BaGRkAgEPD2QPEBYDZgIBAgIWAxYCHg5QYXJhbWV0ZXJWYWx1ZQUCNTMWAh8DZBYCHwMCARYDAgQCBAIFZGRkCGPGZD43B+yNMCMW4Ubt5ugZ3wE=" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=R2BujVkqDNObPoonAWGVouXifEmTQUBUJmKZB-T8aMiRHSJzhk3icsfPXlRaNKmwawXLR26BZMf0wg39MfL1gquGoFg1&amp;t=638901734248157332" type="text/javascript"></script>
+
+
+<script src="/ScriptResource.axd?d=pwauGQ8nzcLEtnhkoV_HBeP5UmfOqAP5Xpck21uCEcayBrbYYqmw9ZphflWk8pTc4sB95vs4MurPgaPz5iucmSlhv_izUijXquj0M2-uh4U8X6ojO3BZeI9HYzjuC76-wbUkCppEcWXbAWrceoCSLumeCKMAuTIRIfT03z2TDmxS1s_g0&amp;t=5c0e0825" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=9TkaaI0Y-1RTUje8nDU6YS9G5icYxBCEIeSo0JRwRPslPKTdcbrk3WIeQUa5iUDBeHyw1rfoRVpa0IjdbSGpmKmsnF4KDkW3d_tVsjOwe1m_QS29Tu_3lhtJRKitDK4hcFx_JeOsHrwl2mvEK1ILtsMzAggdqi0GUsI9HEpso1JC4Z7b0&amp;t=5c0e0825" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="28A00A98" />
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0" />
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAlmx1Te03sFiIkKb0+YICJ486pfEA4ONiyV67POlnkcZR+bdxYucATdLWV/Z2dn1TQ/DA4gwMF2cBvtuSJovBLtBl6GhVpS2ypxeKk2/5kd2eLBzT0QqTmaEnSWks9nVnUWjoG3S+qcEJjkeUXbRZdXQc66ieWwNjnq1PM3CLvTfGyyI0ll+ijFRsqBkbZSNt/bz9fIFVO4av2OMsnq+yrI0ka5Vw==" />
+</div>
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$scriptManager1', 'aspnetForm', ['tctl00$ContentPlaceHolder1$UpdatePanel1',''], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+        <div class="container-fluid">
+            <div id="blockMessage" class="block-ui-style">
+                <div class="loading-message"></div>
+            </div>
+        </div>
+
+        <!-- Document Wrapper
+    ============================================= -->
+        <div id="wrapper" class="clearfix">
+            <!-- Header
+        ============================================= -->
+            <header id="header" class="full-header transparent-header" data-sticky-class="not-dark">
+                <div id="header-wrap">
+                    <div class="container">
+                        <div class="header-row">
+                            <!-- Logo
+                        ============================================= -->
+                            <div id="logo" style="border: none">
+                                <a href="default.aspx" class="standard-logo" data-dark-logo="can_images/PRINTERS_CLUB_group_of_company_LOGO_Dark.png">
+                                    <img src="can_images/PRINTERS_CLUB_group_of_company_LOGO.png" alt="Printers Club of India Limited" /></a>
+                                <a href="default.aspx" class="retina-logo" data-dark-logo="can_images/PRINTERS_CLUB_group_of_company_LOGO_Dark.png">
+                                    <img src="can_images/PRINTERS_CLUB_group_of_company_LOGO.png" alt="Printers Club of India Limited" /></a>
+                                <!--Printers Club of India Limited-->
+                            </div>
+                            <!-- #logo end -->
+
+                            <div class="header-misc" style="margin-left:5px;">
+                                <div class="dropdown mx-3 mr-lg-0">
+								<a href="login.aspx" id="ctl00_lnkLogin" class="btn btn-secondary btn-sm" aria-haspopup="false" aria-expanded="true">Login</a>
+							</div>
+                            </div>
+
+                            <div id="primary-menu-trigger">
+                                <svg class="svg-trigger" viewBox="0 0 100 100">
+                                    <path d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"></path><path d="m 30,50 h 40"></path><path d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"></path></svg>
+                            </div>
+
+                            <!-- Primary Navigation
+                        ============================================= -->
+                            <nav class="primary-menu">
+
+                                <ul class="menu-container">
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="Default.aspx">
+                                            <div>Home</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="#">
+                                            <div>Corporate</div>
+                                        </a>
+                                        <ul class="sub-menu-container">
+                                            <li class="menu-item">
+                                                <a class="menu-link" href="AboutUs.aspx">
+                                                    <div><i class="icon-stack"></i>About Us</div>
+                                                </a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a class="menu-link" href="Team.aspx">
+                                                    <div><i class="icon-umbrella"></i>Core Team</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="default.aspx#section-services">
+                                            <div>Our Services</div>
+                                        </a>
+                                    </li>
+                                    <li id="ctl00_lnkBecomePartner" class="menu-item">
+                                        <a class="menu-link" href="#">
+                                            <div>Join Us</div>
+                                        </a>
+                                        <ul class="sub-menu-container">
+                                            <li class="menu-item">
+                                                <a class="menu-link" href="AddFranchise.aspx">
+                                                    <div><i class="icon-note"></i>Join as a Printer (Wholesale Prices)</div>
+                                                </a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a class="menu-link" href="Default.aspx?e=This feature will be available soon — stay tuned for exciting corporate benefits and exclusive member advantages....">
+                                                    <div><i class="icon-address-card"></i>Join as a Company (Corporate Benefits)</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="Contact_Us.aspx">
+                                            <div>Contact</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="Our_Branches.aspx">
+                                            <div>Branches</div>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-wrap-clone"></div>
+            </header>
+            <!-- #header end -->
+            
+            
+    <section id="page-title" class="page-title-center">
+	<h1>ENVELOPE - 9x4</h1>
+		<span></span>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="Default.aspx">Home</a></li>
+			<li class="breadcrumb-item"><a href="t_ViewTemplatesMainCategories.aspx">Free Designs</a></li>
+			<li class="breadcrumb-item active" aria-current="page">ENVELOPE - 9x4</li>
+		</ol>
+	</section>
+    <div class="content-wrap" style="padding: 30px 0px;">
+        <div class="container clearfix">
+            <a href="javascript:void(0)" class="btn btn-info center backButton" onclick="history.go(-1)"><< Back to Sub - Category Listing</a><br />
+            <br />
+            <div id="ctl00_ContentPlaceHolder1_UpdatePanel1">
+	
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div style="margin-top: 17px;" class="btn-group" role="group" aria-label="Basic example">
+                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnFirst" value="&lt;&lt; First Page" id="ctl00_ContentPlaceHolder1_btnFirst" disabled="disabled" class="aspNetDisabled btn btn-primary" />
+                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnPrev" value="&lt; Previous Page" id="ctl00_ContentPlaceHolder1_btnPrev" disabled="disabled" class="aspNetDisabled btn btn-primary" />
+                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnNext" value="Next Page >" id="ctl00_ContentPlaceHolder1_btnNext" class="btn btn-primary" />
+                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnLast" value="Last Page >>" id="ctl00_ContentPlaceHolder1_btnLast" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                                </div>
+                            <div class="row" style="margin-top: 20px;">
+                                
+                                <div class="center col-lg-3 col-md-3">
+                                    <img title="Template Image" alt="Template Image" src='../images/template-images/639_1.jpg' /><br />
+                                    ENV-1<br />
+                                    <a class="downloadButton" onclick="return checkLogin()" href='../images/template-images/639_ENV-1.zip' download="images/template-images/639_ENV-1.zip" target="_blank">Download CDR</a>
+                                </div>
+                            
+                                
+                                <div class="center col-lg-3 col-md-3">
+                                    <img title="Template Image" alt="Template Image" src='../images/template-images/640_22.jpg' /><br />
+                                    ENV-2<br />
+                                    <a class="downloadButton" onclick="return checkLogin()" href='../images/template-images/640_2.zip' download="images/template-images/640_2.zip" target="_blank">Download CDR</a>
+                                </div>
+                            
+                                
+                                <div class="center col-lg-3 col-md-3">
+                                    <img title="Template Image" alt="Template Image" src='../images/template-images/659_3.jpg' /><br />
+                                    ENV-3<br />
+                                    <a class="downloadButton" onclick="return checkLogin()" href='../images/template-images/659_ENV-3.zip' download="images/template-images/659_ENV-3.zip" target="_blank">Download CDR</a>
+                                </div>
+                            
+                                
+                                <div class="center col-lg-3 col-md-3">
+                                    <img title="Template Image" alt="Template Image" src='../images/template-images/660_4.jpg' /><br />
+                                    ENV-4<br />
+                                    <a class="downloadButton" onclick="return checkLogin()" href='../images/template-images/660_ENV-4.zip' download="images/template-images/660_ENV-4.zip" target="_blank">Download CDR</a>
+                                </div>
+                            
+                                </div>
+                            <div class="row" style="margin-top: 20px;">
+                                
+                                <div class="center col-lg-3 col-md-3">
+                                    <img title="Template Image" alt="Template Image" src='../images/template-images/661_55.jpg' /><br />
+                                    ENV-5<br />
+                                    <a class="downloadButton" onclick="return checkLogin()" href='../images/template-images/661_ENV-5.zip' download="images/template-images/661_ENV-5.zip" target="_blank">Download CDR</a>
+                                </div>
+                            
+                                
+                                <div class="center col-lg-3 col-md-3">
+                                    <img title="Template Image" alt="Template Image" src='../images/template-images/665_6.jpg' /><br />
+                                    ENV-6<br />
+                                    <a class="downloadButton" onclick="return checkLogin()" href='../images/template-images/665_ENV-6.zip' download="images/template-images/665_ENV-6.zip" target="_blank">Download CDR</a>
+                                </div>
+                            
+                                
+                                <div class="center col-lg-3 col-md-3">
+                                    <img title="Template Image" alt="Template Image" src='../images/template-images/666_7.jpg' /><br />
+                                    ENV-7<br />
+                                    <a class="downloadButton" onclick="return checkLogin()" href='../images/template-images/666_ENV-7.zip' download="images/template-images/666_ENV-7.zip" target="_blank">Download CDR</a>
+                                </div>
+                            
+                                
+                                <div class="center col-lg-3 col-md-3">
+                                    <img title="Template Image" alt="Template Image" src='../images/template-images/667_8.jpg' /><br />
+                                    ENV-8<br />
+                                    <a class="downloadButton" onclick="return checkLogin()" href='../images/template-images/667_ENV-8.zip' download="images/template-images/667_ENV-8.zip" target="_blank">Download CDR</a>
+                                </div>
+                            
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div style="margin-top: 17px;" class="btn-group" role="group" aria-label="Basic example">
+                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnFirstb" value="&lt;&lt; First Page" id="ctl00_ContentPlaceHolder1_btnFirstb" disabled="disabled" class="aspNetDisabled btn btn-primary" />
+                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnPrevb" value="&lt; Previous Page" id="ctl00_ContentPlaceHolder1_btnPrevb" disabled="disabled" class="aspNetDisabled btn btn-primary" />
+                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnNextb" value="Next Page >" id="ctl00_ContentPlaceHolder1_btnNextb" class="btn btn-primary" />
+                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnLastb" value="Last Page >>" id="ctl00_ContentPlaceHolder1_btnLastb" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                
+</div>
+        </div>
+
+        
+    </div>
+
+            <!-- #content end -->
+            <!-- Footer
+        ============================================= -->
+            <footer id="footer" class="dark">
+                <div class="container">
+
+                    <!-- Footer Widgets
+                ============================================= -->
+                    <div class="footer-widgets-wrap">
+
+                        <div class="row col-mb-50">
+                            <div class="col-lg-8">
+
+                                <div class="row col-mb-50">
+                                    <div class="col-md-6">
+
+                                        <div class="widget clearfix">
+
+                                            <h1 style="margin: 0;font-size:20px">Printers Club Group of Companies</h1>
+                                            <ul style="font-size:16px;margin-left:28px;margin-bottom:15px;margin-top:5px;">
+                                                <li>Printers Club of India Limited</li>
+                                                                        <li>Printers Club Expo Private Limited</li><li>Printers Club Today Private Limited</li></ul>
+                                            <p>Dedicated for development of printing industry</p>
+
+                                            <div style="background: url('can_images/world-map.png') no-repeat center center; background-size: 100%;">
+                                                <address>
+                                                    <strong>Head Office:</strong><br />
+                                                    Plot No. 57,
+                                                    Jhotwara Industrial Area,<br />
+                                                    Near Shalimar Circle<br /> Jaipur-302012,<br/>
+						                            Rajasthan, India
+                                                </address>
+                                                <br />
+                                                    <abbr title="Phone Number"><strong>Phone:</strong></abbr>
+                                                (+91) 0141-311-2244<br />
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="widget widget_links clearfix">
+
+                                            <h4>Useful Links</h4>
+
+                                            <ul>
+                                                <li><a href="Default.aspx#content">About Us</a></li>
+                                                <li><a href="default.aspx#section-services">Services</a></li>
+                                                <li><a href="default.aspx#section-portfolio">Portfolio</a></li>
+                                                <li><a href="Contact_Us.aspx">Contact Us</a></li>
+                                                <li><a href="Contact_Us.aspx">Our Location</a></li>
+                                                <li><a href="Terms_And_Conditions.aspx?type=new">Terms & Conditions</a></li>
+                                                <li><a href="login.aspx">Sign In</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <div class="row col-mb-50">
+                                    <div class="col-md-4 col-lg-12">
+                                        <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                                            <div class="row">
+                                                <div class="col-lg-12 bottommargin-sm">
+                                                    <div class="counter counter-small"><span data-from="0" data-to="0" data-refresh-interval="1" data-speed="200" data-comma="true"></span></div>
+                                                    <h5 class="mb-0">Total Todays Visit</h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 col-lg-12">
+                                        
+                                        <div class="widget subscribe-widget clearfix">
+                                            <h5><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</h5>
+                                            <div class="widget-subscribe-form-result"></div>
+                                                <div class="input-group mx-auto">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon-email2"></i></div>
+                                                    </div>
+                                                    <input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-success" type="submit">Subscribe</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-lg-12">
+                                        <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                                            <div class="row">
+                                                <div class="col-6 col-md-12 col-lg-6 clearfix bottommargin-sm">
+                                                    <a href="https://www.instagram.com/printers_club_of_india_ltd?igsh=MWRwMmt3ZXo2dTdhOA==" class="social-icon si-dark si-colored si-instagram mb-0" style="margin-right: 10px;">
+                                                        <i class="icon-instagram"></i>
+                                                        <i class="icon-instagram"></i>
+                                                    </a>
+                                                    <a href="https://www.instagram.com/printers_club_of_india_ltd?igsh=MWRwMmt3ZXo2dTdhOA=="><small style="display: block; margin-top: 3px;"><strong>Follow us</strong><br>
+                                                        on Instagram</small></a>
+                                                </div>
+                                                <div class="col-6 col-md-12 col-lg-6 clearfix">
+                                                    <a href="https://youtube.com/@printersclub?si=OvMu-s-p0nms5cco" class="social-icon si-dark si-colored si-youtube mb-0" style="margin-right: 10px;">
+                                                        <i class="icon-youtube"></i>
+                                                        <i class="icon-youtube"></i>
+                                                    </a>
+                                                    <a href="https://youtube.com/@printersclub?si=OvMu-s-p0nms5cco"><small style="display: block; margin-top: 3px;"><strong>Subscribe</strong><br>
+                                                        our Youtube</small></a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- .footer-widgets-wrap end -->
+
+                </div>
+
+                <!-- Copyrights
+            ============================================= -->
+                <div id="copyrights">
+                    <div class="container">
+                        <div class="row col-mb-30">
+                            <div class="col-md-6 text-center text-md-left">
+                                Copyrights &copy; 2026 All Rights Reserved by <b style="font-size: 15px">Printers Club of India Limited</b>.<br>
+                                <div class="copyright-links"><a href="Terms_And_Conditions.aspx?type=new">Refund and Cancellation Policy & Terms of Use</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #copyrights end -->
+            </footer>
+            <!-- #footer end -->
+
+        </div>
+        <!-- #wrapper end -->
+        <!-- Go To Top
+    ============================================= -->
+             <div id="gotoTop" class="icon-angle-up"></div>
+        <script type="text/javascript" src="can_js/jquery.js"></script>
+        <script type="text/javascript" src="can_js/select2.min.js"></script>
+        <script type="text/javascript" src="can_js/plugins.min.js"></script>
+        <!-- Footer Scripts ============================================= -->
+        <script type="text/javascript" src="can_js/functions.js"></script>
+    
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+    <script type="text/javascript">
+        SetLoadingMessage(false);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a406bc034f4fff8f',t:'MTc5MDMwNDc2Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

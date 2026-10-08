@@ -20,32 +20,32 @@ export function HomeCatalogSection() {
             <span className="font-semibold text-[#128C7E]">WhatsApp</span> only.
           </p>
         </div>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PRINT_CATALOG.map((cat) => (
             <Link
               key={cat.slug}
               href={`/shop/${cat.slug}`}
-              className="group flex gap-4 rounded-2xl border border-slate-200 bg-slate-50/80 p-4 transition hover:border-brand-blue/40 hover:bg-white hover:shadow-md"
+              className="group flex gap-5 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 transition hover:border-brand-blue/40 hover:bg-white hover:shadow-md"
             >
-              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
+              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-white">
                 <Image
                   src={cat.image}
                   alt=""
                   fill
                   className="object-cover"
-                  sizes="80px"
+                  sizes="96px"
                 />
               </div>
               <div className="min-w-0 text-left">
-                <h3 className="font-bold text-slate-900 group-hover:text-brand-blue">
+                <h3 className="text-base font-bold text-slate-900 group-hover:text-brand-blue">
                   {cat.name}
                 </h3>
-                <p className="mt-1 text-xs text-slate-600 line-clamp-2">
+                <p className="mt-1 text-sm text-slate-600 line-clamp-2">
                   {cat.description}
                 </p>
-                <span className="mt-2 inline-flex items-center text-xs font-bold text-brand-orange">
+                <span className="mt-2.5 inline-flex items-center text-sm font-bold text-brand-orange">
                   {cat.subcategories.length} types
-                  <ChevronRight className="h-3 w-3" />
+                  <ChevronRight className="h-3.5 w-3.5" />
                 </span>
               </div>
             </Link>

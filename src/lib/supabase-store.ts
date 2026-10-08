@@ -5,15 +5,25 @@ import {
   orderToRow,
   productToRow,
   profileToRow,
+  reviewToRow,
   rowToEnquiry,
   rowToOrder,
   rowToProduct,
   rowToProfile,
+  rowToReview,
   rowToService,
   serviceToRow,
 } from "./supabase/mappers";
 import { getSupabaseAdmin } from "./supabase/server";
-import type { CustomerProfile, Enquiry, Order, Product, Service } from "./types";
+import type {
+  CustomerProfile,
+  Enquiry,
+  Order,
+  Product,
+  Review,
+  Service,
+  SiteStats,
+} from "./types";
 
 async function ensureSeedData() {
   const supabase = getSupabaseAdmin();
@@ -388,4 +398,92 @@ export async function sbSetAppSetting<T>(key: string, value: T): Promise<void> {
     }
     throw error;
   }
+}
+
+export async function sbGetReviews(): Promise<Review[]> {
+  const { data, error } = await getSupabaseAdmin()
+    .from("reviews")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(24);
+
+  if (error) {
+    if (error.code === "42P01" || error.message?.includes("reviews")) {
+      return [];
+    }
+    throw error;
+  }
+  return (data ?? []).map((row) => rowToReview(row));
+}
+
+export async function sbAddReview(
+  data: Omit<Review, "id" | "createdAt">,
+): Promise<Review> {
+  const review: Review = {
+    ...data,
+    id: `REV-${Date.now()}`,
+    createdAt: new Date().toISOString(),
+  };
+  const { error } = await getSupabaseAdmin()
+    .from("reviews")
+    .insert(reviewToRow(review));
+
+  if (error) {
+    if (error.code === "42P01" || error.message?.includes("reviews")) {
+      throw new Error(
+        "Reviews table missing. Run supabase/stats_and_reviews.sql in the SQL Editor.",
+      );
+    }
+    throw error;
+  }
+  return review;
+}
+
+export async function sbIncrementVisits(): Promise<number> {
+  const supabase = getSupabaseAdmin();
+  const { data: row } = await supabase
+    .from("site_counters")
+    .select("value")
+    .eq("key", "visits")
+    .maybeSingle();
+
+  const next = Number(row?.value ?? 0) + 1;
+  const { error: upsertError } = await supabase.from("site_counters").upsert(
+    { key: "visits", value: next, updated_at: new Date().toISOString() },
+    { onConflict: "key" },
+  );
+  if (upsertError) {
+    if (
+      upsertError.code === "42P01" ||
+      upsertError.message?.includes("site_counters")
+    ) {
+      return next;
+    }
+    throw upsertError;
+  }
+  return next;
+}
+
+export async function sbGetSiteStats(): Promise<SiteStats> {
+  const supabase = getSupabaseAdmin();
+  const { data: visitRow } = await supabase
+    .from("site_counters")
+    .select("value")
+    .eq("key", "visits")
+    .maybeSingle();
+
+  const { count: orders } = await supabase
+    .from("orders")
+    .select("*", { count: "exact", head: true });
+
+  const { count: completedOrders } = await supabase
+    .from("orders")
+    .select("*", { count: "exact", head: true })
+    .eq("status", "delivered");
+
+  return {
+    visits: Number(visitRow?.value ?? 0),
+    orders: orders ?? 0,
+    completedOrders: completedOrders ?? 0,
+  };
 }

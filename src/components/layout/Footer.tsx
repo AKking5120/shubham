@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/brand/BrandLogo";
-import { OwnerPhoto } from "@/components/brand/OwnerPhoto";
 import {
   BUSINESS,
   mailtoLink,
@@ -14,7 +13,6 @@ import {
 const quickLinks = [
   { href: "/", label: "Home Page" },
   { href: "/services", label: "Services & Rates" },
-  { href: "/gallery", label: "Design Gallery" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -39,12 +37,6 @@ export function Footer() {
             “{BUSINESS.slogan}”. Premium commercial printing, carbonless bill books,
             doctor folders, and stationery in New Delhi.
           </p>
-          <div className="flex items-center gap-2 pt-1">
-            <OwnerPhoto size="xs" className="ring-2 ring-slate-700" />
-            <p className="text-[11px] text-slate-500">
-              Proprietor: <span className="text-slate-400">{BUSINESS.owner}</span>
-            </p>
-          </div>
         </div>
 
         <div className="space-y-2">

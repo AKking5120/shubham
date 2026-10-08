@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Mail, MapPin } from "lucide-react";
-import { OwnerPhoto } from "@/components/brand/OwnerPhoto";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { PageHero } from "@/components/layout/PageHero";
 import {
@@ -41,16 +40,6 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               Send a message below or visit us in Jaitpur. Phone & WhatsApp are
               listed in the site footer.
             </p>
-
-            <div className="mt-6 flex flex-col items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-center sm:items-start sm:text-left">
-              <OwnerPhoto size="sm" className="ring-slate-200" />
-              <div>
-                <p className="text-xs font-semibold uppercase text-slate-500">
-                  Owner
-                </p>
-                <p className="font-medium text-slate-800">{BUSINESS.owner}</p>
-              </div>
-            </div>
 
             <ul className="mt-6 space-y-4 text-sm">
               <li className="flex gap-3">

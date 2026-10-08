@@ -1,0 +1,762 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head><meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta name="author" content="Printers club of India Limited" />
+
+    <!-- jQuery library - SERVED LOCALLY ON PURPOSE: ajax.googleapis.com fails on
+         every normal page load on several client PCs (ERR_CONTENT_DECODING_FAILED,
+         proxy / AV TLS inspection), which kills every script on the page. The CDN
+         is kept only as a rescue if the local file is ever missing. -->
+    <script type="text/javascript" src="foojs/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        if (!window.jQuery) { document.write('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"><\/script>'); }
+    </script>
+    <script type="text/javascript">
+        document.onkeydown = function (e) {
+            if (event.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(window).on('beforeunload', function () {
+            $("#blockMessage").css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
+            $("#blockMessage").css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+            $("#blockMessage").show();
+        });
+        // Mobile back/forward (bfcache) restores the page snapshot with the
+        // beforeunload overlay still visible; pageshow fires on that restore.
+        $(window).on('pageshow', function() {
+                    $("#blockMessage").hide();
+        });
+        function SetLoadingMessage(val) {
+            $("#blockMessage").css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
+            $("#blockMessage").css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+            if (val == true)
+                $("#blockMessage").show();
+            else
+                $("#blockMessage").hide();
+        }
+    </script>
+    <!-- Stylesheets
+    ============================================= -->
+    <link rel="icon" type="image/png" href="f_Icon.ico" /><link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&amp;display=swap" rel="stylesheet" type="text/css" /><link rel="stylesheet" href="can_css/bootstrap.css" type="text/css" /><link rel="stylesheet" href="can_css/style.css" type="text/css" /><link rel="stylesheet" href="can_css/swiper.css" type="text/css" /><link rel="stylesheet" href="can_css/dark.css" type="text/css" /><link rel="stylesheet" href="can_css/font-icons.css" type="text/css" /><link rel="stylesheet" href="can_css/animate.css" type="text/css" /><link rel="stylesheet" href="can_css/magnific-popup.css" type="text/css" /><link rel="stylesheet" href="can_css/custom.css" type="text/css" /><link rel="stylesheet" href="can_css/select2.min.css" type="text/css" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Document Title
+    ============================================= -->
+    <title>
+	Design Templates | Free downloads
+</title>
+    <style type="text/css">
+        .loading-message {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #00FFFF; /* CYAN */
+            border-right: 16px solid #FF00FF; /* Megenta */
+            border-bottom: 16px solid #FFFF33; /* Yellow */
+            border-left: 16px solid #000000; /* Yellow */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            margin: 0px auto;
+            margin-top: 100px;
+            animation: spin 2s linear infinite;
+        }
+
+        .block-ui-style {
+            height: 100%;
+            min-height: 100%;
+            display: none;
+            z-index: 6;
+            position: absolute;
+            border: none;
+            background-color: #5e0000;
+            width: 100%;
+            opacity: 0.6;
+        }
+
+        .dark-link {
+            color: white;
+            font-size: 11px;
+        }
+
+            .dark-link:hover {
+                color: yellow;
+            }
+    </style>
+    <script type="text/javascript">
+        function getQueryStringValue(key) {
+            return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        }
+    </script>
+    
+    <meta name="description" content="Free design templates for visiting cards, letterheads, flyers and more from Printers Club of India. Download ready-to-print designs." />
+<link href="App_Themes/can_New/select2.min.css" type="text/css" rel="stylesheet" /><link href="App_Themes/can_New/StyleSheet.css" type="text/css" rel="stylesheet" /><link href="App_Themes/can_New/templateItem.css" type="text/css" rel="stylesheet" /></head>
+<body class="stretched"><a href="https://printersclub.in/cdn-cgi/content?id=ZNo__22EzIvH_.glGxRHCJbOxYdsrHyGWvvBwCxVnuY-1790304777.77415-1.2.1.1-TVRAeL5r7ZjtaqHIQ0DOZV07BUnP8kv6a1B5cfvSdPnDcXsc9kWsbr9mU3L2tXvZ" aria-hidden="true" rel="nofollow noopener" style="display: none !important; visibility: hidden !important"></a>
+    <script type="text/javascript">
+        SetLoadingMessage(true);
+    </script>
+    <form method="post" action="./t_ViewTemplates.aspx?CID=2&amp;title=Die+Cut+Visiting+Card" id="aspnetForm">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJMTg4ODE4MzcxD2QWAmYPZBYCAgMPZBYGAgMPFgIeB1Zpc2libGVoZAIEDw8WAh8AaGRkAgUPZBYEZg8WAh4LXyFJdGVtQ291bnQCJRZKZg9kFgICAg8VCAI1MhRNRVRBTCBWSVNJVElORyBDQVJEUxRNRVRBTCBWSVNJVElORyBDQVJEUxRNRVRBTCBWSVNJVElORyBDQVJEUxRNRVRBTCBWSVNJVElORyBDQVJEUzkuLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL21ldGFsIHZjIG5ldyBpbWcgYS5wbmcUTUVUQUwgVklTSVRJTkcgQ0FSRFMCMTJkAgEPZBYEAgEPFgIfAGhkAgIPFQgCNDIJRGllIE5vLiAxAAAAOC4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvRGllIDEgU3ViIENhdGdvcnkucG5nCURpZSBOby4gMQIxMmQCAg9kFgQCAQ8WAh8AaGQCAg8VCAE3CkRpZSBOby4gMiAAAAAzLi4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9kaWUgbm8gMiBjdXMucG5nCkRpZSBOby4gMiACMTZkAgMPZBYEAgEPFgIfAGhkAgIPFQgCMTEJRGllIE5vLiAzAAAAMy4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvRElFIE5PIDMgQ1VTLnBuZwlEaWUgTm8uIDMCMThkAgQPZBYCAgIPFQgCMTIJRGllIE5vLiA0AAAALy4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvVlYgRElFIDQuanBnCURpZSBOby4gNAIxNGQCBQ9kFgQCAQ8WAh8AaGQCAg8VCAIxMwpEaWUgTm8uIDUgAAAALy4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvVlYgRElFIDUuanBnCkRpZSBOby4gNSABN2QCBg9kFgQCAQ8WAh8AaGQCAg8VCAIxNApEaWUgTm8uIDYgAAAAKC4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvMS5wbmcKRGllIE5vLiA2IAE2ZAIHD2QWBAIBDxYCHwBoZAICDxUIATgJRGllIE5vLiA3AAAALy4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvVlYgRElFIDcuanBnCURpZSBOby4gNwE2ZAIID2QWAgICDxUIAjE1CkRpZSBOby4gOCAAAAAvLi4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9WViBESUUgOC5qcGcKRGllIE5vLiA4IAE2ZAIJD2QWBAIBDxYCHwBoZAICDxUIAjEwCkRpZSBOby4gOSAAAAAvLi4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9WViBESUUgOS5qcGcKRGllIE5vLiA5IAE3ZAIKD2QWBAIBDxYCHwBoZAICDxUIATIKRGllIE5vLiAxMF1UaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIFBlbmNpbCAoaS5lLiBzdGF0aW9uZXJ5IHNob3AsIHNjaG9vbHMgZXRjLikgYW5kIGdhcm1lbnQgdGFncy5dVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBQZW5jaWwgKGkuZS4gc3RhdGlvbmVyeSBzaG9wLCBzY2hvb2xzIGV0Yy4pIGFuZCBnYXJtZW50IHRhZ3MuXVRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgUGVuY2lsIChpLmUuIHN0YXRpb25lcnkgc2hvcCwgc2Nob29scyBldGMuKSBhbmQgZ2FybWVudCB0YWdzLjAuLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL1ZWIERJRSAxMC5qcGcKRGllIE5vLiAxMAE4ZAILD2QWBAIBDxYCHwBoZAICDxUIATELRGllIE5vLiAxMSBkVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBDYXIgaS5lLiBNb3RvciB3b3Jrc2hvcCwgVGF4aSAvIENhYiBzZXJ2aWNlcyBhbmQgVG91ciBvcGVyYXRvcnMgZXRjLmRUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIENhciBpLmUuIE1vdG9yIHdvcmtzaG9wLCBUYXhpIC8gQ2FiIHNlcnZpY2VzIGFuZCBUb3VyIG9wZXJhdG9ycyBldGMuZFRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgQ2FyIGkuZS4gTW90b3Igd29ya3Nob3AsIFRheGkgLyBDYWIgc2VydmljZXMgYW5kIFRvdXIgb3BlcmF0b3JzIGV0Yy4wLi4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9WViBESUUgMTEuanBnC0RpZSBOby4gMTEgATVkAgwPZBYCAgIPFQgBOQtEaWUgTm8uIDEyIGJUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIHNoaXJ0IGkuZS4gR2FybWVudHMgcmVsYXRlZCBidXNpbmVzcyBhbmQgY2FuIGFsc28gYmUgdXNlZCBmb3IgdGFnc2JUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIHNoaXJ0IGkuZS4gR2FybWVudHMgcmVsYXRlZCBidXNpbmVzcyBhbmQgY2FuIGFsc28gYmUgdXNlZCBmb3IgdGFnc2JUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIHNoaXJ0IGkuZS4gR2FybWVudHMgcmVsYXRlZCBidXNpbmVzcyBhbmQgY2FuIGFsc28gYmUgdXNlZCBmb3IgdGFncywuLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL2Nsb3RoLnBuZwtEaWUgTm8uIDEyIAE3ZAIND2QWBAIBDxYCHwBoZAICDxUIATMLRGllIE5vLiAxMyBxVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBIb3VzZSBpLmUuIFRvLUxldCBzZXJ2aWNlcywgUHJvcGVydHkgc2FsZSBhbmQgcHVyY2hhc2UsIEhvbWUgZGVjb3IgYW5kIEhvdGVsIGV0Yy5xVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBIb3VzZSBpLmUuIFRvLUxldCBzZXJ2aWNlcywgUHJvcGVydHkgc2FsZSBhbmQgcHVyY2hhc2UsIEhvbWUgZGVjb3IgYW5kIEhvdGVsIGV0Yy5xVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBIb3VzZSBpLmUuIFRvLUxldCBzZXJ2aWNlcywgUHJvcGVydHkgc2FsZSBhbmQgcHVyY2hhc2UsIEhvbWUgZGVjb3IgYW5kIEhvdGVsIGV0Yy4wLi4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9WViBESUUgMTMuanBnC0RpZSBOby4gMTMgAThkAg4PZBYEAgEPFgIfAGhkAgIPFQgBNApEaWUgTm8uIDE0WVRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgVGVkZHkgQmVhciBpLmUuIFRveSBTaG9wLCBGYW5jeSBTdG9yZSBhbmQgR2lmdCBTaG9wcyBldGMuWVRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgVGVkZHkgQmVhciBpLmUuIFRveSBTaG9wLCBGYW5jeSBTdG9yZSBhbmQgR2lmdCBTaG9wcyBldGMuWVRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgVGVkZHkgQmVhciBpLmUuIFRveSBTaG9wLCBGYW5jeSBTdG9yZSBhbmQgR2lmdCBTaG9wcyBldGMuMC4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvVlYgRElFIDE0LmpwZwpEaWUgTm8uIDE0AThkAg8PZBYEAgEPFgIfAGhkAgIPFQgBNQpEaWUgTm8uIDE1V1RoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgQm90dGxlIGkuZS4gSGVhbHRoIGRyaW5rcyBidXNpbmVzcywgTWVkaWNhbCBTdG9yZXMgZXRjLldUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIEJvdHRsZSBpLmUuIEhlYWx0aCBkcmlua3MgYnVzaW5lc3MsIE1lZGljYWwgU3RvcmVzIGV0Yy5XVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBCb3R0bGUgaS5lLiBIZWFsdGggZHJpbmtzIGJ1c2luZXNzLCBNZWRpY2FsIFN0b3JlcyBldGMuMC4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvVlYgRElFIDE1LmpwZwpEaWUgTm8uIDE1ATRkAhAPZBYCAgIPFQgCMTYKRGllIE5vLiAxNgAAADAuLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL1ZWIERJRSAxNi5qcGcKRGllIE5vLiAxNgE2ZAIRD2QWBAIBDxYCHwBoZAICDxUIAjI2CkRpZSBOby4gMTdEVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBTaG9lcyBpLmUuIFNob2VzIHJlbGF0ZWQgYnVzaW5lc3NlcyBEVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBTaG9lcyBpLmUuIFNob2VzIHJlbGF0ZWQgYnVzaW5lc3NlcyBEVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBTaG9lcyBpLmUuIFNob2VzIHJlbGF0ZWQgYnVzaW5lc3NlcyAsLi4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9TaG9lcy5qcGcKRGllIE5vLiAxNwEzZAISD2QWBAIBDxYCHwBoZAICDxUIAjI3CkRpZSBOby4gMThEVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBDdXAgaS5lLiBSZXN0YXVyYW50cywgVGVhIFNob3BzIGV0Yy5EVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBDdXAgaS5lLiBSZXN0YXVyYW50cywgVGVhIFNob3BzIGV0Yy5EVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBDdXAgaS5lLiBSZXN0YXVyYW50cywgVGVhIFNob3BzIGV0Yy4pLi4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy8xOC5qcGcKRGllIE5vLiAxOAE1ZAITD2QWBAIBDxYCHwBoZAICDxUIAjI4CkRpZSBOby4gMTlaVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBTaGF2aW5nIEJsYWRlcyBpLmUuIFNhbG9vbnMgYW5kIFBhcmxvcnMgcmVsYXRlZCBidXNpbmVzc2VzWlRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgU2hhdmluZyBCbGFkZXMgaS5lLiBTYWxvb25zIGFuZCBQYXJsb3JzIHJlbGF0ZWQgYnVzaW5lc3Nlc1pUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIFNoYXZpbmcgQmxhZGVzIGkuZS4gU2Fsb29ucyBhbmQgUGFybG9ycyByZWxhdGVkIGJ1c2luZXNzZXM0Li4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9CbGFkZSBTaGFwZSBBLnBuZwpEaWUgTm8uIDE5ATRkAhQPZBYCAgIPFQgCMjkKRGllIE5vLiAyMGtUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIE1vYmlsZSBzaW0gaS5lLiBUZWxlY29tbXVuaWNhdGlvbiBvcGVyYXRvcnMsIE1vYmlsZSBzYWxlIHJlcGFpciBzaG9wcyBldGMuIGtUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIE1vYmlsZSBzaW0gaS5lLiBUZWxlY29tbXVuaWNhdGlvbiBvcGVyYXRvcnMsIE1vYmlsZSBzYWxlIHJlcGFpciBzaG9wcyBldGMuIGtUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIE1vYmlsZSBzaW0gaS5lLiBUZWxlY29tbXVuaWNhdGlvbiBvcGVyYXRvcnMsIE1vYmlsZSBzYWxlIHJlcGFpciBzaG9wcyBldGMuIC4uLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL0pJTyBTSU0ucG5nCkRpZSBOby4gMjABM2QCFQ9kFgQCAQ8WAh8AaGQCAg8VCAIzMApEaWUgTm8uIDIxAS4BLgEuKS4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvMjEuanBnCkRpZSBOby4gMjEBMWQCFg9kFgQCAQ8WAh8AaGQCAg8VCAIzMQpEaWUgTm8uIDIyAS4BLgEuMC4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvVlYgRElFIDIyLmpwZwpEaWUgTm8uIDIyATJkAhcPZBYEAgEPFgIfAGhkAgIPFQgCMzIKRGllIE5vLiAyMzBUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIENvbmdyZXNzIHN5bWJvbHMwVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBDb25ncmVzcyBzeW1ib2xzMFRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgQ29uZ3Jlc3Mgc3ltYm9sczAuLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL1ZWIERJRSAyMy5qcGcKRGllIE5vLiAyMwExZAIYD2QWAgICDxUIAjMzCkRpZSBOby4gMjQsVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBGbGV4IE1hY2hpbmUsVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBGbGV4IE1hY2hpbmUsVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBGbGV4IE1hY2hpbmUxLi4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9ESUUgTm8uIDI0LnBuZwpEaWUgTm8uIDI0ATFkAhkPZBYEAgEPFgIfAGhkAgIPFQgCMzQKRGllIE5vLiAyNSVUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIFRydWNrJVRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgVHJ1Y2slVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBUcnVjazEuLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL0RJRSBOby4gMjUucG5nCkRpZSBOby4gMjUBMWQCGg9kFgQCAQ8WAh8AaGQCAg8VCAIzNQpEaWUgTm8uIDI2LlRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgUGFpbnRlcnMgQnJ1c2guVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBQYWludGVycyBCcnVzaC5UaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIFBhaW50ZXJzIEJydXNoMS4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvRElFIE5vLiAyNi5wbmcKRGllIE5vLiAyNgExZAIbD2QWBAIBDxYCHwBoZAICDxUIAjM2CkRpZSBOby4gMjckVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBCaWtlJFRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgQmlrZSRUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIEJpa2UxLi4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9ESUUgTm8uIDI3LnBuZwpEaWUgTm8uIDI3ATFkAhwPZBYCAgIPFQgCMzcKRGllIE5vLiAyOCRUaGlzIHNoYXBlIGlzIGJlc3Qgc3VpdGFibGUgZm9yIEJsdWIkVGhpcyBzaGFwZSBpcyBiZXN0IHN1aXRhYmxlIGZvciBCbHViJFRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgQmx1YjEuLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL0RJRSBOby4gMjgucG5nCkRpZSBOby4gMjgBMWQCHQ9kFgQCAQ8WAh8AaGQCAg8VCAIzOApEaWUgTm8uIDI5LFRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgR2FzIGN5bGluZGVyLFRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgR2FzIGN5bGluZGVyLFRoaXMgc2hhcGUgaXMgYmVzdCBzdWl0YWJsZSBmb3IgR2FzIGN5bGluZGVyKi4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvQUFBLnBuZwpEaWUgTm8uIDI5ATNkAh4PZBYEAgEPFgIfAGhkAgIPFQgCMzkKRGllIE5vLiAzMAAAADEuLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL0RJRSBOby4gMzAucG5nCkRpZSBOby4gMzABMWQCHw9kFgQCAQ8WAh8AaGQCAg8VCAI0MwpEaWUgTm8uIDMxAAAANC4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvZGllIG5vIDMxIGN1cy5wbmcKRGllIE5vLiAzMQExZAIgD2QWAgICDxUIAjQ2CkRpZSBOby4gMzIAAAA0Li4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9EaWUgTm8gMzIgQ3VzLnBuZwpEaWUgTm8uIDMyATFkAiEPZBYEAgEPFgIfAGhkAgIPFQgCNDQKRGllIE5vLiAzMwAAADQuLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL2RpZSBubyAzMyBjdXMucG5nCkRpZSBOby4gMzMBMWQCIg9kFgQCAQ8WAh8AaGQCAg8VCAI0NwpEaWUgTm8uIDM0AAAANC4uL2ltYWdlcy90ZW1wbGF0ZS1jYXRlZ29yeS1pbWFnZXMvRGllIE5vIDM0IEN1cy5wbmcKRGllIE5vLiAzNAExZAIjD2QWBAIBDxYCHwBoZAICDxUIAjQ1CkRpZSBOby4gMzUAAAA0Li4vaW1hZ2VzL3RlbXBsYXRlLWNhdGVnb3J5LWltYWdlcy9EaWUgTm8gMzUgQ3VzLnBuZwpEaWUgTm8uIDM1ATFkAiQPZBYCAgIPFQgBNg5EaWUgU2hhcGUgOiAzNgAAACwuLi9pbWFnZXMvdGVtcGxhdGUtY2F0ZWdvcnktaW1hZ2VzL0RJRSAxLmpwZw5EaWUgU2hhcGUgOiAzNgIxMGQCAQ8PZA8QFgFmFgEWAh4OUGFyYW1ldGVyVmFsdWUFATIWAQIEZGRk0joh2ya4lKno0cIILO2qZcR64Cw=" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=R2BujVkqDNObPoonAWGVouXifEmTQUBUJmKZB-T8aMiRHSJzhk3icsfPXlRaNKmwawXLR26BZMf0wg39MfL1gquGoFg1&amp;t=638901734248157332" type="text/javascript"></script>
+
+
+<script src="/ScriptResource.axd?d=pwauGQ8nzcLEtnhkoV_HBeP5UmfOqAP5Xpck21uCEcayBrbYYqmw9ZphflWk8pTc4sB95vs4MurPgaPz5iucmSlhv_izUijXquj0M2-uh4U8X6ojO3BZeI9HYzjuC76-wbUkCppEcWXbAWrceoCSLumeCKMAuTIRIfT03z2TDmxS1s_g0&amp;t=5c0e0825" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=9TkaaI0Y-1RTUje8nDU6YS9G5icYxBCEIeSo0JRwRPslPKTdcbrk3WIeQUa5iUDBeHyw1rfoRVpa0IjdbSGpmKmsnF4KDkW3d_tVsjOwe1m_QS29Tu_3lhtJRKitDK4hcFx_JeOsHrwl2mvEK1ILtsMzAggdqi0GUsI9HEpso1JC4Z7b0&amp;t=5c0e0825" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="51895505" />
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0" />
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0" />
+</div>
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$scriptManager1', 'aspnetForm', [], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+        <div class="container-fluid">
+            <div id="blockMessage" class="block-ui-style">
+                <div class="loading-message"></div>
+            </div>
+        </div>
+
+        <!-- Document Wrapper
+    ============================================= -->
+        <div id="wrapper" class="clearfix">
+            <!-- Header
+        ============================================= -->
+            <header id="header" class="full-header transparent-header" data-sticky-class="not-dark">
+                <div id="header-wrap">
+                    <div class="container">
+                        <div class="header-row">
+                            <!-- Logo
+                        ============================================= -->
+                            <div id="logo" style="border: none">
+                                <a href="default.aspx" class="standard-logo" data-dark-logo="can_images/PRINTERS_CLUB_group_of_company_LOGO_Dark.png">
+                                    <img src="can_images/PRINTERS_CLUB_group_of_company_LOGO.png" alt="Printers Club of India Limited" /></a>
+                                <a href="default.aspx" class="retina-logo" data-dark-logo="can_images/PRINTERS_CLUB_group_of_company_LOGO_Dark.png">
+                                    <img src="can_images/PRINTERS_CLUB_group_of_company_LOGO.png" alt="Printers Club of India Limited" /></a>
+                                <!--Printers Club of India Limited-->
+                            </div>
+                            <!-- #logo end -->
+
+                            <div class="header-misc" style="margin-left:5px;">
+                                <div class="dropdown mx-3 mr-lg-0">
+								<a href="login.aspx" id="ctl00_lnkLogin" class="btn btn-secondary btn-sm" aria-haspopup="false" aria-expanded="true">Login</a>
+							</div>
+                            </div>
+
+                            <div id="primary-menu-trigger">
+                                <svg class="svg-trigger" viewBox="0 0 100 100">
+                                    <path d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"></path><path d="m 30,50 h 40"></path><path d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"></path></svg>
+                            </div>
+
+                            <!-- Primary Navigation
+                        ============================================= -->
+                            <nav class="primary-menu">
+
+                                <ul class="menu-container">
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="Default.aspx">
+                                            <div>Home</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="#">
+                                            <div>Corporate</div>
+                                        </a>
+                                        <ul class="sub-menu-container">
+                                            <li class="menu-item">
+                                                <a class="menu-link" href="AboutUs.aspx">
+                                                    <div><i class="icon-stack"></i>About Us</div>
+                                                </a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a class="menu-link" href="Team.aspx">
+                                                    <div><i class="icon-umbrella"></i>Core Team</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="default.aspx#section-services">
+                                            <div>Our Services</div>
+                                        </a>
+                                    </li>
+                                    <li id="ctl00_lnkBecomePartner" class="menu-item">
+                                        <a class="menu-link" href="#">
+                                            <div>Join Us</div>
+                                        </a>
+                                        <ul class="sub-menu-container">
+                                            <li class="menu-item">
+                                                <a class="menu-link" href="AddFranchise.aspx">
+                                                    <div><i class="icon-note"></i>Join as a Printer (Wholesale Prices)</div>
+                                                </a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a class="menu-link" href="Default.aspx?e=This feature will be available soon — stay tuned for exciting corporate benefits and exclusive member advantages....">
+                                                    <div><i class="icon-address-card"></i>Join as a Company (Corporate Benefits)</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="Contact_Us.aspx">
+                                            <div>Contact</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a class="menu-link" href="Our_Branches.aspx">
+                                            <div>Branches</div>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-wrap-clone"></div>
+            </header>
+            <!-- #header end -->
+            
+            
+    <section id="page-title" class="page-title-center">
+			            <h1>Die Cut Visiting Card</h1>
+				            <span></span>
+		                </section>
+    <div class="content-wrap" style="padding: 30px 0px;">
+        <div class="container clearfix">
+            <div class="row">
+                
+                        </div>
+                            <div class="row" style="margin-top: 20px;">
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=52&title=METAL VISITING CARDS&sTitle=METAL VISITING CARDS">
+                                <img title='METAL VISITING CARDS' alt='METAL VISITING CARDS' src='../images/template-category-images/metal vc new img a.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">METAL VISITING CARDS</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>12</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=42&title=Die No. 1&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/Die 1 Sub Catgory.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 1</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>12</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=7&title=Die No. 2 &sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/die no 2 cus.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 2 </span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>16</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=11&title=Die No. 3&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/DIE NO 3 CUS.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 3</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>18</b></div><br />
+                        </div>
+                    
+                        </div>
+                            <div class="row" style="margin-top: 20px;">
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=12&title=Die No. 4&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/VV DIE 4.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 4</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>14</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=13&title=Die No. 5 &sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/VV DIE 5.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 5 </span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>7</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=14&title=Die No. 6 &sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/1.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 6 </span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>6</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=8&title=Die No. 7&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/VV DIE 7.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 7</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>6</b></div><br />
+                        </div>
+                    
+                        </div>
+                            <div class="row" style="margin-top: 20px;">
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=15&title=Die No. 8 &sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/VV DIE 8.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 8 </span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>6</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=10&title=Die No. 9 &sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/VV DIE 9.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 9 </span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>7</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=2&title=Die No. 10&sTitle=This shape is best suitable for Pencil (i.e. stationery shop, schools etc.) and garment tags.">
+                                <img title='This shape is best suitable for Pencil (i.e. stationery shop, schools etc.) and garment tags.' alt='This shape is best suitable for Pencil (i.e. stationery shop, schools etc.) and garment tags.' src='../images/template-category-images/VV DIE 10.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 10</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>8</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=1&title=Die No. 11 &sTitle=This shape is best suitable for Car i.e. Motor workshop, Taxi / Cab services and Tour operators etc.">
+                                <img title='This shape is best suitable for Car i.e. Motor workshop, Taxi / Cab services and Tour operators etc.' alt='This shape is best suitable for Car i.e. Motor workshop, Taxi / Cab services and Tour operators etc.' src='../images/template-category-images/VV DIE 11.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 11 </span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>5</b></div><br />
+                        </div>
+                    
+                        </div>
+                            <div class="row" style="margin-top: 20px;">
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=9&title=Die No. 12 &sTitle=This shape is best suitable for shirt i.e. Garments related business and can also be used for tags">
+                                <img title='This shape is best suitable for shirt i.e. Garments related business and can also be used for tags' alt='This shape is best suitable for shirt i.e. Garments related business and can also be used for tags' src='../images/template-category-images/cloth.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 12 </span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>7</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=3&title=Die No. 13 &sTitle=This shape is best suitable for House i.e. To-Let services, Property sale and purchase, Home decor and Hotel etc.">
+                                <img title='This shape is best suitable for House i.e. To-Let services, Property sale and purchase, Home decor and Hotel etc.' alt='This shape is best suitable for House i.e. To-Let services, Property sale and purchase, Home decor and Hotel etc.' src='../images/template-category-images/VV DIE 13.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 13 </span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>8</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=4&title=Die No. 14&sTitle=This shape is best suitable for Teddy Bear i.e. Toy Shop, Fancy Store and Gift Shops etc.">
+                                <img title='This shape is best suitable for Teddy Bear i.e. Toy Shop, Fancy Store and Gift Shops etc.' alt='This shape is best suitable for Teddy Bear i.e. Toy Shop, Fancy Store and Gift Shops etc.' src='../images/template-category-images/VV DIE 14.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 14</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>8</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=5&title=Die No. 15&sTitle=This shape is best suitable for Bottle i.e. Health drinks business, Medical Stores etc.">
+                                <img title='This shape is best suitable for Bottle i.e. Health drinks business, Medical Stores etc.' alt='This shape is best suitable for Bottle i.e. Health drinks business, Medical Stores etc.' src='../images/template-category-images/VV DIE 15.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 15</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>4</b></div><br />
+                        </div>
+                    
+                        </div>
+                            <div class="row" style="margin-top: 20px;">
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=16&title=Die No. 16&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/VV DIE 16.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 16</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>6</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=26&title=Die No. 17&sTitle=This shape is best suitable for Shoes i.e. Shoes related businesses ">
+                                <img title='This shape is best suitable for Shoes i.e. Shoes related businesses ' alt='This shape is best suitable for Shoes i.e. Shoes related businesses ' src='../images/template-category-images/Shoes.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 17</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>3</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=27&title=Die No. 18&sTitle=This shape is best suitable for Cup i.e. Restaurants, Tea Shops etc.">
+                                <img title='This shape is best suitable for Cup i.e. Restaurants, Tea Shops etc.' alt='This shape is best suitable for Cup i.e. Restaurants, Tea Shops etc.' src='../images/template-category-images/18.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 18</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>5</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=28&title=Die No. 19&sTitle=This shape is best suitable for Shaving Blades i.e. Saloons and Parlors related businesses">
+                                <img title='This shape is best suitable for Shaving Blades i.e. Saloons and Parlors related businesses' alt='This shape is best suitable for Shaving Blades i.e. Saloons and Parlors related businesses' src='../images/template-category-images/Blade Shape A.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 19</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>4</b></div><br />
+                        </div>
+                    
+                        </div>
+                            <div class="row" style="margin-top: 20px;">
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=29&title=Die No. 20&sTitle=This shape is best suitable for Mobile sim i.e. Telecommunication operators, Mobile sale repair shops etc. ">
+                                <img title='This shape is best suitable for Mobile sim i.e. Telecommunication operators, Mobile sale repair shops etc. ' alt='This shape is best suitable for Mobile sim i.e. Telecommunication operators, Mobile sale repair shops etc. ' src='../images/template-category-images/JIO SIM.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 20</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>3</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=30&title=Die No. 21&sTitle=.">
+                                <img title='.' alt='.' src='../images/template-category-images/21.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 21</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=31&title=Die No. 22&sTitle=.">
+                                <img title='.' alt='.' src='../images/template-category-images/VV DIE 22.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 22</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>2</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=32&title=Die No. 23&sTitle=This shape is best suitable for Congress symbols">
+                                <img title='This shape is best suitable for Congress symbols' alt='This shape is best suitable for Congress symbols' src='../images/template-category-images/VV DIE 23.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 23</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        </div>
+                            <div class="row" style="margin-top: 20px;">
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=33&title=Die No. 24&sTitle=This shape is best suitable for Flex Machine">
+                                <img title='This shape is best suitable for Flex Machine' alt='This shape is best suitable for Flex Machine' src='../images/template-category-images/DIE No. 24.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 24</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=34&title=Die No. 25&sTitle=This shape is best suitable for Truck">
+                                <img title='This shape is best suitable for Truck' alt='This shape is best suitable for Truck' src='../images/template-category-images/DIE No. 25.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 25</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=35&title=Die No. 26&sTitle=This shape is best suitable for Painters Brush">
+                                <img title='This shape is best suitable for Painters Brush' alt='This shape is best suitable for Painters Brush' src='../images/template-category-images/DIE No. 26.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 26</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=36&title=Die No. 27&sTitle=This shape is best suitable for Bike">
+                                <img title='This shape is best suitable for Bike' alt='This shape is best suitable for Bike' src='../images/template-category-images/DIE No. 27.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 27</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        </div>
+                            <div class="row" style="margin-top: 20px;">
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=37&title=Die No. 28&sTitle=This shape is best suitable for Blub">
+                                <img title='This shape is best suitable for Blub' alt='This shape is best suitable for Blub' src='../images/template-category-images/DIE No. 28.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 28</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=38&title=Die No. 29&sTitle=This shape is best suitable for Gas cylinder">
+                                <img title='This shape is best suitable for Gas cylinder' alt='This shape is best suitable for Gas cylinder' src='../images/template-category-images/AAA.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 29</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>3</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=39&title=Die No. 30&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/DIE No. 30.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 30</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=43&title=Die No. 31&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/die no 31 cus.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 31</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        </div>
+                            <div class="row" style="margin-top: 20px;">
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=46&title=Die No. 32&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/Die No 32 Cus.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 32</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=44&title=Die No. 33&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/die no 33 cus.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 33</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=47&title=Die No. 34&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/Die No 34 Cus.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 34</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=45&title=Die No. 35&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/Die No 35 Cus.png' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die No. 35</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>1</b></div><br />
+                        </div>
+                    
+                        </div>
+                            <div class="row" style="margin-top: 20px;">
+                        
+                        <div class="center col-lg-3 col-md-3">
+                            <a href="t_ViewTemplateItems.aspx?ID=6&title=Die Shape : 36&sTitle=">
+                                <img title='' alt='' src='../images/template-category-images/DIE 1.jpg' /><br />
+                                </a>
+                            <span style="font-size:17px;font-weight:bold">Die Shape : 36</span><div style="color:orange;margin-top:-5px;">Free Designs Available : <b>10</b></div><br />
+                        </div>
+                    
+            </div>
+        </div>
+    </div>
+    
+
+            <!-- #content end -->
+            <!-- Footer
+        ============================================= -->
+            <footer id="footer" class="dark">
+                <div class="container">
+
+                    <!-- Footer Widgets
+                ============================================= -->
+                    <div class="footer-widgets-wrap">
+
+                        <div class="row col-mb-50">
+                            <div class="col-lg-8">
+
+                                <div class="row col-mb-50">
+                                    <div class="col-md-6">
+
+                                        <div class="widget clearfix">
+
+                                            <h1 style="margin: 0;font-size:20px">Printers Club Group of Companies</h1>
+                                            <ul style="font-size:16px;margin-left:28px;margin-bottom:15px;margin-top:5px;">
+                                                <li>Printers Club of India Limited</li>
+                                                                        <li>Printers Club Expo Private Limited</li><li>Printers Club Today Private Limited</li></ul>
+                                            <p>Dedicated for development of printing industry</p>
+
+                                            <div style="background: url('can_images/world-map.png') no-repeat center center; background-size: 100%;">
+                                                <address>
+                                                    <strong>Head Office:</strong><br />
+                                                    Plot No. 57,
+                                                    Jhotwara Industrial Area,<br />
+                                                    Near Shalimar Circle<br /> Jaipur-302012,<br/>
+						                            Rajasthan, India
+                                                </address>
+                                                <br />
+                                                    <abbr title="Phone Number"><strong>Phone:</strong></abbr>
+                                                (+91) 0141-311-2244<br />
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="widget widget_links clearfix">
+
+                                            <h4>Useful Links</h4>
+
+                                            <ul>
+                                                <li><a href="Default.aspx#content">About Us</a></li>
+                                                <li><a href="default.aspx#section-services">Services</a></li>
+                                                <li><a href="default.aspx#section-portfolio">Portfolio</a></li>
+                                                <li><a href="Contact_Us.aspx">Contact Us</a></li>
+                                                <li><a href="Contact_Us.aspx">Our Location</a></li>
+                                                <li><a href="Terms_And_Conditions.aspx?type=new">Terms & Conditions</a></li>
+                                                <li><a href="login.aspx">Sign In</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <div class="row col-mb-50">
+                                    <div class="col-md-4 col-lg-12">
+                                        <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                                            <div class="row">
+                                                <div class="col-lg-12 bottommargin-sm">
+                                                    <div class="counter counter-small"><span data-from="0" data-to="0" data-refresh-interval="1" data-speed="200" data-comma="true"></span></div>
+                                                    <h5 class="mb-0">Total Todays Visit</h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 col-lg-12">
+                                        
+                                        <div class="widget subscribe-widget clearfix">
+                                            <h5><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</h5>
+                                            <div class="widget-subscribe-form-result"></div>
+                                                <div class="input-group mx-auto">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="icon-email2"></i></div>
+                                                    </div>
+                                                    <input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-success" type="submit">Subscribe</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-lg-12">
+                                        <div class="widget clearfix" style="margin-bottom: -20px;">
+
+                                            <div class="row">
+                                                <div class="col-6 col-md-12 col-lg-6 clearfix bottommargin-sm">
+                                                    <a href="https://www.instagram.com/printers_club_of_india_ltd?igsh=MWRwMmt3ZXo2dTdhOA==" class="social-icon si-dark si-colored si-instagram mb-0" style="margin-right: 10px;">
+                                                        <i class="icon-instagram"></i>
+                                                        <i class="icon-instagram"></i>
+                                                    </a>
+                                                    <a href="https://www.instagram.com/printers_club_of_india_ltd?igsh=MWRwMmt3ZXo2dTdhOA=="><small style="display: block; margin-top: 3px;"><strong>Follow us</strong><br>
+                                                        on Instagram</small></a>
+                                                </div>
+                                                <div class="col-6 col-md-12 col-lg-6 clearfix">
+                                                    <a href="https://youtube.com/@printersclub?si=OvMu-s-p0nms5cco" class="social-icon si-dark si-colored si-youtube mb-0" style="margin-right: 10px;">
+                                                        <i class="icon-youtube"></i>
+                                                        <i class="icon-youtube"></i>
+                                                    </a>
+                                                    <a href="https://youtube.com/@printersclub?si=OvMu-s-p0nms5cco"><small style="display: block; margin-top: 3px;"><strong>Subscribe</strong><br>
+                                                        our Youtube</small></a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- .footer-widgets-wrap end -->
+
+                </div>
+
+                <!-- Copyrights
+            ============================================= -->
+                <div id="copyrights">
+                    <div class="container">
+                        <div class="row col-mb-30">
+                            <div class="col-md-6 text-center text-md-left">
+                                Copyrights &copy; 2026 All Rights Reserved by <b style="font-size: 15px">Printers Club of India Limited</b>.<br>
+                                <div class="copyright-links"><a href="Terms_And_Conditions.aspx?type=new">Refund and Cancellation Policy & Terms of Use</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #copyrights end -->
+            </footer>
+            <!-- #footer end -->
+
+        </div>
+        <!-- #wrapper end -->
+        <!-- Go To Top
+    ============================================= -->
+             <div id="gotoTop" class="icon-angle-up"></div>
+        <script type="text/javascript" src="can_js/jquery.js"></script>
+        <script type="text/javascript" src="can_js/select2.min.js"></script>
+        <script type="text/javascript" src="can_js/plugins.min.js"></script>
+        <!-- Footer Scripts ============================================= -->
+        <script type="text/javascript" src="can_js/functions.js"></script>
+    
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+    <script type="text/javascript">
+        SetLoadingMessage(false);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a406bc5d18865f42',t:'MTc5MDMwNDc3Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

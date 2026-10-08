@@ -15,9 +15,6 @@ export const BUSINESS = {
 /** Official circular logo (public/logo.jpg) */
 export const BRAND_LOGO = "/logo.jpg?v=gold-s";
 
-/** Proprietor photo (public/owner.jpg) */
-export const OWNER_PHOTO = "/owner.jpg?v=dk";
-
 /** Home page banner carousel (below navbar). */
 export const HOME_HERO_SLIDES = [
   {
@@ -38,8 +35,6 @@ export const HOME_HERO_SLIDES = [
 export const PAGE_HERO_IMAGES = {
   services:
     "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1600&q=80",
-  about:
-    "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=1600&q=80",
   contact:
     "https://images.unsplash.com/photo-1423666639045-f5600c27da9a?auto=format&fit=crop&w=1600&q=80",
   storefront:

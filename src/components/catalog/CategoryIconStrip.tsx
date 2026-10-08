@@ -26,13 +26,13 @@ export function CategoryIconStrip({
                 key={item.slug}
                 href={`/shop/${item.slug}`}
                 className={cn(
-                  "flex w-[88px] shrink-0 flex-col items-center gap-2 text-center transition",
+                  "flex w-[104px] shrink-0 flex-col items-center gap-2.5 text-center transition",
                   active ? "opacity-100" : "opacity-80 hover:opacity-100",
                 )}
               >
                 <span
                   className={cn(
-                    "relative h-16 w-16 overflow-hidden rounded-xl border-2 bg-slate-50",
+                    "relative h-20 w-20 overflow-hidden rounded-xl border-2 bg-slate-50",
                     active
                       ? "border-brand-orange shadow-md"
                       : "border-slate-200",
@@ -43,12 +43,12 @@ export function CategoryIconStrip({
                     alt=""
                     fill
                     className="object-cover"
-                    sizes="64px"
+                    sizes="80px"
                   />
                 </span>
                 <span
                   className={cn(
-                    "text-[11px] font-semibold leading-tight text-slate-700",
+                    "text-xs font-semibold leading-tight text-slate-700",
                     active && "text-brand-blue",
                   )}
                 >

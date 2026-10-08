@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Eye } from "lucide-react";
+import { Eye } from "lucide-react";
 import { useState } from "react";
 import type { Product } from "@/lib/types";
 import { ProductGalleryModal } from "@/components/gallery/ProductGalleryModal";
@@ -31,13 +30,6 @@ export function HomeGalleryPreview({ products }: { products: Product[] }) {
                 Select a sample template and add designs to your cart to order.
               </p>
             </div>
-            <Link
-              href="/gallery"
-              className="bg-white hover:bg-slate-50 border border-slate-300 font-bold text-sm px-4 py-2.5 rounded-xl shadow-sm self-start sm:self-auto transition inline-flex items-center gap-1.5"
-            >
-              View All Templates
-              <ArrowRight className="w-4 h-4" />
-            </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">

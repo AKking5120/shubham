@@ -18,7 +18,6 @@ export async function PUT(request: Request) {
     const products = (await request.json()) as Product[];
     await saveProducts(products);
     revalidatePath("/");
-    revalidatePath("/gallery");
     return NextResponse.json({ success: true });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Save failed";
