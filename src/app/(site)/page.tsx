@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, MessageCircle, Printer } from "lucide-react";
+import { ArrowRight, MessageCircle, Printer, CreditCard, Heart, ReceiptText, FileText, Tag, BookOpen, Award } from "lucide-react";
 import Image from "next/image";
 import { SEO } from "@/lib/constants";
 import { HomeCatalogSection } from "@/components/home/HomeCatalogSection";
@@ -38,10 +38,31 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+        <h2 className="mb-7 text-center text-3xl font-black text-[#073c82]">Our Printing Services</h2>
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {[
+            {name:"Visiting Cards",detail:"Premium & Standard",Icon:CreditCard},
+            {name:"Wedding Cards",detail:"Bridal & Invitation",Icon:Heart},
+            {name:"Bill Books",detail:"GST & Non-GST",Icon:ReceiptText},
+            {name:"Doctor Files",detail:"Patient Records",Icon:FileText},
+            {name:"Sticker & Labels",detail:"Product & Barcode",Icon:Tag},
+            {name:"Flex Printing",detail:"Banner & Flex Board",Icon:Printer},
+            {name:"Marketing Material",detail:"Pamphlet & Brochure",Icon:BookOpen},
+            {name:"Garment Tags",detail:"Hang Tags & Tags",Icon:Award}
+          ].map(({name,detail,Icon})=>(
+            <Link key={name} href="/shop" className="flex items-center gap-3 rounded-xl border border-[#d6e3f5] bg-white p-4 shadow-sm transition hover:border-[#1261b3] hover:shadow-md">
+              <Icon className="shrink-0 text-[#1261b3]" size={35}/>
+              <div><h3 className="font-bold text-[#092752]">{name}</h3><p className="mt-1 text-xs text-slate-600">{detail}</p></div>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6"><h2 className="mb-4 text-center text-3xl font-black text-[#073c82]">Best Selling Products</h2></div>
       <HomeCatalogSection />
 
       <HomeWhyChoose />
-      <HomeHowItWorks />
+
       <HomeGalleryPreview products={galleryPreview} />
 
       <section className="bg-brand-blue py-12 text-white">
