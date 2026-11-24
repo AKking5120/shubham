@@ -29,7 +29,7 @@ export default function PremiumGallery() {
        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
          {group.names.map((name,i) => <article key={name} className="rounded-xl border border-blue-100 bg-white p-3 shadow-sm">
            <div className="relative aspect-square overflow-hidden rounded-lg bg-blue-50">
-             <Image src={group.image} alt={group.title + " printed products preview"} fill className="object-cover" sizes="(max-width:640px) 50vw, 20vw" />
+             <Image src={group.image} alt={group.title + " printed products preview"} fill className="object-contain" sizes="(max-width:640px) 50vw, 20vw" />
              <span className="absolute bottom-2 left-2 rounded bg-white/95 px-2 py-1 text-[10px] font-bold text-[#073a7d]">Option {i+1}</span>
            </div>
            <h3 className="mt-2 min-h-10 text-sm font-semibold">{name}</h3>

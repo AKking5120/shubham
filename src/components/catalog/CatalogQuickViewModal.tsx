@@ -48,7 +48,8 @@ export function CatalogQuickViewModal({
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover"
+            sizes="(max-width: 544px) calc(100vw - 32px), 512px"
+            className="object-contain"
           />
           <button
             type="button"
