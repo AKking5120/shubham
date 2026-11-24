@@ -58,10 +58,10 @@ export function HomeHeroSlider() {
     <section
       aria-label="Printing promotions"
       aria-roledescription="carousel"
-      className="mx-auto w-full max-w-7xl px-4 pt-8 sm:px-6"
+      className="min-w-0"
     >
       <div
-        className="overflow-hidden rounded-2xl border border-blue-100 bg-slate-950"
+        className="overflow-hidden rounded-2xl border border-blue-100 bg-slate-950 shadow-lg"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -84,7 +84,7 @@ export function HomeHeroSlider() {
                 alt={slide.alt}
                 fill
                 loading="eager"
-                sizes="(max-width: 1280px) 100vw, 1232px"
+                sizes="(max-width: 1023px) 100vw, (max-width: 1280px) 50vw, 604px"
                 className="object-contain"
               />
             </div>

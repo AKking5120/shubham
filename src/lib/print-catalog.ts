@@ -415,7 +415,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
     slug: "binding",
     name: "Binding",
     shortLabel: "Binding",
-    description: "Hard, soft, spiral & wiro binding.",
+    description: "Hard, soft & spiral binding.",
     image: IMG.bulk,
     iconKey: "binding",
     subcategories: [
@@ -428,7 +428,6 @@ export const PRINT_CATALOG: CatalogCategory[] = [
           { slug: "hard-binding", name: "Hard binding", image: IMG.bulk },
           { slug: "soft-binding", name: "Soft binding", image: IMG.bulk },
           { slug: "spiral-binding", name: "Spiral binding", image: IMG.bulk, bestSeller: true },
-          { slug: "wiro-binding", name: "Wiro binding", image: IMG.bulk },
         ]),
       },
     ],

@@ -81,12 +81,9 @@ export default function HomePage() {
               <a href={quoteUrl} className="inline-flex items-center gap-2 rounded-full border-2 border-[#073a7d] px-5 py-3 text-sm font-bold"><MessageCircle size={17}/> Get a Quote</a>
             </div>
           </div>
-          <div className="relative h-56 overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-lg sm:h-72 lg:h-80">
-            <Image src="/banners/home-slide-1.jpg" alt="Color printing services, wide-format printer and printed sample products" fill priority className="object-cover object-center" sizes="(max-width:1024px) 100vw, 50vw"/>
-          </div>
+          <HomeHeroSlider />
         </div>
       </section>
-      <HomeHeroSlider />
       <section className="mx-auto max-w-7xl px-4 py-9 sm:px-6">
         <h2 className="mb-6 text-center text-2xl font-black text-[#083b7d] sm:text-3xl">Our Printing Services</h2>
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
