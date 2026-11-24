@@ -5,6 +5,7 @@ import { ArrowRight, BadgeCheck, BookOpen, CreditCard, FileText, Heart, MapPin, 
 import { SEO, whatsappLink } from "@/lib/constants";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { CartIconLink } from "@/components/cart/CartIconLink";
+import { HomeHeroSlider } from "@/components/home/HomeHeroSlider";
 
 export const metadata: Metadata = {
   title: { absolute: SEO.title },
@@ -85,6 +86,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <HomeHeroSlider />
       <section className="mx-auto max-w-7xl px-4 py-9 sm:px-6">
         <h2 className="mb-6 text-center text-2xl font-black text-[#083b7d] sm:text-3xl">Our Printing Services</h2>
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">

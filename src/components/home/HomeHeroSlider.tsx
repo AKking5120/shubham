@@ -1,113 +1,122 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import { HOME_HERO_SLIDES } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 const AUTO_MS = 5000;
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+const slides = [
+  {
+    src: "/banners/print-made-perfect.webp",
+    alt: "Print Made Perfect — business cards, brochures, banners, flyers and posters.",
+  },
+  {
+    src: "/banners/professional-printing.webp",
+    alt: "Professional Printing Services — bulk printing, quality prints and on-time delivery.",
+  },
+  {
+    src: "/banners/printing-and-binding.webp",
+    alt: "Complete Printing and Binding Services — stationery, promotional prints, spiral and wire binding, and lamination.",
+  },
+];
+const controlClass =
+  "grid size-10 place-items-center rounded-full border border-slate-200 bg-white text-[#082e67] hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700";
+
+function subscribeToReducedMotion(onChange: () => void) {
+  const preference = window.matchMedia(REDUCED_MOTION);
+  preference.addEventListener("change", onChange);
+  return () => preference.removeEventListener("change", onChange);
+}
 
 export function HomeHeroSlider() {
-  const slides = [...HOME_HERO_SLIDES];
-  const count = slides.length;
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  const goTo = useCallback(
-    (next: number) => {
-      if (count === 0) return;
-      setIndex(((next % count) + count) % count);
-    },
-    [count],
+  const [autoplay, setAutoplay] = useState<boolean | null>(null);
+  const [hovered, setHovered] = useState(false);
+  const reducedMotion = useSyncExternalStore(
+    subscribeToReducedMotion,
+    () => window.matchMedia(REDUCED_MOTION).matches,
+    () => false,
   );
+  const playing = autoplay ?? !reducedMotion;
+  const rotating = playing && !hovered;
 
   useEffect(() => {
-    if (paused || count <= 1) return;
-    const id = window.setInterval(() => {
-      setIndex((i) => (i + 1) % count);
+    if (!rotating) return;
+    const timer = window.setInterval(() => {
+      setIndex((current) => (current + 1) % slides.length);
     }, AUTO_MS);
-    return () => window.clearInterval(id);
-  }, [paused, count]);
+    return () => window.clearInterval(timer);
+  }, [rotating]);
 
-  if (count === 0) return null;
+  function chooseSlide(next: number) {
+    setAutoplay(false);
+    setIndex((next + slides.length) % slides.length);
+  }
 
   return (
     <section
-      className="relative w-full border-b border-slate-200 bg-slate-100"
+      aria-label="Printing promotions"
       aria-roledescription="carousel"
-      aria-label="Promotional banners"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
+      className="mx-auto w-full max-w-7xl px-4 pt-8 sm:px-6"
     >
       <div
-        className="relative mx-auto w-full max-w-[1920px] overflow-hidden aspect-[1024/338]"
+        className="overflow-hidden rounded-2xl border border-blue-100 bg-slate-950"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
-        {slides.map((slide, i) => (
-          <div
-            key={slide.src}
-            className={cn(
-              "absolute inset-0 transition-opacity duration-700 ease-out",
-              i === index ? "z-10 opacity-100" : "z-0 opacity-0",
-            )}
-            aria-hidden={i !== index}
-          >
-            <img
-              src={slide.src}
-              alt={slide.alt}
-              width={1024}
-              height={338}
-              className="h-full w-full object-contain object-center"
-              decoding={i === 0 ? "sync" : "async"}
-              fetchPriority={i === 0 ? "high" : "low"}
-            />
-          </div>
-        ))}
-
-        {count > 1 && (
-          <>
-            <button
-              type="button"
-              onClick={() => goTo(index - 1)}
-              className="absolute left-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-slate-800 shadow-lg ring-1 ring-black/10 transition hover:scale-105 hover:bg-white sm:left-4 sm:h-12 sm:w-12"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={2.5} />
-            </button>
-            <button
-              type="button"
-              onClick={() => goTo(index + 1)}
-              className="absolute right-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-slate-800 shadow-lg ring-1 ring-black/10 transition hover:scale-105 hover:bg-white sm:right-4 sm:h-12 sm:w-12"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={2.5} />
-            </button>
-
+        <div
+          className="flex transition-transform duration-500 ease-out motion-reduce:transition-none"
+          style={{ transform: `translateX(-${index * 100}%)` }}
+          aria-live={rotating ? "off" : "polite"}
+        >
+          {slides.map((slide, slideIndex) => (
             <div
-              className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-2"
-              role="tablist"
-              aria-label="Choose slide"
+              key={slide.src}
+              className="relative aspect-video w-full shrink-0"
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${slideIndex + 1} of ${slides.length}`}
+              aria-hidden={slideIndex !== index}
             >
-              {slides.map((slide, i) => (
-                <button
-                  key={slide.src}
-                  type="button"
-                  role="tab"
-                  aria-selected={i === index}
-                  aria-label={`Slide ${i + 1}`}
-                  onClick={() => goTo(i)}
-                  className={cn(
-                    "h-2 rounded-full transition-all duration-300",
-                    i === index
-                      ? "w-7 bg-white"
-                      : "w-2 bg-white/50 hover:bg-white/80",
-                  )}
-                />
-              ))}
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                loading="eager"
+                sizes="(max-width: 1280px) 100vw, 1232px"
+                className="object-contain"
+              />
             </div>
-          </>
-        )}
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-3 flex items-center justify-center gap-2">
+        <button type="button" className={controlClass} aria-label="Previous banner" onClick={() => chooseSlide(index - 1)}>
+          <ChevronLeft size={20} aria-hidden="true" />
+        </button>
+        {slides.map((slide, slideIndex) => (
+          <button
+            key={slide.src}
+            type="button"
+            className={controlClass}
+            aria-label={`Show banner ${slideIndex + 1}`}
+            aria-current={slideIndex === index ? "true" : undefined}
+            onClick={() => chooseSlide(slideIndex)}
+          >
+            <span
+              aria-hidden="true"
+              className={slideIndex === index ? "size-2.5 rounded-full bg-blue-700" : "size-2.5 rounded-full bg-slate-300"}
+            />
+          </button>
+        ))}
+        <button type="button" className={controlClass} aria-label={playing ? "Pause banners" : "Play banners"} onClick={() => setAutoplay(!playing)}>
+          {playing ? <Pause size={18} aria-hidden="true" /> : <Play size={18} aria-hidden="true" />}
+        </button>
+        <button type="button" className={controlClass} aria-label="Next banner" onClick={() => chooseSlide(index + 1)}>
+          <ChevronRight size={20} aria-hidden="true" />
+        </button>
       </div>
     </section>
   );
