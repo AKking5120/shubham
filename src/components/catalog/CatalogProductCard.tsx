@@ -33,11 +33,6 @@ export function CatalogProductCard({
             {product.badge}
           </span>
         )}
-        {product.bestSeller && (
-          <span className="absolute right-2 top-2 rounded bg-amber-500 px-2 py-0.5 text-[10px] font-bold text-white">
-            Best seller
-          </span>
-        )}
         <div className="absolute inset-x-0 bottom-0 flex translate-y-full gap-2 p-3 transition group-hover:translate-y-0">
           <button
             type="button"

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, BadgeCheck, BookOpen, CreditCard, FileText, Heart, MapPin, Menu, MessageCircle, Printer, ReceiptText, Search, ShoppingCart, Tag, Award } from "lucide-react";
 import { SEO, whatsappLink } from "@/lib/constants";
 import { BrandLogo } from "@/components/brand/BrandLogo";
@@ -22,15 +21,6 @@ const categories = [
   { name: "Flex Printing", sub: "Banner & Flex Board", icon: Printer, href: "/premium-gallery#flex-printing" },
   { name: "Marketing Material", sub: "Pamphlet & Brochure", icon: BookOpen, href: "/shop/signage-promo/posters-pamphlets" },
   { name: "Garment Tags", sub: "Hang Tags & Tags", icon: Award, href: "/shop/signage-promo/garment-tags" },
-];
-
-const products = [
-  { name: "Premium Visiting Cards", image: "/gallery/die-cut-visiting-card/01.jpg" },
-  { name: "Wedding Invitation Cards", image: "/banners/home-slide-2.jpg" },
-  { name: "Bill Book (Duplicate)", image: "/gallery/bill-book/01.jpg" },
-  { name: "Flex Board Printing", image: "/banners/home-slide-1.jpg" },
-  { name: "Sticker Labels", image: "/gallery/sticker/01.jpg" },
-  { name: "Doctor File", image: "/banners/home-slide-3.jpg" },
 ];
 
 export default function HomePage() {
@@ -92,24 +82,6 @@ export default function HomePage() {
               <Icon size={32} className="shrink-0 text-[#1562b3]"/>
               <div><h3 className="text-sm font-bold sm:text-base">{name}</h3><p className="mt-1 text-xs text-slate-600 sm:text-sm">{sub}</p></div>
             </Link>
-          ))}
-        </div>
-      </section>
-      <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-6">
-        <div className="mb-5 flex items-center justify-between gap-3">
-          <h2 className="text-2xl font-black text-[#083b7d] sm:text-3xl">Best Selling Products</h2>
-          <Link href="/shop" className="shrink-0 rounded-full bg-[#073a7d] px-4 py-2 text-xs font-bold text-white sm:text-sm">View All Products →</Link>
-        </div>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-          {products.map(product => (
-            <article key={product.name} className="flex flex-col rounded-xl border border-blue-100 bg-white p-2 shadow-sm">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-blue-50">
-                <Image src={product.image} alt={product.name} fill className="object-cover" sizes="(max-width:768px) 50vw, 16vw" />
-              </div>
-              <h3 className="mt-3 flex-1 text-sm font-bold">{product.name}</h3>
-              <p className="my-2 text-xs text-slate-500">Price on request</p>
-              <a href={whatsappLink("Hello Shubham Prints, please quote for " + product.name)} className="rounded-md bg-[#073a7d] px-2 py-2 text-center text-xs font-bold text-white">Get Quote</a>
-            </article>
           ))}
         </div>
       </section>

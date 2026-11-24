@@ -8,7 +8,6 @@ export type CatalogProduct = {
   /** e.g. "₹3 each for 100 pcs" — indicative; final quote on WhatsApp */
   priceLabel?: string;
   badge?: string;
-  bestSeller?: boolean;
 };
 
 export type CatalogSubcategory = {
@@ -143,7 +142,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         products: products([
           { slug: "letterhead-1", name: "Letterhead – 1", image: "/products/catalog-photos/letter-pads/letterhead-1.webp" },
           { slug: "letterhead-2", name: "Letterhead – 2", image: "/products/catalog-photos/letter-pads/letterhead-2.webp" },
-          { slug: "letterhead", name: "70 GSM Maplitho letterhead", image: IMG.letterhead, bestSeller: true },
+          { slug: "letterhead", name: "70 GSM Maplitho letterhead", image: IMG.letterhead },
           { slug: "letter-pad-a4", name: "100 GSM Excel Bond letterhead", image: IMG.letterhead2, priceLabel: "From ₹8/sheet approx." },
           { slug: "letterhead-templates", name: "Letterhead templates", image: IMG.letterhead3 },
         ]),
@@ -169,7 +168,6 @@ export const PRINT_CATALOG: CatalogCategory[] = [
             name: "Standard business cards",
             image: IMG.card,
             priceLabel: "₹3 each for 100 pcs (indicative)",
-            bestSeller: true,
             badge: "4 Hrs delivery",
           },
           {
@@ -219,7 +217,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         description: "Printed envelopes all sizes.",
         image: IMG.envelope,
         products: products([
-          { slug: "envelope-window", name: "Window envelope 9x4", image: IMG.envelope, bestSeller: true },
+          { slug: "envelope-window", name: "Window envelope 9x4", image: IMG.envelope },
           { slug: "envelope-floral", name: "Floral window envelope", image: IMG.envelope2 },
           { slug: "envelope-invitation", name: "Invitation envelope 6x8", image: IMG.envelope3 },
           { slug: "envelope-card", name: "Card envelope 5x7", image: IMG.envelope4 },
@@ -233,7 +231,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         products: products([
           { slug: "atm-pouch-1", name: "ATM Pouch – 1", image: "/products/catalog-photos/atm-pouch/atm-pouch-1.webp" },
           { slug: "atm-pouch-2", name: "ATM Pouch – 2", image: "/products/catalog-photos/atm-pouch/atm-pouch-2.webp" },
-          { slug: "atm-pouch", name: "ATM pouch", image: IMG.atm, bestSeller: true },
+          { slug: "atm-pouch", name: "ATM pouch", image: IMG.atm },
         ]),
       },
       {
@@ -242,7 +240,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         description: "Printed office folders and doctor files.",
         image: IMG.folder,
         products: products([
-          { slug: "printed-folder", name: "Printed folder", image: IMG.folder, bestSeller: true },
+          { slug: "printed-folder", name: "Printed folder", image: IMG.folder },
           { slug: "folder-inside", name: "Folder inside pocket", image: IMG.folder2 },
         ]),
       },
@@ -293,7 +291,6 @@ export const PRINT_CATALOG: CatalogCategory[] = [
             slug: "colour-printout",
             name: "Colour printouts (bulk)",
             image: IMG.bulk,
-            bestSeller: true,
             priceLabel: "Per page — ask on WhatsApp",
           },
           { slug: "bw-printout", name: "B&W printouts (bulk)", image: IMG.bulk },
@@ -325,7 +322,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
           { slug: "garment-label", name: "Garment Label", image: "/products/catalog-photos/garment-tags/garment-label.webp" },
           { slug: "garment-sticker", name: "Garment Sticker", image: "/products/catalog-photos/garment-tags/garment-sticker.webp" },
           { slug: "size-label", name: "Size Label", image: "/products/catalog-photos/garment-tags/size-label.webp" },
-          { slug: "hang-tag", name: "Gloss and matt hang tags", image: IMG.tags, bestSeller: true },
+          { slug: "hang-tag", name: "Gloss and matt hang tags", image: IMG.tags },
           { slug: "hanger-sticker", name: "Texture and UV tags", image: IMG.tags2 },
           { slug: "label-roll", name: "PVC tags and threads", image: IMG.tags3 },
         ]),
@@ -347,7 +344,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         image: IMG.banner,
         products: products([
           { slug: "roll-up-banner", name: "Roll-up banner", image: IMG.banner },
-          { slug: "shop-banner", name: "Shop front banner", image: IMG.banner, bestSeller: true },
+          { slug: "shop-banner", name: "Shop front banner", image: IMG.banner },
         ]),
       },
       {
@@ -360,7 +357,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
           { slug: "standard-sticker-1", name: "Standard Sticker – 1", image: "/products/catalog-photos/stickers/standard-sticker-1.webp" },
           { slug: "standard-sticker-2", name: "Standard Sticker – 2", image: "/products/catalog-photos/stickers/standard-sticker-2.webp" },
           { slug: "transparent-sticker", name: "Transparent Sticker", image: "/products/catalog-photos/stickers/transparent-sticker.webp" },
-          { slug: "custom-sticker", name: "Menu sticker", image: IMG.sticker, bestSeller: true },
+          { slug: "custom-sticker", name: "Menu sticker", image: IMG.sticker },
           { slug: "flash-sale-sticker", name: "Flash sale sticker", image: IMG.sticker2 },
           { slug: "label-sticker-sheet", name: "Label sticker sheet", image: IMG.sticker3 },
           { slug: "sale-sticker-sheet", name: "Sale sticker sheet", image: IMG.sticker4 },
@@ -376,7 +373,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
           { slug: "catalogue-design-2", name: "Catalogue - Design 2", image: "/products/catalog-photos/posters-pamphlets/catalogue-design-2.webp" },
           { slug: "colour-a4-pamphlet", name: "Colour A4 Pamphlet", image: "/products/catalog-photos/posters-pamphlets/colour-a4-pamphlet.webp" },
           { slug: "black-and-white-a4-pamphlet", name: "Black and White A4 Pamphlet", image: "/products/catalog-photos/posters-pamphlets/black-and-white-a4-pamphlet.webp" },
-          { slug: "pamphlet", name: "Pamphlet", image: IMG.pamphlet, bestSeller: true },
+          { slug: "pamphlet", name: "Pamphlet", image: IMG.pamphlet },
           { slug: "travel-pamphlet", name: "Travel pamphlet", image: IMG.pamphlet2 },
           { slug: "school-pamphlet", name: "School pamphlet", image: IMG.pamphlet3 },
           { slug: "poster", name: "Poster", image: IMG.poster },
@@ -430,7 +427,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
           { slug: "hard-binding", name: "Hard binding", image: IMG.hardBinding },
           { slug: "hardbound-register", name: "Hardbound register", image: IMG.hardboundRegister },
           { slug: "soft-binding", name: "Soft binding", image: IMG.bulk },
-          { slug: "spiral-binding", name: "Spiral binding", image: IMG.bulk, bestSeller: true },
+          { slug: "spiral-binding", name: "Spiral binding", image: IMG.bulk },
         ]),
       },
     ],
@@ -453,7 +450,6 @@ export const PRINT_CATALOG: CatalogCategory[] = [
             slug: "classic-wedding",
             name: "Red swastik wedding card",
             image: IMG.invite,
-            bestSeller: true,
           },
           { slug: "wedding-card-2", name: "Yellow Om wedding card", image: IMG.invite2 },
           { slug: "wedding-card-3", name: "White gold floral wedding card", image: IMG.invite3 },
@@ -480,7 +476,7 @@ export const PRINT_CATALOG: CatalogCategory[] = [
         description: "Birthday invitations and greeting cards.",
         image: IMG.birthday,
         products: products([
-          { slug: "birthday-card", name: "Birthday card", image: IMG.birthday, bestSeller: true },
+          { slug: "birthday-card", name: "Birthday card", image: IMG.birthday },
           { slug: "birthday-ganesha", name: "Ganesha birthday card", image: IMG.birthday2 },
           { slug: "birthday-ganesha-pad", name: "Ganesha birthday pad", image: IMG.birthday3 },
           { slug: "birthday-krishna", name: "Krishna birthday card", image: IMG.birthday4 },
