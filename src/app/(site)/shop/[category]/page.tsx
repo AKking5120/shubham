@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BackLink } from "@/components/ui/BackLink";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { CategoryIconStrip } from "@/components/catalog/CategoryIconStrip";
@@ -36,6 +37,7 @@ export default async function ShopCategoryPage({ params }: Props) {
     <>
       <CategoryIconStrip activeSlug={category.slug} />
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <BackLink href="/shop" label="Back to Shop" />
         <nav className="text-sm text-slate-500">
           <Link href="/shop" className="hover:text-brand-blue">Shop</Link>
           <span className="mx-2">/</span>

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { ServiceListRow } from "@/components/services/ServiceListRow";
+import { BackLink } from "@/components/ui/BackLink";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { PriceEstimator } from "@/components/services/PriceEstimator";
 import { SEO } from "@/lib/constants";
-import { getPublicProducts, getPublicServices } from "@/lib/public-catalog";
+import { getPublicServices } from "@/lib/public-catalog";
 import { getPriceCalculator } from "@/lib/store";
 
 export const metadata: Metadata = {
@@ -13,21 +13,21 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  const [services, products, calculator] = await Promise.all([
+  const [services, calculator] = await Promise.all([
     getPublicServices(),
-    getPublicProducts(),
     getPriceCalculator(),
   ]);
 
   return (
     <>
       <section className="bg-slate-50 py-10 md:py-12 border-b border-slate-200">
+        <div className="mx-auto max-w-7xl px-4 pb-4 sm:px-6"><BackLink href="/" label="Back to Home" /></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-brand-blue bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
             Interactive Estimator
           </span>
           <h1 className="text-3xl font-black text-slate-900">
-            Services Catalog & Live Rate Estimator
+            Live Printing Rate Estimator
           </h1>
           <p className="text-slate-600 text-sm max-w-2xl mx-auto">
             Select paper options, quantities, and finishing to calculate estimated
@@ -39,19 +39,6 @@ export default async function ServicesPage() {
       <section className="py-10 md:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <PriceEstimator config={calculator} />
-        </div>
-      </section>
-
-      <section className="py-16 md:py-20">
-        <div className="mx-auto max-w-7xl space-y-8 px-4 lg:px-6">
-          {services.map((service) => (
-            <ServiceListRow
-              key={service.id}
-              service={service}
-              products={products}
-              calculator={calculator}
-            />
-          ))}
         </div>
       </section>
 

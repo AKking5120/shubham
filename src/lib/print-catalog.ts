@@ -14,7 +14,7 @@ export type CatalogSubcategory = {
   slug: string;
   name: string;
   description: string;
-  image: string;
+  image?: string;
   products: CatalogProduct[];
 };
 
@@ -23,7 +23,7 @@ export type CatalogCategory = {
   name: string;
   shortLabel: string;
   description: string;
-  image: string;
+  image?: string;
   /** Lucide-style keyword for icon mapping in UI */
   iconKey:
     | "stationery"
@@ -401,6 +401,78 @@ export const PRINT_CATALOG: CatalogCategory[] = [
             image: "/products/shop/pamphlets-leaflets/black-and-white-a4-pamphlet.webp",
           },
         ],
+      },
+    ],
+  },
+  {
+    slug: "id-cards",
+    name: "ID Cards",
+    shortLabel: "ID Cards",
+    description: "Printed ID cards for schools, offices and events.",
+    iconKey: "stationery",
+    subcategories: [
+      {
+        slug: "products",
+        name: "Products",
+        description: "Printed ID cards for schools, offices and events.",
+        products: [],
+      },
+    ],
+  },
+  {
+    slug: "bulk-print-copy",
+    name: "Bulk Print & Copy",
+    shortLabel: "Bulk Print & Copy",
+    description: "Bulk printing and photocopying for documents and handouts.",
+    iconKey: "bulk",
+    subcategories: [
+      {
+        slug: "products",
+        name: "Products",
+        description: "Bulk printing and photocopying for documents and handouts.",
+        products: [],
+      },
+    ],
+  },
+  {
+    slug: "awards",
+    name: "Awards",
+    shortLabel: "Awards",
+    description: "Certificates, medals, trophies, pens and accessories.",
+    iconKey: "awards",
+    subcategories: [
+      {
+        slug: "certificates",
+        name: "Certificates",
+        description: "Printed certificates for awards and recognition.",
+        products: [],
+      },
+      {
+        slug: "medals-trophies",
+        name: "Medals & Trophies",
+        description: "Medals and trophies for competitions and events.",
+        products: [],
+      },
+      {
+        slug: "pens-accessories",
+        name: "Pens & Accessories",
+        description: "Pens and accessories for events and gifting.",
+        products: [],
+      },
+    ],
+  },
+  {
+    slug: "paper-bags",
+    name: "Paper Bags",
+    shortLabel: "Paper Bags",
+    description: "Paper bags for retail, packaging and events.",
+    iconKey: "delivery",
+    subcategories: [
+      {
+        slug: "products",
+        name: "Products",
+        description: "Paper bags for retail, packaging and events.",
+        products: [],
       },
     ],
   },

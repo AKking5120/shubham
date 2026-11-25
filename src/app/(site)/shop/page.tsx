@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BackLink } from "@/components/ui/BackLink";
 import { SubcategoryTile } from "@/components/catalog/SubcategoryTile";
 import { PRINT_CATALOG } from "@/lib/print-catalog";
 import { SEO } from "@/lib/constants";
@@ -24,6 +25,7 @@ export default function ShopPage() {
   return (
     <>
       <section className="bg-gradient-to-b from-blue-50 to-white py-10 md:py-14">
+        <div className="mx-auto max-w-7xl px-4 pb-4 sm:px-6"><BackLink href="/" label="Back to Home" /></div>
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6">
           <h1 className="text-3xl font-black text-slate-900 sm:text-4xl">
             Shop printing products

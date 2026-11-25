@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BackLink } from "@/components/ui/BackLink";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { CatalogProductGrid } from "@/components/catalog/CatalogProductGrid";
@@ -44,9 +45,14 @@ export default async function ShopProductsPage({ params }: Props) {
   if (!found) notFound();
 
   const { category, subcategory } = found;
+  const singleGroup = category.subcategories.length === 1;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <BackLink
+        href={singleGroup ? "/shop" : `/shop/${category.slug}`}
+        label={singleGroup ? "Back to Shop" : `Back to ${category.name}`}
+      />
       <nav className="text-sm text-slate-500 text-center">
         <Link href="/shop" className="hover:text-brand-blue">Shop</Link>
         <span className="mx-2">/</span>
@@ -65,7 +71,7 @@ export default async function ShopProductsPage({ params }: Props) {
         {subcategory.description}
       </p>
       <CatalogProductGrid
-        title={category.subcategories.length === 1 ? category.name : subcategory.name}
+        title={singleGroup ? category.name : subcategory.name}
         categoryName={category.name}
         categorySlug={category.slug}
         subcategoryName={subcategory.name}
