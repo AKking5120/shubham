@@ -34,13 +34,8 @@ export default function HomePage() {
         </div>
       </div>
       <header className="border-b border-blue-100 bg-white shadow-sm">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-          <Link href="/" className="flex min-w-0 items-center gap-3">
-            <BrandLogo href={null} size="nav" />
-            <div className="text-lg font-black tracking-tight text-[#082e67] sm:text-2xl">SHUBHAM PRINTS
-              <div className="text-xs font-medium tracking-[0.2em] sm:text-base">& STATIONERS</div>
-            </div>
-          </Link>
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-4">
+          <BrandLogo size="nav" />
           <nav aria-label="Primary" className="hidden items-center gap-4 text-sm font-semibold lg:flex">
             <Link className="rounded-lg bg-[#073b82] px-4 py-2 text-white" href="/">Home</Link>
             <Link href="/services">Our Services</Link>
@@ -100,7 +95,7 @@ export default function HomePage() {
       </section>
       <footer className="bg-[#062a5b] text-white">
         <div className="mx-auto grid max-w-7xl gap-7 px-5 py-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="flex items-start gap-3"><BrandLogo href={null} size="lg"/><div><h2 className="text-lg font-black">SHUBHAM PRINTS</h2><p className="text-sm">& STATIONERS</p><p className="mt-3 text-xs text-blue-100">Print Smart. Grow Smart.</p></div></div>
+          <div><BrandLogo size="sm" tone="dark" /><p className="mt-3 text-xs text-blue-100">Print Smart. Grow Smart.</p></div>
           <div><h3 className="mb-3 font-bold">Quick Links</h3><div className="grid gap-2 text-sm text-blue-100"><Link href="/">Home</Link><Link href="/services">Our Services</Link><Link href="/shop">Products</Link><Link href="/contact">Contact Us</Link></div></div>
           <div><h3 className="mb-3 font-bold">Contact Us</h3><p className="text-sm text-blue-100">Jaitpur Badarpur, Delhi</p><Link href="/contact" className="mt-3 block text-sm underline">View full contact details</Link></div>
           <div><h3 className="mb-3 font-bold">Follow Us</h3><a href={quoteUrl} className="inline-flex items-center gap-2 rounded-xl bg-[#06a852] px-5 py-3 font-bold"><MessageCircle/> Chat on WhatsApp</a><Link href="/admin/login" className="mt-4 block text-xs text-blue-200">Admin Portal</Link></div>

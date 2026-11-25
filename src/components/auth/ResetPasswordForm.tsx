@@ -56,7 +56,7 @@ export function ResetPasswordForm() {
   if (!hasSession) {
     return (
       <div className="mx-auto w-full max-w-md rounded-2xl bg-white p-8 shadow-xl border border-slate-100 text-center">
-        <BrandLogo size="lg" href="/" />
+        <BrandLogo />
         <h1 className="mt-6 text-xl font-bold text-slate-900">Link expired</h1>
         <p className="mt-2 text-sm text-slate-600">
           Request a new password reset from the sign-in page.
@@ -74,7 +74,7 @@ export function ResetPasswordForm() {
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl bg-white p-8 shadow-xl border border-slate-100">
       <div className="flex justify-center">
-        <BrandLogo size="lg" href="/" />
+        <BrandLogo />
       </div>
       <h1 className="mt-6 text-center text-2xl font-bold text-slate-900">
         New password

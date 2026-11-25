@@ -149,7 +149,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl bg-white p-8 shadow-xl border border-slate-100">
       <div className="flex justify-center">
-        <BrandLogo size="lg" href="/" />
+        <BrandLogo />
       </div>
       <h1 className="mt-6 text-center text-2xl font-bold text-slate-900">
         {isLogin ? "Sign in" : "Create account"}

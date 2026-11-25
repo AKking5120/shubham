@@ -47,7 +47,7 @@ export function AdminSidebar() {
   return (
     <aside className="flex w-full flex-col border-r border-slate-200 bg-[#0a1628] text-white lg:min-h-screen lg:w-64">
       <div className="border-b border-white/10 p-6">
-        <BrandLogo size="md" href="/" />
+        <BrandLogo size="sm" tone="dark" />
         <p className="mt-3 text-xs uppercase tracking-widest text-slate-400">
           Admin panel
         </p>

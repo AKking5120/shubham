@@ -5,7 +5,7 @@ export function AuthUnavailable() {
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl bg-white p-8 shadow-xl border border-slate-100 text-center">
       <div className="flex justify-center">
-        <BrandLogo size="lg" href="/" />
+        <BrandLogo />
       </div>
       <h1 className="mt-6 text-xl font-bold text-slate-900">Login coming soon</h1>
       <p className="mt-2 text-sm text-slate-600">

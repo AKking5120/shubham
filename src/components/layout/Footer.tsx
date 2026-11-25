@@ -27,12 +27,9 @@ const specialties = [
 export function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-400 text-xs border-t border-slate-800 pt-10 pb-24 md:pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
         <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <BrandLogo size="sm" href="/" className="ring-2 ring-slate-600" />
-            <span className="font-extrabold text-white text-base">Shubham Prints</span>
-          </div>
+          <BrandLogo size="sm" tone="dark" />
           <p className="text-slate-400 leading-relaxed">
             “{BUSINESS.slogan}”. Premium commercial printing, carbonless bill books,
             doctor folders, and stationery in New Delhi.

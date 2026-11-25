@@ -64,32 +64,7 @@ export function Header({ site }: { site: HeaderSiteContent }) {
       >
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10">
           <div className="flex h-20 w-full items-center gap-2 sm:gap-3">
-            <Link
-              href="/"
-              className="relative z-20 flex shrink-0 items-center gap-2.5 sm:gap-3 text-left"
-            >
-              <BrandLogo
-                size="nav"
-                href={null}
-                className="shadow-lg ring-2 ring-brand-orange/40 shrink-0"
-              />
-              <div className="hidden min-w-0 sm:block">
-                <div className="font-brand flex flex-nowrap items-end gap-x-2 leading-none whitespace-nowrap">
-                  <span className="text-2xl sm:text-3xl xl:text-4xl 2xl:text-[2.75rem] font-black tracking-tight bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#1d4ed8] bg-clip-text text-transparent">
-                    Shubham
-                  </span>
-                  <span className="mb-0.5 text-xl sm:text-2xl xl:text-3xl 2xl:text-[2.35rem] font-black italic tracking-tight text-[#dc2626]">
-                    Prints
-                  </span>
-                </div>
-                <p
-                  className="hidden 2xl:block text-[11px] text-slate-500 font-medium italic mt-1 max-w-xs line-clamp-1"
-                  title={site.business.slogan}
-                >
-                  “{site.business.slogan}”
-                </p>
-              </div>
-            </Link>
+            <BrandLogo size="nav" className="relative z-20" />
 
             <nav
               className="relative z-10 hidden min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto px-1 lg:flex [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"

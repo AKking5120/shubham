@@ -1,7 +1,6 @@
 "use client";
 
 import { BrandLogo } from "@/components/brand/BrandLogo";
-import { BUSINESS } from "@/lib/constants";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -37,13 +36,13 @@ export default function AdminLoginPage() {
         className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl"
       >
         <div className="flex justify-center">
-          <BrandLogo size="xl" href="/" />
+          <BrandLogo />
         </div>
         <h1 className="mt-6 text-center text-2xl font-bold text-[#0a1628]">
           Admin Login
         </h1>
         <p className="mt-2 text-center text-sm text-slate-600">
-          {BUSINESS.name} — enquiry dashboard
+          Enquiry dashboard
         </p>
         <label className="mt-6 block text-sm font-medium text-slate-700">
           Password
