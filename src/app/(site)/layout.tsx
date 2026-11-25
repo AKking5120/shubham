@@ -1,3 +1,4 @@
+import { ShopAnalyticsTracker } from "@/components/catalog/ShopAnalyticsTracker";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import { MobileBottomBar } from "@/components/layout/MobileBottomBar";
 import { FloatingActions } from "@/components/layout/FloatingActions";
@@ -14,6 +15,7 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
 
   return (
     <SiteProviders>
+      <ShopAnalyticsTracker />
       <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800">
         <SiteChrome position="top" site={headerSite} />
         <main className="flex-1">{children}</main>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BackLink } from "@/components/ui/BackLink";
+import { ShopSearch } from "@/components/catalog/ShopSearch";
 import { SubcategoryTile } from "@/components/catalog/SubcategoryTile";
 import { PRINT_CATALOG } from "@/lib/print-catalog";
 import { SEO } from "@/lib/constants";
@@ -33,6 +34,7 @@ export default function ShopPage() {
           <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600">
             Choose a category to see products and request a quote.
           </p>
+          <ShopSearch />
         </div>
       </section>
 

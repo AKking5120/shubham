@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { ShopAnalyticsSummary } from "@/components/admin/ShopAnalyticsSummary";
 import {
   Calculator,
   ImageIcon,
@@ -12,6 +15,7 @@ import { formatDate } from "@/lib/utils";
 import { PhoneLink } from "@/components/ui/ContactLinks";
 
 export default async function AdminDashboardPage() {
+  if (!(await isAdminAuthenticated())) redirect("/admin/login");
   const enquiries = await getEnquiries();
   const total = enquiries.length;
   const newCount = enquiries.filter((e) => e.status === "New").length;
@@ -45,6 +49,8 @@ export default async function AdminDashboardPage() {
           </div>
         ))}
       </div>
+
+      <ShopAnalyticsSummary />
 
       <div className="mt-10 rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">

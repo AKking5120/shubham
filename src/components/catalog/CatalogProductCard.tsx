@@ -19,7 +19,7 @@ export function CatalogProductCard({
   onGetQuote,
 }: Props) {
   return (
-    <article className="group flex flex-col bg-white">
+    <article id={product.slug} className="group flex scroll-mt-24 flex-col bg-white">
       <div className="relative aspect-[3/4] overflow-hidden bg-slate-100">
         <Image
           src={product.image}
