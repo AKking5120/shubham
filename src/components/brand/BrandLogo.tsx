@@ -50,7 +50,7 @@ export function BrandLogo({
       )}
     >
       <Image
-        src={BRAND_LOGO}
+        src={BRAND_LOGO.split("?")[0]}
         alt=""
         width={64}
         height={64}
