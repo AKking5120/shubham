@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { CategoryIconStrip } from "@/components/catalog/CategoryIconStrip";
 import { SubcategoryTile } from "@/components/catalog/SubcategoryTile";
 import { getCatalogCategory, PRINT_CATALOG } from "@/lib/print-catalog";
@@ -23,6 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ShopCategoryPage({ params }: Props) {
+  if (PRINT_CATALOG.length === 0) redirect("/shop");
+
   const { category: slug } = await params;
   const category = getCatalogCategory(slug);
   if (!category) notFound();

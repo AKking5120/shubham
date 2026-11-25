@@ -12,6 +12,17 @@ export const metadata: Metadata = {
 };
 
 export default function ShopPage() {
+  if (PRINT_CATALOG.length === 0) {
+    return (
+      <section className="bg-gradient-to-b from-blue-50 to-white px-4 py-14 text-center">
+        <h1 className="text-3xl font-black text-slate-900 sm:text-4xl">
+          Shop printing products
+        </h1>
+        <p className="mt-3 text-sm text-slate-600">New products coming soon.</p>
+      </section>
+    );
+  }
+
   return (
     <>
       <section className="bg-gradient-to-b from-blue-50 to-white py-10 md:py-14">

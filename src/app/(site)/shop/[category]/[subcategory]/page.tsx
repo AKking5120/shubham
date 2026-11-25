@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { CatalogProductGrid } from "@/components/catalog/CatalogProductGrid";
 import {
   getCatalogSubcategory,
@@ -35,6 +35,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ShopProductsPage({ params }: Props) {
+  if (PRINT_CATALOG.length === 0) redirect("/shop");
+
   const { category: catSlug, subcategory: subSlug } = await params;
   const found = getCatalogSubcategory(catSlug, subSlug);
   if (!found) notFound();

@@ -13,14 +13,14 @@ export const metadata: Metadata = {
 };
 
 const categories = [
-  { name: "Visiting Cards", sub: "Premium & Standard", icon: CreditCard, href: "/shop/office-stationery/visiting-cards" },
+  { name: "Visiting Cards", sub: "Premium & Standard", icon: CreditCard, href: "/shop" },
   { name: "Wedding Cards", sub: "Bridal & Invitation", icon: Heart, href: "/shop" },
-  { name: "Bill Books", sub: "GST & Non-GST", icon: ReceiptText, href: "/shop/office-stationery/bill-books" },
+  { name: "Bill Books", sub: "GST & Non-GST", icon: ReceiptText, href: "/shop" },
   { name: "Doctor Files", sub: "Patient Records", icon: FileText, href: "/shop" },
-  { name: "Sticker & Labels", sub: "Product & Barcode", icon: Tag, href: "/shop/signage-promo/stickers" },
+  { name: "Sticker & Labels", sub: "Product & Barcode", icon: Tag, href: "/shop" },
   { name: "Flex Printing", sub: "Banner & Flex Board", icon: Printer, href: "/premium-gallery#flex-printing" },
-  { name: "Marketing Material", sub: "Pamphlet & Brochure", icon: BookOpen, href: "/shop/signage-promo/posters-pamphlets" },
-  { name: "Garment Tags", sub: "Hang Tags & Tags", icon: Award, href: "/shop/signage-promo/garment-tags" },
+  { name: "Marketing Material", sub: "Pamphlet & Brochure", icon: BookOpen, href: "/shop" },
+  { name: "Garment Tags", sub: "Hang Tags & Tags", icon: Award, href: "/shop" },
 ];
 
 export default function HomePage() {
