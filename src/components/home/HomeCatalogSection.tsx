@@ -27,15 +27,17 @@ export function HomeCatalogSection() {
               href={`/shop/${cat.slug}`}
               className="group flex gap-5 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 transition hover:border-brand-blue/40 hover:bg-white hover:shadow-md"
             >
-              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-white">
-                <Image
-                  src={cat.image}
-                  alt=""
-                  fill
-                  className="object-cover"
-                  sizes="96px"
-                />
-              </div>
+              {cat.image && (
+                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-white">
+                  <Image
+                    src={cat.image}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    sizes="96px"
+                  />
+                </div>
+              )}
               <div className="min-w-0 text-left">
                 <h3 className="text-base font-bold text-slate-900 group-hover:text-brand-blue">
                   {cat.name}
