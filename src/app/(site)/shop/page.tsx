@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import { CategoryIconStrip } from "@/components/catalog/CategoryIconStrip";
+import { SubcategoryTile } from "@/components/catalog/SubcategoryTile";
 import { PRINT_CATALOG } from "@/lib/print-catalog";
 import { SEO } from "@/lib/constants";
 
@@ -30,58 +28,21 @@ export default function ShopPage() {
           <h1 className="text-3xl font-black text-slate-900 sm:text-4xl">
             Shop printing products
           </h1>
-          <p className="mt-3 text-sm text-slate-600 max-w-2xl mx-auto">
-            Pick a category → product type → item. Every product opens a{" "}
-            <strong>WhatsApp quote</strong> — no online payment needed.
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600">
+            Choose a category to see products and request a quote.
           </p>
         </div>
       </section>
 
-      <CategoryIconStrip />
-
-      <section className="py-12 md:py-16 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
+      <section aria-label="Shop categories" className="bg-white py-12 md:py-16">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 sm:grid-cols-3 sm:px-6 lg:grid-cols-4 lg:px-8">
           {PRINT_CATALOG.map((category) => (
-            <div key={category.slug}>
-              <div className="flex flex-wrap items-end justify-between gap-4 border-b border-slate-200 pb-4">
-                <div>
-                  <h2 className="text-2xl font-black text-slate-900">
-                    {category.name}
-                  </h2>
-                  <p className="mt-1 text-sm text-slate-600">
-                    {category.description}
-                  </p>
-                </div>
-                <Link
-                  href={`/shop/${category.slug}`}
-                  className="text-sm font-bold text-brand-blue hover:underline"
-                >
-                  View all
-                </Link>
-              </div>
-              <div className="mt-8 grid grid-cols-2 gap-7 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {category.subcategories.map((sub) => (
-                  <Link
-                    key={sub.slug}
-                    href={`/shop/${category.slug}/${sub.slug}`}
-                    className="group text-center"
-                  >
-                    <div className="relative mx-auto aspect-square max-w-[230px] overflow-hidden rounded-xl bg-slate-100 ring-1 ring-slate-200">
-                      <Image
-                        src={sub.image}
-                        alt={sub.name}
-                        fill
-                        className="object-cover transition group-hover:scale-105"
-                        sizes="230px"
-                      />
-                    </div>
-                    <p className="mt-4 text-base font-semibold text-slate-800 group-hover:text-brand-blue">
-                      {sub.name}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <SubcategoryTile
+              key={category.slug}
+              href={`/shop/${category.slug}`}
+              name={category.name}
+              image={category.image}
+            />
           ))}
         </div>
       </section>

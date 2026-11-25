@@ -15,7 +15,7 @@ export function SubcategoryTile({ href, name, image }: Props) {
           src={image}
           alt={name}
           fill
-          className="object-cover transition group-hover:scale-105"
+          className="object-contain"
           sizes="250px"
         />
       </div>

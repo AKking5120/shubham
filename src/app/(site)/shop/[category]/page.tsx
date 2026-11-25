@@ -28,6 +28,9 @@ export default async function ShopCategoryPage({ params }: Props) {
   const { category: slug } = await params;
   const category = getCatalogCategory(slug);
   if (!category) notFound();
+  if (category.subcategories.length === 1) {
+    redirect(`/shop/${category.slug}/${category.subcategories[0].slug}`);
+  }
 
   return (
     <>

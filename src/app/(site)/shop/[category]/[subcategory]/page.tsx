@@ -26,7 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const found = getCatalogSubcategory(category, subcategory);
   if (!found) return { title: "Products" };
   return {
-    title: `${found.subcategory.name} | ${found.category.name}`,
+    title: found.category.subcategories.length === 1
+      ? found.category.name
+      : `${found.subcategory.name} | ${found.category.name}`,
     description: found.subcategory.description,
     alternates: {
       canonical: `/shop/${category}/${subcategory}`,
@@ -63,7 +65,7 @@ export default async function ShopProductsPage({ params }: Props) {
         {subcategory.description}
       </p>
       <CatalogProductGrid
-        title={subcategory.name}
+        title={category.subcategories.length === 1 ? category.name : subcategory.name}
         categoryName={category.name}
         categorySlug={category.slug}
         subcategoryName={subcategory.name}
