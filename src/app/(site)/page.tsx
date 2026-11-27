@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, BookOpen, CreditCard, FileText, Heart, MapPin, Menu, MessageCircle, Printer, ReceiptText, Search, ShoppingCart, Tag, Award } from "lucide-react";
+import { ArrowRight, BadgeCheck, MapPin, Menu, MessageCircle, Search, ShoppingCart } from "lucide-react";
 import { SEO, whatsappLink } from "@/lib/constants";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { CartIconLink } from "@/components/cart/CartIconLink";
@@ -13,14 +14,14 @@ export const metadata: Metadata = {
 };
 
 const categories = [
-  { name: "Visiting Cards", sub: "Premium & Standard", icon: CreditCard, href: "/shop/standard-visiting-cards" },
-  { name: "Wedding Cards", sub: "Bridal & Invitation", icon: Heart, href: "/shop/wedding-cards" },
-  { name: "Bill Books", sub: "GST & Non-GST", icon: ReceiptText, href: "/shop/bill-books-challans" },
-  { name: "Doctor Files", sub: "Patient Records", icon: FileText, href: "/shop" },
-  { name: "Sticker & Labels", sub: "Product & Barcode", icon: Tag, href: "/shop/stickers-labels" },
-  { name: "Flex Printing", sub: "Banner & Flex Board", icon: Printer, href: "/premium-gallery" },
-  { name: "Marketing Material", sub: "Pamphlet & Brochure", icon: BookOpen, href: "/shop/pamphlets-leaflets" },
-  { name: "Garment Tags", sub: "Hang Tags & Tags", icon: Award, href: "/shop/garment-tags" },
+  { name: "Visiting Cards", sub: "Premium & Standard", image: "/products/shop/standard-visiting-cards/standard-visiting-card-design-1.webp", href: "/shop/standard-visiting-cards" },
+  { name: "Wedding Cards", sub: "Bridal & Invitation", image: "/products/wedding-card.jpg", href: "/shop/wedding-cards" },
+  { name: "Bill Books", sub: "GST & Non-GST", image: "/products/shop/bill-books-challans/gst-bill-book.webp", href: "/shop/bill-books-challans" },
+  { name: "Doctor Files", sub: "Patient Records", image: "/services/doctor-files.jpg", href: "/shop" },
+  { name: "Sticker & Labels", sub: "Product & Barcode", image: "/products/shop/stickers-labels/laser-cut-sticker.webp", href: "/shop/stickers-labels" },
+  { name: "Flex Printing", sub: "Banner & Flex Board", image: "/banners/printing-and-binding.webp", href: "/premium-gallery" },
+  { name: "Marketing Material", sub: "Pamphlet & Brochure", image: "/products/shop/pamphlets-leaflets/colour-a4-pamphlet.webp", href: "/shop/pamphlets-leaflets" },
+  { name: "Garment Tags", sub: "Hang Tags & Tags", image: "/products/shop/garment-tags/garment-tag-design-1.webp", href: "/shop/garment-tags" },
 ];
 
 export default function HomePage() {
@@ -72,9 +73,17 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-4 py-9 sm:px-6">
         <h2 className="mb-6 text-center text-2xl font-black text-[#083b7d] sm:text-3xl">Our Printing Services</h2>
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {categories.map(({name,sub,icon:Icon,href}) => (
-            <Link href={href} key={name} className="flex items-center gap-3 rounded-xl border border-blue-100 bg-white p-4 shadow-sm transition hover:border-blue-400 hover:shadow-md">
-              <Icon size={32} className="shrink-0 text-[#1562b3]"/>
+          {categories.map(({ name, sub, image, href }) => (
+            <Link href={href} key={name} className="flex min-w-0 items-center gap-2.5 rounded-xl border border-blue-100 bg-white p-2.5 shadow-sm transition hover:border-blue-400 hover:shadow-md sm:gap-3 sm:p-3">
+              <span className="relative size-12 shrink-0 overflow-hidden rounded-lg bg-slate-50 sm:size-16">
+                <Image
+                  src={image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 640px) 64px, 48px"
+                  className={href === "/premium-gallery" ? "object-cover object-right" : "object-contain"}
+                />
+              </span>
               <div><h3 className="text-sm font-bold sm:text-base">{name}</h3><p className="mt-1 text-xs text-slate-600 sm:text-sm">{sub}</p></div>
             </Link>
           ))}
