@@ -4,7 +4,6 @@ import { QuoteForm } from "@/components/forms/QuoteForm";
 import { PriceEstimator } from "@/components/services/PriceEstimator";
 import { SEO } from "@/lib/constants";
 import { getPublicServices } from "@/lib/public-catalog";
-import { getPriceCalculator } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "Visiting Card Estimate",
@@ -13,10 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  const [services, calculator] = await Promise.all([
-    getPublicServices(),
-    getPriceCalculator(),
-  ]);
+  const services = await getPublicServices();
 
   return (
     <>
@@ -30,15 +26,15 @@ export default async function ServicesPage() {
             Visiting Card Estimate
           </h1>
           <p className="text-slate-600 text-sm max-w-2xl mx-auto">
-            Select paper options, quantities, and finishing to calculate estimated
-            visiting card printing costs.
+            Choose 300 GSM or 500 GSM and single- or double-sided printing.
+            Minimum order: 1,000 visiting cards.
           </p>
         </div>
       </section>
 
       <section id="estimate" className="scroll-mt-24 bg-white py-10 md:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PriceEstimator visitingCards={calculator.visiting_cards} />
+          <PriceEstimator />
         </div>
       </section>
 
