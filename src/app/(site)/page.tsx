@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const categories = [
   { name: "Visiting Cards", sub: "Premium & Standard", icon: CreditCard, href: "/shop/standard-visiting-cards" },
-  { name: "Wedding Cards", sub: "Bridal & Invitation", icon: Heart, href: "/shop" },
+  { name: "Wedding Cards", sub: "Bridal & Invitation", icon: Heart, href: "/shop/wedding-cards" },
   { name: "Bill Books", sub: "GST & Non-GST", icon: ReceiptText, href: "/shop/bill-books-challans" },
   { name: "Doctor Files", sub: "Patient Records", icon: FileText, href: "/shop" },
   { name: "Sticker & Labels", sub: "Product & Barcode", icon: Tag, href: "/shop/stickers-labels" },

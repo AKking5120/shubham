@@ -37,6 +37,17 @@ export type CatalogCategory = {
   subcategories: CatalogSubcategory[];
 };
 
+const weddingCardProducts: CatalogProduct[] = Array.from({ length: 66 }, (_, index) => {
+  const design = String(index + 1).padStart(2, "0");
+  const slug = `wedding-card-design-${design}`;
+  return {
+    slug,
+    name: `Wedding Card Design ${design}`,
+    description: "Share your wedding invitation quantity and wording when requesting a quote.",
+    image: `/products/shop/wedding-cards/${slug}.webp`,
+  };
+});
+
 export const PRINT_CATALOG: CatalogCategory[] = [
   {
     slug: "atm-pouches",
@@ -675,6 +686,23 @@ export const PRINT_CATALOG: CatalogCategory[] = [
             image: "/products/shop/awards/multicolour-promotional-pens.webp",
           },
         ],
+      },
+    ],
+  },
+  {
+    slug: "wedding-cards",
+    name: "Wedding Cards",
+    shortLabel: "Wedding Cards",
+    description: "Browse wedding invitation designs and request a printing quote.",
+    image: weddingCardProducts[0].image,
+    iconKey: "wedding",
+    subcategories: [
+      {
+        slug: "products",
+        name: "Products",
+        description: "Choose a wedding invitation design to request a quote.",
+        image: weddingCardProducts[0].image,
+        products: weddingCardProducts,
       },
     ],
   },
