@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, MapPin } from "lucide-react";
+import { Mail, MapPin, MessageCircle } from "lucide-react";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { PageHero } from "@/components/layout/PageHero";
 import {
@@ -8,6 +8,7 @@ import {
   mapsLink,
   PAGE_HERO_IMAGES,
   SEO,
+  whatsappLink,
 } from "@/lib/constants";
 import { EmailLink } from "@/components/ui/ContactLinks";
 
@@ -37,11 +38,16 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
           <aside className="lg:col-span-3">
             <h2 className="text-xl font-bold text-[#0a1628]">Get In Touch</h2>
             <p className="mt-2 text-sm text-slate-600">
-              Send a message below or visit us in Jaitpur. Phone & WhatsApp are
-              listed in the site footer.
+              Chat on WhatsApp, send a message below, or visit us in Jaitpur.
             </p>
 
             <ul className="mt-6 space-y-4 text-sm">
+              <li className="flex items-center gap-3">
+                <MessageCircle className="size-5 shrink-0 text-green-700" aria-hidden="true" />
+                <a href={whatsappLink()} className="font-semibold text-green-700 hover:underline">
+                  Chat on WhatsApp
+                </a>
+              </li>
               <li className="flex gap-3">
                 <Mail className="mt-0.5 h-5 w-5 shrink-0 text-[#1e3a5f]" />
                 <EmailLink

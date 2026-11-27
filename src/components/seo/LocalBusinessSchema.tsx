@@ -16,7 +16,6 @@ export function LocalBusinessSchema() {
     name: BUSINESS.name,
     description: SEO.description,
     url: origin,
-    telephone: BUSINESS.phones.map((p) => `+91${p}`),
     email: BUSINESS.email,
     address: {
       "@type": "PostalAddress",
@@ -40,8 +39,8 @@ export function LocalBusinessSchema() {
     openingHours: ["Mo-Su 09:00-21:00"],
     priceRange: "₹₹",
     slogan: BUSINESS.slogan,
-    image: absoluteUrl(BRAND_LOGO.split("?")[0] ?? BRAND_LOGO),
-    logo: absoluteUrl(BRAND_LOGO.split("?")[0] ?? BRAND_LOGO),
+    image: absoluteUrl(BRAND_LOGO),
+    logo: absoluteUrl(BRAND_LOGO),
   };
 
   return (

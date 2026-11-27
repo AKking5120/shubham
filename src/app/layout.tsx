@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import { BRAND_LOGO, SEO as DEFAULT_SEO } from "@/lib/constants";
+import { BRAND_LOGO, publicSeoDescription, SEO as DEFAULT_SEO } from "@/lib/constants";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 import { getSiteContent } from "@/lib/store";
 import { getSiteUrl } from "@/lib/site-url";
@@ -21,6 +21,7 @@ const brandFont = Poppins({
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteContent();
   const siteUrl = getSiteUrl();
+  const description = publicSeoDescription(site.seo.description);
   const googleVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
 
   return {
@@ -30,9 +31,9 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${site.business.name}`,
     },
     applicationName: site.business.name,
-    description: site.seo.description,
+    description,
     icons: {
-      icon: [{ url: BRAND_LOGO, type: "image/jpeg" }],
+      icon: [{ url: BRAND_LOGO, type: "image/png" }],
       apple: BRAND_LOGO,
     },
     keywords: DEFAULT_SEO.keywords,
@@ -48,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       title: site.seo.title,
-      description: site.seo.description,
+      description,
       type: "website",
       locale: "en_IN",
       siteName: site.business.name,
@@ -63,7 +64,7 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: site.seo.title,
-      description: site.seo.description,
+      description,
       images: [BRAND_LOGO],
     },
     ...(googleVerification

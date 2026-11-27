@@ -50,12 +50,12 @@ export function BrandLogo({
       )}
     >
       <Image
-        src={BRAND_LOGO.split("?")[0]}
+        src={BRAND_LOGO}
         alt=""
         width={64}
         height={64}
         sizes={styles.sizes}
-        className={cn("shrink-0 rounded-full bg-white object-cover", styles.logo)}
+        className={cn("shrink-0 rounded-full object-contain", styles.logo)}
       />
       <span className="whitespace-nowrap">
         <span className={cn("block font-black leading-tight tracking-tight", styles.name)}>

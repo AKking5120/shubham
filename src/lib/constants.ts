@@ -12,8 +12,8 @@ export const BUSINESS = {
   slogan: "A Unit of Complete Printing Solution",
 };
 
-/** Official circular logo (public/logo.jpg) */
-export const BRAND_LOGO = "/logo.jpg?v=gold-s";
+/** Official Shubham Prints logo */
+export const BRAND_LOGO = "/shubham-logo.png";
 
 /** Home page banner carousel (below navbar). */
 export const HOME_HERO_SLIDES = [
@@ -45,7 +45,7 @@ export const SEO = {
   title:
     "Shubham Prints & Stationers | Complete Printing Solutions in Jaitpur, New Delhi",
   description:
-    "Shubham Prints & Stationers — bill books, visiting cards, UV texture cards, doctor files, wedding cards, bulk xerox printouts in Jaitpur, Badarpur, New Delhi. Call 9717528176.",
+    "Shubham Prints & Stationers — bill books, visiting cards, UV texture cards, doctor files, wedding cards, bulk xerox printouts in Jaitpur, Badarpur, New Delhi.",
   keywords: [
     "Shubham Prints",
     "printing shop Jaitpur",
@@ -80,8 +80,12 @@ export const SITE_CREDIT = {
   role: "Website Designer & Developer",
   url: "https://github.com/AKking5120",
   email: "princekumardas5120@gmail.com",
-  phone: "9540347869",
+  phone: "9266755120",
 };
+
+export function publicSeoDescription(description: string) {
+  return description.replace(/\s*(?:\bcall(?: us)?(?: at)?[: ]*)?(?<!\d)(?:\+91[ -]?)?[6-9]\d{9}(?!\d)\.?/gi, "").trim();
+}
 
 export function digitsOnlyPhone(phone: string) {
   const d = phone.replace(/\D/g, "");

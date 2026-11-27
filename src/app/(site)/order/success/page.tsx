@@ -24,8 +24,7 @@ export default async function OrderSuccessPage({ searchParams }: PageProps) {
           </p>
         )}
         <p className="mt-2 text-sm text-slate-600">
-          Save this order ID to track status. We will call you to confirm specs
-          if needed.
+          Save this order ID to track status. If needed, we will contact you on WhatsApp to confirm the details.
         </p>
         <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
           <Link

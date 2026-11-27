@@ -5,7 +5,6 @@ import {
   mailtoLink,
   mapsLink,
   SITE_CREDIT,
-  telLink,
   whatsappLink,
   whatsappLinkForPhone,
 } from "@/lib/constants";
@@ -61,46 +60,14 @@ export function Footer() {
         <div className="space-y-2">
           <h4 className="font-bold text-white text-sm">Contact Details</h4>
           <p>{BUSINESS.address.full}</p>
-          <p className="font-semibold text-amber-400">
-            <a href={telLink(BUSINESS.phones[0])} className="hover:underline">
-              {BUSINESS.phones[0]}
-            </a>
-            {BUSINESS.phones[1] && (
-              <>
-                {" "}
-                /{" "}
-                <a
-                  href={telLink(BUSINESS.phones[1])}
-                  className="hover:underline"
-                >
-                  {BUSINESS.phones[1]}
-                </a>
-              </>
-            )}
-          </p>
-          <p className="pt-1">
-            <a
-              href={whatsappLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-semibold text-[#25D366] hover:underline"
-            >
-              WhatsApp (main)
-            </a>
-            {BUSINESS.phones[1] && (
-              <>
-                <span className="text-slate-600"> · </span>
-                <a
-                  href={whatsappLinkForPhone(BUSINESS.phones[1])}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-[#25D366] hover:underline"
-                >
-                  WhatsApp alt
-                </a>
-              </>
-            )}
-          </p>
+          <a
+            href={whatsappLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex pt-1 font-semibold text-[#25D366] hover:underline"
+          >
+            Chat on WhatsApp
+          </a>
           <p>{BUSINESS.email}</p>
           <a
             href={mapsLink()}
@@ -136,8 +103,13 @@ export function Footer() {
               {SITE_CREDIT.email}
             </a>
             <span className="mx-1.5 text-slate-600">|</span>
-            <a href={telLink(SITE_CREDIT.phone)} className="hover:text-amber-400/90">
-              {SITE_CREDIT.phone}
+            <a
+              href={whatsappLinkForPhone(SITE_CREDIT.phone, "Hello, I have a website enquiry.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-amber-400/90"
+            >
+              Developer WhatsApp
             </a>
           </p>
         </div>

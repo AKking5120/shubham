@@ -10,10 +10,7 @@ import { CartIconLink } from "@/components/cart/CartIconLink";
 import type { SiteContent } from "@/lib/site-content";
 import { cn } from "@/lib/utils";
 
-export type HeaderSiteContent = Pick<
-  SiteContent,
-  "announcement" | "business" | "contact"
->;
+export type HeaderSiteContent = Pick<SiteContent, "announcement">;
 
 const links = [
   { href: "/", label: "Home", short: "Home" },

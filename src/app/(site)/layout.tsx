@@ -9,8 +9,6 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
   const site = await getSiteContent();
   const headerSite = {
     announcement: site.announcement,
-    business: site.business,
-    contact: site.contact,
   };
 
   return (
