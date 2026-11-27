@@ -7,7 +7,7 @@ import { getPublicServices } from "@/lib/public-catalog";
 import { getPriceCalculator } from "@/lib/store";
 
 export const metadata: Metadata = {
-  title: "Services & Rates",
+  title: "Visiting Card Estimate",
   description: SEO.description,
   alternates: { canonical: "/services" },
 };
@@ -27,18 +27,18 @@ export default async function ServicesPage() {
             Interactive Estimator
           </span>
           <h1 className="text-3xl font-black text-slate-900">
-            Live Printing Rate Estimator
+            Visiting Card Estimate
           </h1>
           <p className="text-slate-600 text-sm max-w-2xl mx-auto">
             Select paper options, quantities, and finishing to calculate estimated
-            printing costs — then add to cart and checkout.
+            visiting card printing costs.
           </p>
         </div>
       </section>
 
-      <section className="py-10 md:py-12 bg-white">
+      <section id="estimate" className="scroll-mt-24 bg-white py-10 md:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PriceEstimator config={calculator} />
+          <PriceEstimator visitingCards={calculator.visiting_cards} />
         </div>
       </section>
 
@@ -53,7 +53,7 @@ export default async function ServicesPage() {
           <div className="mt-10 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm md:p-8">
             <QuoteForm
               showExtendedFields
-              serviceOptions={services.map((s) => s.name).concat(["Other"])}
+              serviceOptions={services.filter((service) => service.slug !== "doctor-files").map((service) => service.name).concat(["Other"])}
             />
           </div>
         </div>

@@ -2,41 +2,25 @@
 
 import Link from "next/link";
 import { Calculator, ShoppingCart } from "lucide-react";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ConfigureOrderModal } from "@/components/cart/ConfigureOrderModal";
 import { useCart } from "@/components/cart/CartProvider";
 import { sizeOptionsForCalculator } from "@/lib/service-order-sizes";
-import type { PriceCalculatorConfig } from "@/lib/price-calculator";
+import type { PriceCalculatorCategory } from "@/lib/price-calculator";
 
 type Props = {
-  config: PriceCalculatorConfig;
+  visitingCards?: PriceCalculatorCategory;
 };
 
-export function PriceEstimator({ config }: Props) {
+export function PriceEstimator({ visitingCards: catData }: Props) {
   const { addItem } = useCart();
   const [configureOpen, setConfigureOpen] = useState(false);
-  const keys = Object.keys(config);
-  const firstKey = keys[0] ?? "visiting_cards";
-
-  const [category, setCategory] = useState(firstKey);
+  const category = "visiting_cards";
   const [paperIdx, setPaperIdx] = useState(0);
   const [quantity, setQuantity] = useState(
-    () => config[firstKey]?.quantities[2] ?? config[firstKey]?.quantities[0] ?? 100,
+    () => catData?.quantities[2] ?? catData?.quantities[0] ?? 100,
   );
   const [checked, setChecked] = useState<Record<string, boolean>>({});
-
-  const catData = config[category] ?? config[firstKey];
-
-  const resetOptions = useCallback(
-    (key: string) => {
-      const data = config[key];
-      if (!data) return;
-      setPaperIdx(0);
-      setQuantity(data.quantities[2] ?? data.quantities[0] ?? 100);
-      setChecked({});
-    },
-    [config],
-  );
 
   const { total, perUnit, finishLabel } = useMemo(() => {
     if (!catData) {
@@ -64,15 +48,14 @@ export function PriceEstimator({ config }: Props) {
     };
   }, [catData, paperIdx, quantity, checked]);
 
-  if (!catData || keys.length === 0) {
+  const paper = catData?.papers[paperIdx] ?? catData?.papers[0];
+  if (!catData || !paper) {
     return (
       <p className="text-sm text-slate-600">
         Price calculator is not configured. Admin can set it up in the admin panel.
       </p>
     );
   }
-
-  const paper = catData.papers[paperIdx] ?? catData.papers[0];
 
   const calcOptions = `${paper.name} · ${quantity} ${catData.qtyUnit} · ${finishLabel}`;
 
@@ -85,28 +68,10 @@ export function PriceEstimator({ config }: Props) {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-7 space-y-5">
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-              1. Select Product Category
-            </label>
-            <select
-              value={category}
-              onChange={(e) => {
-                setCategory(e.target.value);
-                resetOptions(e.target.value);
-              }}
-              className="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-brand-blue focus:outline-none"
-            >
-              {Object.entries(config).map(([key, val]) => (
-                <option key={key} value={key}>{val.name}</option>
-              ))}
-            </select>
-          </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                2. Paper / Material Type
+                1. Paper / Material Type
               </label>
               <select
                 value={paperIdx}
@@ -120,7 +85,7 @@ export function PriceEstimator({ config }: Props) {
             </div>
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                3. Quantity
+                2. Quantity
               </label>
               <select
                 value={quantity}
@@ -138,7 +103,7 @@ export function PriceEstimator({ config }: Props) {
 
           <div>
             <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-              4. Special Finishing & Options
+              3. Special Finishing & Options
             </label>
             <div className="grid grid-cols-2 gap-3">
               {catData.finishings.map((f) => (
@@ -210,14 +175,14 @@ export function PriceEstimator({ config }: Props) {
             <ConfigureOrderModal
               open={configureOpen}
               onClose={() => setConfigureOpen(false)}
-              title={`Cart: ${catData.name}`}
+              title="Cart: Visiting Cards"
               sizeOptions={sizeOptionsForCalculator(category)}
               priceHint={`Estimate ₹${total} · ${calcOptions}`}
               onConfirm={({ optionsSummary, fileUrl }) => {
                 addItem({
                   kind: "calculator",
                   refId: category,
-                  title: catData.name,
+                  title: "Visiting Cards",
                   quantity: 1,
                   unitPrice: total,
                   options: `${calcOptions} | ${optionsSummary}`,
