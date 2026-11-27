@@ -93,8 +93,8 @@ export default function HomePage() {
           <HomeHeroSlider />
         </div>
       </section>
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-9 sm:px-6 lg:grid-cols-[minmax(0,1fr)_17rem]">
-        <div>
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-9 sm:px-6 lg:grid-cols-[17rem_minmax(0,1fr)]">
+        <div className="lg:col-start-2 lg:row-start-1">
           <h2 className="mb-6 text-center text-2xl font-black text-[#083b7d] sm:text-3xl">Our Printing Services</h2>
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
             {categories.map(({ name, sub, image, href }) => (
@@ -113,7 +113,7 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-        <aside className="self-start overflow-hidden rounded-xl border border-blue-100 bg-slate-50">
+        <aside className="self-start overflow-hidden rounded-xl border border-blue-100 bg-slate-50 lg:col-start-1 lg:row-start-1">
           <h2 className="bg-[#082f68] px-4 py-3 text-base font-black text-white">
             Our Printing &amp; Binding Work
           </h2>
