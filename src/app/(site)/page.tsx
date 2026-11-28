@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, Check, MapPin, Menu, MessageCircle, Search, ShoppingCart } from "lucide-react";
 import { SEO, whatsappLink } from "@/lib/constants";
+import { PRINT_CATALOG } from "@/lib/print-catalog";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { CartIconLink } from "@/components/cart/CartIconLink";
 import { HomeHeroSlider } from "@/components/home/HomeHeroSlider";
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" }
 };
 
-const categories = [
+const featuredCategories = [
   { name: "Visiting Cards", sub: "Premium & Standard", image: "/products/shop/standard-visiting-cards/standard-visiting-card-design-1.webp", href: "/shop/standard-visiting-cards" },
   { name: "Wedding Cards", sub: "Bridal & Invitation", image: "/products/wedding-card.jpg", href: "/shop/wedding-cards" },
   { name: "Bill Books", sub: "GST & Non-GST", image: "/products/shop/bill-books-challans/gst-bill-book.webp", href: "/shop/bill-books-challans" },
@@ -21,6 +22,19 @@ const categories = [
   { name: "Flex Printing", sub: "Banner & Flex Board", image: "/banners/printing-and-binding.webp", href: "/premium-gallery" },
   { name: "Marketing Material", sub: "Pamphlet & Brochure", image: "/products/shop/pamphlets-leaflets/colour-a4-pamphlet.webp", href: "/shop/pamphlets-leaflets" },
   { name: "Garment Tags", sub: "Hang Tags & Tags", image: "/products/shop/garment-tags/garment-tag-design-1.webp", href: "/shop/garment-tags" },
+];
+
+const featuredLinks = new Set(featuredCategories.map(({ href }) => href));
+const categories = [
+  ...featuredCategories,
+  ...PRINT_CATALOG
+    .filter(({ slug }) => !featuredLinks.has(`/shop/${slug}`))
+    .map(({ slug, name, description, image }) => ({
+      href: `/shop/${slug}`,
+      name,
+      sub: description,
+      image,
+    })),
 ];
 
 const printingWork = [
@@ -99,16 +113,18 @@ export default function HomePage() {
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
             {categories.map(({ name, sub, image, href }) => (
               <Link href={href} key={name} className="flex min-w-0 items-center gap-2.5 rounded-xl border border-blue-100 bg-white p-2.5 shadow-sm transition hover:border-blue-400 hover:shadow-md sm:gap-3 sm:p-3">
-                <span className="relative size-12 shrink-0 overflow-hidden rounded-lg bg-slate-50 sm:size-16">
-                  <Image
-                    src={image}
-                    alt=""
-                    fill
-                    sizes="(min-width: 640px) 64px, 48px"
-                    className={href === "/premium-gallery" ? "object-cover object-right" : "object-contain"}
-                  />
-                </span>
-                <div><h3 className="text-sm font-bold sm:text-base">{name}</h3><p className="mt-1 text-xs text-slate-600 sm:text-sm">{sub}</p></div>
+                {image && (
+                  <span className="relative size-12 shrink-0 overflow-hidden rounded-lg bg-slate-50 sm:size-16">
+                    <Image
+                      src={image}
+                      alt=""
+                      fill
+                      sizes="(min-width: 640px) 64px, 48px"
+                      className={href === "/premium-gallery" ? "object-cover object-right" : "object-contain"}
+                    />
+                  </span>
+                )}
+                <div><h3 className="text-sm font-bold sm:text-base">{name}</h3><p className="mt-1 line-clamp-2 text-xs text-slate-600 sm:text-sm">{sub}</p></div>
               </Link>
             ))}
           </div>
