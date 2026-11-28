@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import type { ReactNode } from "react";
 import type { CatalogProduct } from "@/lib/print-catalog";
 
 type Props = {
   product: CatalogProduct;
-  priceNote?: string;
+  priceNote?: ReactNode;
   categoryName: string;
   subcategoryName: string;
   onQuickView: () => void;

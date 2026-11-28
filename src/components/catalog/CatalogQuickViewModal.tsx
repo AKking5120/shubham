@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { ReactNode } from "react";
 import { X } from "lucide-react";
 import {
   catalogWhatsAppQuote,
@@ -10,7 +11,7 @@ import {
 type Props = {
   open: boolean;
   product: CatalogProduct | null;
-  priceNote?: string;
+  priceNote?: ReactNode;
   categoryName: string;
   subcategoryName: string;
   hideDirectContact?: boolean;

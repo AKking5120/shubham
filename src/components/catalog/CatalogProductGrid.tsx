@@ -8,7 +8,14 @@ import { CatalogQuickViewModal } from "@/components/catalog/CatalogQuickViewModa
 import { WhatsAppQuoteDialog } from "@/components/catalog/WhatsAppQuoteDialog";
 import { ProductQuoteDialog } from "@/components/catalog/ProductQuoteDialog";
 
-const WEDDING_PRICE_NOTE = "Prices shown are for raw cards only. Printing and packing are charged separately.";
+const WEDDING_PRICE_NOTE = (
+  <>
+    Prices shown are for raw cards only. Printing and packing are charged separately.
+    <span lang="hi" className="mt-1 block">
+      दिखाई गई कीमत सिर्फ़ बिना छपाई वाले कार्ड की है। छपाई और पैकिंग का शुल्क अलग से लगेगा।
+    </span>
+  </>
+);
 
 type Props = {
   categoryName: string;
