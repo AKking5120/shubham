@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { BackLink } from "@/components/ui/BackLink";
 import { ShopSearch } from "@/components/catalog/ShopSearch";
 import { SubcategoryTile } from "@/components/catalog/SubcategoryTile";
-import { flattenCatalogProducts } from "@/lib/print-catalog";
-import { getManagedShop } from "@/lib/managed-shop";
-import { flexProducts } from "@/lib/flex-products";
+import { buildShopSearchIndex, getManagedShop } from "@/lib/managed-shop";
 import { SEO } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
@@ -39,17 +37,7 @@ export default async function ShopPage() {
           <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600">
             Choose a category to see products and request a quote.
           </p>
-          <ShopSearch index={[
-            ...flattenCatalogProducts(catalog),
-            ...flexProducts.map((product) => ({
-              product: { ...product, description: "" },
-              categorySlug: "flex-printing",
-              categoryName: "Flex Printing",
-              subcategorySlug: "products",
-              subcategoryName: product.slug.includes("vinyl") ? "Vinyl" : "Flex",
-              href: "/premium-gallery",
-            })),
-          ]} />
+          <ShopSearch index={buildShopSearchIndex(catalog)} />
         </div>
       </section>
 

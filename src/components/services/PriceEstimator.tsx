@@ -7,12 +7,9 @@ import { ConfigureOrderModal } from "@/components/cart/ConfigureOrderModal";
 import { useCart } from "@/components/cart/CartProvider";
 import { sizeOptionsForCalculator } from "@/lib/service-order-sizes";
 
-const rates = {
-  "300": { single: 500, double: 800 },
-  "500": { single: 1500, double: 1800 },
-} as const;
+import { visitingCardRates as rates, visitingCardPackSize as packSize } from "@/lib/visiting-card-rates";
+
 const sideLabels = { single: "Single-sided", double: "Double-sided" } as const;
-const packSize = 1000;
 const maxPacks = 9999;
 const cartRef = "visiting_cards";
 const selectClass = "w-full rounded-xl border border-slate-300 bg-slate-50 p-3 text-sm font-semibold";

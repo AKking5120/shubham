@@ -1,4 +1,5 @@
 import "server-only";
+import { flexProducts } from "@/lib/flex-products";
 import { flattenCatalogProducts, PRINT_CATALOG } from "@/lib/print-catalog";
 import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/server";
 import { sbSetAppSetting } from "@/lib/supabase-store";
@@ -58,4 +59,18 @@ export async function getManagedShop() {
     });
     return { ...category, subcategories, image: subcategories.find((sub) => sub.image)?.image };
   });
+}
+
+export function buildShopSearchIndex(catalog: Awaited<ReturnType<typeof getManagedShop>>) {
+  return [
+    ...flattenCatalogProducts(catalog),
+    ...flexProducts.map((product) => ({
+      product: { ...product, description: "" },
+      categorySlug: "flex-printing",
+      categoryName: "Flex Printing",
+      subcategorySlug: "products",
+      subcategoryName: product.slug.includes("vinyl") ? "Vinyl" : "Flex",
+      href: "/premium-gallery",
+    })),
+  ];
 }
