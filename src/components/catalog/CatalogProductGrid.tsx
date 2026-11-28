@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { CatalogProduct } from "@/lib/print-catalog";
 import { CatalogProductCard } from "@/components/catalog/CatalogProductCard";
 import { CatalogQuickViewModal } from "@/components/catalog/CatalogQuickViewModal";
+import { WhatsAppQuoteDialog } from "@/components/catalog/WhatsAppQuoteDialog";
 import { ProductQuoteDialog } from "@/components/catalog/ProductQuoteDialog";
 
 type Props = {
@@ -25,6 +26,14 @@ export function CatalogProductGrid({
 }: Props) {
   const [active, setActive] = useState<CatalogProduct | null>(null);
   const [quoteFor, setQuoteFor] = useState<CatalogProduct | null>(null);
+  const [whatsAppFor, setWhatsAppFor] = useState<CatalogProduct | null>(null);
+  const wedding = categorySlug === "wedding-cards";
+
+  function openQuote(product: CatalogProduct) {
+    if (wedding) setWhatsAppFor(product);
+    else setQuoteFor(product);
+  }
+
 
   return (
     <>
@@ -42,7 +51,7 @@ export function CatalogProductGrid({
               categoryName={categoryName}
               subcategoryName={subcategoryName}
               onQuickView={() => setActive(product)}
-              onGetQuote={() => setQuoteFor(product)}
+              onGetQuote={() => openQuote(product)}
             />
           ))}
         </div>
@@ -54,12 +63,24 @@ export function CatalogProductGrid({
         product={active}
         categoryName={categoryName}
         subcategoryName={subcategoryName}
+        hideDirectContact={wedding}
         onClose={() => setActive(null)}
         onGetQuote={() => {
-          if (active) setQuoteFor(active);
+          if (active) openQuote(active);
           setActive(null);
         }}
       />
+      {whatsAppFor && (
+        <WhatsAppQuoteDialog
+          productName={whatsAppFor.name}
+          kind="wedding"
+          onClose={() => setWhatsAppFor(null)}
+          onWebsiteQuote={() => {
+            setQuoteFor(whatsAppFor);
+            setWhatsAppFor(null);
+          }}
+        />
+      )}
       <ProductQuoteDialog
         key={quoteFor?.slug ?? "quote"}
         open={Boolean(quoteFor)}

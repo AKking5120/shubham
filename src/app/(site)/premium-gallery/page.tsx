@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { BackLink } from "@/components/ui/BackLink";
-import { whatsappLink } from "@/lib/constants";
+import { FlexWhatsAppQuoteButton } from "@/components/catalog/WhatsAppQuoteDialog";
 
 export const metadata: Metadata = { title: "Flex Printing" };
 
@@ -38,12 +38,7 @@ export default function FlexPrintingPage() {
             </div>
             <div className="flex flex-1 flex-col gap-3 p-3 sm:p-4">
               <h2 className="flex-1 font-bold text-slate-900">{name}</h2>
-              <a
-                href={whatsappLink(`Hello Shubham Prints, I would like a quote for ${name}.`)}
-                className="rounded-lg bg-brand-blue px-3 py-2 text-center text-sm font-semibold text-white hover:bg-blue-800"
-              >
-                Get quote
-              </a>
+              <FlexWhatsAppQuoteButton productName={name} />
             </div>
           </article>
         ))}

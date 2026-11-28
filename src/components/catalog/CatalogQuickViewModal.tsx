@@ -12,6 +12,7 @@ type Props = {
   product: CatalogProduct | null;
   categoryName: string;
   subcategoryName: string;
+  hideDirectContact?: boolean;
   onClose: () => void;
   onGetQuote: () => void;
 };
@@ -21,6 +22,7 @@ export function CatalogQuickViewModal({
   product,
   categoryName,
   subcategoryName,
+  hideDirectContact = false,
   onClose,
   onGetQuote,
 }: Props) {
@@ -78,14 +80,16 @@ export function CatalogQuickViewModal({
           >
             Get quote
           </button>
-          <a
-            href={wa}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex w-full items-center justify-center rounded-xl bg-[#25D366] py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-[#1ebe57]"
-          >
-            Contact
-          </a>
+          {!hideDirectContact && (
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-center rounded-xl bg-[#25D366] py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-[#1ebe57]"
+            >
+              Contact
+            </a>
+          )}
           <p className="text-center text-xs text-slate-500">
             Share quantity, size & design — we reply from Jaitpur, Delhi.
           </p>
