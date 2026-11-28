@@ -10,6 +10,7 @@ import {
 type Props = {
   open: boolean;
   product: CatalogProduct | null;
+  priceNote?: string;
   categoryName: string;
   subcategoryName: string;
   hideDirectContact?: boolean;
@@ -20,6 +21,7 @@ type Props = {
 export function CatalogQuickViewModal({
   open,
   product,
+  priceNote,
   categoryName,
   subcategoryName,
   hideDirectContact = false,
@@ -69,9 +71,10 @@ export function CatalogQuickViewModal({
           <h2 className="text-xl font-bold text-slate-900">{product.name}</h2>
           <p className="text-sm text-slate-600">{product.description}</p>
           {product.priceLabel && (
-            <p className="text-base font-bold text-slate-900">
-              {product.priceLabel}
-            </p>
+            <div>
+              <p className="text-base font-bold text-slate-900">{product.priceLabel}</p>
+              {priceNote && <p className="mt-1 text-xs text-slate-600">{priceNote}</p>}
+            </div>
           )}
           <button
             type="button"

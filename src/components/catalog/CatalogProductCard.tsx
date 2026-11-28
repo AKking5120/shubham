@@ -5,6 +5,7 @@ import type { CatalogProduct } from "@/lib/print-catalog";
 
 type Props = {
   product: CatalogProduct;
+  priceNote?: string;
   categoryName: string;
   subcategoryName: string;
   onQuickView: () => void;
@@ -13,6 +14,7 @@ type Props = {
 
 export function CatalogProductCard({
   product,
+  priceNote,
   categoryName,
   subcategoryName,
   onQuickView,
@@ -61,9 +63,10 @@ export function CatalogProductCard({
           {subcategoryName}
         </p>
         {product.priceLabel && (
-          <p className="mt-2 text-base font-bold text-slate-900">
-            {product.priceLabel}
-          </p>
+          <div>
+            <p className="mt-2 text-base font-bold text-slate-900">{product.priceLabel}</p>
+            {priceNote && <p className="mt-1 text-xs text-slate-600">{priceNote}</p>}
+          </div>
         )}
         <button
           type="button"

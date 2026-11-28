@@ -8,6 +8,8 @@ import { CatalogQuickViewModal } from "@/components/catalog/CatalogQuickViewModa
 import { WhatsAppQuoteDialog } from "@/components/catalog/WhatsAppQuoteDialog";
 import { ProductQuoteDialog } from "@/components/catalog/ProductQuoteDialog";
 
+const WEDDING_PRICE_NOTE = "Prices shown are for raw cards only. Printing and packing are charged separately.";
+
 type Props = {
   categoryName: string;
   categorySlug: string;
@@ -29,6 +31,7 @@ export function CatalogProductGrid({
   const [quoteFor, setQuoteFor] = useState<CatalogProduct | null>(null);
   const [whatsAppFor, setWhatsAppFor] = useState<CatalogProduct | null>(null);
   const wedding = categorySlug === "wedding-cards";
+  const priceNote = wedding ? WEDDING_PRICE_NOTE : undefined;
   const [colour, setColour] = useState("");
   const [style, setStyle] = useState("");
   const [shortlist, setShortlist] = useState<string[]>([]);
@@ -58,6 +61,11 @@ export function CatalogProductGrid({
           {title}
         </h1>
       )}
+      {priceNote && (
+        <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-slate-800">
+          {priceNote}
+        </p>
+      )}
       {wedding && (
         <div className="mt-5 rounded-xl border bg-white p-4">
           <div className="flex flex-wrap items-end gap-4">
@@ -86,6 +94,7 @@ export function CatalogProductGrid({
             <div key={product.slug}>
             <CatalogProductCard
               product={product}
+              priceNote={priceNote}
               categoryName={categoryName}
               subcategoryName={subcategoryName}
               onQuickView={() => setActive(product)}
@@ -103,6 +112,7 @@ export function CatalogProductGrid({
       <CatalogQuickViewModal
         open={Boolean(active)}
         product={active}
+        priceNote={priceNote}
         categoryName={categoryName}
         subcategoryName={subcategoryName}
         hideDirectContact={wedding}
