@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { catalogWhatsAppQuote, type CatalogProduct } from "@/lib/print-catalog";
@@ -201,6 +202,8 @@ export function ProductQuoteDialog({
                 Description / additional requirements
                 <textarea name="description" rows={3} className={`mt-1 ${inputClass}`} />
               </label>
+
+              <Link href="/print-file-guide" target="_blank" rel="noopener noreferrer" className="text-sm text-brand-blue underline">Print file guide (opens in new tab)</Link>
 
               {error && (
                 <p className="rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>

@@ -3,7 +3,7 @@ import { getSupabaseAdmin } from "@/lib/supabase/server";
 
 const prefix = "shop-analytics:";
 
-export async function incrementAnalyticsCount(type: "page" | "topic" | "keyword", label: string) {
+export async function incrementAnalyticsCount(type: "page" | "topic" | "keyword" | "no-result" | "missed-keyword", label: string) {
   const db = getSupabaseAdmin();
   const key = `${prefix}${type}:${label}`;
 
@@ -51,5 +51,7 @@ export async function getShopAnalytics() {
     pages: pages.slice(0, 10),
     topics: topics.slice(0, 10),
     keywords: counts("keyword").slice(0, 10),
+    noResults: counts("no-result").find((row) => row.label === "total")?.count ?? 0,
+    missedKeywords: counts("missed-keyword").slice(0, 10),
   };
 }

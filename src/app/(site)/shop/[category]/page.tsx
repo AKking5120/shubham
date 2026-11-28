@@ -1,3 +1,4 @@
+import { getManagedShop } from "@/lib/managed-shop";
 import type { Metadata } from "next";
 import { BackLink } from "@/components/ui/BackLink";
 import Link from "next/link";
@@ -5,6 +6,8 @@ import { notFound, redirect } from "next/navigation";
 import { CategoryIconStrip } from "@/components/catalog/CategoryIconStrip";
 import { SubcategoryTile } from "@/components/catalog/SubcategoryTile";
 import { getCatalogCategory, PRINT_CATALOG } from "@/lib/print-catalog";
+
+export const dynamic = "force-dynamic";
 
 type Props = { params: Promise<{ category: string }> };
 
@@ -27,7 +30,8 @@ export default async function ShopCategoryPage({ params }: Props) {
   if (PRINT_CATALOG.length === 0) redirect("/shop");
 
   const { category: slug } = await params;
-  const category = getCatalogCategory(slug);
+  const catalog = await getManagedShop();
+  const category = catalog.find((item) => item.slug === slug);
   if (!category) notFound();
   if (category.subcategories.length === 1) {
     redirect(`/shop/${category.slug}/${category.subcategories[0].slug}`);
@@ -35,7 +39,7 @@ export default async function ShopCategoryPage({ params }: Props) {
 
   return (
     <>
-      <CategoryIconStrip activeSlug={category.slug} />
+      <CategoryIconStrip activeSlug={category.slug} categories={catalog} />
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <BackLink href="/shop" label="Back to Shop" />
         <nav className="text-sm text-slate-500">

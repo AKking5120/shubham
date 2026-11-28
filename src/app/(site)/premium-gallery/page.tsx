@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { flexProducts } from "@/lib/flex-products";
 import { BackLink } from "@/components/ui/BackLink";
 import { FlexWhatsAppQuoteButton } from "@/components/catalog/WhatsAppQuoteDialog";
 
 export const metadata: Metadata = { title: "Flex Printing" };
-
-const products = [
-  { name: "Flex Banner Printing", image: "/products/flex/flex-banner.webp" },
-  { name: "Flex Board Printing", image: "/products/flex/flex-board.webp" },
-  { name: "Eco-Solvent Vinyl Printing", image: "/products/flex/eco-solvent-vinyl.webp" },
-  { name: "Solvent Vinyl Printing", image: "/products/flex/solvent-vinyl.webp" },
-];
 
 export default function FlexPrintingPage() {
   return (
@@ -22,10 +16,11 @@ export default function FlexPrintingPage() {
       <h1 className="mt-5 text-3xl font-black text-slate-900">Flex Printing</h1>
 
       <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
-        {products.map(({ name, image }) => (
+        {flexProducts.map(({ slug, name, image }) => (
           <article
-            key={name}
-            className="flex min-w-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white"
+            id={slug}
+            key={slug}
+            className="flex min-w-0 scroll-mt-24 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white"
           >
             <div className="relative aspect-square bg-slate-50">
               <Image

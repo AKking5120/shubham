@@ -801,9 +801,9 @@ export type CatalogSearchHit = {
   href: string;
 };
 
-export function flattenCatalogProducts(): CatalogSearchHit[] {
+export function flattenCatalogProducts(catalog = PRINT_CATALOG): CatalogSearchHit[] {
   const hits: CatalogSearchHit[] = [];
-  for (const category of PRINT_CATALOG) {
+  for (const category of catalog) {
     for (const subcategory of category.subcategories) {
       for (const product of subcategory.products) {
         hits.push({
@@ -820,20 +820,21 @@ export function flattenCatalogProducts(): CatalogSearchHit[] {
   return hits;
 }
 
-export function searchCatalog(query: string, categorySlug?: string) {
-  const q = query.trim().toLowerCase();
-  return flattenCatalogProducts().filter((hit) => {
-    if (categorySlug && hit.categorySlug !== categorySlug) return false;
-    if (!q) return true;
-    const hay = [
-      hit.product.name,
-      hit.product.description,
-      hit.categoryName,
-      hit.subcategoryName,
-      hit.product.badge ?? "",
-    ]
-      .join(" ")
-      .toLowerCase();
-    return hay.includes(q);
+export function normalizeShopSearch(query: string) {
+  return query.toLowerCase()
+    .replace(/\b(?:venyle|vynil|vinyle)\b/g, "vinyl")
+    .replace(/\bbusiness cards?\b/g, "visiting card")
+    .replace(/\b(?:leaflets?|flyers?)\b/g, "pamphlet")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+export function searchCatalog(query: string, index: CatalogSearchHit[]) {
+  const terms = normalizeShopSearch(query).split(" ").filter(Boolean);
+  return index.filter((hit) => {
+    const text = normalizeShopSearch([
+      hit.product.name, hit.categoryName, hit.subcategoryName, hit.product.badge ?? "",
+    ].join(" "));
+    return terms.every((term) => text.includes(term));
   });
 }

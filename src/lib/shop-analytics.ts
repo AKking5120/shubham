@@ -20,6 +20,7 @@ const ignoredWords = new Set(["and", "with", "for", "the", "design", "products"]
 const words = (value: string) => value.toLowerCase().match(/[a-z]{2,24}/g) ?? [];
 const catalogWords = new Set(
   [
+    "flex banner board solvent vinyl",
     ...PRINT_CATALOG.map((category) => category.name),
     ...flattenCatalogProducts().map(({ product }) => product.name),
   ].flatMap(words).filter((word) => !ignoredWords.has(word)),

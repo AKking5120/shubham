@@ -55,6 +55,7 @@ export function PriceEstimator() {
               <option value="double">Double-sided</option>
             </select>
           </label>
+          <Link href="/print-file-guide" className="text-sm text-brand-blue underline sm:col-span-2">Print file guide</Link>
           <label className="block text-sm font-semibold text-slate-700 sm:col-span-2">
             <span className="mb-2 block">Number of packs</span>
             <input

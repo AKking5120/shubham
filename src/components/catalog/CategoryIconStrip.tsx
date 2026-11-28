@@ -1,15 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CATALOG_HOME_STRIP } from "@/lib/print-catalog";
+import { CATALOG_HOME_STRIP, type CatalogCategory } from "@/lib/print-catalog";
 import { cn } from "@/lib/utils";
 
 export function CategoryIconStrip({
   activeSlug,
+  categories,
   className,
 }: {
   activeSlug?: string;
+  categories?: CatalogCategory[];
   className?: string;
 }) {
+  const items = categories?.map((category) => ({ slug: category.slug, image: category.image, name: category.shortLabel })) ?? CATALOG_HOME_STRIP;
   return (
     <div
       className={cn(
@@ -19,7 +22,7 @@ export function CategoryIconStrip({
     >
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex gap-4 overflow-x-auto pb-1 [scrollbar-width:thin]">
-          {CATALOG_HOME_STRIP.map((item) => {
+          {items.map((item) => {
             const active = item.slug === activeSlug;
             return (
               <Link

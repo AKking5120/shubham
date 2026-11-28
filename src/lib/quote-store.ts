@@ -304,11 +304,11 @@ export async function getQuoteByOrderId(orderId: string): Promise<QuoteInquiry |
   return withPaymentSaved;
 }
 
-export async function createQuoteInquiry(input: NewQuoteInput): Promise<QuoteInquiry> {
+export async function createQuoteInquiry(input: NewQuoteInput, actor: "admin" | "customer" = "customer"): Promise<QuoteInquiry> {
   return withLock(async () => {
     const now = new Date().toISOString();
     const year = new Date().getFullYear();
-    const history = [event(null, "new_quote", "customer")];
+    const history = [event(null, "new_quote", actor)];
 
     if (isSupabaseConfigured()) {
       const supabase = getSupabaseAdmin();
@@ -363,7 +363,7 @@ export async function createQuoteInquiry(input: NewQuoteInput): Promise<QuoteInq
         previous_status: null,
         new_status: "new_quote",
         changed_at: now,
-        changed_by: "customer",
+        changed_by: actor,
       });
       if (hError) throw hError;
       if (input.artwork) {

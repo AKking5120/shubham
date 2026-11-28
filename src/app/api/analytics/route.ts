@@ -20,23 +20,27 @@ export async function POST(request: NextRequest) {
 
   if (
     !event ||
-    (event.type !== "page" && event.type !== "search") ||
+    (event.type !== "page" && event.type !== "search" && event.type !== "no-result") ||
     typeof event.label !== "string"
   ) return new NextResponse(null, { status: 400 });
 
   const category = event.type === "search" ? getCatalogCategory(event.label) : null;
-  if (event.type === "page" ? !isAnalyticsPage(event.label) : !category) {
+  const isSearch = event.type === "search" && (category || event.label === "flex-printing");
+  if (event.type === "page" ? !isAnalyticsPage(event.label) : event.type !== "no-result" && !isSearch) {
     return new NextResponse(null, { status: 400 });
   }
   if (!isSupabaseConfigured()) return new NextResponse(null, { status: 503 });
 
   try {
-    if (category) {
+    if (event.type !== "page") {
       const keywords = Array.isArray(event.keywords)
         ? catalogKeywords(event.keywords.filter((value: unknown) => typeof value === "string").join(" "))
         : [];
-      await Promise.all([
-        incrementAnalyticsCount("topic", category.slug),
+      await Promise.all(event.type === "no-result" ? [
+        incrementAnalyticsCount("no-result", "total"),
+        ...keywords.map((keyword) => incrementAnalyticsCount("missed-keyword", keyword)),
+      ] : [
+        incrementAnalyticsCount("topic", event.label),
         ...keywords.map((keyword) => incrementAnalyticsCount("keyword", keyword)),
       ]);
     } else {

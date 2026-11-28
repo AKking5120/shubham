@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCatalogProduct } from "@/lib/print-catalog";
+import { getManagedShop } from "@/lib/managed-shop";
 import { deleteArtwork, saveArtwork } from "@/lib/artwork-storage";
 import { createQuoteInquiry } from "@/lib/quote-store";
 import {
@@ -38,8 +38,10 @@ export async function POST(request: Request) {
     const categorySlug = cleanText(form.get("categorySlug"), 80);
     const productCategorySlug = cleanText(form.get("productCategorySlug"), 80);
     const productSlug = cleanText(form.get("productSlug"), 80);
-    const found = getCatalogProduct(categorySlug, productCategorySlug, productSlug);
-    if (!found) {
+    const category = (await getManagedShop()).find(({ slug }) => slug === categorySlug);
+    const subcategory = category?.subcategories.find(({ slug }) => slug === productCategorySlug);
+    const product = subcategory?.products.find(({ slug }) => slug === productSlug);
+    if (!category || !subcategory || !product) {
       return NextResponse.json(
         { error: "Choose a product from the shop before requesting a quote." },
         { status: 400 },
@@ -95,12 +97,12 @@ export async function POST(request: Request) {
       customerName,
       phone,
       email,
-      category: found.category.name,
-      categorySlug: found.category.slug,
-      productCategory: found.subcategory.name,
-      productCategorySlug: found.subcategory.slug,
-      product: found.product.name,
-      productSlug: found.product.slug,
+      category: category.name,
+      categorySlug: category.slug,
+      productCategory: subcategory.name,
+      productCategorySlug: subcategory.slug,
+      product: product.name,
+      productSlug: product.slug,
       size,
       quantity,
       pagesSet,

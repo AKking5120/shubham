@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import { BackLink } from "@/components/ui/BackLink";
 import { ShopSearch } from "@/components/catalog/ShopSearch";
 import { SubcategoryTile } from "@/components/catalog/SubcategoryTile";
-import { PRINT_CATALOG } from "@/lib/print-catalog";
+import { flattenCatalogProducts } from "@/lib/print-catalog";
+import { getManagedShop } from "@/lib/managed-shop";
+import { flexProducts } from "@/lib/flex-products";
 import { SEO } from "@/lib/constants";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Shop by category",
@@ -11,8 +15,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/shop" },
 };
 
-export default function ShopPage() {
-  if (PRINT_CATALOG.length === 0) {
+export default async function ShopPage() {
+  const catalog = await getManagedShop();
+  if (catalog.length === 0) {
     return (
       <section className="bg-gradient-to-b from-blue-50 to-white px-4 py-14 text-center">
         <h1 className="text-3xl font-black text-slate-900 sm:text-4xl">
@@ -34,13 +39,23 @@ export default function ShopPage() {
           <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600">
             Choose a category to see products and request a quote.
           </p>
-          <ShopSearch />
+          <ShopSearch index={[
+            ...flattenCatalogProducts(catalog),
+            ...flexProducts.map((product) => ({
+              product: { ...product, description: "" },
+              categorySlug: "flex-printing",
+              categoryName: "Flex Printing",
+              subcategorySlug: "products",
+              subcategoryName: product.slug.includes("vinyl") ? "Vinyl" : "Flex",
+              href: "/premium-gallery",
+            })),
+          ]} />
         </div>
       </section>
 
       <section aria-label="Shop categories" className="bg-white py-12 md:py-16">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 sm:grid-cols-3 sm:px-6 lg:grid-cols-4 lg:px-8">
-          {PRINT_CATALOG.map((category) => (
+          {catalog.map((category) => (
             <SubcategoryTile
               key={category.slug}
               href={`/shop/${category.slug}`}

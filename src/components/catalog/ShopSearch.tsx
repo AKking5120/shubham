@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { useState, type FormEvent } from "react";
-import { searchCatalog, type CatalogSearchHit } from "@/lib/print-catalog";
+import { normalizeShopSearch, searchCatalog, type CatalogSearchHit } from "@/lib/print-catalog";
 import { catalogKeywords } from "@/lib/shop-analytics";
 
-export function ShopSearch() {
+export function ShopSearch({ index }: { index: CatalogSearchHit[] }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<CatalogSearchHit[] | null>(null);
 
@@ -18,20 +18,18 @@ export function ShopSearch() {
       return;
     }
 
-    const matches = searchCatalog(value);
+    const matches = searchCatalog(value, index);
     setResults(matches);
     const topic = matches.find((item) => item.categoryName.toLowerCase() === value.toLowerCase()) ?? matches[0];
-    if (topic) {
-      void fetch("/api/analytics", {
-        method: "POST",
-        body: JSON.stringify({
-          type: "search",
-          label: topic.categorySlug,
-          keywords: catalogKeywords(value),
-        }),
-        keepalive: true,
-      }).catch(() => {});
-    }
+    void fetch("/api/analytics", {
+      method: "POST",
+      body: JSON.stringify({
+        type: topic ? "search" : "no-result",
+        label: topic?.categorySlug ?? "",
+        keywords: catalogKeywords(normalizeShopSearch(value)),
+      }),
+      keepalive: true,
+    }).catch(() => {});
   }
 
   return (
@@ -56,7 +54,7 @@ export function ShopSearch() {
       </form>
       {results && (
         <div className="mt-3 rounded-lg border border-slate-200 bg-white p-3">
-          <p aria-live="polite" className="text-sm text-slate-600">{results.length} products found</p>
+          <p aria-live="polite" className="text-sm text-slate-600">{results.length ? `${results.length} products found` : "No products found. Try a product name or category."}</p>
           <ul className="mt-1 max-h-64 divide-y divide-slate-100 overflow-y-auto">
             {results.map((result) => (
               <li key={`${result.categorySlug}/${result.subcategorySlug}/${result.product.slug}`}>

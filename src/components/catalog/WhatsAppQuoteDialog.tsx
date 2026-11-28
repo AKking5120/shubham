@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { whatsappLink } from "@/lib/constants";
 
 type Props = {
   productName: string;
+  productNames?: string[];
   kind: "flex" | "wedding";
   onClose: () => void;
   onWebsiteQuote?: () => void;
@@ -12,7 +14,7 @@ type Props = {
 
 const fieldClass = "mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2";
 
-export function WhatsAppQuoteDialog({ productName, kind, onClose, onWebsiteQuote }: Props) {
+export function WhatsAppQuoteDialog({ productName, productNames, kind, onClose, onWebsiteQuote }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const titleId = useId();
 
@@ -30,7 +32,7 @@ export function WhatsAppQuoteDialog({ productName, kind, onClose, onWebsiteQuote
       : value("size");
     const message = [
       "Hello Shubham Prints, I would like a quote.",
-      `Product: ${productName}`,
+      productNames?.length ? `Designs: ${productNames.join(", ")}` : `Product: ${productName}`,
       `Quantity: ${value("quantity")}`,
       size && `Size: ${size}`,
       value("neededBy") && `Needed by: ${value("neededBy")}`,
@@ -48,6 +50,7 @@ export function WhatsAppQuoteDialog({ productName, kind, onClose, onWebsiteQuote
       className="m-auto max-h-[90dvh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-2xl bg-white p-5 text-slate-900 shadow-xl backdrop:bg-black/50 sm:p-6"
     >
       <h2 id={titleId} className="text-lg font-bold">{productName}</h2>
+      {productNames?.length ? <p className="mt-2 text-sm text-slate-600">{productNames.join(", ")}</p> : null}
       <form onSubmit={submit} className="mt-4 space-y-4 text-sm">
         <label className="block font-semibold">
           Quantity
@@ -86,6 +89,7 @@ export function WhatsAppQuoteDialog({ productName, kind, onClose, onWebsiteQuote
           Notes (optional)
           <textarea name="notes" rows={2} maxLength={300} className={fieldClass} />
         </label>
+        <Link href="/print-file-guide" target="_blank" rel="noopener noreferrer" className="inline-block text-brand-blue underline underline-offset-2">Print file guide (opens in new tab)</Link>
         <div className="flex flex-wrap gap-2">
           <button type="button" onClick={() => dialog.current?.close()} className="rounded-lg border border-slate-300 px-3 py-2 font-semibold">
             Cancel

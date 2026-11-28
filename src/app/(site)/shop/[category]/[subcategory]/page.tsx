@@ -1,3 +1,4 @@
+import { getManagedShop } from "@/lib/managed-shop";
 import type { Metadata } from "next";
 import { BackLink } from "@/components/ui/BackLink";
 import Link from "next/link";
@@ -7,6 +8,8 @@ import {
   getCatalogSubcategory,
   PRINT_CATALOG,
 } from "@/lib/print-catalog";
+
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ category: string; subcategory: string }>;
@@ -41,10 +44,9 @@ export default async function ShopProductsPage({ params }: Props) {
   if (PRINT_CATALOG.length === 0) redirect("/shop");
 
   const { category: catSlug, subcategory: subSlug } = await params;
-  const found = getCatalogSubcategory(catSlug, subSlug);
-  if (!found) notFound();
-
-  const { category, subcategory } = found;
+  const category = (await getManagedShop()).find(({ slug }) => slug === catSlug);
+  const subcategory = category?.subcategories.find(({ slug }) => slug === subSlug);
+  if (!category || !subcategory) notFound();
   const singleGroup = category.subcategories.length === 1;
 
   return (

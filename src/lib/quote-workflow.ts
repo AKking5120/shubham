@@ -23,7 +23,7 @@ export type QuoteStatus = (typeof QUOTE_STATUSES)[number];
 export const QUOTE_STATUS_LABELS: Record<QuoteStatus, string> = {
   new_quote: "New Quote",
   contacted: "Contacted",
-  quote_discussed: "Quote Discussed",
+  quote_discussed: "Quote Sent / Discussed",
   order_confirmed: "Order Confirmed",
   artwork_received: "Artwork Received",
   in_production: "In Production",

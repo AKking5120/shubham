@@ -24,6 +24,7 @@ const links = [
   { href: "/admin/quotes", label: "Quote orders", icon: ClipboardList },
   { href: "/admin/enquiries", label: "Quote enquiries", icon: Inbox },
   { href: "/admin/services", label: "Services", icon: Package },
+  { href: "/admin/shop-products", label: "Shop products", icon: ShoppingBag },
   { href: "/admin/gallery", label: "Home Gallery", icon: ImageIcon },
   { href: "/admin/designs", label: "Design Templates", icon: LayoutTemplate },
   { href: "/admin/calculator", label: "Price Calculator", icon: Calculator },
