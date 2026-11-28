@@ -7,14 +7,13 @@ import {
   mapsEmbedUrl,
   mapsLink,
   PAGE_HERO_IMAGES,
-  SEO,
   whatsappLink,
 } from "@/lib/constants";
 import { EmailLink } from "@/components/ui/ContactLinks";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description: SEO.description,
+  title: "Contact Our Print Shop in Jaitpur, Badarpur",
+  description: "Find our print shop in Jaitpur, Badarpur, New Delhi. Get directions, check opening hours or contact us on WhatsApp for a printing quote.",
   alternates: { canonical: "/contact" },
 };
 

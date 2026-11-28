@@ -8,6 +8,7 @@ import { getCustomerProfile } from "@/lib/store";
 export const metadata: Metadata = {
   title: "Checkout",
   alternates: { canonical: "/checkout" },
+  robots: { index: false, follow: true },
 };
 
 export default async function CheckoutPage() {

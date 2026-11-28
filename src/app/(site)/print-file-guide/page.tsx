@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { BackLink } from "@/components/ui/BackLink";
 
-export const metadata: Metadata = { title: "Print File Guide" };
+export const metadata: Metadata = {
+  title: "Print File Guide for Cards, Invitations & Banners",
+  description: "Prepare artwork for print with practical guidance on exporting a PDF, adding bleed, checking image resolution and specifying finishes.",
+  alternates: { canonical: "/print-file-guide" },
+};
 
 const steps = [
   { title: "Export a PDF", text: "Send a print-quality PDF at the agreed finished size. Embed fonts, and include front and back as separate pages for double-sided cards." },

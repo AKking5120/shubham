@@ -1,45 +1,28 @@
 import type { MetadataRoute } from "next";
 import { PRINT_CATALOG } from "@/lib/print-catalog";
-import { getSiteUrl } from "@/lib/site-url";
+import { absoluteUrl } from "@/lib/site-url";
 
 const PUBLIC_PATHS = [
-  { path: "/", changeFrequency: "weekly" as const, priority: 1 },
-  { path: "/shop", changeFrequency: "weekly" as const, priority: 0.95 },
-  { path: "/services", changeFrequency: "weekly" as const, priority: 0.9 },
-  { path: "/contact", changeFrequency: "monthly" as const, priority: 0.8 },
-  { path: "/cart", changeFrequency: "monthly" as const, priority: 0.5 },
-  { path: "/checkout", changeFrequency: "monthly" as const, priority: 0.45 },
-  { path: "/track-order", changeFrequency: "monthly" as const, priority: 0.55 },
+  "/",
+  "/shop",
+  "/services",
+  "/contact",
+  "/premium-gallery",
+  "/print-file-guide",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = getSiteUrl();
-  const lastModified = new Date();
+  const shopPaths = PRINT_CATALOG.flatMap((category) => {
+    const categoryPath = `/shop/${category.slug}`;
+    const subcategoryPaths = category.subcategories.map(
+      (subcategory) => `${categoryPath}/${subcategory.slug}`,
+    );
+    return category.subcategories.length === 1
+      ? subcategoryPaths
+      : [categoryPath, ...subcategoryPaths];
+  });
 
-  const staticEntries = PUBLIC_PATHS.map(({ path, changeFrequency, priority }) => ({
-    url: `${base}${path}`,
-    lastModified,
-    changeFrequency,
-    priority,
+  return [...PUBLIC_PATHS, ...shopPaths].map((path) => ({
+    url: absoluteUrl(path),
   }));
-
-  const shopEntries: MetadataRoute.Sitemap = [];
-  for (const cat of PRINT_CATALOG) {
-    shopEntries.push({
-      url: `${base}/shop/${cat.slug}`,
-      lastModified,
-      changeFrequency: "weekly",
-      priority: 0.88,
-    });
-    for (const sub of cat.subcategories) {
-      shopEntries.push({
-        url: `${base}/shop/${cat.slug}/${sub.slug}`,
-        lastModified,
-        changeFrequency: "weekly",
-        priority: 0.85,
-      });
-    }
-  }
-
-  return [...staticEntries, ...shopEntries];
 }

@@ -11,7 +11,7 @@ export function LocalBusinessSchema() {
   const origin = getSiteUrl();
   const schema = {
     "@context": "https://schema.org",
-    "@type": "PrintShop",
+    "@type": "Store",
     "@id": `${origin}/#business`,
     name: BUSINESS.name,
     description: SEO.description,

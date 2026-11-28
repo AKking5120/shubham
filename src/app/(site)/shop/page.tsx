@@ -3,13 +3,12 @@ import { BackLink } from "@/components/ui/BackLink";
 import { ShopSearch } from "@/components/catalog/ShopSearch";
 import { SubcategoryTile } from "@/components/catalog/SubcategoryTile";
 import { buildShopSearchIndex, getManagedShop } from "@/lib/managed-shop";
-import { SEO } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Shop by category",
-  description: SEO.description,
+  title: "Printing Products in Badarpur, Delhi",
+  description: "Browse visiting cards, wedding invitations, bill books, stickers, garment tags, ID cards and more. Request a custom printing quote on WhatsApp.",
   alternates: { canonical: "/shop" },
 };
 

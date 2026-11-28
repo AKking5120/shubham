@@ -4,7 +4,11 @@ import { flexProducts } from "@/lib/flex-products";
 import { BackLink } from "@/components/ui/BackLink";
 import { FlexWhatsAppQuoteButton } from "@/components/catalog/WhatsAppQuoteDialog";
 
-export const metadata: Metadata = { title: "Flex Printing" };
+export const metadata: Metadata = {
+  title: "Flex & Vinyl Printing in Badarpur, Delhi",
+  description: "Browse samples of flex banners and vinyl prints from Shubham Prints in Badarpur. Request a custom quote on WhatsApp.",
+  alternates: { canonical: "/premium-gallery" },
+};
 
 export default function FlexPrintingPage() {
   return (

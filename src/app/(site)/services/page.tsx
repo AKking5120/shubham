@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import { BackLink } from "@/components/ui/BackLink";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 import { PriceEstimator } from "@/components/services/PriceEstimator";
-import { SEO } from "@/lib/constants";
 import { getPublicServices } from "@/lib/public-catalog";
 
 export const metadata: Metadata = {
-  title: "Visiting Card Estimate",
-  description: SEO.description,
+  title: "Visiting Card Printing Price Calculator",
+  description: "Estimate the price of 1,000 visiting cards in 300 or 500 GSM. Compare single-sided and double-sided printing at Shubham Prints in Badarpur.",
   alternates: { canonical: "/services" },
 };
 

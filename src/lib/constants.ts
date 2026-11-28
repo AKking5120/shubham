@@ -43,9 +43,9 @@ export const PAGE_HERO_IMAGES = {
 
 export const SEO = {
   title:
-    "Shubham Prints & Stationers | Complete Printing Solutions in Jaitpur, New Delhi",
+    "Printing Shop in Jaitpur, Badarpur | Shubham Prints & Stationers",
   description:
-    "Shubham Prints & Stationers — bill books, visiting cards, UV texture cards, doctor files, wedding cards, bulk xerox printouts in Jaitpur, Badarpur, New Delhi.",
+    "Visit Shubham Prints & Stationers in Jaitpur, Badarpur, New Delhi for visiting cards, wedding cards, bill books, flex banners, bulk printouts and binding.",
   keywords: [
     "Shubham Prints",
     "printing shop Jaitpur",

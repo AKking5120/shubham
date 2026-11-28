@@ -5,6 +5,7 @@ import { TrackOrderForm } from "@/components/orders/TrackOrderForm";
 export const metadata: Metadata = {
   title: "Track Order",
   alternates: { canonical: "/track-order" },
+  robots: { index: false, follow: true },
 };
 
 export default function TrackOrderPage() {
