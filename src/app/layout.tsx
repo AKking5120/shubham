@@ -33,7 +33,6 @@ export async function generateMetadata(): Promise<Metadata> {
     applicationName: site.business.name,
     description,
     icons: {
-      icon: [{ url: BRAND_LOGO, type: "image/png" }],
       apple: BRAND_LOGO,
     },
     keywords: DEFAULT_SEO.keywords,
