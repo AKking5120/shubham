@@ -89,10 +89,10 @@ export function QuoteOrderDetail({
         expectedCompletion: expected,
         customerName,
         phone,
-        email,
+        email: email === quote.email ? undefined : email,
         size,
-        quantity,
-        pagesSet,
+        quantity: quantity === quote.quantity ? undefined : quantity,
+        pagesSet: pagesSet === quote.pagesSet ? undefined : pagesSet,
         printingColor,
         description,
       }),
@@ -349,6 +349,7 @@ export function QuoteOrderDetail({
           <label className="text-sm font-medium text-slate-700">
             Pages / set
             <select value={pagesSet} onChange={(e) => setPagesSet(e.target.value)} className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2">
+              {!quote.pagesSet && <option value="">Not specified</option>}
               {pagesSet && !["Single", "Duplicate", "Replicate"].includes(pagesSet) && (
                 <option value={pagesSet}>{pagesSet}</option>
               )}
